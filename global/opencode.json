@@ -84,7 +84,17 @@
     "agent": {
         "build": {
             "mode": "primary",
-            "model": "9router/combo-main"
+            "model": "9router/combo-main",
+            "permission": {
+                "edit": "allow",
+                "task": {
+                    "*": "deny",
+                    "explore": "allow",
+                    "scout": "allow",
+                    "code-reviewer": "allow",
+                    "project-rules-auditor": "allow"
+                }
+            }
         },
         "plan": {
             "mode": "primary",
@@ -106,6 +116,33 @@
                     "explore": "allow",
                     "scout": "allow"
                 }
+            }
+        },
+        "explore": {
+            "model": "opencode/mimo-v2.5-free",
+            "permission": {
+                "edit": "deny",
+                "task": "deny",
+                "external_directory": "deny",
+                "bash": {
+                    "*": "deny",
+                    "git status*": "allow",
+                    "git diff*": "allow",
+                    "git log*": "allow",
+                    "git show*": "allow",
+                    "git branch --show-current": "allow",
+                    "git remote -v": "allow",
+                    "git worktree list*": "allow"
+                }
+            }
+        },
+        "scout": {
+            "model": "opencode/mimo-v2.5-free",
+            "permission": {
+                "edit": "deny",
+                "task": "deny",
+                "external_directory": "ask",
+                "bash": "deny"
             }
         }
     }
