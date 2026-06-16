@@ -87,6 +87,10 @@
             "model": "9router/combo-main",
             "permission": {
                 "edit": "allow",
+                "skill": {
+                    "*": "deny",
+                    "engineering-*": "allow"
+                },
                 "task": {
                     "*": "deny",
                     "explore": "allow",
