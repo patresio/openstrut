@@ -1,0 +1,80 @@
+# ─── Node.js ────────────────────────────────────────────────────────────────
+node_modules/
+
+# ─── Build and distribution outputs ─────────────────────────────────────────
+dist/
+build/
+out/
+lib/
+
+# ─── npm pack artifacts ───────────────────────────────────────────────────────
+# Generated tarballs from `npm pack`; release tarballs are stored under releases/
+# and should be committed only when explicitly approved for distribution.
+*.tgz
+*.tar.gz
+
+# ─── Coverage outputs ────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+lcov.info
+
+# ─── Cache directories ───────────────────────────────────────────────────────
+.cache/
+.eslintcache
+.parcelcache/
+.npm/
+
+# ─── Temporary directories ───────────────────────────────────────────────────
+tmp/
+temp/
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Environment files and local secrets ────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ─── Local release artifacts ─────────────────────────────────────────────────
+# The releases/ directory is tracked but individual tarballs within it
+# must only be committed after explicit approval (they are large binaries).
+releases/*.tgz
+releases/*.tar.gz
+releases/checksums.txt
+
+# ─── Editor-specific files ───────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ─── Operating system metadata ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Local test artifacts ────────────────────────────────────────────────────
+evals/reports/*.json
+evals/reports/*.html
+
+# ─── References — read-only research material ───────────────────────────────
+#
+# IMPORTANT: references/ contains read-only research material.
+# - MANIFEST.md, MDX documentation, and JSONC files are version-controlled.
+# - Raw PDF book files are intentionally excluded: they are large binaries,
+#   not source code, and should not be committed to this repository.
+# - Compressed source archives (.tar.gz, .tgz) are excluded by the rules above.
+# - The broad directory is NOT ignored; only the binary file types below.
+#
+references/books/*.pdf
+references/books/*.epub
