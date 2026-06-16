@@ -1,0 +1,112 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "default_agent": "build",
+    "share": "disabled",
+    "snapshot": true,
+    "autoupdate": "notify",
+    "compaction": {
+        "auto": true
+    },
+    "model": "9router/combo-main",
+    "small_model": "9router/combo-cheap",
+    "provider": {
+        "9router": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "9Router Homelab",
+            "options": {
+                "baseURL": "{env:BASE_URL_9ROUTER}",
+                "apiKey": "{file:~/.local/share/opencode/secrets/9router-api-key}"
+            },
+            "models": {
+                "combo-main": {
+                    "name": "combo-main",
+                    "variants": {
+                        "high": {
+                            "reasoningEffort": "high",
+                            "textVerbosity": "low",
+                            "reasoningSummary": "auto"
+                        },
+                        "low": {
+                            "reasoningEffort": "low",
+                            "textVerbosity": "low",
+                            "reasoningSummary": "auto"
+                        }
+                    },
+                    "modalities": {
+                        "input": [
+                            "text",
+                            "image"
+                        ],
+                        "output": [
+                            "text"
+                        ]
+                    }
+                },
+                "combo-cheap": {
+                    "name": "combo-cheap",
+                    "options": {
+                        "thinking": {
+                            "type": "enabled",
+                            "budgetTokens": 16000
+                        }
+                    },
+                    "modalities": {
+                        "input": [
+                            "text",
+                            "image"
+                        ],
+                        "output": [
+                            "text"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "mcp": {
+        "homelab-ai-coding": {
+            "type": "remote",
+            "url": "{env:HOMELAB_AI_CODING_MCP_URL}"
+        }
+    },
+    "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "question": "allow",
+        "external_directory": "ask",
+        "skill": "deny",
+        "task": "deny",
+        "bash": "ask",
+        "edit": "ask"
+    },
+    "agent": {
+        "build": {
+            "mode": "primary",
+            "model": "9router/combo-main"
+        },
+        "plan": {
+            "mode": "primary",
+            "model": "opencode/deepseek-v4-flash-free",
+            "permission": {
+                "edit": "deny",
+                "bash": {
+                    "*": "deny",
+                    "git status*": "allow",
+                    "git diff*": "allow",
+                    "git log*": "allow",
+                    "git show*": "allow",
+                    "git branch --show-current": "allow",
+                    "git remote -v": "allow",
+                    "git worktree list*": "allow"
+                },
+                "task": {
+                    "*": "deny",
+                    "explore": "allow",
+                    "scout": "allow"
+                }
+            }
+        }
+    }
+}
