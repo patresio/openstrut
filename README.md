@@ -52,6 +52,22 @@ opencode-engineering-harness --help
 opencode-engineering-harness --version
 ```
 
+### Runtime Evaluation
+
+The harness includes a reproducible evaluation framework to verify its runtime behavior. **Warning**: Runtime evaluations execute live model calls and may consume model quota.
+
+```bash
+# Run structural and static validation only (no external model calls)
+npm run eval:deterministic
+
+# Run behavioral evaluations inside an isolated temporary OpenCode config
+npm run eval:runtime
+
+# Run both evaluation layers
+npm run eval:all
+```
+
+
 **Default target** (precedence order):
 1. `--target <directory>` when provided
 2. `$XDG_CONFIG_HOME/opencode` when `XDG_CONFIG_HOME` is set
