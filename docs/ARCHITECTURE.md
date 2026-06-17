@@ -10,9 +10,9 @@ Accepted architectural decisions are in `docs/decisions/`.
 
 ## Current Phase
 
-**Repository Foundation** — structure, documentation, and package metadata.
+**Installer and Distribution Foundation** — safe installer CLI, artifact inventory, conflict detection, and manifest management.
 
-No functional installer, agents, skills, or commands are implemented yet.
+No live OpenCode configuration has been modified. No package has been published.
 
 ---
 
@@ -154,6 +154,8 @@ It never overwrites the complete file. See [design/002](design/002-project-boots
 | Global MCPs | ≤ 2 | Documentation/retrieval only |
 
 See [design/001](design/001-harness-architecture.md) for full rationale.
+
+**Future deferred capability:** See [design/003](design/003-technical-debate-capability.md) for the planned multi-agent technical debate protocol (HARNESS-010, not yet implemented).
 
 ---
 

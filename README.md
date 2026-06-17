@@ -26,25 +26,81 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 ## Status
 
-**Phase: Repository Foundation**
+**Phase: Installer and Distribution Foundation**
 
-The repository structure, documentation, and package metadata are being established.
-No functional installer behavior, agents, skills, commands, or live OpenCode configuration
-changes are implemented at this stage.
+The global artifact set, project bootstrap templates, and safe installer CLI are implemented.
 
-See the [Architecture document](docs/ARCHITECTURE.md) for the target system structure.  
-See [design proposals](docs/design/) for active decisions under review.  
-See [accepted decisions](docs/decisions/) for finalized architectural decisions.
+The CLI is not yet distributed from the homelab or published to a registry.
+See [Architecture](docs/ARCHITECTURE.md) for the target distribution strategy.
+
+---
+
+## CLI Usage
+
+```bash
+# Show what would be installed (read-only)
+opencode-engineering-harness plan [--target <dir>] [--json]
+
+# Install managed artifacts into the target configuration root
+opencode-engineering-harness install [--target <dir>] [--dry-run] [--json]
+
+# Report drift between installed artifacts and the packaged version
+opencode-engineering-harness check [--target <dir>] [--json]
+
+# Options
+opencode-engineering-harness --help
+opencode-engineering-harness --version
+```
+
+**Default target** (precedence order):
+1. `--target <directory>` when provided
+2. `$XDG_CONFIG_HOME/opencode` when `XDG_CONFIG_HOME` is set
+3. `$HOME/.config/opencode`
+
+**Custom target:** use `--target <directory>` for CI or isolated validation.
+
+### Managed files
+
+The following are installed into the target configuration root:
+
+- `AGENTS.md` — global engineering rules
+- `opencode.json` — canonical global agent and model configuration
+- `agents/` — custom subagent definitions
+- `commands/` — workflow command shortcuts
+- `skills/` — reusable engineering skills
+- `templates/project/` — project bootstrap templates (installed for runtime access, never blindly applied to a project)
+
+### Conflict behavior
+
+- Existing files that differ without harness ownership are **preserved** and installation is blocked.
+- Locally modified managed files are **preserved** and installation is blocked.
+- Run `plan` to review before running `install`.
+
+### Ownership manifest
+
+An installation manifest is stored at:
+
+```
+<target>/.engineering-harness/installation.json
+```
+
+The manifest records which files were installed and their checksums. It never stores secrets, API keys, tokens, or private data.
+
+### Limitations in this release
+
+- `uninstall` is not implemented.
+- Automatic JSON merging for `opencode.json` or `AGENTS.md` is not implemented. Conflicting files must be resolved manually.
+- References, design documents, and private books are not distributed in the package.
+- Per-file writes are atomic (POSIX rename). Cross-file rollback is best-effort: abrupt process termination may require a subsequent `check` or manual recovery.
 
 ---
 
 ## Repository Structure
 
 ```text
-bin/                        Future CLI entry point
+bin/                        CLI entry point
 src/
-  commands/                 Future CLI command implementations
-  config/                   Future configuration merge logic
+  installer/                Installer modules (inventory, classify, install, check, plan, manifest, target, output)
 global/
   AGENTS.md                 Global engineering execution rules
   agents/                   Global OpenCode agent definitions

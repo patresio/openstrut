@@ -24,7 +24,7 @@ Establish or update project-local engineering conventions without duplicating th
 2. Delegate the read-only audit to the `project-rules-auditor` subagent.
 3. Validate the auditor's returned evidence.
 4. Distinguish global rules (already enforced by the harness) from project-local specialization.
-5. Treat `templates/project/AGENTS.md` as structure only. Omit template sections unsupported by evidence.
+5. Treat the structural template located at `templates/project/AGENTS.md` within the installed global OpenCode configuration root as guidance only. Omit template sections unsupported by evidence. Do not depend on the harness repository working tree at runtime.
 6. Validate every populated rule against repository evidence.
 7. Preserve valid existing rules. Do not replace an existing `AGENTS.md` with the template.
 8. Create a new local `AGENTS.md` only when: the project lacks one, the audit establishes sufficient evidence, and the proposed contents are approved.

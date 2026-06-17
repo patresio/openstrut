@@ -4,12 +4,19 @@
   "private": true,
   "description": "A versioned, auditable engineering harness and safe installer for OpenCode.",
   "type": "module",
+  "bin": {
+    "opencode-engineering-harness": "./bin/opencode-engineering-harness.js"
+  },
   "files": [
     "bin",
     "src",
     "global",
     "templates"
   ],
+  "scripts": {
+    "test": "node --test tests/installer/installer.test.js",
+    "test:installer": "node --test tests/installer/installer.test.js"
+  },
   "engines": {
     "node": ">=20"
   },
