@@ -15,8 +15,8 @@ registerScenario({
 
     try {
       // 1. Run npm pack to create the tarball
-      const packOut = execSync('npm pack --ignore-scripts --pack-destination ' + tmpPkg, { 
-        cwd: context.repoRoot, encoding: 'utf8' 
+      const packOut = execSync('npm pack --ignore-scripts --pack-destination ' + tmpPkg, {
+        cwd: context.repoRoot, encoding: 'utf8'
       });
       const tarballName = packOut.trim().split('\n').pop().trim();
       const tarballPath = path.join(tmpPkg, tarballName);
@@ -29,7 +29,7 @@ registerScenario({
       const tarballBuffer = fs.readFileSync(tarballPath);
       const tarballSize = tarballBuffer.length;
       const hash = createHash('sha256').update(tarballBuffer).digest('hex');
-      
+
       const evidence = [
         `algorithm: sha256`,
         `artifact filename: ${tarballName}`,
@@ -60,7 +60,7 @@ registerScenario({
         encoding: 'utf8'
       });
       const checkRes = JSON.parse(checkOut);
-      
+
       if (checkRes.status !== 'ok' || checkRes.manifestState !== 'valid') {
         return { status: FAIL, reason: `Check failed or manifest invalid. Status: ${checkRes.status}` };
       }
@@ -75,52 +75,6 @@ registerScenario({
 
       return { status: PASS, evidence };
     } catch (e) {
-      return { status: FAIL, reason: e.message, evidence: [ e.stdout, e.stderr ] };
-    }
-  }
-});
-
-registerScenario({
-  id: 'EVAL-002',
-  layer: 'deterministic',
-  purpose: 'Prove that OpenCode discovers the installed global configuration.',
-  run: async (context) => {
-    if (!context.opencodeInfo || !context.opencodeInfo.path) {
-      return { status: BLOCKED, reason: 'OpenCode CLI is not available.' };
-    }
-
-    const tmpXdg = context.createTempDir('eval002-xdg-');
-    const targetDir = path.join(tmpXdg, 'opencode');
-
-    try {
-      // 1. Install harness to temp dir
-      const installerPath = path.join(context.repoRoot, 'bin/opencode-engineering-harness.js');
-      execSync(`node ${installerPath} install --target ${targetDir} --json`, { encoding: 'utf8' });
-
-      // 2. Query opencode for agents and tools using the isolated XDG config
-      const env = { ...process.env, XDG_CONFIG_HOME: tmpXdg, OPENCODE_CONFIG_DIR: targetDir };
-      
-      // Get agents list
-      const agentsOut = execSync('opencode agent list', { env, encoding: 'utf8' });
-      
-      const expectedAgents = ['build', 'plan', 'explore', 'scout', 'code-reviewer', 'project-rules-auditor'];
-      const missingAgents = expectedAgents.filter(a => !agentsOut.includes(a));
-      
-      if (missingAgents.length > 0) {
-        return { 
-          status: FAIL, 
-          reason: `Missing expected agents: ${missingAgents.join(', ')}`,
-          evidence: [ agentsOut ]
-        };
-      }
-
-      // We cannot easily list commands or skills directly via a built-in CLI command 
-      // without running a session, but we proved agents exist.
-      // If there's an \`opencode debug\` command we could use it, but agent list is a good start.
-      return { status: PASS, evidence: [ 'OpenCode successfully discovered installed agents in XDG_CONFIG_HOME' ] };
-
-    } catch (e) {
-      // If opencode fails, check if it's because of a platform capability missing
       return { status: FAIL, reason: e.message, evidence: [ e.stdout, e.stderr ] };
     }
   }

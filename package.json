@@ -16,6 +16,7 @@
   "scripts": {
     "test": "node --test tests/installer/installer.test.js",
     "test:installer": "node --test tests/installer/installer.test.js",
+    "test:evals": "node --test tests/evals/runner.test.js",
     "eval:deterministic": "node evals/runner/run.js --layer deterministic",
     "eval:runtime": "node evals/runner/run.js --layer runtime",
     "eval:all": "node evals/runner/run.js --layer all"

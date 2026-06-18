@@ -2,7 +2,7 @@
 
 **Task ID:** HARNESS-009
 **Classification:** evaluations, test-infrastructure
-**Status:** COMPLETE (Pending Review)
+**Status:** PARTIALLY VERIFIED
 
 ---
 
@@ -58,42 +58,53 @@
 | ID | Purpose | Expected Result | Actual Result |
 |---|---|---|---|
 | EVAL-001 | Packaged Installation | Deterministic pass | **PASS** |
-| EVAL-002 | Global Configuration Discovery | Deterministic pass | **BLOCKED** |
-| EVAL-003 | Plan Agent Is Read-Only | Read-only | **BLOCKED** |
-| EVAL-004 | Status Agent Is Read-Only | Read-only | **BLOCKED** |
-| EVAL-005 | Project Initialization Stops | Approval block | **BLOCKED** |
-| EVAL-006 | Existing Rules Are Preserved | Preserved | **BLOCKED** |
-| EVAL-007 | Natural-Language TDD Routing | Behavior | **BLOCKED** |
-| EVAL-008 | Legacy Skill Routing | Behavior | **BLOCKED** |
-| EVAL-009 | Code Reviewer Delegation | Behavior | **BLOCKED** |
-| EVAL-010 | Incident Triage Read-Only | Read-only | **BLOCKED** |
-| EVAL-011 | Checkpoint Mutates Only Plan | Behavior | **BLOCKED** |
-| EVAL-012 | Resume Requires Approval | Behavior | **BLOCKED** |
-| EVAL-013 | Delivery Authorization | Behavior | **BLOCKED** |
-| EVAL-014 | Permission Boundaries | Denied | **BLOCKED** |
-| EVAL-015 | Free-Model Failure | Blocked | **BLOCKED** |
-| EVAL-016 | Loop Prevention | Behavior | **BLOCKED** |
-| EVAL-017 | Skill Non-Loading | Behavior | **BLOCKED** |
+| EVAL-002 | Global Configuration Discovery | Deterministic pass | **PASS** |
+| EVAL-003 | Plan Agent Is Read-Only | Read-only | **PASS** |
+| EVAL-004 | Status Agent Is Read-Only | Read-only | **INCONCLUSIVE** |
+| EVAL-005 | Project Initialization Stops | Approval block | **INCONCLUSIVE** |
+| EVAL-006 | Existing Rules Are Preserved | Preserved | **SKIPPED** |
+| EVAL-007 | Natural-Language TDD Routing | Behavior | **SKIPPED** |
+| EVAL-008 | Legacy Skill Routing | Behavior | **SKIPPED** |
+| EVAL-009 | Code Reviewer Delegation | Behavior | **SKIPPED** |
+| EVAL-010 | Incident Triage Read-Only | Read-only | **SKIPPED** |
+| EVAL-011 | Checkpoint Mutates Only Plan | Behavior | **SKIPPED** |
+| EVAL-012 | Resume Requires Approval | Behavior | **SKIPPED** |
+| EVAL-013 | Delivery Authorization | Behavior | **SKIPPED** |
+| EVAL-014 | Permission Boundaries | Denied | **SKIPPED** |
+| EVAL-015 | Free-Model Failure | Blocked | **SKIPPED** |
+| EVAL-016 | Loop Prevention | Behavior | **SKIPPED** |
+| EVAL-017 | Skill Non-Loading | Behavior | **SKIPPED** |
 
 ---
 
 ## Evaluation Summary
 
 - **Total Evaluations**: 17
-- **PASS**: 1 (Packaged Installation deterministic test passes cleanly, confirming all 23 files are packaged, the installer works via package extraction, and isolation holds).
-- **BLOCKED**: 16 (All scenarios dependent on the local `opencode` binary blocked safely).
+- **PASS**: 3 (EVAL-001, EVAL-002, EVAL-003)
+- **BLOCKED**: 0
 - **FAIL**: 0
-- **INCONCLUSIVE**: 0
-- **SKIPPED**: 0
+- **INCONCLUSIVE**: 2 (EVAL-004, EVAL-005)
+- **SKIPPED**: 12 (Not implemented in this slice).
 
 ### Observability Limitations
-Because `opencode` is missing from the environment, we cannot run `opencode run` to test the live layers or `opencode agent list` to verify discovery. The runner gracefully intercepts this missing capability in the preflight and blocks the test execution without failing.
+- Agent and model identity are completely unobservable from `--format json` in OpenCode 1.17.8.
+- Skill invocations and subagent delegations in `/eng-init-project` were unobservable in the JSON event stream (returning INCONCLUSIVE).
+- The OpenCode `bash` auto-reject logic causes the model to enter non-deterministic retry loops. This was observed correctly rejecting mutation, but occasionally triggering the adapter's 90s subprocess timeout.
+
+### Adapter Corrections
+- `run` argument normalization was updated to safely inject `--format json` exactly once.
+- Subprocess stdin was explicitly closed (`ignore`) to prevent open-pipe hangs.
+- `XDG_DATA_HOME` environment overrides were removed to prevent breaking credential discovery paths.
 
 ### Package Installation
 The deterministic evaluations prove that the installer and tarball distribute identically to the source, without touching any system paths, via `XDG_CONFIG_HOME` isolation.
 
 ---
 
+## Current State
+
+Current state: HARNESS-009 is partially verified. Runtime execution, isolated configuration, provider access, adapter behavior, and filesystem safety were validated. Agent/model identity and explicit skill/subagent routing remain inconclusive because of current OpenCode runtime and permission observability limits.
+
 ## Next Action
 
-- Await user review of the factual evaluation results before proceeding to delivery (HARNESS-010).
+Next action: close HARNESS-009 and select the smallest next harness increment without reopening runtime observability work.
