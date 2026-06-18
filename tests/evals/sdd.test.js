@@ -105,3 +105,67 @@ describe('SDD Reference Discovery Policy', () => {
     assert.ok(content.includes('NEVER claim a reference was consulted when it was unavailable'), 'Must not hallucinate references');
   });
 });
+
+describe('SDD Agent and Skill Regression Verification', () => {
+  const contentSkill = fs.readFileSync(skillPath, 'utf8');
+  const contentAgent = fs.readFileSync(sddPath, 'utf8');
+  const cmdPath = path.resolve(__dirname, '../../global/commands/eng-spec-change.md');
+  const contentCmd = fs.readFileSync(cmdPath, 'utf8');
+
+  describe('Skill Verification', () => {
+    it('SKILL.md exists and frontmatter starts on first byte', () => {
+      assert.ok(contentSkill.startsWith('---'), 'Frontmatter must start at the very first byte');
+    });
+
+    it('has valid name and description in frontmatter', () => {
+      const match = contentSkill.match(/^---\n([\s\S]*?)\n---/);
+      assert.ok(match, 'Must have YAML frontmatter');
+      const yaml = match[1];
+      assert.match(yaml, /^name:\s*engineering-sdd-change/m, 'Must have correct name in frontmatter');
+      assert.match(yaml, /^description:\s*.+/m, 'Must have non-empty description');
+    });
+
+    it('name matches directory and regex ^[a-z0-9]+(-[a-z0-9]+)*$', () => {
+      const dirName = path.basename(path.dirname(skillPath));
+      assert.equal(dirName, 'engineering-sdd-change', 'Directory name must be correct');
+      assert.match(dirName, /^[a-z0-9]+(-[a-z0-9]+)*$/, 'Must match regex pattern');
+    });
+  });
+
+  describe('Agent Permissions Verification', () => {
+    it('tool skill is available and specific allow beats catch-all deny', () => {
+      const skillRules = parseOrderedPermissions(contentAgent, 'skill');
+      assert.ok(skillRules.length >= 2, 'Should have skill rules');
+      assert.equal(skillRules[0].pattern, '*', 'First rule must be catch-all');
+      assert.equal(skillRules[0].action, 'deny', 'Catch-all must be deny');
+      
+      const allowed = skillRules.find(r => r.action === 'allow' && r.pattern === 'engineering-sdd-change');
+      assert.ok(allowed, 'engineering-sdd-change must be explicitly allowed after the deny');
+    });
+
+    it('no unnecessary skills are allowed', () => {
+      const skillRules = parseOrderedPermissions(contentAgent, 'skill');
+      const allowedSkills = skillRules.filter(r => r.action === 'allow');
+      assert.equal(allowedSkills.length, 1, 'Only one skill must be allowed for SDD');
+    });
+  });
+
+  describe('Command Verification', () => {
+    it('has agent: sdd in frontmatter', () => {
+      assert.match(contentCmd, /^agent:\s*sdd/m, 'Command must target sdd agent');
+    });
+
+    it('has explicit reference to engineering-sdd-change', () => {
+      assert.ok(contentCmd.includes('engineering-sdd-change'), 'Must explicitly load the skill');
+    });
+
+    it('includes $ARGUMENTS', () => {
+      assert.ok(contentCmd.includes('$ARGUMENTS'), 'Must pass user arguments');
+    });
+
+    it('stops at Approval Gate and does not handoff to build', () => {
+      assert.ok(contentCmd.includes('Approval Gate'), 'Must mention Approval Gate');
+      assert.ok(contentCmd.includes('Do NOT invoke the `build` agent') || contentCmd.includes('Do NOT call `build`'), 'Must forbid handoff to build');
+    });
+  });
+});

@@ -17,10 +17,29 @@ Implement the first complete Specification-Driven Development (SDD) workflow for
 - Ensure `sdd` delegates exclusively to `project-rules-auditor` and `explore`/`scout`.
 - Document handoff to `build` in `docs/design/004-sdd-agent-workflow.md`.
 ## Current State
-Current state: HARNESS-010 is validated through a real OpenCode TUI SDD workflow, globally installed, and ready for delivery.
+Current state: HARNESS-010 is validated through a clean OpenCode TUI workflow. The command selected the SDD agent, loaded the engineering-sdd-change skill, created a canonical OpenSpec change from an empty fixture, delegated to project-rules-auditor, applied one consolidated revision, preserved filesystem safety, and stopped at the Approval Gate.
 
 ## Next Action
-Next action: deliver HARNESS-010 and open HARNESS-011 for the MCP-aware Change Execution Manifest.
+Next action: deliver HARNESS-010 and specify HARNESS-011 as an MCP-aware Change Execution Manifest workflow.
+
+## Notes & Execution History
+- Initial failure was caused by missing YAML frontmatter in the skill file.
+- The correction was successfully applied and installed globally.
+- The first manual test proved rule auditing was working.
+- A second fixture was found to be contaminated by previous test leftovers.
+- A third fixture was created fully clean, and the workflow materialized the OpenSpec change from scratch successfully.
+- The `engineering-sdd-change` skill was explicitly loaded.
+- `project-rules-auditor` provided a real response and a consolidated revision was applied.
+- The workflow correctly halted at the Approval Gate without writing any production code.
+- Reference directories were discovered. Books (PDFs) were found, though direct consultation effectiveness remains inconclusive.
+- Missing reference disclosure succeeded.
+
+## Future Improvements (Non-blocking)
+The SDD workflow must distinguish confirmed domain decisions, project-evidenced technical decisions, technical candidates, and open questions.
+
+When architecture or stack is undefined, enums, token claims, endpoint paths, persistence models, protocols, status codes, redirects, and integration mechanisms must not be promoted to approved decisions without project evidence or explicit human approval.
+
+A reference found but not read must never be classified as consulted.
 
 ## References Consulted
 1. **Title:** Domain-Driven Design Quickly

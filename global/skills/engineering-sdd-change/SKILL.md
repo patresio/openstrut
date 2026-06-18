@@ -1,5 +1,10 @@
-# Skill: engineering-sdd-change
+---
+name: engineering-sdd-change
+description: Use this skill to define the technical specification of a new feature or change, document business rules, analyze impact, or prepare an OpenSpec proposal before any implementation begins.
+compatibility: opencode
+---
 
+# Skill: engineering-sdd-change
 **Description:** Use this skill to define the technical specification of a new feature or change, document business rules, analyze impact, or prepare an OpenSpec proposal before any implementation begins. (e.g., "defina a especificação desta funcionalidade", "crie uma change para esta alteração", "planeje esta feature antes de implementar", "documente esta regra de negócio", "prepare uma proposta OpenSpec", "analise o impacto desta mudança").
 
 ---
