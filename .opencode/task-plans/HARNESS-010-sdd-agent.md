@@ -17,18 +17,10 @@ Implement the first complete Specification-Driven Development (SDD) workflow for
 - Ensure `sdd` delegates exclusively to `project-rules-auditor` and `explore`/`scout`.
 - Document handoff to `build` in `docs/design/004-sdd-agent-workflow.md`.
 ## Current State
-Current state: HARNESS-010 is VERIFIED.
-
-## Smoke Test Results
-- **SDD agent execution:** PASS
-- **Change creation:** INCONCLUSIVE (CLI non-interactive execution with `--format json` prematurely exits, yielding to a missing caller).
-- **Reference consultation:** INCONCLUSIVE
-- **Rules audit:** INCONCLUSIVE
-- **Approval Gate:** INCONCLUSIVE
-- **Filesystem safety:** PASS
+Current state: HARNESS-010 is validated through a real OpenCode TUI SDD workflow, globally installed, and ready for delivery.
 
 ## Next Action
-Next action: Delivery.
+Next action: deliver HARNESS-010 and open HARNESS-011 for the MCP-aware Change Execution Manifest.
 
 ## References Consulted
 1. **Title:** Domain-Driven Design Quickly
