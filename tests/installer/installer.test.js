@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 23 artifacts', () => {
-    assert.equal(INVENTORY.length, 23, `Expected 23 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 28 artifacts', () => {
+    assert.equal(INVENTORY.length, 28, `Expected 28 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 2 root configuration files', () => {
@@ -125,29 +125,34 @@ describe('Inventory', () => {
     assert.ok(root.some(e => e.target === 'opencode.json'), 'opencode.json must be in inventory');
   });
 
-  it('inventory has exactly 2 agents', () => {
+  it('inventory has exactly 3 agents', () => {
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/'));
-    assert.equal(agents.length, 2, `Expected 2 agents, got ${agents.length}`);
+    assert.equal(agents.length, 3, `Expected 3 agents, got ${agents.length}`);
   });
 
-  it('inventory has exactly 9 commands', () => {
+  it('inventory has exactly 10 commands', () => {
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/'));
-    assert.equal(commands.length, 9, `Expected 9 commands, got ${commands.length}`);
+    assert.equal(commands.length, 10, `Expected 10 commands, got ${commands.length}`);
   });
 
-  it('inventory has exactly 8 skills', () => {
+  it('inventory has exactly 9 skills', () => {
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/'));
-    assert.equal(skills.length, 8, `Expected 8 skills, got ${skills.length}`);
+    assert.equal(skills.length, 9, `Expected 9 skills, got ${skills.length}`);
   });
 
-  it('inventory has exactly 2 templates', () => {
+  it('inventory has exactly 4 templates', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/'));
-    assert.equal(templates.length, 2, `Expected 2 templates, got ${templates.length}`);
+    assert.equal(templates.length, 4, `Expected 4 templates, got ${templates.length}`);
   });
 
   it('inventory contains no reference-library paths', () => {
     const refs = INVENTORY.filter(e => e.source.startsWith('references/'));
     assert.equal(refs.length, 0, 'references/ must not appear in the inventory');
+  });
+
+  it('inventory contains no server-specific absolute paths', () => {
+    const srv = INVENTORY.filter(e => e.source.includes('/srv/') || e.target.includes('/srv/'));
+    assert.equal(srv.length, 0, 'no absolute /srv/ path must appear in the inventory');
   });
 
   it('inventory contains no docs, evals, scripts, or task-plans', () => {
@@ -171,15 +176,15 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('2 + 2 + 9 + 8 + 2 = 23', () => {
+  it('2 + 3 + 10 + 9 + 4 = 28', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/')).length;
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
-    assert.equal(root + agents + commands + skills + templates, 23,
-      `Category sum mismatch: ${root}+${agents}+${commands}+${skills}+${templates} ≠ 23`);
+    assert.equal(root + agents + commands + skills + templates, 28,
+      `Category sum mismatch: ${root}+${agents}+${commands}+${skills}+${templates} ≠ 28`);
   });
 });
 
@@ -537,7 +542,7 @@ describe('Plan (read-only)', () => {
 // ─── 5. Install ───────────────────────────────────────────────────────────────
 
 describe('Install', () => {
-  it('installs all 23 artifacts to empty target', () => {
+  it('installs all 28 artifacts to empty target', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
@@ -1267,7 +1272,7 @@ describe('CLI subprocess', () => {
     assert.equal(status, EXIT.INVALID, `Expected exit 3, got ${status}`);
   });
 
-  it('plan --json exits 0 and returns valid JSON with 23 artifacts', () => {
+  it('plan --json exits 0 and returns valid JSON with 28 artifacts', () => {
     const tmp = makeTmpTarget();
     try {
       const { status, stdout } = runCLI(['plan', '--target', tmp, '--json']);
@@ -1301,7 +1306,7 @@ describe('CLI subprocess', () => {
     }
   });
 
-  it('install --json installs all 23 artifacts and exits 0', () => {
+  it('install --json installs all 28 artifacts and exits 0', () => {
     const tmp = makeTmpTarget();
     try {
       const { status, stdout } = runCLI(['install', '--target', tmp, '--json']);

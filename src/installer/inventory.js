@@ -21,6 +21,7 @@ export const INVENTORY = [
   // Agents
   { source: 'global/agents/code-reviewer.md',                               target: 'agents/code-reviewer.md' },
   { source: 'global/agents/project-rules-auditor.md',                       target: 'agents/project-rules-auditor.md' },
+  { source: 'global/agents/sdd.md',                                         target: 'agents/sdd.md' },
 
   // Commands
   { source: 'global/commands/eng-checkpoint.md',                            target: 'commands/eng-checkpoint.md' },
@@ -31,6 +32,7 @@ export const INVENTORY = [
   { source: 'global/commands/eng-refresh-project-rules.md',                 target: 'commands/eng-refresh-project-rules.md' },
   { source: 'global/commands/eng-resume.md',                                target: 'commands/eng-resume.md' },
   { source: 'global/commands/eng-review.md',                                target: 'commands/eng-review.md' },
+  { source: 'global/commands/eng-spec-change.md',                           target: 'commands/eng-spec-change.md' },
   { source: 'global/commands/eng-status.md',                                target: 'commands/eng-status.md' },
 
   // Skills
@@ -40,6 +42,7 @@ export const INVENTORY = [
   { source: 'global/skills/engineering-incident-triage/SKILL.md',           target: 'skills/engineering-incident-triage/SKILL.md' },
   { source: 'global/skills/engineering-legacy-change/SKILL.md',             target: 'skills/engineering-legacy-change/SKILL.md' },
   { source: 'global/skills/engineering-project-bootstrap/SKILL.md',         target: 'skills/engineering-project-bootstrap/SKILL.md' },
+  { source: 'global/skills/engineering-sdd-change/SKILL.md',                target: 'skills/engineering-sdd-change/SKILL.md' },
   { source: 'global/skills/engineering-task-plan/SKILL.md',                 target: 'skills/engineering-task-plan/SKILL.md' },
   { source: 'global/skills/engineering-tdd-first/SKILL.md',                 target: 'skills/engineering-tdd-first/SKILL.md' },
 
@@ -47,6 +50,8 @@ export const INVENTORY = [
   // them at runtime without access to the harness repository working tree)
   { source: 'templates/project/AGENTS.md',                                  target: 'templates/project/AGENTS.md' },
   { source: 'templates/project/.opencode/task-plans/README.md',             target: 'templates/project/.opencode/task-plans/README.md' },
+  { source: 'templates/project/openspec/changes/README.md',                 target: 'templates/project/openspec/changes/README.md' },
+  { source: 'templates/project/openspec/specs/README.md',                   target: 'templates/project/openspec/specs/README.md' },
 ];
 
 /**
