@@ -6,9 +6,9 @@ This page documents agents available after installing the harness and explains w
 
 `mapa_operacional.xlsx` was processed into reviewed Barsa documentation under `docs/barsa/`:
 
-- `docs/barsa/agents.md` records 12 proposed domain-agent designs from sheet `04_AGENTS`, plus 3 harness-global agents now mirrored into the spreadsheet as `AG13`–`AG15`.
-- `docs/barsa/skills.md` records 18 domain-skill contracts from sheet `03_SKILLS`, plus 10 harness-global engineering skills mirrored into the spreadsheet as `SK19`–`SK28`.
-- `docs/barsa/operational-map.md` records the operational map summary: 236 books, 16 official doc sets, 32 contexts, 28 skills, 15 agents, 24 bundles, and 12 project profiles.
+- `docs/barsa/agents.md` records 12 proposed domain-agent designs from sheet `04_AGENTS`, plus 5 harness-global agents now mirrored into the spreadsheet as `AG13`–`AG17`.
+- `docs/barsa/skills.md` records 18 domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills mirrored into the spreadsheet as `SK19`–`SK31`.
+- `docs/barsa/operational-map.md` records the operational map summary: 236 books, 16 official doc sets, 32 contexts, 31 skills, 17 agents, 24 bundles, and 12 project profiles.
 
 The original domain catalog is now materialized for global runtime installation. Runtime prompts must use Barsa MCP logical routing keys—collection, context, bundle, project profile, skill ID, or agent ID—instead of filesystem source paths.
 
@@ -19,9 +19,9 @@ OpenCode provides two native primary agents:
 - `build` — default implementation agent with mutation capability.
 - `plan` — read-only planning and exploration agent.
 
-The harness currently ships 15 managed agents in `global/agents/`:
+The harness currently ships 17 managed agents in `global/agents/`:
 
-- 3 harness process agents: `sdd`, `code-reviewer`, `project-rules-auditor`
+- 5 harness process/generation agents: `sdd`, `code-reviewer`, `project-rules-auditor`, `documentation-generator`, `harness-generator`
 - 12 Barsa-backed domain specialist agents: `AG01`–`AG12`
 
 ## Native OpenCode Agents
@@ -267,6 +267,72 @@ Approval Gate: aguardando aprovação da change antes do handoff para build.
 
 **Barsa usage:** use Barsa only to verify harness conventions or official OpenCode behavior. Do not invent project-local stack rules from Barsa sources.
 
+### `documentation-generator`
+
+**File:** `global/agents/documentation-generator.md`
+
+**Type:** subagent.
+
+**Mode:** `subagent`
+
+**Model:** `opencode/deepseek-v4-flash-free`
+
+**Purpose:** generate technical documentation — docs/, PRD, ADR, AGENTS.md, specifications, runbooks, and collaboration protocols.
+
+**Use when:**
+
+- a project needs structured documentation from scratch;
+- ADRs or PRDs need to be written or updated;
+- AGENTS.md needs generation from project evidence;
+- specifications or runbooks are required;
+- cowork or XP protocol documentation is needed.
+
+**Allowed skill list:** `engineering-documentation`, `engineering-code-review`, `engineering-sdd-change`, `engineering-task-plan`, `engineering-tdd-first`, `security-review`
+
+**Allowed delegated agents:** `explore`, `project-rules-auditor`
+
+**Permissions:**
+
+- edit: denied (read-only);
+- task delegation: denied;
+- Git read-only commands allowed.
+
+**Barsa usage:** queries all three Barsa collections — `documentation` for templates/examples, `technology` for stack docs, `personal` for context alignment.
+
+**Output contract:** ADR, PRD, AGENTS.md, specs, runbooks, protocol docs — all written to the repository destinations specified by the task.
+
+### `harness-generator`
+
+**File:** `global/agents/harness-generator.md`
+
+**Type:** subagent.
+
+**Mode:** `subagent`
+
+**Model:** `opencode/deepseek-v4-flash-free`
+
+**Purpose:** analyze a project's tech stack, context, and personal methodology, then generate custom agents, skills, workflows, and inventory entries for the engineering harness.
+
+**Use when:**
+
+- bootstrapping a new project into the harness;
+- generating custom agents/skills/workflows tailored to a project;
+- auditing existing harness artifacts against project evidence.
+
+**Allowed skill list:** `harness-generation`, `engineering-project-bootstrap`, `engineering-code-review`, `engineering-sdd-change`, `engineering-task-plan`, `engineering-documentation`, `team-cowork-orchestration`, `personal-execution-system`
+
+**Allowed delegated agents:** `explore`, `project-rules-auditor`, `documentation-generator`
+
+**Permissions:**
+
+- edit: denied (read-only);
+- task delegation: denied;
+- Git read-only commands allowed.
+
+**Barsa usage:** accesses `technology` (stack analysis), `personal` (methodology/context alignment), and `documentation` (templates and ADR patterns).
+
+**Output contract:** proposed `global/agents/`, `global/skills/`, `workflows/`, and `src/installer/inventory.js` entries; documented in OpenSpec change proposal for approval.
+
 ## Domain Agents from `mapa_operacional.xlsx`
 
 These 12 domain-agent designs are now materialized as global runtime agent files:
@@ -300,10 +366,12 @@ Do not move a domain agent from `docs/barsa/agents.md` into `global/agents/` unt
 
 ## Current Recommendation
 
-Keep current global runtime agents small:
+Keep current global runtime agents focused:
 
 - `sdd` for specs;
 - `project-rules-auditor` for read-only project rules audits;
-- `code-reviewer` for read-only implementation review.
+- `code-reviewer` for read-only implementation review;
+- `documentation-generator` for documentation generation;
+- `harness-generator` for project harness bootstrapping.
 
 Use Barsa-backed domain agents as design backlog until a focused pilot is approved. Best pilot remains `AG11 ai-rag-agent-architect` paired with `SK17 rag-agent-design` for MCP/RAG work.

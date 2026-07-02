@@ -100,6 +100,8 @@ agents/
   code-reviewer.md
   project-rules-auditor.md
   sdd.md
+  documentation-generator.md
+  harness-generator.md
 commands/
   eng-checkpoint.md
   eng-deliver.md
@@ -115,13 +117,18 @@ skills/
   engineering-bdd-discovery/
   engineering-code-review/
   engineering-delivery/
+  engineering-documentation/
   engineering-incident-triage/
   engineering-legacy-change/
   engineering-project-bootstrap/
   engineering-sdd-change/
   engineering-task-plan/
   engineering-tdd-first/
+  harness-generation/
+  team-cowork-orchestration/
+  worktree-lifecycle-management/
 templates/project/          Bootstrap scaffold installed for runtime access
+workflows/                  Multi-step workflow definitions
 .engineering-harness/installation.json  Installation manifest
 ```
 
@@ -154,10 +161,10 @@ Automatic JSON merging is deferred; conflicting files must be resolved manually.
 | Primary agents | 2 | `build` and `plan` (native) |
 | Mandatory global subagents | 2 | `explore`, `code-reviewer` |
 | Conditional global subagent | 1 | `scout` (when available) |
-| Harness-managed global agents | 15 | 3 process agents + 12 Barsa-backed domain specialists |
-| Global skills | 28 | 10 engineering workflow skills + 18 Barsa-backed domain skills |
+| Harness-managed global agents | 17 | 5 process/generation agents + 12 Barsa-backed domain specialists |
+| Global skills | 31 | 13 engineering workflow/generation skills + 18 Barsa-backed domain skills |
 | Global commands | 10 | Prefixed `eng-` |
-| Global workflows | 5 | Sequential/cowork workflow definitions |
+| Global workflows | 8 | Sequential/cowork workflow definitions |
 | Vector memory | 0 | Not used initially |
 | Global MCPs | ≤ 2 | Documentation/retrieval only |
 
@@ -207,6 +214,7 @@ bin/
 src/
 global/
 templates/
+workflows/
 ```
 
 Excluded from the package:
@@ -226,9 +234,10 @@ Excluded from the package:
 
 ## Distribution Strategy
 
-1. **Current**: SSH-only versioned tarball built from approved source and stored under the homelab user data directory.
-2. **Client install flow**: SCP tarball + `SHA256SUMS` over port 22, review with `plan`, then `install` and `check`.
-3. **Later**: private Verdaccio registry (not yet required).
+1. **Current**: `npm pack` from the source repository, transfer tarball via SCP/rsync/USB to target machine.
+2. **Client install flow**: Transfer tarball, review with `plan`, then `install` and `check`.
+3. **Default (homelab)**: SSH-only versioned tarball built from approved source and stored under the homelab user data directory; client downloads via SCP over port 22.
+4. **Later**: private Verdaccio registry (not yet required).
 
 ---
 

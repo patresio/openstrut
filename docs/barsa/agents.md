@@ -22,10 +22,12 @@ Derived from `mapa_operacional.xlsx` sheet `04_AGENTS`.
 - `AG13` sdd
 - `AG14` code-reviewer
 - `AG15` project-rules-auditor
+- `AG16` documentation-generator
+- `AG17` harness-generator
 
 ## Operational Rule
 
-`AG01`–`AG12` are cataloged domain-agent designs, not yet installed harness-global agents. `AG13`–`AG15` are installed harness-global agents and exist under `global/agents/`.
+`AG01`–`AG12` are cataloged domain-agent designs, not yet installed harness-global agents. `AG13`–`AG17` are installed harness-global agents and exist under `global/agents/`.
 
 ## Next Materialization Rule
 

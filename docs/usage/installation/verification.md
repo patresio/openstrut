@@ -43,9 +43,15 @@ opencode.json
 agents/code-reviewer.md
 agents/project-rules-auditor.md
 agents/sdd.md
+agents/documentation-generator.md
+agents/harness-generator.md
 commands/eng-spec-change.md
 skills/engineering-sdd-change/SKILL.md
+skills/engineering-documentation/SKILL.md
+skills/harness-generation/SKILL.md
 templates/project/AGENTS.md
+workflows/project-documentation.yaml
+workflows/harness-generation.yaml
 ```
 
 ## OpenCode Verification

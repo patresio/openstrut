@@ -2,7 +2,32 @@
 
 Use this guide from the client computer.
 
-## Inputs
+## Alternative: `npm pack` (No SCP Required)
+
+If you have access to this source repository on any machine, create a portable tarball:
+
+```bash
+# On the machine with the source repository
+cd /path/to/opencode-engineering-harness
+npm pack            # creates patrese-opencode-engineering-harness-0.1.0.tgz
+```
+
+Transfer the `.tgz` file to the target machine via SCP, rsync, USB, or any other method:
+
+```bash
+# From the target machine
+scp user@source-machine:/path/to/patrese-opencode-engineering-harness-0.1.0.tgz ./
+
+# Verify integrity
+sha256sum patrese-opencode-engineering-harness-0.1.0.tgz
+
+# Install from tarball
+npm install -g ./patrese-opencode-engineering-harness-0.1.0.tgz
+```
+
+This works on any machine with Node.js ≥ 20, regardless of git access to the homelab.
+
+## Inputs (SCP from Homelab)
 
 Set these values on the client:
 

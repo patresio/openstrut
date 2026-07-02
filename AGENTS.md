@@ -22,7 +22,7 @@
 - CLI entrypoint: `bin/opencode-engineering-harness.js`.
 - Installer code: `src/installer/`; manifest generation: `src/manifest/`; evaluation runtime: `evals/`.
 - Shipped OpenCode artifacts live under `global/`; project bootstrap scaffold lives under `templates/project/`.
-- Installer inventory is canonical in `src/installer/inventory.js`; it currently ships 64 artifacts from `global/`, `templates/`, and `workflows/`.
+- Installer inventory is canonical in `src/installer/inventory.js`; it currently ships 72 artifacts from `global/`, `templates/`, and `workflows/`.
 - Barsa MCP is the canonical retrieval boundary for books, official docs, and curated operational knowledge; local library paths are ingestion provenance only.
 - Do not add agent frameworks, vector DBs, Docker services, databases, web apps, telemetry, global npm installs, automatic publication, or live OpenCode config mutation without explicit approval.
 

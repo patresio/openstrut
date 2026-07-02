@@ -9,7 +9,31 @@ The package `@patrese/opencode-engineering-harness` can be installed using npm.
 - distribution: git bare + npm (recommended) or SSH/SCP tarball
 - port: SSH only (22) — no HTTP ports required
 
-## Recommended Flow: npm from Git Bare
+## Recommended Flow (Any Machine): `npm pack` + Transfer
+
+This works on any machine with Node.js ≥ 20, regardless of git access:
+
+```bash
+# On the machine with the source repository
+cd /srv/projects/opencode-engineering-harness
+npm pack            # creates patrese-opencode-engineering-harness-0.1.0.tgz
+```
+
+Transfer the `.tgz` file (SCP, rsync, USB) to the target machine, then:
+
+```bash
+# On the target machine
+npm install -g ./patrese-opencode-engineering-harness-0.1.0.tgz
+```
+
+Verify installation:
+
+```bash
+opencode-engineering-harness --version
+opencode-engineering-harness --help
+```
+
+## Alternative: npm from Git Bare (Homelab Only)
 
 Install directly from the local git bare repository:
 

@@ -35,10 +35,13 @@ Derived from `mapa_operacional.xlsx` sheet `03_SKILLS`.
 - `SK26` engineering-task-plan
 - `SK27` engineering-tdd-first
 - `SK28` team-cowork-orchestration
+- `SK29` engineering-documentation
+- `SK30` harness-generation
+- `SK31` worktree-lifecycle-management
 
 ## Operational Rule
 
-`SK01`–`SK18` are cataloged domain skill contracts now planned for global installation. `SK19`–`SK28` are installed harness-global engineering skills and exist under `global/skills/`.
+`SK01`–`SK18` are cataloged domain skill contracts now planned for global installation. `SK19`–`SK31` are installed harness-global engineering skills and exist under `global/skills/`.
 
 ## Recommended Pilot
 

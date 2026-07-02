@@ -6,8 +6,8 @@ This page documents the global engineering skills shipped by the harness and exp
 
 `mapa_operacional.xlsx` was transformed into reviewed Barsa-facing summaries under `docs/barsa/`.
 
-- `docs/barsa/skills.md` records 18 proposed domain-skill contracts from sheet `03_SKILLS`, plus 10 harness-global engineering skills now mirrored into the spreadsheet as `SK19`–`SK28`.
-- `docs/barsa/agents.md` records 12 proposed domain-agent contracts from sheet `04_AGENTS`, plus 3 harness-global agents mirrored as `AG13`–`AG15`.
+- `docs/barsa/skills.md` records 18 proposed domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills now mirrored into the spreadsheet as `SK19`–`SK31`.
+- `docs/barsa/agents.md` records 12 proposed domain-agent contracts from sheet `04_AGENTS`, plus 5 harness-global agents mirrored as `AG13`–`AG17`.
 - `docs/barsa/operational-map.md` records the routing layers and recommended pilot path.
 
 The original domain skills were **not** installed as harness-global runtime skills. The current global skills are engineering workflow skills only. They are now present in the spreadsheet for catalog completeness. Domain skills remain curated backlog until they have explicit runtime contracts and evaluated need.
@@ -32,18 +32,21 @@ A skill is best when:
 
 ## Current Global Engineering Skills
 
-The harness currently ships 10 global engineering skills in `global/skills/`:
+The harness currently ships 13 global engineering skills in `global/skills/`:
 
 - `engineering-bdd-discovery`
 - `engineering-code-review`
 - `engineering-delivery`
+- `engineering-documentation`
 - `engineering-incident-triage`
 - `engineering-legacy-change`
 - `engineering-project-bootstrap`
 - `engineering-sdd-change`
 - `engineering-task-plan`
 - `engineering-tdd-first`
+- `harness-generation`
 - `team-cowork-orchestration`
+- `worktree-lifecycle-management`
 
 ## Detailed Skill Reference
 
@@ -287,6 +290,70 @@ The harness currently ships 10 global engineering skills in `global/skills/`:
 
 **Key rule:** no worktree, branch, merge, or concurrent file edit without explicit approval and recorded ownership.
 
+### `engineering-documentation`
+
+**Location:** `global/skills/engineering-documentation/SKILL.md`
+
+**Purpose:** generate project documentation — docs/, PRD, ADR, AGENTS.md, specifications, runbooks, collaboration protocols.
+
+**Use when:**
+
+- a project needs structured documentation from scratch;
+- ADRs or PRDs need writing or updating;
+- AGENTS.md needs generation from project evidence;
+- specifications, runbooks, or protocol docs are needed.
+
+**Expected outputs:**
+
+- ADR, PRD, AGENTS.md, specs, runbooks, protocol docs;
+- complete documentation tree under `docs/`.
+
+**Barsa usage:** queries all three Barsa collections — `documentation` for templates/examples, `technology` for stack alignment, `personal` for context.
+
+### `harness-generation`
+
+**Location:** `global/skills/harness-generation/SKILL.md`
+
+**Purpose:** analyze a project's stack (package.json, framework, tests, deploy) and personal context (Obsidian, PARA, GTD, methodology, self-assessment), then generate custom agents, skills, workflows, and inventory entries for the engineering harness.
+
+**Use when:**
+
+- bootstrapping a new project into the harness;
+- generating custom agents/skills/workflows tailored to a project;
+- auditing existing harness artifacts against project evidence.
+
+**Expected outputs:**
+
+- proposed `global/agents/`, `global/skills/`, `workflows/` entries;
+- `src/installer/inventory.js` update;
+- documented in an OpenSpec change proposal for approval.
+
+**Barsa usage:** queries `technology` (stack analysis), `personal` (methodology/context), and `documentation` (templates and ADR patterns).
+
+### `worktree-lifecycle-management`
+
+**Location:** `global/skills/worktree-lifecycle-management/SKILL.md`
+
+**Purpose:** manage the full lifecycle of Git worktrees: create isolated working directories for parallel agent work, coordinate merges in dependency order, validate integration, and clean up.
+
+**Use when:**
+
+- `team-cowork-orchestration` (SK28) has determined worktrees are justified;
+- parallel agent work needs file-level isolation;
+- a merge sequence with dependency ordering is required;
+- worktree branches need cleanup after merge.
+
+**Expected outputs:**
+
+- created worktrees and branches;
+- merged integration branch;
+- cleaned up worktree artifacts;
+- evidence log of the full lifecycle.
+
+**Key rule:** never create worktrees without explicit approval; never exceed 3 simultaneous worktrees; keep branches short-lived (< 1 day).
+
+**Barsa usage:** queries `documentation` and `technology` for official Git docs and curated engineering references on worktree strategy, merge policy, and cleanup.
+
 ## Skill Selection Rule
 
 Use the smallest skill that fits the task. Do not load all skills by default.
@@ -298,7 +365,10 @@ Good examples:
 - behavior change → `engineering-tdd-first`
 - untested legacy code → `engineering-legacy-change`
 - preparing OpenSpec → `engineering-sdd-change`
+- generating project docs → `engineering-documentation`
+- bootstrapping harness artifacts → `harness-generation`
 - final delivery after explicit approval → `engineering-delivery`
+- git worktree isolation needed → `worktree-lifecycle-management`
 
 ## Domain Skills from `mapa_operacional.xlsx`
 

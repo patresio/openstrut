@@ -62,9 +62,10 @@ opencode-engineering-harness check
 After installation, the following are available to OpenCode:
 
 - `AGENTS.md` — global engineering execution rules
-- `agents/` — custom agents (sdd, code-reviewer, project-rules-auditor)
+- `agents/` — custom agents (sdd, code-reviewer, project-rules-auditor, documentation-generator, harness-generator)
 - `commands/` — workflow commands (eng-plan, eng-spec-change, etc.)
-- `skills/` — reusable engineering skills (engineering-tdd-first, etc.)
+- `skills/` — reusable engineering skills (engineering-tdd-first, engineering-documentation, harness-generation, etc.)
+- `workflows/` — multi-step workflow definitions
 - `templates/project/` — project initialization templates
 
 ## Advanced: Custom Install Target
