@@ -67,6 +67,11 @@
         "homelab-ai-coding": {
             "type": "remote",
             "url": "{env:HOMELAB_AI_CODING_MCP_URL}"
+        },
+        "barsa": {
+            "type": "remote",
+            "url": "{env:BARSA_MCP}",
+            "enabled": true
         }
     },
     "permission": {
@@ -89,14 +94,18 @@
                 "edit": "allow",
                 "skill": {
                     "*": "deny",
-                    "engineering-*": "allow"
+                    "engineering-*": "allow",
+                    "harness-generation": "allow",
+                    "worktree-lifecycle-management": "allow"
                 },
                 "task": {
                     "*": "deny",
                     "explore": "allow",
                     "scout": "allow",
                     "code-reviewer": "allow",
-                    "project-rules-auditor": "allow"
+                    "project-rules-auditor": "allow",
+                    "documentation-generator": "allow",
+                    "harness-generator": "allow"
                 }
             }
         },
