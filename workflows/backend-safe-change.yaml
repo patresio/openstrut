@@ -1,0 +1,28 @@
+name: backend-safe-change
+description: Sequence backend, data, security, and quality specialists before implementation and final review.
+mode: sequential
+steps:
+  - name: specification
+    agent: sdd
+    skills:
+      - engineering-sdd-change
+      - engineering-bdd-discovery
+  - name: backend-data-review
+    agent: backend-data-reviewer
+    skills:
+      - api-data-design
+      - code-refactoring
+  - name: security-review
+    agent: security-infrastructure-reviewer
+    skills:
+      - security-review
+      - devops-sre-diagnostics
+  - name: quality-strategy
+    agent: code-quality-testing-reviewer
+    skills:
+      - testing-strategy
+      - code-refactoring
+  - name: final-review
+    agent: code-reviewer
+    skills:
+      - engineering-code-review

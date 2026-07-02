@@ -4,7 +4,7 @@
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -28,5 +28,23 @@ describe('package distribution metadata', () => {
 
   it('ships a workflows directory in repo', () => {
     assert.equal(existsSync(path.join(PACKAGE_ROOT, 'workflows')), true);
+  });
+
+  it('ships 15 global agents in repo', () => {
+    const agents = readdirSync(path.join(PACKAGE_ROOT, 'global', 'agents')).filter(name => name.endsWith('.md'));
+    assert.equal(agents.length, 15);
+  });
+
+  it('ships 28 global skills in repo', () => {
+    const skills = readdirSync(path.join(PACKAGE_ROOT, 'global', 'skills'), { withFileTypes: true })
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+      .filter(name => existsSync(path.join(PACKAGE_ROOT, 'global', 'skills', name, 'SKILL.md')));
+    assert.equal(skills.length, 28);
+  });
+
+  it('ships 5 workflow definitions in repo', () => {
+    const workflows = readdirSync(path.join(PACKAGE_ROOT, 'workflows')).filter(name => name.endsWith('.yaml'));
+    assert.equal(workflows.length, 5);
   });
 });

@@ -42,9 +42,9 @@ export function validateWorkflowShape(workflow) {
         stepNames.add(step.name);
       }
 
-      if (!step.command || typeof step.command !== 'string') {
+      if ((!step.command || typeof step.command !== 'string') && (!step.agent || typeof step.agent !== 'string')) {
         const label = step.name || '(unnamed)';
-        errors.push(`BLOCKED — WORKFLOW STEP COMMAND REQUIRED: step "${label}"`);
+        errors.push(`BLOCKED — WORKFLOW STEP COMMAND OR AGENT REQUIRED: step "${label}"`);
       }
     }
   }

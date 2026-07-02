@@ -114,7 +114,31 @@ export function parseWorkflow(src) {
           if (nextColonIdx > 0) {
             const nextKey = nextLine.slice(indent + 2, nextColonIdx).trim();
             const nextVal = nextLine.slice(nextColonIdx + 1).trim();
-            stepObj[nextKey] = nextVal;
+
+            if (!nextVal) {
+              const listItems = [];
+              let j = i + 1;
+              while (j < lines.length) {
+                const listRaw = lines[j];
+                const listLine = listRaw.trimEnd();
+                const listIndent = listLine.match(/^[ \t]*/)[0].length;
+                if (!listLine.trim() || listLine.trim().startsWith('#')) {
+                  j++;
+                  continue;
+                }
+                if (listIndent <= nextIndent) break;
+                if (listLine.trim().startsWith('- ')) {
+                  listItems.push(listLine.trim().slice(2).trim());
+                  j++;
+                  continue;
+                }
+                break;
+              }
+              stepObj[nextKey] = listItems.length > 0 ? listItems : '';
+              i = j - 1;
+            } else {
+              stepObj[nextKey] = nextVal;
+            }
           }
 
           i++;
@@ -171,7 +195,7 @@ function parseInlineObject(str) {
  * Normalizes and validates workflow steps.
  *
  * @param {any[]} stepList
- * @returns {Array<{name: string, command: string, description?: string, condition?: string, dependsOn?: string[]}>}
+ * @returns {Array<{name: string, command?: string, agent?: string, skills?: string[], description?: string, condition?: string, dependsOn?: string[]}>}
  */
 export function parseWorkflowSteps(stepList) {
   if (!stepList || !Array.isArray(stepList)) return [];
@@ -179,6 +203,8 @@ export function parseWorkflowSteps(stepList) {
   return stepList.map(step => ({
     name: step.name || '',
     command: step.command || '',
+    agent: step.agent || '',
+    skills: Array.isArray(step.skills) ? step.skills : undefined,
     description: step.description,
     condition: step.condition,
     dependsOn: Array.isArray(step.dependsOn) ? step.dependsOn : undefined,

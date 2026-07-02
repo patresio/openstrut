@@ -359,9 +359,14 @@ function main() {
         process.exit(EXIT.INVALID);
       }
 
-      const errors = collectWorkflowErrors(workflow, {
-        agents: INVENTORY.agents.map(a => a.name),
-        skills: INVENTORY.skills.map(s => s.name),
+      const parsedSteps = parseWorkflowSteps(workflow.steps);
+      const errors = collectWorkflowErrors({ ...workflow, steps: parsedSteps }, {
+        agents: ['build', 'plan', ...INVENTORY
+          .filter(e => e.target.startsWith('agents/') && e.target.endsWith('.md'))
+          .map(e => path.basename(e.target, '.md'))],
+        skills: INVENTORY
+          .filter(e => e.target.startsWith('skills/') && e.target.endsWith('/SKILL.md'))
+          .map(e => e.target.split('/')[1]),
       });
 
       if (errors.length > 0) {

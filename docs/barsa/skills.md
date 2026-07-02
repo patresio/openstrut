@@ -2,7 +2,7 @@
 
 Derived from `mapa_operacional.xlsx` sheet `03_SKILLS`.
 
-## Current Proposed Skills
+## Current Proposed Domain Skills
 
 - `SK01` knowledge-system-design
 - `SK02` learning-plan-design
@@ -23,9 +23,22 @@ Derived from `mapa_operacional.xlsx` sheet `03_SKILLS`.
 - `SK17` rag-agent-design
 - `SK18` health-planning
 
+## Harness-Global Engineering Skills
+
+- `SK19` engineering-bdd-discovery
+- `SK20` engineering-code-review
+- `SK21` engineering-delivery
+- `SK22` engineering-incident-triage
+- `SK23` engineering-legacy-change
+- `SK24` engineering-project-bootstrap
+- `SK25` engineering-sdd-change
+- `SK26` engineering-task-plan
+- `SK27` engineering-tdd-first
+- `SK28` team-cowork-orchestration
+
 ## Operational Rule
 
-These are cataloged skill contracts, not yet installed harness-global engineering skills.
+`SK01`–`SK18` are cataloged domain skill contracts now planned for global installation. `SK19`–`SK28` are installed harness-global engineering skills and exist under `global/skills/`.
 
 ## Recommended Pilot
 

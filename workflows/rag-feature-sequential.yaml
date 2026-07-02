@@ -1,0 +1,40 @@
+name: rag-feature-sequential
+description: Design a RAG/MCP/agentic feature with Barsa-backed retrieval, architecture, backend, SRE, and review gates.
+mode: sequential
+steps:
+  - name: specification
+    agent: sdd
+    skills:
+      - engineering-sdd-change
+      - engineering-bdd-discovery
+  - name: rag-agent-design
+    agent: ai-rag-agent-architect
+    skills:
+      - rag-agent-design
+      - distributed-systems-review
+    barsa:
+      contexts:
+        - CTX29
+        - CTX30
+        - CTX31
+      bundles:
+        - B21
+  - name: architecture-review
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+  - name: backend-contract-review
+    agent: backend-data-reviewer
+    skills:
+      - api-data-design
+      - testing-strategy
+  - name: operations-review
+    agent: devops-sre-advisor
+    skills:
+      - devops-sre-diagnostics
+      - distributed-systems-review
+  - name: final-review
+    agent: code-reviewer
+    skills:
+      - engineering-code-review

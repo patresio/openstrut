@@ -7,8 +7,8 @@ Specification-Driven Development (SDD) is the canonical approach to introducing 
 
 ### `sdd` Agent Responsibilities
 - Transform informal requests into formal OpenSpec proposals and specifications.
-- Discover and read project architecture, conventions, domain language, and reference books.
-- Search for reference books in `<project-root>/reference/`, `<project-root>/references/`, and the shared library `$HOME/.local/share/opencode-engineering-harness/references/`.
+- Discover and read project architecture, conventions, domain language, and Barsa-backed references.
+- Retrieve books, official docs, and curated operational knowledge through Barsa MCP logical routing keys instead of filesystem library paths.
 - Enforce Ubiquitous Language and define bounded contexts for the change.
 - Create verifiable criteria (Given/When/Then examples) and define the test strategy.
 - Decompose the implementation into TDD-friendly microincrements (`tasks.md`).
@@ -50,12 +50,12 @@ Specification-Driven Development (SDD) is the canonical approach to introducing 
 The `sdd` agent is restricted via OpenCode permissions using a last-match-wins explicit allow-list strategy:
 - `edit`: default deny (`*`: deny) first, then explicitly allowed only in `openspec/changes/**`, `specs/**`, `docs/**`, `.opencode/task-plans/**`. Production source code paths implicitly remain denied.
 - `bash`: default deny (`*`: deny) first, then allowed only for safe non-mutating inspection (`pwd`, `ls *`, `find *`, `git status*`, `git diff*`, `git log*`, `grep *`, `rg *`). Mutating git commands are implicitly denied.
-- `external_directory`: default ask (`*`: ask), then explicitly allowed to read the shared reference library at `~/.local/share/opencode-engineering-harness/references/**`.
+- `external_directory`: default ask (`*`: ask); no shared library path is allowed as runtime retrieval interface.
 - `skill`: allowed only `engineering-sdd-change`.
 - `task`: allowed `explore`, `project-rules-auditor`, `scout`. Denied mutative agents.
 
 ## Portability
-- PDFs and private books remain outside the distributed package. They must be placed in the project directory or the shared reference library by the user.
+- PDFs and private books remain outside the distributed package and are accessed through Barsa MCP curation, not runtime filesystem paths.
 - No absolute server-specific paths (e.g., `/srv/...`) are packaged.
 
 ## Audit and Approval

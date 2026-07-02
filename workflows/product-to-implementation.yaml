@@ -1,0 +1,24 @@
+name: product-to-implementation
+description: Convert a product or business opportunity into a scoped technical implementation plan.
+mode: sequential
+steps:
+  - name: product-discovery
+    agent: business-product-strategist
+    skills:
+      - product-discovery
+      - financial-organization
+      - leadership-feedback
+  - name: specification
+    agent: sdd
+    skills:
+      - engineering-sdd-change
+      - engineering-bdd-discovery
+  - name: architecture-decision
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+  - name: delivery-readiness-review
+    agent: code-reviewer
+    skills:
+      - engineering-code-review

@@ -17,6 +17,10 @@ Repository documentation is organized for quick navigation and durable decisions
 - [004 — Barsa MCP Retrieval Model](design/004-barsa-mcp-retrieval-model.md)
 - [005 — SDD Agent Workflow](design/005-sdd-agent-workflow.md)
 - [006 — Change Execution Manifest](design/006-change-execution-manifest.md)
+- [007 — Global Domain Agents and Skills](design/007-global-domain-agents-and-skills.md)
+- [008 — Sequential Multi-Agent Workflows](design/008-sequential-multi-agent-workflows.md)
+- [009 — Cowork and Git Worktree Orchestration](design/009-cowork-and-git-worktree-orchestration.md)
+- [010 — Docker Runtime Analysis](design/010-docker-runtime-analysis.md)
 
 ## Usage Guides
 

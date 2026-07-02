@@ -1,0 +1,38 @@
+name: feature-spec-to-build
+description: Convert an informal feature request into a build-ready approved plan.
+mode: sequential
+steps:
+  - name: specify-change
+    agent: sdd
+    skills:
+      - engineering-sdd-change
+      - engineering-bdd-discovery
+    handoff:
+      produces:
+        - proposal
+        - tasks
+        - spec
+  - name: audit-project-rules
+    agent: project-rules-auditor
+    skills:
+      - engineering-project-bootstrap
+    handoff:
+      consumes:
+        - proposal
+        - tasks
+        - spec
+      produces:
+        - rule-conflicts
+        - local-constraints
+  - name: domain-review
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+    handoff:
+      consumes:
+        - proposal
+        - spec
+      produces:
+        - tradeoffs
+        - architecture-risks

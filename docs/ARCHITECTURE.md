@@ -154,8 +154,10 @@ Automatic JSON merging is deferred; conflicting files must be resolved manually.
 | Primary agents | 2 | `build` and `plan` (native) |
 | Mandatory global subagents | 2 | `explore`, `code-reviewer` |
 | Conditional global subagent | 1 | `scout` (when available) |
-| Global skills | 9 | Loaded on demand |
+| Harness-managed global agents | 15 | 3 process agents + 12 Barsa-backed domain specialists |
+| Global skills | 28 | 10 engineering workflow skills + 18 Barsa-backed domain skills |
 | Global commands | 10 | Prefixed `eng-` |
+| Global workflows | 5 | Sequential/cowork workflow definitions |
 | Vector memory | 0 | Not used initially |
 | Global MCPs | ≤ 2 | Documentation/retrieval only |
 

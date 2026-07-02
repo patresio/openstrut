@@ -17,9 +17,15 @@ Derived from `mapa_operacional.xlsx` sheet `04_AGENTS`.
 - `AG11` ai-rag-agent-architect
 - `AG12` health-exercise-nutrition-researcher
 
+## Harness-Global Agents
+
+- `AG13` sdd
+- `AG14` code-reviewer
+- `AG15` project-rules-auditor
+
 ## Operational Rule
 
-These are cataloged domain-agent designs, not yet installed harness-global agents.
+`AG01`–`AG12` are cataloged domain-agent designs, not yet installed harness-global agents. `AG13`–`AG15` are installed harness-global agents and exist under `global/agents/`.
 
 ## Next Materialization Rule
 

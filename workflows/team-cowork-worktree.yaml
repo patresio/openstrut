@@ -1,0 +1,27 @@
+name: team-cowork-worktree
+description: Plan safe cowork across agents and optional git worktrees with explicit ownership and validation.
+mode: sequential
+steps:
+  - name: cowork-plan
+    agent: build
+    skills:
+      - team-cowork-orchestration
+      - engineering-task-plan
+    handoff:
+      produces:
+        - ownership-matrix
+        - worktree-plan
+        - validation-matrix
+  - name: project-constraints-audit
+    agent: project-rules-auditor
+    skills:
+      - engineering-project-bootstrap
+  - name: specialist-consult
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+  - name: final-review
+    agent: code-reviewer
+    skills:
+      - engineering-code-review

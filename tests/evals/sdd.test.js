@@ -77,32 +77,35 @@ describe('SDD Agent Permissions', () => {
   });
 });
 
-describe('SDD Reference Discovery Policy', () => {
+describe('SDD Barsa Retrieval Policy', () => {
   const content = fs.readFileSync(skillPath, 'utf8');
 
-  it('the skill searches project-local reference/', () => {
-    assert.ok(content.includes('<project-root>/reference/'), 'Must search reference/');
+  it('the skill uses Barsa MCP as retrieval boundary', () => {
+    assert.ok(content.includes('Barsa MCP'), 'Must use Barsa MCP');
   });
 
-  it('the skill searches project-local references/', () => {
-    assert.ok(content.includes('<project-root>/references/'), 'Must search references/');
+  it('the skill references logical routing keys', () => {
+    assert.ok(content.includes('collection'), 'Must mention collection routing');
+    assert.ok(content.includes('context'), 'Must mention context routing');
+    assert.ok(content.includes('bundle'), 'Must mention bundle routing');
   });
 
-  it('the skill knows the canonical shared-library location', () => {
-    assert.ok(content.includes('$HOME/.local/share/opencode-engineering-harness/references/'), 'Must know canonical shared location');
+  it('the skill does not depend on shared filesystem library paths', () => {
+    assert.ok(!content.includes('$HOME/.local/share/opencode-engineering-harness/references/'), 'Must not depend on shared reference path');
+    assert.ok(!content.includes('/srv/docs/biblioteca'), 'Must not reference local biblioteca path');
   });
 
-  it('no /srv/... absolute path is packaged', () => {
+  it('no /srv/... absolute project path is packaged', () => {
     assert.ok(!content.includes('/srv/projects/opencode-engineering-harness/'), 'Must not package server-specific absolute paths');
   });
 
-  it('missing references must be disclosed', () => {
-    assert.ok(content.toLowerCase().includes('report its absence') || content.toLowerCase().includes('disclosed'), 'Must disclose missing references');
+  it('missing retrieval evidence must be disclosed', () => {
+    assert.ok(content.toLowerCase().includes('report the gap') || content.toLowerCase().includes('unavailable'), 'Must disclose missing retrieval evidence');
   });
 
-  it('only genuinely consulted references may be listed in a change', () => {
-    assert.ok(content.includes('truly influenced') || content.includes('genuinely'), 'Must only list truly consulted references');
-    assert.ok(content.includes('NEVER claim a reference was consulted when it was unavailable'), 'Must not hallucinate references');
+  it('only materially influential Barsa sources may be listed in a change', () => {
+    assert.ok(content.includes('materially influenced'), 'Must only list materially influential sources');
+    assert.ok(content.includes('Do not reference local filesystem library paths'), 'Must not use local filesystem paths');
   });
 });
 

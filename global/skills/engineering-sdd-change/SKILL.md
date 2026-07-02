@@ -20,15 +20,16 @@ Read and understand the context:
 - Read existing code only to understand current behavior, NOT to modify it.
 - Existing tests to understand how the system is currently verified.
 - Existing tests to understand how the system is currently verified.
-- Discover and consult reference materials using this exact order of precedence:
-  1. `<project-root>/reference/`
-  2. `<project-root>/references/`
-  3. `$HOME/.local/share/opencode-engineering-harness/references/`
-- You must record which directory was actually found.
-- If the reference library is missing, you must explicitly report its absence.
-- If books are unavailable, you may continue only if project documentation is sufficient and the absence is disclosed.
-- If the user explicitly requires a particular unavailable reference, you MUST stop for clarification.
-- NOTE: The user can populate the shared reference directory by copying or symlinking their private local library to `$HOME/.local/share/opencode-engineering-harness/references/`.
+- Discover and consult reference materials through Barsa MCP using logical routing keys:
+  1. collection (`documentation`, `technology`, `personal`);
+  2. context (`CTX##`);
+  3. bundle (`B##`);
+  4. project profile (`PRJ##`);
+  5. skill or agent ID when applicable.
+- You must record which Barsa collection/context/bundle materially influenced the design.
+- If Barsa retrieval is unavailable or insufficient for a material decision, explicitly report the gap.
+- If the user explicitly requires a particular unavailable source, you MUST stop for clarification.
+- Do not reference local filesystem library paths as runtime instructions.
 
 ### 2. DOMAIN
 Establish the vocabulary and invariants:

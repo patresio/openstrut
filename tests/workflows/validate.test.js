@@ -56,7 +56,7 @@ describe('validateWorkflowShape', () => {
     const errors = validateWorkflowShape(baseWorkflow({
       steps: [{ name: 'step-one', command: '' }],
     }));
-    assert.ok(errors.some(e => e.includes('WORKFLOW STEP COMMAND REQUIRED')));
+    assert.ok(errors.some(e => e.includes('WORKFLOW STEP COMMAND OR AGENT REQUIRED')));
   });
 });
 
@@ -112,13 +112,16 @@ describe('collectWorkflowErrors', () => {
     const errors = collectWorkflowErrors(
       {
         name: '',
-        steps: [{ name: 'step-one', command: '', agent: 'ghost', skills: ['ghost-skill'] }],
+        steps: [
+          { name: 'step-one', command: '', agent: 'ghost', skills: ['ghost-skill'] },
+          { name: 'step-two', command: '', skills: [] },
+        ],
       },
       { agents: AGENTS, skills: SKILLS },
     );
 
     assert.ok(errors.some(e => e.includes('WORKFLOW NAME REQUIRED')));
-    assert.ok(errors.some(e => e.includes('WORKFLOW STEP COMMAND REQUIRED')));
+    assert.ok(errors.some(e => e.includes('WORKFLOW STEP COMMAND OR AGENT REQUIRED')));
     assert.ok(errors.some(e => e.includes('UNKNOWN WORKFLOW AGENT')));
     assert.ok(errors.some(e => e.includes('UNKNOWN WORKFLOW SKILL')));
   });
