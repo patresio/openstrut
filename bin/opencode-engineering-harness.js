@@ -39,7 +39,11 @@ const packageRoot = path.resolve(__dirname, '..');
 const require = createRequire(import.meta.url);
 const pkg = require('../package.json');
 
-const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest']);
+import { parseWorkflow, parseWorkflowSteps } from '../src/workflows/parse.js';
+import { collectWorkflowErrors } from '../src/workflows/validate.js';
+import { INVENTORY } from '../src/installer/inventory.js';
+
+const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow']);
 
 const USAGE = `
 OpenCode Engineering Harness v${pkg.version}
@@ -52,6 +56,7 @@ Commands:
   install           Install managed artifacts into the target configuration root
   check             Report drift between installed artifacts and the packaged version
   generate-manifest Generate an execution-manifest.yaml for an approved OpenSpec change
+  workflow          Manage workflow definitions (list, validate, run)
 
 Options:
   --target <dir>    Target OpenCode configuration root (plan, install, check)
@@ -80,13 +85,14 @@ Exit codes:
 function parseArgs(argv) {
   const args = argv.slice(2);
 
-  /** @type {{ target?: string, change?: string, dryRun: boolean, json: boolean, command: string|null }} */
+  /** @type {{ target?: string, change?: string, dryRun: boolean, json: boolean, command: string|null, args: string[] }} */
   const opts = {
     command: null,
     target: undefined,
     change: undefined,
     dryRun: false,
     json: false,
+    args: [],
   };
 
   const unknownFlags = [];
@@ -141,6 +147,8 @@ function parseArgs(argv) {
     } else if (!arg.startsWith('-')) {
       if (!opts.command) {
         opts.command = arg;
+      } else if (opts.command === 'workflow') {
+        opts.args.push(arg);
       } else {
         extraCommands.push(arg);
       }
@@ -245,33 +253,141 @@ function main() {
       process.stdout.write(output + '\n');
       process.exit(exitCode);
 
-    } else if (opts.command === 'generate-manifest') {
-      const changeDir = path.resolve(opts.change);
+  } else if (opts.command === 'generate-manifest') {
+    const changeDir = path.resolve(opts.change);
 
-      let gitRoot;
+    let gitRoot;
+    try {
+      gitRoot = require('node:child_process').execSync('git rev-parse --show-toplevel', { cwd: changeDir, encoding: 'utf8', stdio: 'pipe' }).trim();
+    } catch (err) {
+      process.stderr.write('BLOCKED — NON-CANONICAL CHANGE PATH: not inside a git repository\n');
+      process.exit(EXIT.CONFLICT);
+    }
+
+    const changeDirName = path.basename(changeDir);
+    const expectedPath = path.join(gitRoot, 'openspec', 'changes', changeDirName);
+
+    if (changeDir !== expectedPath) {
+      process.stderr.write(`BLOCKED — NON-CANONICAL CHANGE PATH: expected ${expectedPath}, got ${changeDir}\n`);
+      process.exit(EXIT.CONFLICT);
+    }
+
+    const result = generate({ changeDir, packageRoot });
+    if (!result.ok) {
+      process.stderr.write(result.errors.join('\n') + '\n');
+      process.exit(EXIT.CONFLICT);
+    }
+    process.stdout.write(`Generated: ${result.path}\n`);
+    process.exit(EXIT.OK);
+  } else if (opts.command === 'workflow') {
+    let workflowArgIndex = 0;
+    const subcmd = opts.args[workflowArgIndex++];
+
+    if (!subcmd) {
+      return {
+        error: 'workflow requires a subcommand: list, validate, or run',
+        exitCode: EXIT.INVALID,
+      };
+    }
+
+    if (!['list', 'validate', 'run'].includes(subcmd)) {
+      return {
+        error: `Unknown workflow subcommand: "${subcmd}". Valid: list, validate, run`,
+        exitCode: EXIT.INVALID,
+      };
+    }
+
+    if (subcmd === 'list') {
+      const workflowsDir = path.join(packageRoot, 'workflows');
+      let entries;
       try {
-        gitRoot = require('node:child_process').execSync('git rev-parse --show-toplevel', { cwd: changeDir, encoding: 'utf8', stdio: 'pipe' }).trim();
+        entries = require('node:fs').readdirSync(workflowsDir, { withFileTypes: true })
+          .filter(d => d.isFile() && (d.name.endsWith('.yaml') || d.name.endsWith('.yml')));
       } catch (err) {
-        process.stderr.write('BLOCKED — NON-CANONICAL CHANGE PATH: not inside a git repository\n');
-        process.exit(EXIT.CONFLICT);
+        if (err.code === 'ENOENT') {
+          process.stdout.write('No workflows directory found.\n');
+          process.exit(EXIT.OK);
+        }
+        process.stderr.write(`Error reading workflows directory: ${err.message}\n`);
+        process.exit(EXIT.FAILURE);
       }
 
-      const changeDirName = path.basename(changeDir);
-      const expectedPath = path.join(gitRoot, 'openspec', 'changes', changeDirName);
-
-      if (changeDir !== expectedPath) {
-        process.stderr.write(`BLOCKED — NON-CANONICAL CHANGE PATH: expected ${expectedPath}, got ${changeDir}\n`);
-        process.exit(EXIT.CONFLICT);
+      if (opts.json) {
+        const result = { command: 'workflow', subcommand: 'list', workflows: entries.map(e => e.name) };
+        process.stdout.write(JSON.stringify(result, null, 2) + '\n');
+      } else {
+        if (entries.length === 0) {
+          process.stdout.write('No workflow files found.\n');
+        } else {
+          process.stdout.write('Available workflows:\n');
+          for (const e of entries) {
+            process.stdout.write(`  - ${e.name}\n`);
+          }
+        }
       }
-
-      const result = generate({ changeDir, packageRoot });
-      if (!result.ok) {
-        process.stderr.write(result.errors.join('\n') + '\n');
-        process.exit(EXIT.CONFLICT);
-      }
-      process.stdout.write(`Generated: ${result.path}\n`);
       process.exit(EXIT.OK);
     }
+
+    if (subcmd === 'validate' || subcmd === 'run') {
+      const workflowPath = opts.args[workflowArgIndex++];
+      if (!workflowPath) {
+        return {
+          error: `${subcmd} requires a workflow file path`,
+          exitCode: EXIT.INVALID,
+        };
+      }
+
+      const absPath = path.resolve(workflowPath);
+      if (!absPath.startsWith(packageRoot)) {
+        return {
+          error: `Workflow path must be inside package root`,
+          exitCode: EXIT.INVALID,
+        };
+      }
+
+      let src;
+      try {
+        src = require('node:fs').readFileSync(absPath, 'utf8');
+      } catch (err) {
+        process.stderr.write(`Error reading workflow file: ${err.message}\n`);
+        process.exit(EXIT.FAILURE);
+      }
+
+      const workflow = parseWorkflow(src);
+      if (!workflow) {
+        process.stderr.write(`BLOCKED — WORKFLOW PARSE FAILED: invalid YAML or missing name\n`);
+        process.exit(EXIT.INVALID);
+      }
+
+      const errors = collectWorkflowErrors(workflow, {
+        agents: INVENTORY.agents.map(a => a.name),
+        skills: INVENTORY.skills.map(s => s.name),
+      });
+
+      if (errors.length > 0) {
+        process.stderr.write(`BLOCKED — WORKFLOW VALIDATION FAILED:\n${errors.join('\n')}\n`);
+        process.exit(EXIT.INVALID);
+      }
+
+      if (subcmd === 'validate') {
+        if (opts.json) {
+          process.stdout.write(JSON.stringify({ command: 'workflow', subcommand: 'validate', status: 'valid', workflow: workflow.name }, null, 2) + '\n');
+        } else {
+          process.stdout.write(`Workflow "${workflow.name}" is valid.\n`);
+        }
+        process.exit(EXIT.OK);
+      }
+
+      if (subcmd === 'run') {
+        const steps = parseWorkflowSteps(workflow.steps);
+        process.stdout.write(`Executing workflow "${workflow.name}" with ${steps.length} step(s)...\n`);
+        for (const step of steps) {
+          process.stdout.write(`  > ${step.name}: ${step.command}\n`);
+        }
+        process.exit(EXIT.OK);
+      }
+    }
+  }
 
   } catch (err) {
     const isTargetError = err.message && (

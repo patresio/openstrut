@@ -28,12 +28,28 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 **Phase: Installer and Distribution Foundation**
 
-The global artifact set, project bootstrap templates, safe installer CLI, execution-manifest generator, and SSH-only `0.1.0` release artifact are implemented.
+The global artifact set, project bootstrap templates, safe installer CLI, execution-manifest generator, workflow validation scaffolding, and installable `0.1.0` package are implemented.
 
-The package is distributed from the homelab by SSH/SCP tarball. It is not published to a public npm registry.
+The recommended distribution path is npm installing from the local git bare repository at `/srv/git/opencode-engineering-harness.git`. The package is not published to a public npm registry.
 See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
 
 ---
+
+## Installation
+
+Recommended local install from git bare:
+
+```bash
+npm install -g /srv/git/opencode-engineering-harness.git
+```
+
+Then run:
+
+```bash
+opencode-engineering-harness plan
+opencode-engineering-harness install
+opencode-engineering-harness check
+```
 
 ## CLI Usage
 
@@ -49,6 +65,11 @@ opencode-engineering-harness check [--target <dir>] [--json]
 
 # Generate deterministic execution manifest for an approved OpenSpec change
 opencode-engineering-harness generate-manifest --change <openspec-change-dir>
+
+# Manage workflow definitions
+opencode-engineering-harness workflow list
+opencode-engineering-harness workflow validate <workflow-file>
+opencode-engineering-harness workflow run <workflow-file>
 
 # Options
 opencode-engineering-harness --help

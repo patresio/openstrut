@@ -1,49 +1,66 @@
-# Installation
+# Installation Guide
 
-The current release is installed from an SSH-only tarball copied from the homelab.
+The package `@patrese/opencode-engineering-harness` can be installed using npm.
 
 ## Current Release
 
 - package: `@patrese/opencode-engineering-harness`
 - version: `0.1.0`
-- tag: `v0.1.0`
-- distribution: SSH/SCP only
-- port: `22`
+- distribution: git bare + npm (recommended) or SSH/SCP tarball
+- port: SSH only (22) — no HTTP ports required
 
-## Install Paths
+## Recommended Flow: npm from Git Bare
 
-The package installs managed artifacts into an OpenCode config root, normally:
+Install directly from the local git bare repository:
 
-```text
-$HOME/.config/opencode
+```bash
+npm install -g /srv/git/opencode-engineering-harness.git
 ```
 
-or, when set:
+Verify installation:
 
-```text
-$XDG_CONFIG_HOME/opencode
+```bash
+opencode-engineering-harness --version
+opencode-engineering-harness --help
 ```
 
-## Recommended Flow
+Install managed artifacts:
+
+```bash
+opencode-engineering-harness plan
+opencode-engineering-harness install
+opencode-engineering-harness check
+```
+
+## Alternative: SSH/SCP Tarball
+
+If npm from git bare is unavailable:
 
 1. Copy release files from homelab with SCP.
 2. Verify `SHA256SUMS`.
-3. Run `plan` from the tarball.
-4. Review planned changes.
-5. Run `install` from the tarball.
-6. Run `check` from the tarball.
-7. Verify OpenCode sees the installed agents.
+3. Install from tarball:
+
+```bash
+npm install -g ./opencode-engineering-harness-0.1.0.tgz
+```
+
+## Next Steps (After v0.1.0)
+
+Once package is published to a registry or HTTP distribution is enabled:
+
+- do not install from untrusted registries;
+- do not run HTTP servers without network security review;
+- verify tarball checksums before installation.
 
 ## Detailed Guides
 
+- [Git Bare + npm Install](git-npm-install.md)
 - [SSH Tarball Install](ssh-tarball.md)
 - [npm exec Usage](npm-exec.md)
 - [Verification](verification.md)
 
-## Do Not
+## Do Not (v0.1.0)
 
 - do not copy agents, skills, or commands manually;
-- do not open HTTP ports;
-- do not start an HTTP server;
-- do not publish this private package to npm;
+- do not publish this private package to npm without explicit approval;
 - do not install from a registry unless a future release explicitly documents it.
