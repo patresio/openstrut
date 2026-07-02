@@ -209,24 +209,33 @@ Before any Git mutation, inspect:
 
 ## Current Scope
 
-The current phase is repository foundation.
+The current phase is Installer and Distribution Foundation.
 
-Allowed work:
+Implemented in this phase:
 
-* repository structure;
-* foundational documentation;
-* package metadata;
-* safe validation scaffolding;
-* Task Plan format.
+* global artifact set;
+* project bootstrap templates;
+* safe installer CLI;
+* installer ownership manifest;
+* change execution manifest generation;
+* deterministic and runtime evaluation scaffolding.
 
 Not yet allowed:
 
-* functional installation;
-* live `opencode.json` mutation;
-* agents or skills installation;
+* live `opencode.json` mutation outside isolated test targets;
 * remote package publication;
 * registry deployment;
-* global machine configuration changes.
+* global machine configuration changes;
+* release tarball creation without explicit approval.
+
+## Barsa MCP Retrieval
+
+Barsa MCP is the retrieval interface for books, official docs, and curated operational knowledge.
+
+* Do not reference local library paths in agent-facing instructions.
+* Use Barsa collections, contexts, bundles, and source policies.
+* Treat filesystem paths as ingestion provenance only.
+* Keep durable retrieval decisions in `docs/barsa/` and architecture/design docs.
 
 ## Reporting
 

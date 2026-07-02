@@ -245,7 +245,7 @@ Nome sugerido:
 Binário:
 
 ```text
-patrese-harness
+opencode-engineering-harness
 ```
 
 Exemplo:
@@ -256,7 +256,7 @@ Exemplo:
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "patrese-harness": "./bin/patrese-harness.js"
+    "opencode-engineering-harness": "./bin/opencode-engineering-harness.js"
   }
 }
 ```
@@ -329,37 +329,41 @@ Eu não começaria instalando Verdaccio antes de o CLI estar funcional. O pacote
 
 # 5. Responsabilidades do instalador
 
-O CLI deverá ter estes comandos:
+O CLI implementado nesta fase tem estes comandos:
 
 ```text
+plan
 install
-update
-diff
-doctor
-version
+check
+generate-manifest
+```
+
+Capacidades ainda deferidas:
+
+```text
 uninstall
+automatic JSON merge for conflicting files
+homelab distribution workflow
 ```
 
 ## `install`
 
 Deve:
 
-1. detectar sistema, usuário e diretório home;
-2. detectar OpenCode e Node;
-3. ler a configuração atual;
-4. mostrar o plano de instalação;
-5. criar backup;
-6. instalar os arquivos gerenciados;
-7. fazer merge seguro no `opencode.json`;
-8. preservar configurações desconhecidas;
-9. preservar temporariamente os prompts atuais de `build` e `plan`;
-10. validar o resultado;
-11. gravar um manifesto;
-12. executar `doctor`.
+1. resolver diretório alvo (`--target`, `XDG_CONFIG_HOME`, `HOME`);
+2. ler a configuração atual quando existir;
+3. mostrar o plano de instalação;
+4. criar backup por arquivo antes de mutação;
+5. instalar apenas os arquivos gerenciados do inventário;
+6. preservar configurações desconhecidas e valores específicos da máquina;
+7. bloquear em conflitos não gerenciados;
+8. validar o resultado;
+9. gravar manifesto de instalação em `.engineering-harness/installation.json`;
+10. suportar `--dry-run` e saída `--json`.
 
-## `update`
+## `update` (deferido)
 
-Deve:
+Quando implementado, deve:
 
 - comparar versão instalada e disponível;
 - mostrar diff;
@@ -368,9 +372,9 @@ Deve:
 - bloquear em caso de conflito;
 - permitir rollback.
 
-## `diff`
+## `diff` (deferido)
 
-Mostra:
+Quando implementado, mostra:
 
 ```text
 managed version
@@ -383,9 +387,9 @@ permission changes
 
 Sem mutação.
 
-## `doctor`
+## `doctor` (deferido)
 
-Valida:
+Quando implementado, valida:
 
 - JSON ou JSONC;
 - schema do OpenCode;
@@ -395,15 +399,15 @@ Valida:
 - variável da base URL;
 - arquivo da API key;
 - permissões do arquivo secreto;
-- endpoint MCP;
+- endpoint Barsa MCP;
 - colisões;
 - restos de frameworks antigos;
 - referências quebradas;
 - versão do harness.
 
-## `uninstall`
+## `uninstall` (deferido)
 
-Remove somente arquivos reconhecidos pelo manifesto.
+Quando implementado, remove somente arquivos reconhecidos pelo manifesto.
 
 Nunca deve apagar:
 
@@ -414,42 +418,20 @@ Nunca deve apagar:
 - sessões;
 - banco do OpenCode.
 
-# 6. Merge seguro do `opencode.json`
+# 6. `opencode.json`
 
-O OpenCode aceita JSON e JSONC e combina configurações globais e locais. Nosso instalador não pode simplesmente substituir o arquivo inteiro.
+O OpenCode aceita JSON e JSONC e combina configurações globais e locais. O instalador atual não faz merge automático de JSON/JSONC.
 
-Usaremos uma biblioteca como `jsonc-parser` para:
+Comportamento atual:
 
-- preservar comentários;
-- preservar ordenação razoável;
-- alterar apenas caminhos conhecidos;
-- evitar perder chaves futuras;
-- mostrar o patch antes da escrita.
+- `opencode.json` é artefato gerenciado do inventário;
+- arquivo idêntico é aceito;
+- arquivo já gerenciado e desatualizado é atualizado;
+- conflito não gerenciado bloqueia a instalação;
+- conflitos devem ser resolvidos manualmente;
+- o manifesto registra ownership e hashes, não secrets.
 
-Exemplo de chaves gerenciadas:
-
-```text
-$schema
-default_agent
-provider.9router
-mcp.homelab-ai-coding
-permission
-agent.code-reviewer
-command
-plugin
-compaction
-share
-snapshot
-```
-
-Inicialmente não gerenciaremos:
-
-```text
-agent.build.prompt
-agent.plan.prompt
-```
-
-O manifesto indicará isso explicitamente.
+Merge preservando comentários e patch por chave permanece deferido.
 
 # 7. Arquivos gerenciados
 
@@ -458,28 +440,34 @@ O manifesto indicará isso explicitamente.
 ├── AGENTS.md
 ├── opencode.json
 ├── agents/
+│   ├── code-reviewer.md
 │   ├── project-rules-auditor.md
-│   └── code-reviewer.md
+│   └── sdd.md
 ├── commands/
-│   ├── eng-init-project.md
-│   ├── eng-refresh-project-rules.md
-│   ├── eng-plan.md
-│   ├── eng-resume.md
 │   ├── eng-checkpoint.md
-│   ├── eng-status.md
-│   ├── eng-review.md
 │   ├── eng-deliver.md
-│   └── eng-incident.md
+│   ├── eng-incident.md
+│   ├── eng-init-project.md
+│   ├── eng-plan.md
+│   ├── eng-refresh-project-rules.md
+│   ├── eng-resume.md
+│   ├── eng-review.md
+│   ├── eng-spec-change.md
+│   └── eng-status.md
 ├── skills/
-│   ├── engineering-project-bootstrap/
-│   ├── engineering-task-plan/
-│   ├── engineering-tdd-first/
-│   ├── engineering-legacy-change/
 │   ├── engineering-bdd-discovery/
 │   ├── engineering-code-review/
 │   ├── engineering-delivery/
-│   └── engineering-incident-triage/
-└── .patrese-harness.json
+│   ├── engineering-incident-triage/
+│   ├── engineering-legacy-change/
+│   ├── engineering-project-bootstrap/
+│   ├── engineering-sdd-change/
+│   ├── engineering-task-plan/
+│   └── engineering-tdd-first/
+├── templates/
+│   └── project/
+└── .engineering-harness/
+    └── installation.json
 ```
 
 # 8. Manifesto de instalação
@@ -487,7 +475,7 @@ O manifesto indicará isso explicitamente.
 Arquivo:
 
 ```text
-~/.config/opencode/.patrese-harness.json
+~/.config/opencode/.engineering-harness/installation.json
 ```
 
 Exemplo:

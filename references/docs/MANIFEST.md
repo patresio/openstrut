@@ -1,9 +1,10 @@
 # 📖 Manifesto de Documentação — OpenCode
 
-> **Caminho base:** `references/docs/`  
-> **Fonte original:** `/srv/docs/biblioteca/opencode-docs/packages/web/src/content/docs/`  
-> **Idioma:** Inglês (documentação oficial raiz)  
-> **Formato:** MDX (Markdown + JSX)  
+> **Caminho base:** `references/docs/`
+> **Fonte lógica:** Barsa MCP — collection `documentation`
+> **Origem histórica:** documentação oficial do OpenCode importada para a camada de recuperação do Barsa
+> **Idioma:** Inglês (documentação oficial raiz)
+> **Formato:** MDX (Markdown + JSX)
 > **Atualizado em:** 2026-06-16
 
 ---

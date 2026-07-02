@@ -1,9 +1,9 @@
 # 📚 Manifesto de Livros de Referência
 
-> **Caminho base:** `references/books/`  
-> **Fontes originais:**  
-> - `/srv/docs/biblioteca/NotebookLM_AGENTS_FontesConfiaveis/`  
-> - `/srv/docs/biblioteca/NotebookLM_IA_Agentes_FontesConfiaveis/`  
+> **Caminho base:** `references/books/`
+> **Fonte lógica:** Barsa MCP — collections curadas para livros e conhecimento operacional
+> **Catálogo operacional:** `mapa_operacional.xlsx`
+> **Observação:** caminhos locais da biblioteca são detalhes de ingestão e não devem ser usados como interface do harness
 > **Atualizado em:** 2026-06-16
 
 ---

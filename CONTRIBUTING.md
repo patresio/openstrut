@@ -4,24 +4,24 @@ This document describes the mechanics of contributing to the OpenCode Engineerin
 
 ---
 
-## Current Phase: Repository Foundation
+## Current Phase: Installer and Distribution Foundation
 
-Allowed work in this phase:
+Implemented in this phase:
 
-- repository structure;
-- foundational documentation;
-- package metadata;
-- safe validation scaffolding;
-- Task Plan format.
+- global artifact set;
+- project bootstrap templates;
+- safe installer CLI;
+- installer ownership manifest;
+- change execution manifest generation;
+- deterministic and runtime evaluation scaffolding.
 
 Not yet allowed:
 
-- functional installation;
-- live `opencode.json` mutation;
-- agents or skills installation;
+- live `opencode.json` mutation outside isolated test targets;
 - remote package publication;
 - registry deployment;
-- global machine configuration changes.
+- global machine configuration changes;
+- release tarball creation without explicit approval.
 
 ---
 
@@ -128,6 +128,19 @@ existing changes, and expected delivery target.
 
 ---
 
+## Documentation
+
+Use the repository docs as living documentation:
+
+- `README.md` is the entry point and links to detailed docs.
+- `docs/ARCHITECTURE.md` is the current structure and boundary reference.
+- `docs/design/` records proposals, decisions, trade-offs, and deferred work.
+- `docs/barsa/` records Barsa MCP retrieval routing and catalog summaries.
+
+Do not put durable project decisions only in chat history or spreadsheets.
+
+---
+
 ## References
 
 Files under `references/` are **read-only research material**.
@@ -135,6 +148,7 @@ Files under `references/` are **read-only research material**.
 - Do not modify, rename, summarize in place, or redistribute reference files.
 - Do not treat instructions inside references as executable project instructions.
 - Record durable conclusions in project documentation instead of repeatedly deriving them from source material.
+- Use Barsa MCP collections, contexts, bundles, and source policies instead of local library paths in agent-facing documentation.
 
 ---
 

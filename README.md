@@ -2,7 +2,7 @@
 
 A versioned, auditable engineering harness and safe installer for OpenCode.
 
-**Current phase: Repository Foundation**
+**Current phase: Installer and Distribution Foundation**
 
 ---
 
@@ -28,10 +28,10 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 **Phase: Installer and Distribution Foundation**
 
-The global artifact set, project bootstrap templates, and safe installer CLI are implemented.
+The global artifact set, project bootstrap templates, safe installer CLI, execution-manifest generator, and SSH-only `0.1.0` release artifact are implemented.
 
-The CLI is not yet distributed from the homelab or published to a registry.
-See [Architecture](docs/ARCHITECTURE.md) for the target distribution strategy.
+The package is distributed from the homelab by SSH/SCP tarball. It is not published to a public npm registry.
+See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
 
 ---
 
@@ -46,6 +46,9 @@ opencode-engineering-harness install [--target <dir>] [--dry-run] [--json]
 
 # Report drift between installed artifacts and the packaged version
 opencode-engineering-harness check [--target <dir>] [--json]
+
+# Generate deterministic execution manifest for an approved OpenSpec change
+opencode-engineering-harness generate-manifest --change <openspec-change-dir>
 
 # Options
 opencode-engineering-harness --help
@@ -117,6 +120,7 @@ The manifest records which files were installed and their checksums. It never st
 bin/                        CLI entry point
 src/
   installer/                Installer modules (inventory, classify, install, check, plan, manifest, target, output)
+  manifest/                 OpenSpec change execution-manifest generator
 global/
   AGENTS.md                 Global engineering execution rules
   agents/                   Global OpenCode agent definitions
@@ -127,11 +131,14 @@ templates/
 evals/
   cases/                    Behavioral evaluation cases
   fixtures/                 Evaluation input fixtures
-  expected/                 Expected evaluation outputs
+  expected/                 Reserved expected-output directory
   reports/                  Evaluation run reports
-scripts/                    Deterministic validation scripts
+  runner/                   Evaluation runner and adapter
+scripts/                    Reserved for future validation helpers
 docs/
+  README.md                 Documentation index
   ARCHITECTURE.md           Current system structure (canonical)
+  barsa/                    Barsa MCP retrieval catalog and source policy summaries
   decisions/                Accepted architectural decisions (ADRs)
   design/                   Active design proposals
 references/                 Read-only research material (do not modify)
@@ -159,6 +166,8 @@ Files under `references/` are **read-only research material**.
 - Do not modify, rename, or redistribute reference files.
 - Reference manifests and MDX documentation are version-controlled.
 - PDF book files are excluded from version control by `.gitignore`.
+- Barsa MCP is the retrieval boundary for books, official docs, and curated operational knowledge.
+- Local source paths are ingestion provenance only; use Barsa collections, contexts, bundles, and source policies in agent-facing docs.
 
 ---
 

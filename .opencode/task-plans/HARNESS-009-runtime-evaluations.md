@@ -2,7 +2,7 @@
 
 **Task ID:** HARNESS-009
 **Classification:** evaluations, test-infrastructure
-**Status:** PARTIALLY VERIFIED
+**Status:** COMPLETED — PARTIALLY VERIFIED
 
 ---
 
@@ -107,4 +107,4 @@ Current state: HARNESS-009 is partially verified. Runtime execution, isolated co
 
 ## Next Action
 
-Next action: close HARNESS-009 and select the smallest next harness increment without reopening runtime observability work.
+Next action: none. Carry forward runtime observability limitations only when a future approved increment needs deeper agent or skill routing evidence.

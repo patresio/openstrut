@@ -8,8 +8,8 @@ A arquitetura recomendada é:
 | ------------------------ | -----------------------------: | ------------------------------------------------------ |
 | Primary agents           |                              2 | `build` e `plan` nativos                               |
 | Subagents globais        | 2 obrigatórios + 1 condicional | `explore`, `code-reviewer` e `scout` quando disponível |
-| Skills globais           |                              7 | Procedimentos de engenharia carregados sob demanda     |
-| Commands globais         |                              7 | Entradas controladas para o workflow                   |
+| Skills globais           |                              9 | Procedimentos de engenharia carregados sob demanda     |
+| Commands globais         |                             10 | Entradas controladas para o workflow                   |
 | Memória vetorial         |                              0 | Não usar inicialmente                                  |
 | MCPs globais             |               1 ou 2 no máximo | Documentação/retrieval; escrita controlada             |
 | Plugins e custom tools   |                 0 inicialmente | Só depois de existir necessidade comprovada            |
@@ -107,13 +107,13 @@ Configuração:
 
 ```text
 mode: primary
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 edit: deny
 bash mutating: deny
 task: somente explore e scout
 ```
 
-Planejamento é uma atividade de alto impacto; portanto, usar o modelo barato aqui seria economia falsa.
+Decisão atual: manter o modelo barato no `plan` para exploração read-only controlada. Se o planejamento exigir decisão arquitetural crítica, o operador deve escalar explicitamente para um modelo mais forte.
 
 ---
 
@@ -672,13 +672,15 @@ A primeira evolução, caso necessária, será um **SQLite FTS5 local e read-onl
 
 Manter no máximo:
 
-1. MCP de documentação/retrieval, como o serviço do homelab;
+1. Barsa MCP como boundary canônico de documentação/retrieval;
 2. um MCP adicional somente quando houver justificativa recorrente.
 
 Regras:
 
 - leitura por padrão;
 - escrita exige `ask`;
+- Barsa MCP substitui referências diretas a caminhos locais da biblioteca;
+- agents e skills devem consultar Barsa por collection, contexto, bundle ou source policy;
 - nenhum MCP global de filesystem, porque OpenCode já possui ferramentas nativas;
 - nenhum MCP global de memória na primeira versão;
 - nenhum MCP pode alterar Git, GitHub ou produção silenciosamente.
@@ -702,11 +704,11 @@ devem exigir plano aprovado e permissão explícita.
 
 | Componente    | Modelo                |
 | ------------- | --------------------- |
-| Build         | `9router/combo-main`  |
-| Plan          | `9router/combo-main`  |
-| Code reviewer | `9router/combo-main`  |
-| Explore       | `9router/combo-cheap` |
-| Scout         | `9router/combo-cheap` |
+| Build         | `9router/combo-main`                  |
+| Plan          | `opencode/deepseek-v4-flash-free`     |
+| Code reviewer | `9router/combo-main`                  |
+| Explore       | `9router/combo-cheap`                 |
+| Scout         | `9router/combo-cheap`                 |
 
 Não haverá fallback silencioso entre modelos. Falha do modelo deve ser reportada antes de trocar endpoint ou estratégia.
 
@@ -883,62 +885,37 @@ opencode-engineering-harness/
 ├── templates/
 │   └── project/
 │       ├── AGENTS.md
-│       ├── CONTRIBUTING.md
-│       ├── opencode.json
-│       └── .opencode/
-│           └── task-plans/
+│       ├── .opencode/
+│       │   └── task-plans/
+│       └── openspec/
 ├── evals/
 │   ├── cases/
 │   ├── fixtures/
 │   ├── expected/
-│   └── reports/
-├── scripts/
-│   ├── install.sh
-│   ├── doctor.sh
-│   └── validate.sh
+│   ├── reports/
+│   └── runner/
 ├── docs/
 │   ├── ARCHITECTURE.md
-│   └── decisions/
-└── CHANGELOG.md
+│   ├── decisions/
+│   └── design/
+└── package.json
 ```
 
 ## Scripts
 
-### `install.sh`
+Os scripts shell previstos aqui foram substituídos pelo CLI Node em `bin/opencode-engineering-harness.js` e pelos scripts de `package.json`.
 
-- idempotente;
-- cria apenas diretórios esperados;
-- instala por links ou cópia controlada;
-- não copia segredos;
-- não sobrescreve arquivo não gerenciado silenciosamente;
-- funciona em casa e na prefeitura.
+Comandos atuais:
 
-### `doctor.sh`
-
-Valida:
-
-- JSON;
-- frontmatter;
-- API key existente e com permissão segura;
-- variáveis de ambiente;
-- duplicidade de agent/skill/command;
-- commands que colidem com comandos nativos;
-- referências quebradas;
-- skills externas carregadas;
-- endpoint e modelos configurados.
-
-### `validate.sh`
-
-Valida o próprio harness:
-
-- nenhum segredo versionado;
-- nomes e descrições obrigatórios;
-- agents read-only realmente sem edit;
-- task allowlist;
-- comandos sem shell oculto;
-- links válidos;
-- formato do Task Plan;
-- casos de avaliação.
+- `opencode-engineering-harness plan`;
+- `opencode-engineering-harness install`;
+- `opencode-engineering-harness check`;
+- `opencode-engineering-harness generate-manifest`;
+- `npm test`;
+- `npm run test:evals`;
+- `npm run eval:deterministic`;
+- `npm run eval:runtime`;
+- `npm run eval:all`.
 
 ---
 
