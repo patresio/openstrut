@@ -1,0 +1,71 @@
+name: harness-generation
+description: Analyze a project (stack + personal context) and generate custom agents, skills, and workflows.
+mode: sequential
+steps:
+  - name: analyze-project
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - knowledge-system-design
+      - personal-execution-system
+    handoff:
+      produces:
+        - stack-analysis
+        - personal-context-analysis
+        - harness-blueprint
+  - name: generate-custom-agents
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - engineering-sdd-change
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - generated-agents
+        - agent-configs
+  - name: generate-custom-skills
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - engineering-project-bootstrap
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - generated-skills
+  - name: generate-workflows
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - team-cowork-orchestration
+    handoff:
+      consumes:
+        - generated-agents
+        - generated-skills
+      produces:
+        - generated-workflows
+  - name: audit-bootstrap
+    agent: project-rules-auditor
+    skills:
+      - engineering-project-bootstrap
+    handoff:
+      consumes:
+        - generated-agents
+        - generated-skills
+        - generated-workflows
+      produces:
+        - rule-conflicts
+        - consistency-report
+  - name: documentation-alignment
+    agent: documentation-generator
+    skills:
+      - engineering-documentation
+    handoff:
+      consumes:
+        - generated-agents
+        - generated-skills
+        - generated-workflows
+      produces:
+        - updated-docs
+        - inventory-update

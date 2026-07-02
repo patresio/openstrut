@@ -15,7 +15,7 @@
     "workflows"
   ],
   "scripts": {
-  "test": "node --test tests/installer/installer.test.js tests/manifest/parse.test.js tests/manifest/validate.test.js tests/manifest/order.test.js tests/manifest/serialize.test.js tests/manifest/generate.test.js tests/manifest/cli.test.js tests/workflows/parse.test.js tests/workflows/validate.test.js tests/package/metadata.test.js",
+  "test": "node --test tests/installer/installer.test.js tests/manifest/parse.test.js tests/manifest/validate.test.js tests/manifest/order.test.js tests/manifest/serialize.test.js tests/manifest/generate.test.js tests/manifest/cli.test.js tests/workflows/parse.test.js tests/workflows/validate.test.js tests/package/metadata.test.js tests/global/global-skills.test.js",
   "test:installer": "node --test tests/installer/installer.test.js",
   "test:manifest": "node --test tests/manifest/parse.test.js tests/manifest/validate.test.js tests/manifest/order.test.js tests/manifest/serialize.test.js tests/manifest/generate.test.js tests/manifest/cli.test.js",
   "test:all": "node --test tests/installer/installer.test.js tests/manifest/parse.test.js tests/manifest/validate.test.js tests/manifest/order.test.js tests/manifest/serialize.test.js tests/manifest/generate.test.js tests/manifest/cli.test.js tests/workflows/parse.test.js tests/workflows/validate.test.js tests/package/metadata.test.js",

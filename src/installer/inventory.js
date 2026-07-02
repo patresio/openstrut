@@ -21,6 +21,8 @@ export const INVENTORY = [
 
   // Agents
   { source: 'global/agents/ai-rag-agent-architect.md',                       target: 'agents/ai-rag-agent-architect.md' },
+  { source: 'global/agents/documentation-generator.md',                      target: 'agents/documentation-generator.md' },
+  { source: 'global/agents/harness-generator.md',                            target: 'agents/harness-generator.md' },
   { source: 'global/agents/backend-data-reviewer.md',                        target: 'agents/backend-data-reviewer.md' },
   { source: 'global/agents/business-product-strategist.md',                  target: 'agents/business-product-strategist.md' },
   { source: 'global/agents/career-communication-advisor.md',                 target: 'agents/career-communication-advisor.md' },
@@ -57,6 +59,7 @@ export const INVENTORY = [
   { source: 'global/skills/distributed-systems-review/SKILL.md',             target: 'skills/distributed-systems-review/SKILL.md' },
   { source: 'global/skills/domain-modeling/SKILL.md',                        target: 'skills/domain-modeling/SKILL.md' },
   { source: 'global/skills/engineering-bdd-discovery/SKILL.md',              target: 'skills/engineering-bdd-discovery/SKILL.md' },
+  { source: 'global/skills/engineering-documentation/SKILL.md',              target: 'skills/engineering-documentation/SKILL.md' },
   { source: 'global/skills/engineering-code-review/SKILL.md',                target: 'skills/engineering-code-review/SKILL.md' },
   { source: 'global/skills/engineering-delivery/SKILL.md',                   target: 'skills/engineering-delivery/SKILL.md' },
   { source: 'global/skills/engineering-incident-triage/SKILL.md',            target: 'skills/engineering-incident-triage/SKILL.md' },
@@ -64,6 +67,7 @@ export const INVENTORY = [
   { source: 'global/skills/engineering-project-bootstrap/SKILL.md',          target: 'skills/engineering-project-bootstrap/SKILL.md' },
   { source: 'global/skills/engineering-sdd-change/SKILL.md',                 target: 'skills/engineering-sdd-change/SKILL.md' },
   { source: 'global/skills/engineering-task-plan/SKILL.md',                  target: 'skills/engineering-task-plan/SKILL.md' },
+  { source: 'global/skills/harness-generation/SKILL.md',                     target: 'skills/harness-generation/SKILL.md' },
   { source: 'global/skills/engineering-tdd-first/SKILL.md',                  target: 'skills/engineering-tdd-first/SKILL.md' },
   { source: 'global/skills/financial-organization/SKILL.md',                 target: 'skills/financial-organization/SKILL.md' },
   { source: 'global/skills/frontend-ux-review/SKILL.md',                    target: 'skills/frontend-ux-review/SKILL.md' },
@@ -77,13 +81,17 @@ export const INVENTORY = [
   { source: 'global/skills/security-review/SKILL.md',                        target: 'skills/security-review/SKILL.md' },
   { source: 'global/skills/team-cowork-orchestration/SKILL.md',              target: 'skills/team-cowork-orchestration/SKILL.md' },
   { source: 'global/skills/testing-strategy/SKILL.md',                       target: 'skills/testing-strategy/SKILL.md' },
+  { source: 'global/skills/worktree-lifecycle-management/SKILL.md',          target: 'skills/worktree-lifecycle-management/SKILL.md' },
 
   // Workflows
   { source: 'workflows/backend-safe-change.yaml',                            target: 'workflows/backend-safe-change.yaml' },
+  { source: 'workflows/harness-generation.yaml',                             target: 'workflows/harness-generation.yaml' },
+  { source: 'workflows/project-documentation.yaml',                          target: 'workflows/project-documentation.yaml' },
   { source: 'workflows/feature-spec-to-build.yaml',                          target: 'workflows/feature-spec-to-build.yaml' },
   { source: 'workflows/product-to-implementation.yaml',                      target: 'workflows/product-to-implementation.yaml' },
   { source: 'workflows/rag-feature-sequential.yaml',                         target: 'workflows/rag-feature-sequential.yaml' },
   { source: 'workflows/team-cowork-worktree.yaml',                           target: 'workflows/team-cowork-worktree.yaml' },
+  { source: 'workflows/full-harness-orchestration.yaml',                     target: 'workflows/full-harness-orchestration.yaml' },
 
   // Project bootstrap templates (installed so the bootstrap skill can locate
   // them at runtime without access to the harness repository working tree)

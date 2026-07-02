@@ -1,0 +1,123 @@
+name: full-harness-orchestration
+description: End-to-end harness generation with project analysis, parallel agent work via worktrees, documentation, and final review.
+mode: sequential
+steps:
+  - name: project-analysis
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - knowledge-system-design
+      - personal-execution-system
+    handoff:
+      produces:
+        - stack-analysis
+        - context-analysis
+        - harness-blueprint
+  - name: cowork-plan
+    agent: build
+    skills:
+      - team-cowork-orchestration
+      - worktree-lifecycle-management
+      - engineering-task-plan
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - ownership-matrix
+        - worktree-plan
+        - validation-matrix
+  - name: specialist-consult
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - architecture-constraints
+  - name: approval-gate
+    agent: build
+    skills:
+      - engineering-task-plan
+  - name: create-worktrees
+    agent: build
+    skills:
+      - worktree-lifecycle-management
+    handoff:
+      consumes:
+        - worktree-plan
+      produces:
+        - worktree-list
+        - branch-list
+  - name: generate-agents-track
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - engineering-sdd-change
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - generated-agents
+  - name: generate-skills-track
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - engineering-project-bootstrap
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - generated-skills
+  - name: generate-workflows-track
+    agent: harness-generator
+    skills:
+      - harness-generation
+      - team-cowork-orchestration
+    handoff:
+      consumes:
+        - harness-blueprint
+      produces:
+        - generated-workflows
+  - name: merge-tracks
+    agent: build
+    skills:
+      - worktree-lifecycle-management
+    handoff:
+      consumes:
+        - generated-agents
+        - generated-skills
+        - generated-workflows
+      produces:
+        - merged-result
+        - conflict-log
+  - name: document-update
+    agent: documentation-generator
+    skills:
+      - engineering-documentation
+    handoff:
+      consumes:
+        - merged-result
+      produces:
+        - updated-docs
+        - inventory-update
+  - name: audit-consistency
+    agent: project-rules-auditor
+    skills:
+      - engineering-project-bootstrap
+    handoff:
+      consumes:
+        - updated-docs
+      produces:
+        - consistency-report
+  - name: final-review
+    agent: code-reviewer
+    skills:
+      - engineering-code-review
+    handoff:
+      consumes:
+        - consistency-report
+      produces:
+        - review-findings
+        - approval-recommendation

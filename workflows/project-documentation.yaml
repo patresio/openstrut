@@ -1,0 +1,58 @@
+name: project-documentation
+description: Generate complete project documentation — AGENTS.md, ADRs, specs, PRD, and architecture docs.
+mode: sequential
+steps:
+  - name: create-agents-rules
+    agent: documentation-generator
+    skills:
+      - engineering-documentation
+    handoff:
+      produces:
+        - AGENTS.md
+        - ARCHITECTURE.md
+  - name: create-adrs
+    agent: software-architect
+    skills:
+      - architecture-decision
+      - domain-modeling
+    handoff:
+      consumes:
+        - ARCHITECTURE.md
+      produces:
+        - ADR drafts
+        - design-decisions
+  - name: create-technical-spec
+    agent: documentation-generator
+    skills:
+      - engineering-documentation
+      - engineering-bdd-discovery
+    handoff:
+      consumes:
+        - ADR drafts
+      produces:
+        - technical-spec
+        - acceptance-criteria
+  - name: create-prd
+    agent: business-product-strategist
+    skills:
+      - product-discovery
+    handoff:
+      consumes:
+        - technical-spec
+      produces:
+        - PRD
+        - product-metrics
+  - name: review-documentation
+    agent: code-quality-testing-reviewer
+    skills:
+      - engineering-code-review
+    handoff:
+      consumes:
+        - AGENTS.md
+        - ARCHITECTURE.md
+        - ADR drafts
+        - PRD
+        - technical-spec
+      produces:
+        - review-findings
+        - doc-consistency-report
