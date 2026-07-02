@@ -1,11 +1,12 @@
 name: team-cowork-worktree
-description: Plan safe cowork across agents and optional git worktrees with explicit ownership and validation.
+description: Plan and execute safe multi-agent cowork with git worktrees, merge coordination, validation, and cleanup.
 mode: sequential
 steps:
   - name: cowork-plan
     agent: build
     skills:
       - team-cowork-orchestration
+      - worktree-lifecycle-management
       - engineering-task-plan
     handoff:
       produces:
@@ -21,7 +22,40 @@ steps:
     skills:
       - architecture-decision
       - domain-modeling
+  - name: approval-gate
+    agent: build
+    skills:
+      - engineering-task-plan
+  - name: create-worktrees
+    agent: build
+    skills:
+      - worktree-lifecycle-management
+    handoff:
+      produces:
+        - worktree-list
+        - branch-list
+  - name: parallel-tracks
+    agent: build
+    skills:
+      - worktree-lifecycle-management
+      - team-cowork-orchestration
+  - name: merge-tracks
+    agent: build
+    skills:
+      - worktree-lifecycle-management
+    handoff:
+      produces:
+        - merged-result
+        - conflict-log
+  - name: validate-integration
+    agent: build
+    skills:
+      - engineering-task-plan
   - name: final-review
     agent: code-reviewer
     skills:
       - engineering-code-review
+  - name: cleanup-worktrees
+    agent: build
+    skills:
+      - worktree-lifecycle-management
