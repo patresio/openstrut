@@ -78,3 +78,10 @@ evals/reports/*.html
 #
 references/books/*.pdf
 references/books/*.epub
+
+# ─── Local operational planning inputs ────────────────────────────────────────
+# Binary/source-of-truth candidates should be converted into reviewed markdown
+# before being committed.
+mapa_operacional.xlsx
+references/tips/
+tui.json
