@@ -18,6 +18,15 @@ Repository documentation is organized for quick navigation and durable decisions
 - [005 — SDD Agent Workflow](design/005-sdd-agent-workflow.md)
 - [006 — Change Execution Manifest](design/006-change-execution-manifest.md)
 
+## Usage Guides
+
+- [Usage Overview](usage/README.md)
+- [Agents](usage/agents.md)
+- [Skills](usage/skills.md)
+- [Commands](usage/commands.md)
+- [Barsa Integration](usage/barsa-integration.md)
+- [Installation](usage/installation/README.md)
+
 ## Barsa MCP Catalog
 
 - [Barsa Overview](barsa/README.md)

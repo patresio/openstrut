@@ -75,6 +75,7 @@ docs/
   README.md                        Documentation index
   ARCHITECTURE.md                  This file — current system structure
   barsa/                           Barsa retrieval catalog and routing summaries
+  usage/                           Operational usage and installation guides
   decisions/                       Accepted architectural decision records
   design/                          Active design proposals
 

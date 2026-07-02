@@ -139,6 +139,7 @@ docs/
   README.md                 Documentation index
   ARCHITECTURE.md           Current system structure (canonical)
   barsa/                    Barsa MCP retrieval catalog and source policy summaries
+  usage/                    Operational usage and installation guides
   decisions/                Accepted architectural decisions (ADRs)
   design/                   Active design proposals
 references/                 Read-only research material (do not modify)
