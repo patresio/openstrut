@@ -2,7 +2,7 @@
 
 **Task ID:** HARNESS-004  
 **Classification:** configuration  
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 
 ## Approved Scope and Exclusions
 - **In Scope:** Configure `build`, `plan`, `explore`, `scout`, `code-reviewer`, `project-rules-auditor`. Use approved models. Establish strict read-only permissions and task delegation boundaries.

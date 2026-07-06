@@ -7,6 +7,8 @@ Create the canonical global OpenCode configuration (`global/opencode.json`) that
 - **In Scope:** Creating a valid, secret-free, portable `global/opencode.json` based on approved architecture decisions and the sanitized snapshot.
 - **Exclusions:** Mutating the live `~/.config/opencode` configuration, creating custom agents/skills/commands, adding placeholders, packaging secrets, starting HARNESS-004.
 
+## Status: COMPLETE
+
 ## Current Configuration Sources
 - `references/current-state/opencode.notebook.redacted.jsonc`
 

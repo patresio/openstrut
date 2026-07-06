@@ -295,6 +295,14 @@ Task Plans are execution ledgers stored in `.opencode/task-plans/`:
 
 ---
 
+## Global Config Analyzer Decision (HARNESS-025)
+
+A dedicated global configuration analyzer agent is **not needed** at this point:
+- `project-rules-auditor` already covers project-rule gaps and instruction conflicts.
+- `harness-generator` covers project analysis, artifact generation, and skills/workflows evolution.
+- `security-infrastructure-reviewer` covers permission, MCP, and infrastructure posture.
+- **If** future need arises (e.g., automated opencode.json drift detection across machines), a lightweight `config-analyzer` subagent can be created in a future HARNESS.
+
 ## Constraints
 
 Do not introduce without explicit approval:

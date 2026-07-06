@@ -1,7 +1,7 @@
-# HARNESS-012 Project AGENTS
+# HARNESS-012b — Project AGENTS (duplicate — merged into HARNESS-012 md)
 
 Classification: implementation
-Status: ready for commit
+Status: SUPERSEDED — merged into HARNESS-012.md
 Approval evidence: user approved creating root `AGENTS.md`; constraint: "somente escrever sobre o projeto".
 Scope: create compact root `AGENTS.md` with verified project-specific guidance only.
 Exclusions: no edits to `CONTRIBUTING.md`, `GEMINI.md`, code, tests, references, or global/template AGENTS files.

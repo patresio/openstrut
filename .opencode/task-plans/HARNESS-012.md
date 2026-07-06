@@ -24,8 +24,8 @@
 - [x] Planning
 - [x] Approval Gate
 - [x] Build
-- [ ] Review
-- [ ] Archive
+- [x] Review
+- [x] Archive
 - [ ] Commit
 - [ ] Push
 - [ ] Pull Request
