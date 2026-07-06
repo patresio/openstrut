@@ -30,7 +30,7 @@ All instruction files are versioned with task plan linkage:
 - CLI entrypoint: `bin/opencode-engineering-harness.js`.
 - Installer code: `src/installer/`; manifest generation: `src/manifest/`; evaluation runtime: `evals/`.
 - Shipped OpenCode artifacts live under `global/`; project bootstrap scaffold lives under `templates/project/`.
-- Installer inventory is canonical in `src/installer/inventory.js`; it currently ships 72 artifacts from `global/`, `templates/`, and `workflows/`.
+- Installer inventory is canonical in `src/installer/inventory.js`; it currently ships 84 artifacts from `global/`, `templates/`, and `workflows/`.
 - Barsa MCP is the canonical retrieval boundary for books, official docs, and curated operational knowledge; local library paths are ingestion provenance only.
 - Do not add agent frameworks, vector DBs, Docker services, databases, web apps, telemetry, global npm installs, automatic publication, or live OpenCode config mutation without explicit approval.
 
@@ -42,7 +42,8 @@ All instruction files are versioned with task plan linkage:
 - Eval tests: `npm run test:evals`.
 - Deterministic eval only: `npm run eval:deterministic`.
 - Runtime eval: `npm run eval:runtime` (live model calls; may consume quota).
-- No configured lint, formatter, typecheck, lockfile, or CI workflow.
+- CI workflow: `.github/workflows/ci.yml` — runs `npm test` and `npm pack --dry-run` on Node.js 20 and 22.
+- No configured lint, formatter, typecheck, or lockfile.
 - Package dry run: `npm pack --dry-run --ignore-scripts`.
 
 ## Testing Quirks
