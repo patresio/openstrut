@@ -20,8 +20,7 @@ Not yet allowed:
 - live `opencode.json` mutation outside isolated test targets;
 - remote package publication;
 - registry deployment;
-- global machine configuration changes;
-- release tarball creation without explicit approval.
+- global machine configuration changes.
 
 ---
 
@@ -163,4 +162,25 @@ Validate without installing:
 ```bash
 node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('package.json: valid JSON')"
 npm pack --dry-run --ignore-scripts
+```
+
+## Release
+
+Releases are automated via `.github/workflows/release.yml`.
+
+1. Tag a commit: `git tag v0.x.x`.
+2. Push the tag: `git push origin v0.x.x`.
+3. The workflow runs tests, deterministic evals, packs the tarball, and creates a GitHub Release with the artifact.
+
+One-liner install:
+
+```bash
+curl -sfL https://raw.githubusercontent.com/patresio/opencode-engineering-harness/main/scripts/install.sh | bash
+```
+
+Manual install from latest release:
+
+```bash
+npm install -g @patrese/opencode-engineering-harness
+opencode-engineering-harness install
 ```
