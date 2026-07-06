@@ -17,6 +17,14 @@
 - Project sources, highest first after user-approved scope: `GEMINI.md`, `CONTRIBUTING.md`, `docs/ARCHITECTURE.md`, `docs/decisions/`, `docs/design/`, implementation/tests, then `references/`.
 - If docs conflict with scripts or implementation, trust executable source and report conflict before changing behavior.
 
+## Documentation Governance
+
+All instruction files are versioned with task plan linkage:
+- Updates require explicit approval via Task Plan (HARNESS-###)
+- Git history tracks all changes; no silent or bulk rewrites
+- `CHANGELOG.md` records stable version notes only when package version changes
+- Source precedence remains as defined above; no reordering without approval
+
 ## Architecture
 
 - CLI entrypoint: `bin/opencode-engineering-harness.js`.

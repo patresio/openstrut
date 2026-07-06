@@ -33,22 +33,53 @@ The global artifact set, project bootstrap templates, safe installer CLI, execut
 The recommended distribution path is npm installing from the local git bare repository at `/srv/git/opencode-engineering-harness.git`. The package is not published to a public npm registry.
 See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
 
+## Documentation Governance
+
+This repository uses task-linked documentation:
+- Instruction files (`AGENTS.md`, `CONTRIBUTING.md`, README.md) are versioned via HARNESS Task Plans
+- All governance changes are documented in `CHANGELOG.md` and require approval
+- `AGENTS.md` defines current sources of truth, permissions, and workflow
+- `CONTRIBUTING.md` defines contribution mechanics, execution contract, and delivery boundaries
+- `README.md` remains the entry point and linked to `docs/ARCHITECTURE.md`
+- Design proposals live in `docs/design/`, accepted decisions in `docs/decisions/`
+- Version governance is aligned with HARNESS-019 for future enhancements
+
 ---
 
 ## Installation
 
-Recommended local install from git bare:
+### Quick One-Liner (Recommended)
+
+Install on any new machine:
 
 ```bash
-npm install -g /srv/git/opencode-engineering-harness.git
+npm install -g /srv/git/opencode-engineering-harness.git && opencode-engineering-harness plan && opencode-engineering-harness install && opencode-engineering-harness check
 ```
 
-Then run:
+### Manual Steps
+
+1. **Install globally:**
+
+   ```bash
+   npm install -g /srv/git/opencode-engineering-harness.git
+   ```
+
+2. **Review, install, and verify:**
+
+   ```bash
+   opencode-engineering-harness plan
+   opencode-engineering-harness install
+   opencode-engineering-harness check
+   ```
+
+### Target Directory Overrides
+
+Use custom target for isolated validation (CI, nested configs):
 
 ```bash
-opencode-engineering-harness plan
-opencode-engineering-harness install
-opencode-engineering-harness check
+opencode-engineering-harness plan --target ./my-config
+opencode-engineering-harness install --target ./my-config
+opencode-engineering-harness check --target ./my-config
 ```
 
 ## CLI Usage

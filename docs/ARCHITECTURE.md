@@ -262,11 +262,27 @@ Excluded from the package:
 - `scripts/`
 - `docs/`
 - `releases/`
-- `.opencode/`
+- `.opencode/task-plans/`
 - Task Plans
 - Design proposals
 - Environment files
 - Secrets
+
+## Versioning Model
+
+Package version follows semantic versioning at release time:
+- Current released package version is `0.1.0`
+- `CHANGELOG.md` records released package versions only
+- HARNESS task IDs track implementation scope and sequence; they do not imply automatic package version bumps
+- Future major, minor, and patch bumps are decided explicitly during approved release work
+- Packaging infrastructure is external to this package and not versioned here
+
+## Task Plan Inventory
+
+Task Plans are execution ledgers stored in `.opencode/task-plans/`:
+- HARNESS-001 through HARNESS-018 are implemented and operative
+- HARNESS-019 governs documentation and versioning organization work
+- New HARNESS IDs must remain unique; legacy duplicate IDs must be reconciled in separate approved cleanup work
 
 ---
 
