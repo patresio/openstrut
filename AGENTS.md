@@ -42,7 +42,7 @@ All instruction files are versioned with task plan linkage:
 - Eval tests: `npm run test:evals`.
 - Deterministic eval only: `npm run eval:deterministic`.
 - Runtime eval: `npm run eval:runtime` (live model calls; may consume quota).
-- CI workflow: `.github/workflows/ci.yml` — runs `npm test` and `npm pack --dry-run` on Node.js 20 and 22.
+- CI workflow: `.github/workflows/ci.yml` — runs `npm test`, `npm pack --dry-run`, and `eval:deterministic` on Node.js 20 and 22.
 - No configured lint, formatter, typecheck, or lockfile.
 - Package dry run: `npm pack --dry-run --ignore-scripts`.
 
