@@ -4,13 +4,13 @@ Mapeamento dos CTX IDs para tópicos legíveis, agentes/skills associados.
 
 ## CTX14 — Software Architecture & Design
 - **Tópico:** Arquitetura de software, design patterns, decisões estruturais
-- **Agentes:** `software-architect`, `harness-generator`, `documentation-generator`
+- **Agentes:** `software-architect`, `harness-generator`, `documentation-generator`, `skill-creator`
 - **Skills:** `architecture-decision`, `domain-modeling`
 - **Bundles associados:** B01, B05
 
 ## CTX23 — Code Quality & Testing
 - **Tópico:** Qualidade de código, testes automatizados, TDD, refatoração
-- **Agentes:** `code-quality-testing-reviewer`, `code-reviewer`, `project-rules-auditor`
+- **Agentes:** `code-quality-testing-reviewer`, `code-reviewer`, `project-rules-auditor`, `skill-creator`
 - **Skills:** `testing-strategy`, `code-refactoring`, `engineering-tdd-first`
 - **Bundles associados:** B08, B12
 
@@ -37,6 +37,42 @@ Mapeamento dos CTX IDs para tópicos legíveis, agentes/skills associados.
 - **Agentes:** `ai-rag-agent-architect`, `security-infrastructure-reviewer`
 - **Skills:** `rag-agent-design`, `security-review`
 - **Bundles associados:** B23
+
+## CTX01 — Knowledge Systems & Personal Knowledge Management
+- **Tópico:** Sistemas pessoais de conhecimento, Obsidian, notas, organização, segundo cérebro
+- **Agentes:** `knowledge-system-designer`
+- **Skills:** `knowledge-system-design`, `learning-plan-design`
+- **Bundles associados:** B01
+
+## CTX02 — Learning & Knowledge Capture
+- **Tópico:** Aprendizado, captura de conhecimento, zettelkasten, notas atômicas
+- **Agentes:** `knowledge-system-designer`
+- **Skills:** `learning-plan-design`, `knowledge-system-design`
+- **Bundles associados:** B02
+
+## CTX03 — Personal Productivity & Organization
+- **Tópico:** Produtividade pessoal, organização, GTD, PARA, hábitos, execução
+- **Agentes:** `knowledge-system-designer`
+- **Skills:** `personal-execution-system`, `learning-plan-design`
+- **Bundles associados:** B03
+
+## CTX09 — Business Strategy & Product
+- **Tópico:** Estratégia de negócio, produto, finanças, operação, liderança
+- **Agentes:** `business-product-strategist`, `frontend-ux-reviewer`
+- **Skills:** `product-discovery`, `financial-organization`, `leadership-feedback`, `frontend-ux-review`
+- **Bundles associados:** B09
+
+## CTX15 — Domain Modeling & Design
+- **Tópico:** Modelagem de domínio, bounded contexts, agregados, eventos, DDD
+- **Agentes:** `software-architect`, `documentation-generator`
+- **Skills:** `domain-modeling`, `architecture-decision`
+- **Bundles associados:** B05
+
+## CTX20 — DevOps, SRE & Infrastructure
+- **Tópico:** Entrega contínua, confiabilidade, observabilidade, infraestrutura, Git workflow
+- **Agentes:** `devops-sre-advisor`, `team-cowork-orchestration`, `skill-creator`
+- **Skills:** `devops-sre-diagnostics`, `worktree-lifecycle-management`, `team-cowork-orchestration`, `distributed-systems-review`, `architecture-decision`
+- **Bundles associados:** B15, B18
 
 ## Notas
 

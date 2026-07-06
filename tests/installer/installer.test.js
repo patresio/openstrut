@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 72 artifacts', () => {
-    assert.equal(INVENTORY.length, 72, `Expected 72 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 73 artifacts', () => {
+    assert.equal(INVENTORY.length, 73, `Expected 73 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 2 root configuration files', () => {
@@ -125,9 +125,9 @@ describe('Inventory', () => {
     assert.ok(root.some(e => e.target === 'opencode.json'), 'opencode.json must be in inventory');
   });
 
-  it('inventory has exactly 17 agents', () => {
+  it('inventory has exactly 18 agents', () => {
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/'));
-    assert.equal(agents.length, 17, `Expected 17 agents, got ${agents.length}`);
+    assert.equal(agents.length, 18, `Expected 18 agents, got ${agents.length}`);
   });
 
   it('inventory has exactly 10 commands', () => {
@@ -181,7 +181,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('2 + 17 + 10 + 31 + 8 + 4 = 72', () => {
+  it('2 + 18 + 10 + 31 + 8 + 4 = 73', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -189,8 +189,9 @@ describe('Inventory', () => {
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/')).length;
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
-    assert.equal(root + agents + commands + skills + workflows + templates, 72,
-      `Category sum mismatch: ${root}+${agents}+${commands}+${skills}+${workflows}+${templates} ≠ 72`);
+    const sum = root + agents + commands + skills + workflows + templates;
+    assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
+    assert.equal(sum, 73, `Expected sum 73, got ${sum}`);
   });
 });
 

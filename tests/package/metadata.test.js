@@ -30,9 +30,9 @@ describe('package distribution metadata', () => {
     assert.equal(existsSync(path.join(PACKAGE_ROOT, 'workflows')), true);
   });
 
-  it('ships 17 global agents in repo', () => {
+  it('ships 18 global agents in repo', () => {
     const agents = readdirSync(path.join(PACKAGE_ROOT, 'global', 'agents')).filter(name => name.endsWith('.md'));
-    assert.equal(agents.length, 17);
+    assert.equal(agents.length, 18);
   });
 
   it('ships 31 global skills in repo', () => {

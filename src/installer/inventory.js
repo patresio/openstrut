@@ -36,6 +36,7 @@ export const INVENTORY = [
   { source: 'global/agents/project-rules-auditor.md',                        target: 'agents/project-rules-auditor.md' },
   { source: 'global/agents/sdd.md',                                          target: 'agents/sdd.md' },
   { source: 'global/agents/security-infrastructure-reviewer.md',             target: 'agents/security-infrastructure-reviewer.md' },
+  { source: 'global/agents/skill-creator.md',                                target: 'agents/skill-creator.md' },
   { source: 'global/agents/software-architect.md',                           target: 'agents/software-architect.md' },
 
   // Commands
