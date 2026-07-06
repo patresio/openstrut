@@ -30,17 +30,17 @@ describe('package distribution metadata', () => {
     assert.equal(existsSync(path.join(PACKAGE_ROOT, 'workflows')), true);
   });
 
-  it('ships 18 global agents in repo', () => {
+  it('ships 21 global agents in repo', () => {
     const agents = readdirSync(path.join(PACKAGE_ROOT, 'global', 'agents')).filter(name => name.endsWith('.md'));
-    assert.equal(agents.length, 18);
+    assert.equal(agents.length, 21);
   });
 
-  it('ships 31 global skills in repo', () => {
+  it('ships 39 global skills in repo', () => {
     const skills = readdirSync(path.join(PACKAGE_ROOT, 'global', 'skills'), { withFileTypes: true })
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
       .filter(name => existsSync(path.join(PACKAGE_ROOT, 'global', 'skills', name, 'SKILL.md')));
-    assert.equal(skills.length, 31);
+    assert.equal(skills.length, 39);
   });
 
   it('ships 8 workflow definitions in repo', () => {
