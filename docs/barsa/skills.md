@@ -22,6 +22,14 @@ Derived from `mapa_operacional.xlsx` sheet `03_SKILLS`.
 - `SK16` testing-strategy
 - `SK17` rag-agent-design
 - `SK18` health-planning
+- `SK32` performance-engineering
+- `SK33` release-management
+- `SK34` compliance-audit
+- `SK35` database-design
+- `SK36` observability-design
+- `SK37` accessibility-review
+- `SK38` localization
+- `SK39` privacy-review
 
 ## Harness-Global Engineering Skills
 
@@ -41,7 +49,16 @@ Derived from `mapa_operacional.xlsx` sheet `03_SKILLS`.
 
 ## Operational Rule
 
-`SK01`–`SK18` are cataloged domain skill contracts now planned for global installation. `SK19`–`SK31` are installed harness-global engineering skills and exist under `global/skills/`.
+`SK01`–`SK39` are all installed harness-global skills and exist under `global/skills/`. The original `SK01`–`SK18` were cataloged domain skill contracts before materialization.
+
+## Recommended Pilot
+
+Start future materialization with:
+
+- `SK17` rag-agent-design
+- paired with `AG11` ai-rag-agent-architect
+- targeting `PRJ07` MCP/RAG
+- using `B21` rag-agent-core
 
 ## Recommended Pilot
 

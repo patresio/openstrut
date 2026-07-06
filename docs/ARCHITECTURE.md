@@ -96,24 +96,28 @@ The harness installs the following under `~/.config/opencode/`:
 ```text
 AGENTS.md                            Global engineering rules
 opencode.json                        Managed baseline — installer preserves unknown keys
-agents/
-  sdd.md                             AG13  OpenSpec change specification
-  code-reviewer.md                   AG14  Read-only implementation review
-  project-rules-auditor.md           AG15  Read-only project rules audit
-  documentation-generator.md         AG16  Documentation generation
-  harness-generator.md               AG17  Harness bootstrapping
-  knowledge-system-designer.md       AG01  Knowledge system architecture
-  personal-operating-system-advisor.md  AG02  Personal productivity systems
-  business-product-strategist.md     AG03  Business/product strategy
-  career-communication-advisor.md    AG04  Career & communication
-  software-architect.md              AG05  Software architecture
-  backend-data-reviewer.md           AG06  Backend/data review
-  devops-sre-advisor.md              AG07  DevOps/SRE advisory
-  code-quality-testing-reviewer.md   AG08  Code quality & testing
-  security-infrastructure-reviewer.md  AG09  Security & infrastructure
-  frontend-ux-reviewer.md            AG10  Frontend/UX review
-  ai-rag-agent-architect.md          AG11  AI/RAG agent architecture
-  health-exercise-nutrition-researcher.md  AG12  Health & wellness
+  agents/
+   sdd.md                             AG13  OpenSpec change specification
+   code-reviewer.md                   AG14  Read-only implementation review
+   project-rules-auditor.md           AG15  Read-only project rules audit
+   documentation-generator.md         AG16  Documentation generation
+   harness-generator.md               AG17  Harness bootstrapping
+   skill-creator.md                   AG18  Skill generation
+   compliance-auditor.md              AG21  Compliance & audit
+   performance-optimizer.md           AG19  Performance engineering
+   release-manager.md                 AG20  Release management
+   knowledge-system-designer.md       AG01  Knowledge system architecture
+   personal-operating-system-advisor.md  AG02  Personal productivity systems
+   business-product-strategist.md     AG03  Business/product strategy
+   career-communication-advisor.md    AG04  Career & communication
+   software-architect.md              AG05  Software architecture
+   backend-data-reviewer.md           AG06  Backend/data review
+   devops-sre-advisor.md              AG07  DevOps/SRE advisory
+   code-quality-testing-reviewer.md   AG08  Code quality & testing
+   security-infrastructure-reviewer.md  AG09  Security & infrastructure
+   frontend-ux-reviewer.md            AG10  Frontend/UX review
+   ai-rag-agent-architect.md          AG11  AI/RAG agent architecture
+   health-exercise-nutrition-researcher.md  AG12  Health & wellness
 commands/
   eng-checkpoint.md
   eng-deliver.md
@@ -126,37 +130,45 @@ commands/
   eng-spec-change.md
   eng-status.md
 skills/
-  engineering-bdd-discovery/         SK19  BDD discovery
-  engineering-code-review/           SK20  Code review
-  engineering-delivery/              SK21  Delivery
-  engineering-documentation/         SK29  Documentation generation
-  engineering-incident-triage/       SK22  Incident triage
-  engineering-legacy-change/         SK23  Legacy change
-  engineering-project-bootstrap/     SK24  Project bootstrap
-  engineering-sdd-change/            SK25  SDD change
-  engineering-task-plan/             SK26  Task planning
-  engineering-tdd-first/             SK27  TDD first
-  harness-generation/                SK30  Harness generation
-  team-cowork-orchestration/         SK28  Cowork orchestration
-  worktree-lifecycle-management/     SK31  Worktree lifecycle
-  knowledge-system-design/           SK01  Knowledge system design
-  learning-plan-design/              SK02  Learning plan design
-  personal-execution-system/         SK03  Personal execution system
-  financial-organization/            SK04  Financial organization
-  product-discovery/                 SK05  Product discovery
-  leadership-feedback/               SK06  Leadership feedback
-  career-positioning/                SK07  Career positioning
-  architecture-decision/             SK08  Architecture decision
-  domain-modeling/                   SK09  Domain modeling
-  distributed-systems-review/        SK10  Distributed systems
-  api-data-design/                   SK11  API data design
-  devops-sre-diagnostics/            SK12  DevOps/SRE diagnostics
-  frontend-ux-review/                SK13  Frontend/UX review
-  code-refactoring/                  SK14  Code refactoring
-  security-review/                   SK15  Security review
-  testing-strategy/                  SK16  Testing strategy
-  rag-agent-design/                  SK17  RAG agent design
-  health-planning/                   SK18  Health planning
+   engineering-bdd-discovery/         SK19  BDD discovery
+   engineering-code-review/           SK20  Code review
+   engineering-delivery/              SK21  Delivery
+   engineering-documentation/         SK29  Documentation generation
+   engineering-incident-triage/       SK22  Incident triage
+   engineering-legacy-change/         SK23  Legacy change
+   engineering-project-bootstrap/     SK24  Project bootstrap
+   engineering-sdd-change/            SK25  SDD change
+   engineering-task-plan/             SK26  Task planning
+   engineering-tdd-first/             SK27  TDD first
+   harness-generation/                SK30  Harness generation
+   team-cowork-orchestration/         SK28  Cowork orchestration
+   worktree-lifecycle-management/     SK31  Worktree lifecycle
+   accessibility-review/              SK37  Accessibility review
+   compliance-audit/                  SK34  Compliance audit
+   database-design/                   SK35  Database design
+   localization/                      SK38  Localization
+   observability-design/              SK36  Observability design
+   performance-engineering/           SK32  Performance engineering
+   privacy-review/                    SK39  Privacy review
+   release-management/                SK33  Release management
+   knowledge-system-design/           SK01  Knowledge system design
+   learning-plan-design/              SK02  Learning plan design
+   personal-execution-system/         SK03  Personal execution system
+   financial-organization/            SK04  Financial organization
+   product-discovery/                 SK05  Product discovery
+   leadership-feedback/               SK06  Leadership feedback
+   career-positioning/                SK07  Career positioning
+   architecture-decision/             SK08  Architecture decision
+   domain-modeling/                   SK09  Domain modeling
+   distributed-systems-review/        SK10  Distributed systems
+   api-data-design/                   SK11  API data design
+   devops-sre-diagnostics/            SK12  DevOps/SRE diagnostics
+   frontend-ux-review/                SK13  Frontend/UX review
+   code-refactoring/                  SK14  Code refactoring
+   security-review/                   SK15  Security review
+   testing-strategy/                  SK16  Testing strategy
+   rag-agent-design/                  SK17  RAG agent design
+   health-planning/                   SK18  Health planning
 workflows/
   backend-safe-change.yaml
   feature-spec-to-build.yaml
@@ -199,8 +211,8 @@ Automatic JSON merging is deferred; conflicting files must be resolved manually.
 | Primary agents | 2 | `build` and `plan` (native) |
 | Mandatory global subagents | 2 | `explore`, `code-reviewer` |
 | Conditional global subagent | 1 | `scout` (when available) |
-| Harness-managed global agents | 17 | 5 process/generation agents + 12 Barsa-backed domain specialists |
-| Global skills | 31 | 13 engineering workflow/generation skills + 18 Barsa-backed domain skills |
+| Harness-managed global agents | 21 | 9 process/generation + 12 Barsa-backed domain specialists |
+| Global skills | 39 | 13 engineering workflow/generation + 26 Barsa-backed domain skills |
 | Global commands | 10 | Prefixed `eng-` |
 | Global workflows | 8 | Sequential/cowork workflow definitions |
 | Vector memory | 0 | Not used initially |

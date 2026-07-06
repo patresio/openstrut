@@ -4,20 +4,20 @@ Mapeamento dos CTX IDs para tópicos legíveis, agentes/skills associados.
 
 ## CTX14 — Software Architecture & Design
 - **Tópico:** Arquitetura de software, design patterns, decisões estruturais
-- **Agentes:** `software-architect`, `harness-generator`, `documentation-generator`, `skill-creator`
-- **Skills:** `architecture-decision`, `domain-modeling`
+- **Agentes:** `software-architect`, `harness-generator`, `documentation-generator`, `skill-creator`, `performance-optimizer`
+- **Skills:** `architecture-decision`, `domain-modeling`, `performance-engineering`, `database-design`, `localization`
 - **Bundles associados:** B01, B05
 
 ## CTX23 — Code Quality & Testing
 - **Tópico:** Qualidade de código, testes automatizados, TDD, refatoração
-- **Agentes:** `code-quality-testing-reviewer`, `code-reviewer`, `project-rules-auditor`, `skill-creator`
-- **Skills:** `testing-strategy`, `code-refactoring`, `engineering-tdd-first`
+- **Agentes:** `code-quality-testing-reviewer`, `code-reviewer`, `project-rules-auditor`, `skill-creator`, `compliance-auditor`
+- **Skills:** `testing-strategy`, `code-refactoring`, `engineering-tdd-first`, `compliance-audit`, `observability-design`, `accessibility-review`, `performance-engineering`
 - **Bundles associados:** B08, B12
 
 ## CTX27 — Engineering Workflow & Cowork
 - **Tópico:** Workflows de engenharia, trabalho colaborativo, orquestração
-- **Agentes:** `team-cowork-orchestration`, `worktree-lifecycle-management`
-- **Skills:** `team-cowork-orchestration`, `worktree-lifecycle-management`
+- **Agentes:** `team-cowork-orchestration`, `worktree-lifecycle-management`, `release-manager`
+- **Skills:** `team-cowork-orchestration`, `worktree-lifecycle-management`, `release-management`
 - **Bundles associados:** B15, B18
 
 ## CTX29 — RAG & AI Agents (Foundations)
@@ -70,8 +70,8 @@ Mapeamento dos CTX IDs para tópicos legíveis, agentes/skills associados.
 
 ## CTX20 — DevOps, SRE & Infrastructure
 - **Tópico:** Entrega contínua, confiabilidade, observabilidade, infraestrutura, Git workflow
-- **Agentes:** `devops-sre-advisor`, `team-cowork-orchestration`, `skill-creator`
-- **Skills:** `devops-sre-diagnostics`, `worktree-lifecycle-management`, `team-cowork-orchestration`, `distributed-systems-review`, `architecture-decision`
+- **Agentes:** `devops-sre-advisor`, `team-cowork-orchestration`, `skill-creator`, `performance-optimizer`, `compliance-auditor`
+- **Skills:** `devops-sre-diagnostics`, `worktree-lifecycle-management`, `team-cowork-orchestration`, `distributed-systems-review`, `architecture-decision`, `performance-engineering`, `compliance-audit`, `observability-design`, `privacy-review`
 - **Bundles associados:** B15, B18
 
 ## Notas
