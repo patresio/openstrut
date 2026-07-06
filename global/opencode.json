@@ -96,7 +96,33 @@
                     "*": "deny",
                     "engineering-*": "allow",
                     "harness-generation": "allow",
-                    "worktree-lifecycle-management": "allow"
+                    "worktree-lifecycle-management": "allow",
+                    "knowledge-system-design": "allow",
+                    "learning-plan-design": "allow",
+                    "personal-execution-system": "allow",
+                    "financial-organization": "allow",
+                    "product-discovery": "allow",
+                    "leadership-feedback": "allow",
+                    "career-positioning": "allow",
+                    "architecture-decision": "allow",
+                    "domain-modeling": "allow",
+                    "distributed-systems-review": "allow",
+                    "api-data-design": "allow",
+                    "devops-sre-diagnostics": "allow",
+                    "frontend-ux-review": "allow",
+                    "code-refactoring": "allow",
+                    "security-review": "allow",
+                    "testing-strategy": "allow",
+                    "rag-agent-design": "allow",
+                    "health-planning": "allow",
+                    "performance-engineering": "allow",
+                    "release-management": "allow",
+                    "compliance-audit": "allow",
+                    "database-design": "allow",
+                    "observability-design": "allow",
+                    "accessibility-review": "allow",
+                    "localization": "allow",
+                    "privacy-review": "allow"
                 },
                 "task": {
                     "*": "deny",
@@ -105,7 +131,24 @@
                     "code-reviewer": "allow",
                     "project-rules-auditor": "allow",
                     "documentation-generator": "allow",
-                    "harness-generator": "allow"
+                    "harness-generator": "allow",
+                    "skill-creator": "allow",
+                    "performance-optimizer": "allow",
+                    "release-manager": "allow",
+                    "compliance-auditor": "allow",
+                    "knowledge-system-designer": "allow",
+                    "personal-operating-system-advisor": "allow",
+                    "business-product-strategist": "allow",
+                    "career-communication-advisor": "allow",
+                    "software-architect": "allow",
+                    "backend-data-reviewer": "allow",
+                    "devops-sre-advisor": "allow",
+                    "code-quality-testing-reviewer": "allow",
+                    "security-infrastructure-reviewer": "allow",
+                    "frontend-ux-reviewer": "allow",
+                    "ai-rag-agent-architect": "allow",
+                    "health-exercise-nutrition-researcher": "allow",
+                    "sdd": "allow"
                 }
             }
         },
@@ -127,7 +170,8 @@
                 "task": {
                     "*": "deny",
                     "explore": "allow",
-                    "scout": "allow"
+                    "scout": "allow",
+                    "skill-creator": "allow"
                 }
             }
         },
@@ -156,6 +200,195 @@
                 "task": "deny",
                 "external_directory": "ask",
                 "bash": "deny"
+            }
+        },
+        "code-reviewer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "project-rules-auditor": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "documentation-generator": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "harness-generator": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "skill-creator": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "performance-optimizer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "release-manager": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "compliance-auditor": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "knowledge-system-designer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "personal-operating-system-advisor": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "business-product-strategist": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "career-communication-advisor": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "software-architect": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "backend-data-reviewer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "devops-sre-advisor": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "code-quality-testing-reviewer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "security-infrastructure-reviewer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "frontend-ux-reviewer": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "ai-rag-agent-architect": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "health-exercise-nutrition-researcher": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
+            }
+        },
+        "sdd": {
+            "model": "9router/combo-cheap",
+            "permission": {
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny",
+                "external_directory": "deny"
             }
         }
     }
