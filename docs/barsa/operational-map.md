@@ -7,8 +7,8 @@ Derived from `mapa_operacional.xlsx`.
 - 236 visible books in the snapshot
 - 16 aggregated official documentation sets
 - 32 semantic contexts
-- 31 specified skills (18 domain catalog + 13 harness-global engineering skills)
-- 17 specified agents (12 domain catalog + 5 harness-global agents)
+- 39 specified skills (26 domain catalog + 13 harness-global engineering skills)
+- 21 specified agents (12 domain catalog + 9 harness-global agents)
 - 24 MCP bundles
 - 12 project profiles
 

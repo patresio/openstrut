@@ -1,6 +1,44 @@
-# OpenCode Engineering Harness Changelog
+# OpenCode Engineering Changelog
 
-All changes are documented here; this file is excluded from the npm package (`references/` is excluded). Package versions are tagged by Git and used for distribution.
+All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
+
+## v0.2.0 (2026-07-06)
+
+### Added
+
+- HARNESS-019: Documentation and versioning governance (AGENTS.md, CHANGELOG.md, README.md, docs/ARCHITECTURE.md updates).
+- HARNESS-020: Normalized stale task plan statuses; hardened `opencode.json` from wildcard `"*": "allow"` to granular permissions.
+- HARNESS-021: Barsa CTX routing documentation (`docs/barsa/ctx-routing.md`).
+- HARNESS-022: Architecture Decision Records (`docs/decisions/ADR-001` through `ADR-004`).
+- HARNESS-023: Permission regression tests (`tests/global/permission-hardening.test.js` — 8 tests).
+- HARNESS-024: Global config analyzer decision (not needed; covered by existing agents).
+- HARNESS-026: `skill-creator` agent (AG18) for generating new skills following SKILL.md pattern.
+- HARNESS-027: Batch 1-3 skills and agents:
+  - 8 new skills: SK32 (performance-engineering), SK33 (release-management), SK34 (compliance-audit), SK35 (database-design), SK36 (observability-design), SK37 (accessibility-review), SK38 (localization), SK39 (privacy-review).
+  - 3 new agents: AG19 (performance-optimizer), AG20 (release-manager), AG21 (compliance-auditor).
+  - Updated inventory from 73 to 84 artifacts, 18 to 21 agents, 31 to 39 skills.
+  - Tests updated from 492 to 556 (0 fail).
+- HARNESS-028: CI workflow (GitHub Actions matrix on Node 20/22, `npm test` + `npm pack --dry-run`).
+- HARNESS-029: All 21 agents and 39 skills registered in `opencode.json` for task/skill delegation.
+
+### Changed
+
+- **Security:** `opencode.json` permission scheme hardened — removed `"*": "allow"`, replaced with `read/glob/grep/list/question: allow`, `edit/bash/skill/task/external_directory: ask`. Build agent gets `edit: allow`, plan agent gets `edit: deny`.
+- **Installer:** Ships 84 artifacts (up from 72) across `global/`, `templates/`, `workflows/`.
+- **Documentation:** `docs/barsa/agents.md`, `docs/barsa/skills.md`, `docs/barsa/ctx-routing.md` created/updated with new artifacts.
+- **Config:** `global/opencode.json` and `~/.config/opencode/opencode.json` both updated with full agent definitions and expanded task/skill permissions.
+- **CI workflow:** expanded to run `eval:deterministic` in addition to `npm test` and `npm pack --dry-run`.
+- **Test scripts:** `npm test` and `npm run test:all` now include `tests/global/permission-hardening.test.js`; `test:all` is now a true superset of `test`.
+
+### Removed
+
+- Docker Desktop Commander (`mcp/desktop-commander`) — image deleted, MCP server removed from catalog.
+- `GEMINI.md` marked as legacy — superseded by `AGENTS.md`.
+
+### Infrastructure
+
+- Repository published to `github.com/patresio/opencode-engineering-harness` (private).
+- CI pipeline (GitHub Actions) operational — 556 tests pass, package validates on Node 20 and 22.
 
 ## v0.1.0 (2026-06-16)
 

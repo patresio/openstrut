@@ -9,8 +9,8 @@ The harness must organize agents, skills, commands, workflows, and templates int
 
 ## Decision
 - **Global artifacts** under `global/`:
-  - `agents/` — agent definitions (17 agents: AG01-AG17)
-  - `skills/` — skill definitions (31 skills: SK01-SK31)
+  - `agents/` — agent definitions (21 agents: AG01-AG21)
+  - `skills/` — skill definitions (39 skills: SK01-SK39)
   - `commands/` — command definitions (10 eng-* commands)
 - **Workflows** under `workflows/` (8 workflow YAML files)
 - **Templates** under `templates/project/` (project bootstrap scaffold)

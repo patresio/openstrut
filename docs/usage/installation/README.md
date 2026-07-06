@@ -18,7 +18,7 @@ cd /srv/projects/opencode-engineering-harness
 npm pack
 ```
 
-This creates `patrese-opencode-engineering-harness-0.1.0.tgz` in the current directory.
+This creates `patrese-opencode-engineering-harness-0.2.0.tgz` in the current directory.
 
 ### 2. Transfer to the client
 
@@ -50,7 +50,7 @@ opencode-engineering-harness --version
 opencode-engineering-harness --help
 ```
 
-Expected output shows version `0.1.0` and available commands.
+Expected output shows version `0.2.0` and available commands.
 
 ### 6. Install harness artifacts into OpenCode
 
@@ -58,7 +58,7 @@ Expected output shows version `0.1.0` and available commands.
 # Review what will be installed
 opencode-engineering-harness plan
 
-# Install 72 managed artifacts into ~/.config/opencode
+# Install 84 managed artifacts into ~/.config/opencode
 opencode-engineering-harness install
 
 # Verify everything matches
@@ -88,16 +88,17 @@ After `install`, the following artifacts are materialized under `~/.config/openc
 | Category | Count | Contents |
 |---|---|---|
 | Root config | 2 | `AGENTS.md`, `opencode.json` |
-| Agents | 17 | sdd, code-reviewer, project-rules-auditor, documentation-generator, harness-generator, 12 domain specialists |
+| Agent Count | 21 | sdd, code-reviewer, project-rules-auditor, documentation-generator, harness-generator, skill-creator, performance-optimizer, release-manager, compliance-auditor, 12 domain specialists |
 | Commands | 10 | `eng-*` workflow commands |
-| Skills | 31 | engineering-*, harness-generation, worktree-lifecycle-management, 18 domain skills |
+| Skills | 39 | 13 engineering skills + 26 domain skills |
 | Workflows | 8 | sequential and cowork workflow definitions |
 | Templates | 4 | project bootstrap scaffold |
 
 The `opencode.json` includes:
 
 - **Barsa MCP** configured via `{env:BARSA_MCP}` for documentation retrieval
-- **Skill allowlist**: `engineering-*`, `harness-generation`, `worktree-lifecycle-management`
+- **Skill allowlist**: all 39 skills permitted for build agent
+- **Task allowlist**: all 21 agents permitted for build agent
 - **Task delegation**: `explore`, `scout`, `code-reviewer`, `project-rules-auditor`, `documentation-generator`, `harness-generator`
 
 ## Troubleshooting

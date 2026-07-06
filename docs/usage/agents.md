@@ -6,9 +6,9 @@ This page documents agents available after installing the harness and explains w
 
 `mapa_operacional.xlsx` was processed into reviewed Barsa documentation under `docs/barsa/`:
 
-- `docs/barsa/agents.md` records 12 proposed domain-agent designs from sheet `04_AGENTS`, plus 5 harness-global agents now mirrored into the spreadsheet as `AG13`–`AG17`.
-- `docs/barsa/skills.md` records 18 domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills mirrored into the spreadsheet as `SK19`–`SK31`.
-- `docs/barsa/operational-map.md` records the operational map summary: 236 books, 16 official doc sets, 32 contexts, 31 skills, 17 agents, 24 bundles, and 12 project profiles.
+- `docs/barsa/agents.md` records 12 proposed domain-agent designs from sheet `04_AGENTS`, plus 9 harness-global agents now mirrored into the spreadsheet as `AG13`–`AG21`.
+- `docs/barsa/skills.md` records 26 domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills mirrored into the spreadsheet as `SK19`–`SK31`.
+- `docs/barsa/operational-map.md` records the operational map summary: 236 books, 16 official doc sets, 32 contexts, 39 skills, 21 agents, 24 bundles, and 12 project profiles.
 
 The original domain catalog is now materialized for global runtime installation. Runtime prompts must use Barsa MCP logical routing keys—collection, context, bundle, project profile, skill ID, or agent ID—instead of filesystem source paths.
 
@@ -19,9 +19,9 @@ OpenCode provides two native primary agents:
 - `build` — default implementation agent with mutation capability.
 - `plan` — read-only planning and exploration agent.
 
-The harness currently ships 17 managed agents in `global/agents/`:
+The harness currently ships 21 managed agents in `global/agents/`:
 
-- 5 harness process/generation agents: `sdd`, `code-reviewer`, `project-rules-auditor`, `documentation-generator`, `harness-generator`
+- 9 harness process/generation agents: `sdd`, `code-reviewer`, `project-rules-auditor`, `documentation-generator`, `harness-generator`, `skill-creator`, `performance-optimizer`, `release-manager`, `compliance-auditor`
 - 12 Barsa-backed domain specialist agents: `AG01`–`AG12`
 
 ## Native OpenCode Agents

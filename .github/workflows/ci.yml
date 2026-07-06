@@ -19,3 +19,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm test
       - run: npm pack --dry-run --ignore-scripts
+      - run: node evals/runner/run.js --layer deterministic

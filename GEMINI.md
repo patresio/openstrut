@@ -1,4 +1,9 @@
-# Antigravity Engineering Instructions
+# Antigravity Engineering Instructions [LEGACY — SUPERSEDED BY AGENTS.md]
+
+> ⚠️ **This file is legacy.** The canonical project instructions are in `AGENTS.md`.
+> Content here may be stale or contradict `AGENTS.md`, `CONTRIBUTING.md`,
+> `docs/ARCHITECTURE.md`, and other governing documents.
+> It is preserved for reference only and will be removed in a future release.
 
 ## Project Purpose
 

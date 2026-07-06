@@ -6,11 +6,11 @@ This page documents the global engineering skills shipped by the harness and exp
 
 `mapa_operacional.xlsx` was transformed into reviewed Barsa-facing summaries under `docs/barsa/`.
 
-- `docs/barsa/skills.md` records 18 proposed domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills now mirrored into the spreadsheet as `SK19`–`SK31`.
-- `docs/barsa/agents.md` records 12 proposed domain-agent contracts from sheet `04_AGENTS`, plus 5 harness-global agents mirrored as `AG13`–`AG17`.
+- `docs/barsa/skills.md` records 26 proposed domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills now mirrored into the spreadsheet as `SK19`–`SK31`.
+- `docs/barsa/agents.md` records 12 proposed domain-agent contracts from sheet `04_AGENTS`, plus 9 harness-global agents mirrored as `AG13`–`AG21`.
 - `docs/barsa/operational-map.md` records the routing layers and recommended pilot path.
 
-The original domain skills were **not** installed as harness-global runtime skills. The current global skills are engineering workflow skills only. They are now present in the spreadsheet for catalog completeness. Domain skills remain curated backlog until they have explicit runtime contracts and evaluated need.
+All 39 skills (13 engineering workflow + 26 domain) are now installed as harness-global runtime skills under `global/skills/`.
 
 ## What Is a Skill in This Harness?
 
@@ -30,9 +30,9 @@ A skill is best when:
 - permission model should stay with the current agent;
 - the task benefits from a reliable sequence.
 
-## Current Global Engineering Skills
+## Current Global Skills
 
-The harness currently ships 13 global engineering skills in `global/skills/`:
+The harness currently ships 39 skills in `global/skills/`:
 
 - `engineering-bdd-discovery`
 - `engineering-code-review`
@@ -47,6 +47,32 @@ The harness currently ships 13 global engineering skills in `global/skills/`:
 - `harness-generation`
 - `team-cowork-orchestration`
 - `worktree-lifecycle-management`
+- `knowledge-system-design`
+- `learning-plan-design`
+- `personal-execution-system`
+- `financial-organization`
+- `product-discovery`
+- `leadership-feedback`
+- `career-positioning`
+- `architecture-decision`
+- `domain-modeling`
+- `distributed-systems-review`
+- `api-data-design`
+- `devops-sre-diagnostics`
+- `frontend-ux-review`
+- `code-refactoring`
+- `security-review`
+- `testing-strategy`
+- `rag-agent-design`
+- `health-planning`
+- `performance-engineering`
+- `release-management`
+- `compliance-audit`
+- `database-design`
+- `observability-design`
+- `accessibility-review`
+- `localization`
+- `privacy-review`
 
 ## Detailed Skill Reference
 
