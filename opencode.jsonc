@@ -1,0 +1,561 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "trust-lead",
+
+  "instructions": [
+    "docs/opencode/TEAM_TOPOLOGY.md",
+    "docs/opencode/WORKFLOW.md",
+    "docs/opencode/TASK_CONTRACT.md",
+    "docs/opencode/PERMISSIONS.md",
+    "docs/opencode/OBSERVABILITY.md",
+    "docs/opencode/OPERATIONAL_RETRIEVAL_MAP.md",
+    "docs/opencode/REFERENCE_PROFILES.md"
+  ],
+
+  "references": {
+    "reference-map": {
+      "path": "docs/opencode/reference-map",
+      "description": "OpenTrust Reference Library — selector definitions and team-context matrix for the Operational Retrieval Map"
+    },
+    "docs-opencode": {
+      "path": "docs/opencode",
+      "description": "OpenTrust foundation documentation — team topology, workflow, contracts, permissions, retrieval architecture"
+    }
+  },
+
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".git/**",
+      ".venv/**",
+      "__pycache__/**",
+      ".pytest_cache/**",
+      ".mypy_cache/**",
+      ".ruff_cache/**"
+    ]
+  },
+
+  "permission": {
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "question": "allow",
+    "external_directory": "ask",
+    "doom_loop": "ask",
+    "skill": "ask"
+  },
+
+  "agent": {
+    "trust-lead": {
+      "description": "Coordinates cross-team communication, decision logging, meeting facilitation, and overall process health",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "product-lead": {
+      "description": "Product strategy, discovery, requirements, acceptance criteria, and story slicing",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "architecture-lead": {
+      "description": "Structural decisions, domain modeling, API contracts, database schemas, distributed systems, and ADRs",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow",
+          "docs/decisions/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "engineering-lead": {
+      "description": "Implementation, refactoring, performance, security, and privacy — primary implementation team lead",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "quality-lead": {
+      "description": "Test strategy, TDD, integration tests, end-to-end tests, and quality gates",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow"
+        },
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "review-lead": {
+      "description": "Independent review, compliance, frontend/UX review, and accessibility — gating function before delivery",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "devops-lead": {
+      "description": "CI/CD, infrastructure, observability, and incident response",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "delivery-lead": {
+      "description": "Release management, versioning, changelog, and deployment coordination",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git branch --show-current": "allow",
+          "git remote -v": "allow",
+          "git push*": "ask"
+        },
+        "task": "allow"
+      }
+    },
+    "knowledge-lead": {
+      "description": "Context retrieval, reference library management, documentation generation, and skill creation",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow",
+          ".opencode/skills/**": "allow",
+          ".opencode/agents/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+
+    "coordination-facilitator": {
+      "description": "Facilitates cross-team coordination and communication",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "meeting-scribe": {
+      "description": "Records meeting notes, decisions, and action items",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "decision-logger": {
+      "description": "Logs and tracks team decisions and their rationale",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "product-discovery": {
+      "description": "Conducts product discovery and user research",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "requirements-analyzer": {
+      "description": "Analyzes and structures requirements from stakeholder input",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "story-slicer": {
+      "description": "Slices features into small, incremental, deliverable stories",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "architecture-decision-designer": {
+      "description": "Designs and documents architecture decisions with trade-off analysis",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "domain-modeler": {
+      "description": "Models business domains, bounded contexts, aggregates, and domain language",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "api-database-designer": {
+      "description": "Designs API contracts, database schemas, migrations, and integration patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "distributed-systems-reviewer": {
+      "description": "Reviews consistency, concurrency, failure modes, and recovery patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "feature-implementer": {
+      "description": "Implements new features following existing patterns and architecture",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "code-refactoring-specialist": {
+      "description": "Refactors code incrementally with behavior preservation",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": {
+          "npm test*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "performance-engineer": {
+      "description": "Analyzes, profiles, and optimizes system performance",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "src/**": "allow",
+          "tests/**": "allow"
+        },
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "security-reviewer": {
+      "description": "Reviews code for security vulnerabilities and threats",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "privacy-reviewer": {
+      "description": "Reviews data handling, PII, consent, and privacy compliance",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "tdd-engineer": {
+      "description": "Applies RED-GREEN-REFACTOR cycle for test-driven development",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow",
+          "src/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "node --test*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "integration-tester": {
+      "description": "Designs and runs integration tests across component boundaries",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "node --test*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "testing-strategy-designer": {
+      "description": "Designs testing strategies and selects appropriate test levels",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow",
+          "docs/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "code-reviewer": {
+      "description": "Performs independent code review of implementation diffs",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "compliance-auditor": {
+      "description": "Audits compliance with licenses, policies, and regulations",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "ux-accessibility-reviewer": {
+      "description": "Reviews user experience, accessibility (WCAG, ARIA), and interface consistency",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "ci-cd-infrastructure-engineer": {
+      "description": "Designs CI/CD pipelines and manages infrastructure as code",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          "Dockerfile*": "allow",
+          "docker-compose*": "allow"
+        },
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "observability-designer": {
+      "description": "Designs metrics, traces, logs, dashboards, alerts, and SLOs",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "incident-triage-specialist": {
+      "description": "Diagnoses, contains, and recovers from production incidents",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git log*": "allow",
+          "journalctl*": "ask",
+          "systemctl*": "ask"
+        },
+        "task": "deny"
+      }
+    },
+    "release-manager": {
+      "description": "Manages releases, versioning, semantic versioning, and changelog",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "CHANGELOG.md": "allow",
+          "docs/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git tag*": "ask",
+          "npm version*": "ask",
+          "npm pack*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "changelog-writer": {
+      "description": "Writes and maintains changelog entries from commit history",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "CHANGELOG.md": "allow"
+        },
+        "bash": {
+          "git log*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "context-historian": {
+      "description": "Tracks context usage, selector queries, and retrieval patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "reference-librarian": {
+      "description": "Maintains reference maps, selector definitions, and knowledge indexes",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/reference-map/**": "allow"
+        },
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "documentation-skill-creator": {
+      "description": "Generates documentation and creates reusable skills following SKILL.md standard",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/**": "allow",
+          ".opencode/skills/**": "allow"
+        },
+        "bash": "deny",
+        "task": "deny"
+      }
+    }
+  }
+}
