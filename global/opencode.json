@@ -1,395 +1,628 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "default_agent": "build",
-    "share": "disabled",
-    "snapshot": true,
-    "autoupdate": "notify",
-    "compaction": {
-        "auto": true
-    },
-    "model": "9router/combo-main",
-    "small_model": "9router/combo-cheap",
-    "provider": {
-        "9router": {
-            "npm": "@ai-sdk/openai-compatible",
-            "name": "9Router Homelab",
-            "options": {
-                "baseURL": "{env:BASE_URL_9ROUTER}",
-                "apiKey": "{file:~/.local/share/opencode/secrets/9router-api-key}"
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "snapshot": true,
+  "autoupdate": "notify",
+  "compaction": {
+    "auto": true
+  },
+  "model": "9router/combo-main",
+  "small_model": "9router/combo-cheap",
+  "provider": {
+    "9router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "9Router Homelab",
+      "options": {
+        "baseURL": "{env:BASE_URL_9ROUTER}",
+        "apiKey": "{file:~/.local/share/opencode/secrets/9router-api-key}"
+      },
+      "models": {
+        "combo-main": {
+          "name": "combo-main",
+          "variants": {
+            "high": {
+              "reasoningEffort": "high",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
             },
-            "models": {
-                "combo-main": {
-                    "name": "combo-main",
-                    "variants": {
-                        "high": {
-                            "reasoningEffort": "high",
-                            "textVerbosity": "low",
-                            "reasoningSummary": "auto"
-                        },
-                        "low": {
-                            "reasoningEffort": "low",
-                            "textVerbosity": "low",
-                            "reasoningSummary": "auto"
-                        }
-                    },
-                    "modalities": {
-                        "input": [
-                            "text",
-                            "image"
-                        ],
-                        "output": [
-                            "text"
-                        ]
-                    }
-                },
-                "combo-cheap": {
-                    "name": "combo-cheap",
-                    "options": {
-                        "thinking": {
-                            "type": "enabled",
-                            "budgetTokens": 16000
-                        }
-                    },
-                    "modalities": {
-                        "input": [
-                            "text",
-                            "image"
-                        ],
-                        "output": [
-                            "text"
-                        ]
-                    }
-                }
+            "low": {
+              "reasoningEffort": "low",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto"
             }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "combo-cheap": {
+          "name": "combo-cheap",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 16000
+            }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
         }
-    },
-    "mcp": {
-        "homelab-ai-coding": {
-            "type": "remote",
-            "url": "{env:HOMELAB_AI_CODING_MCP_URL}"
-        },
-        "barsa": {
-            "type": "remote",
-            "url": "{env:BARSA_MCP}",
-            "enabled": true
-        }
-    },
-    "permission": {
-        "read": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "question": "allow",
-        "external_directory": "ask",
-        "skill": "deny",
-        "task": "deny",
-        "bash": "ask",
-        "edit": "ask"
-    },
-    "agent": {
-        "build": {
-            "mode": "primary",
-            "model": "9router/combo-main",
-            "permission": {
-                "edit": "allow",
-                "skill": {
-                    "*": "deny",
-                    "engineering-*": "allow",
-                    "harness-generation": "allow",
-                    "worktree-lifecycle-management": "allow",
-                    "knowledge-system-design": "allow",
-                    "learning-plan-design": "allow",
-                    "personal-execution-system": "allow",
-                    "financial-organization": "allow",
-                    "product-discovery": "allow",
-                    "leadership-feedback": "allow",
-                    "career-positioning": "allow",
-                    "architecture-decision": "allow",
-                    "domain-modeling": "allow",
-                    "distributed-systems-review": "allow",
-                    "api-data-design": "allow",
-                    "devops-sre-diagnostics": "allow",
-                    "frontend-ux-review": "allow",
-                    "code-refactoring": "allow",
-                    "security-review": "allow",
-                    "testing-strategy": "allow",
-                    "rag-agent-design": "allow",
-                    "health-planning": "allow",
-                    "performance-engineering": "allow",
-                    "release-management": "allow",
-                    "compliance-audit": "allow",
-                    "database-design": "allow",
-                    "observability-design": "allow",
-                    "accessibility-review": "allow",
-                    "localization": "allow",
-                    "privacy-review": "allow"
-                },
-                "task": {
-                    "*": "deny",
-                    "explore": "allow",
-                    "scout": "allow",
-                    "code-reviewer": "allow",
-                    "project-rules-auditor": "allow",
-                    "documentation-generator": "allow",
-                    "harness-generator": "allow",
-                    "skill-creator": "allow",
-                    "performance-optimizer": "allow",
-                    "release-manager": "allow",
-                    "compliance-auditor": "allow",
-                    "knowledge-system-designer": "allow",
-                    "personal-operating-system-advisor": "allow",
-                    "business-product-strategist": "allow",
-                    "career-communication-advisor": "allow",
-                    "software-architect": "allow",
-                    "backend-data-reviewer": "allow",
-                    "devops-sre-advisor": "allow",
-                    "code-quality-testing-reviewer": "allow",
-                    "security-infrastructure-reviewer": "allow",
-                    "frontend-ux-reviewer": "allow",
-                    "ai-rag-agent-architect": "allow",
-                    "health-exercise-nutrition-researcher": "allow",
-                    "sdd": "allow"
-                }
-            }
-        },
-        "plan": {
-            "mode": "primary",
-            "model": "opencode/deepseek-v4-flash-free",
-            "permission": {
-                "edit": "deny",
-                "bash": {
-                    "*": "deny",
-                    "git status*": "allow",
-                    "git diff*": "allow",
-                    "git log*": "allow",
-                    "git show*": "allow",
-                    "git branch --show-current": "allow",
-                    "git remote -v": "allow",
-                    "git worktree list*": "allow"
-                },
-                "task": {
-                    "*": "deny",
-                    "explore": "allow",
-                    "scout": "allow",
-                    "skill-creator": "allow"
-                }
-            }
-        },
-        "explore": {
-            "model": "opencode/mimo-v2.5-free",
-            "permission": {
-                "edit": "deny",
-                "task": "deny",
-                "external_directory": "deny",
-                "bash": {
-                    "*": "deny",
-                    "git status*": "allow",
-                    "git diff*": "allow",
-                    "git log*": "allow",
-                    "git show*": "allow",
-                    "git branch --show-current": "allow",
-                    "git remote -v": "allow",
-                    "git worktree list*": "allow"
-                }
-            }
-        },
-        "scout": {
-            "model": "opencode/mimo-v2.5-free",
-            "permission": {
-                "edit": "deny",
-                "task": "deny",
-                "external_directory": "ask",
-                "bash": "deny"
-            }
-        },
-        "code-reviewer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "project-rules-auditor": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "documentation-generator": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "harness-generator": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "skill-creator": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "performance-optimizer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "release-manager": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "compliance-auditor": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "knowledge-system-designer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "personal-operating-system-advisor": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "business-product-strategist": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "career-communication-advisor": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "software-architect": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "backend-data-reviewer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "devops-sre-advisor": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "code-quality-testing-reviewer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "security-infrastructure-reviewer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "frontend-ux-reviewer": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "ai-rag-agent-architect": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "health-exercise-nutrition-researcher": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        },
-        "sdd": {
-            "model": "9router/combo-cheap",
-            "permission": {
-                "edit": "deny",
-                "bash": "deny",
-                "task": "deny",
-                "external_directory": "deny"
-            }
-        }
+      }
     }
+  },
+  "mcp": {
+    "homelab-ai-coding": {
+      "type": "remote",
+      "url": "{env:HOMELAB_AI_CODING_MCP_URL}"
+    },
+    "barsa": {
+      "type": "remote",
+      "url": "{env:BARSA_MCP}",
+      "enabled": true
+    }
+  },
+  "default_agent": "trust-lead",
+  "instructions": [
+    "docs/opencode/TEAM_TOPOLOGY.md",
+    "docs/opencode/WORKFLOW.md",
+    "docs/opencode/TASK_CONTRACT.md",
+    "docs/opencode/PERMISSIONS.md",
+    "docs/opencode/OBSERVABILITY.md",
+    "docs/opencode/OPERATIONAL_RETRIEVAL_MAP.md",
+    "docs/opencode/REFERENCE_PROFILES.md"
+  ],
+  "references": {
+    "reference-map": {
+      "path": "docs/opencode/reference-map",
+      "description": "OpenTrust Reference Library \u2014 selector definitions and team-context matrix for the Operational Retrieval Map"
+    },
+    "docs-opencode": {
+      "path": "docs/opencode",
+      "description": "OpenTrust foundation documentation \u2014 team topology, workflow, contracts, permissions, retrieval architecture"
+    }
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".git/**",
+      ".venv/**",
+      "__pycache__/**",
+      ".pytest_cache/**",
+      ".mypy_cache/**",
+      ".ruff_cache/**"
+    ]
+  },
+  "permission": {
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "question": "allow",
+    "external_directory": "ask",
+    "doom_loop": "ask",
+    "skill": "ask"
+  },
+  "agent": {
+    "trust-lead": {
+      "description": "Coordinates cross-team communication, decision logging, meeting facilitation, and overall process health",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "product-lead": {
+      "description": "Product strategy, discovery, requirements, acceptance criteria, and story slicing",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "architecture-lead": {
+      "description": "Structural decisions, domain modeling, API contracts, database schemas, distributed systems, and ADRs",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow",
+          "docs/decisions/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "engineering-lead": {
+      "description": "Implementation, refactoring, performance, security, and privacy \u2014 primary implementation team lead",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "quality-lead": {
+      "description": "Test strategy, TDD, integration tests, end-to-end tests, and quality gates",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow"
+        },
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "review-lead": {
+      "description": "Independent review, compliance, frontend/UX review, and accessibility \u2014 gating function before delivery",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "devops-lead": {
+      "description": "CI/CD, infrastructure, observability, and incident response",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": "allow",
+        "task": "allow"
+      }
+    },
+    "delivery-lead": {
+      "description": "Release management, versioning, changelog, and deployment coordination",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git branch --show-current": "allow",
+          "git remote -v": "allow",
+          "git push*": "ask"
+        },
+        "task": "allow"
+      }
+    },
+    "knowledge-lead": {
+      "description": "Context retrieval, reference library management, documentation generation, and skill creation",
+      "mode": "primary",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/**": "allow",
+          ".opencode/skills/**": "allow",
+          ".opencode/agents/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch --show-current": "allow"
+        },
+        "task": "allow"
+      }
+    },
+    "coordination-facilitator": {
+      "description": "Facilitates cross-team coordination and communication",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "meeting-scribe": {
+      "description": "Records meeting notes, decisions, and action items",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "decision-logger": {
+      "description": "Logs and tracks team decisions and their rationale",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "product-discovery": {
+      "description": "Conducts product discovery and user research",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "requirements-analyzer": {
+      "description": "Analyzes and structures requirements from stakeholder input",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "story-slicer": {
+      "description": "Slices features into small, incremental, deliverable stories",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "architecture-decision-designer": {
+      "description": "Designs and documents architecture decisions with trade-off analysis",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "domain-modeler": {
+      "description": "Models business domains, bounded contexts, aggregates, and domain language",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "api-database-designer": {
+      "description": "Designs API contracts, database schemas, migrations, and integration patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "distributed-systems-reviewer": {
+      "description": "Reviews consistency, concurrency, failure modes, and recovery patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "feature-implementer": {
+      "description": "Implements new features following existing patterns and architecture",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "code-refactoring-specialist": {
+      "description": "Refactors code incrementally with behavior preservation",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": {
+          "npm test*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "performance-engineer": {
+      "description": "Analyzes, profiles, and optimizes system performance",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "src/**": "allow",
+          "tests/**": "allow"
+        },
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "security-reviewer": {
+      "description": "Reviews code for security vulnerabilities and threats",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "privacy-reviewer": {
+      "description": "Reviews data handling, PII, consent, and privacy compliance",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "tdd-engineer": {
+      "description": "Applies RED-GREEN-REFACTOR cycle for test-driven development",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow",
+          "src/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "node --test*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "integration-tester": {
+      "description": "Designs and runs integration tests across component boundaries",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "node --test*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "testing-strategy-designer": {
+      "description": "Designs testing strategies and selects appropriate test levels",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "tests/**": "allow",
+          "docs/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "code-reviewer": {
+      "description": "Performs independent code review of implementation diffs",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "compliance-auditor": {
+      "description": "Audits compliance with licenses, policies, and regulations",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "ux-accessibility-reviewer": {
+      "description": "Reviews user experience, accessibility (WCAG, ARIA), and interface consistency",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "ci-cd-infrastructure-engineer": {
+      "description": "Designs CI/CD pipelines and manages infrastructure as code",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          "Dockerfile*": "allow",
+          "docker-compose*": "allow"
+        },
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
+    "observability-designer": {
+      "description": "Designs metrics, traces, logs, dashboards, alerts, and SLOs",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          ".github/**": "allow",
+          "scripts/**": "allow",
+          ".opencode/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "incident-triage-specialist": {
+      "description": "Diagnoses, contains, and recovers from production incidents",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git log*": "allow",
+          "journalctl*": "ask",
+          "systemctl*": "ask"
+        },
+        "task": "deny"
+      }
+    },
+    "release-manager": {
+      "description": "Manages releases, versioning, semantic versioning, and changelog",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "CHANGELOG.md": "allow",
+          "docs/**": "allow"
+        },
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git tag*": "ask",
+          "npm version*": "ask",
+          "npm pack*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "changelog-writer": {
+      "description": "Writes and maintains changelog entries from commit history",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "CHANGELOG.md": "allow"
+        },
+        "bash": {
+          "git log*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow"
+        },
+        "task": "deny"
+      }
+    },
+    "context-historian": {
+      "description": "Tracks context usage, selector queries, and retrieval patterns",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "reference-librarian": {
+      "description": "Maintains reference maps, selector definitions, and knowledge indexes",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/opencode/reference-map/**": "allow"
+        },
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "documentation-skill-creator": {
+      "description": "Generates documentation and creates reusable skills following SKILL.md standard",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": {
+          "docs/**": "allow",
+          ".opencode/skills/**": "allow"
+        },
+        "bash": "deny",
+        "task": "deny"
+      }
+    }
+  }
 }
