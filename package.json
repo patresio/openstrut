@@ -1,11 +1,11 @@
 {
-  "name": "@patrese/opencode-engineering-harness",
+  "name": "@patrese/openstrut",
   "version": "0.2.0",
   "private": true,
-  "description": "A versioned, auditable engineering harness and safe installer for OpenCode.",
+  "description": "A versioned, auditable engineering harness and safe installer for OpenCode — now OpenStrut.",
   "type": "module",
   "bin": {
-    "opencode-engineering-harness": "./bin/opencode-engineering-harness.js"
+    "openstrut": "./bin/openstrut.js"
   },
   "files": [
     "bin",

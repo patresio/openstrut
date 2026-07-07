@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * OpenCode Engineering Harness CLI
+ * OpenStrut CLI
  *
  * Commands:
  *   plan     Read-only inspection of what would be installed
@@ -46,10 +46,10 @@ import { INVENTORY } from '../src/installer/inventory.js';
 const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow']);
 
 const USAGE = `
-OpenCode Engineering Harness v${pkg.version}
+OpenStrut v${pkg.version}
 
 Usage:
-  opencode-engineering-harness <command> [options]
+  openstrut <command> [options]
 
 Commands:
   plan              Show what would be installed or changed (read-only)

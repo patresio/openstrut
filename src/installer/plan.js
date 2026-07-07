@@ -15,6 +15,7 @@ import {
   resolveTarget,
   validateTargetRootNotSymlinked,
   validateTargetNotPackageRoot,
+  MANIFEST_DIR,
 } from './target.js';
 
 /**
@@ -63,8 +64,8 @@ export function computePlan(opts) {
   let manifestConflict = null;
   if (manifestStateResult.state === 'invalid' || manifestStateResult.state === 'unsafe') {
     manifestConflict = {
-      source: `.engineering-harness/${manifestStateResult.state}`,
-      target: '.engineering-harness/installation.json',
+      source: `${MANIFEST_DIR}/${manifestStateResult.state}`,
+      target: `${MANIFEST_DIR}/installation.json`,
       absoluteTarget: '',
       class: /** @type {import('./classify.js').ArtifactClass} */ ('invalid-target'),
       sourceChecksum: '',

@@ -19,7 +19,7 @@ describe('package distribution metadata', () => {
   });
 
   it('keeps CLI bin entry', () => {
-    assert.equal(pkg.bin['opencode-engineering-harness'], './bin/opencode-engineering-harness.js');
+    assert.equal(pkg.bin['openstrut'], './bin/openstrut.js');
   });
 
   it('keeps package private until explicit publish approval', () => {

@@ -1,7 +1,7 @@
 # Architecture
 
-This document is the canonical reference for the current system structure of the
-OpenCode Engineering Harness.
+This document is the canonical reference for the current system structure of
+OpenStrut (formerly OpenCode Engineering Harness).
 
 Active design proposals are in `docs/design/`.  
 Accepted architectural decisions are in `docs/decisions/`.
@@ -45,7 +45,7 @@ They must not be conflated.
 
 ```text
 bin/
-  opencode-engineering-harness.js  CLI entry point
+  openstrut.js  CLI entry point
 
 src/
   installer/                       Installer modules (inventory, classify, install, check, plan, manifest, target, output)
@@ -179,7 +179,7 @@ workflows/
   rag-feature-sequential.yaml
   team-cowork-worktree.yaml
 templates/project/                   Bootstrap scaffold for runtime access
-.engineering-harness/installation.json  Installation manifest with checksums
+.openstrut/installation.json  Installation manifest with checksums
 ```
 
 The installer treats `opencode.json` as a managed artifact and blocks on unmanaged conflicts.

@@ -1,4 +1,4 @@
-# OpenCode Engineering Changelog
+# OpenStrut Changelog (formerly OpenCode Engineering Harness)
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
@@ -37,7 +37,7 @@ All changes are documented here; this file is excluded from the npm package. Pac
 
 ### Infrastructure
 
-- Repository published to `github.com/patresio/opencode-engineering-harness` (private).
+- Repository published to `github.com/patresio/openstrut` (private).
 - CI pipeline (GitHub Actions) operational — 556 tests pass, package validates on Node 20 and 22.
 
 ## v0.1.0 (2026-06-16)

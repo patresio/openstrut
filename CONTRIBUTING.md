@@ -1,6 +1,6 @@
 # Contributing
 
-This document describes the mechanics of contributing to the OpenCode Engineering Harness.
+This document describes the mechanics of contributing to OpenStrut.
 
 ---
 
@@ -28,7 +28,7 @@ Not yet allowed:
 
 All work must remain inside the repository root:
 
-`/srv/projects/opencode-engineering-harness`
+`/srv/projects/openstrut`
 
 Do not modify `~/.config/opencode`, other projects, or external directories.
 
@@ -153,7 +153,7 @@ Files under `references/` are **read-only research material**.
 
 ## Package
 
-The package is `@patrese/opencode-engineering-harness`, `"private": true`.
+The package is `@patrese/openstrut`, `"private": true`.
 
 Do not publish to any registry without explicit approval.
 
@@ -175,12 +175,12 @@ Releases are automated via `.github/workflows/release.yml`.
 One-liner install:
 
 ```bash
-curl -sfL https://raw.githubusercontent.com/patresio/opencode-engineering-harness/main/scripts/install.sh | bash
+curl -sfL https://raw.githubusercontent.com/patresio/openstrut/main/scripts/install.sh | bash
 ```
 
 Manual install from latest release:
 
 ```bash
-npm install -g @patrese/opencode-engineering-harness
-opencode-engineering-harness install
+npm install -g @patrese/openstrut
+openstrut install
 ```

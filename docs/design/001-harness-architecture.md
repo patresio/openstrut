@@ -847,13 +847,13 @@ O livro de AI Engineering destaca que agentes introduzem falhas próprias de pla
 Nome sugerido:
 
 ```text
-opencode-engineering-harness
+openstrut
 ```
 
 Estrutura:
 
 ```text
-opencode-engineering-harness/
+openstrut/
 ├── global/
 │   ├── AGENTS.md
 │   ├── opencode.json
@@ -903,14 +903,14 @@ opencode-engineering-harness/
 
 ## Scripts
 
-Os scripts shell previstos aqui foram substituídos pelo CLI Node em `bin/opencode-engineering-harness.js` e pelos scripts de `package.json`.
+Os scripts shell previstos aqui foram substituídos pelo CLI Node em `bin/openstrut.js` e pelos scripts de `package.json`.
 
 Comandos atuais:
 
-- `opencode-engineering-harness plan`;
-- `opencode-engineering-harness install`;
-- `opencode-engineering-harness check`;
-- `opencode-engineering-harness generate-manifest`;
+- `openstrut plan`;
+- `openstrut install`;
+- `openstrut check`;
+- `openstrut generate-manifest`;
 - `npm test`;
 - `npm run test:evals`;
 - `npm run eval:deterministic`;
@@ -1095,4 +1095,4 @@ Ao final teremos:
 - testes para o próprio comportamento dos agentes;
 - nenhuma dependência de frameworks terceiros de agentes.
 
-O primeiro microincremento é **ajustar definitivamente o `AGENTS.md` e criar o esqueleto versionado do `opencode-engineering-harness`**, sem ainda implementar agents, skills ou commands.
+O primeiro microincremento é **ajustar definitivamente o `AGENTS.md` e criar o esqueleto versionado do `openstrut`**, sem ainda implementar agents, skills ou commands.

@@ -120,7 +120,7 @@ function installHarness(repoRoot, tmpPkg, xdgConfigHome) {
 
   const installerPath = path.join(
     tmpPkg,
-    'node_modules/@patrese/opencode-engineering-harness/bin/opencode-engineering-harness.js'
+    'node_modules/@patrese/openstrut/bin/openstrut.js'
   );
 
   try {

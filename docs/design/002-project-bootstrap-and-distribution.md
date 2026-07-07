@@ -239,24 +239,24 @@ O npm permite executar via `npx` ou `npm exec` um pacote obtido do registry, de 
 Nome sugerido:
 
 ```text
-@patrese/opencode-engineering-harness
+@patrese/openstrut
 ```
 
 Binário:
 
 ```text
-opencode-engineering-harness
+openstrut
 ```
 
 Exemplo:
 
 ```json
 {
-  "name": "@patrese/opencode-engineering-harness",
+  "name": "@patrese/openstrut",
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "opencode-engineering-harness": "./bin/opencode-engineering-harness.js"
+    "openstrut": "./bin/openstrut.js"
   }
 }
 ```
@@ -268,7 +268,7 @@ Com registry privado:
 ```bash
 npx --yes \
   --registry=https://npm.seu-homelab \
-  @patrese/opencode-engineering-harness@0.1.0 \
+  @patrese/openstrut@0.1.0 \
   install
 ```
 
@@ -276,7 +276,7 @@ Ou inicialmente, usando um tarball versionado:
 
 ```bash
 npx --yes \
-  https://seu-homelab/releases/opencode-engineering-harness-0.1.0.tgz \
+  https://seu-homelab/releases/openstrut-0.1.0.tgz \
   install
 ```
 
@@ -291,8 +291,8 @@ Mais simples:
 ```text
 Homelab
 └── releases/
-    ├── opencode-engineering-harness-0.1.0.tgz
-    ├── opencode-engineering-harness-0.1.1.tgz
+    ├── openstrut-0.1.0.tgz
+    ├── openstrut-0.1.1.tgz
     └── checksums.txt
 ```
 
@@ -321,7 +321,7 @@ Então o comando fica mais limpo:
 ```bash
 npx --yes \
   --registry=https://npm.homelab \
-  @patrese/opencode-engineering-harness@stable \
+  @patrese/openstrut@stable \
   install
 ```
 
@@ -358,7 +358,7 @@ Deve:
 6. preservar configurações desconhecidas e valores específicos da máquina;
 7. bloquear em conflitos não gerenciados;
 8. validar o resultado;
-9. gravar manifesto de instalação em `.engineering-harness/installation.json`;
+9. gravar manifesto de instalação em `.openstrut/installation.json`;
 10. suportar `--dry-run` e saída `--json`.
 
 ## `update` (deferido)
@@ -466,7 +466,7 @@ Merge preservando comentários e patch por chave permanece deferido.
 │   └── engineering-tdd-first/
 ├── templates/
 │   └── project/
-└── .engineering-harness/
+└── .openstrut/
     └── installation.json
 ```
 
@@ -475,7 +475,7 @@ Merge preservando comentários e patch por chave permanece deferido.
 Arquivo:
 
 ```text
-~/.config/opencode/.engineering-harness/installation.json
+~/.config/opencode/.openstrut/installation.json
 ```
 
 Exemplo:
@@ -593,6 +593,6 @@ local AGENTS.md
 | Sobrescrever `opencode.json`             | Nunca                              |
 | Fazer merge controlado                   | Sim                                |
 
-O próximo microincremento deve ser **criar o repositório `opencode-engineering-harness` no homelab com o esqueleto do pacote CLI e os diretórios de artefatos, sem instalar nada ainda**.
+O próximo microincremento deve ser **criar o repositório `openstrut` no homelab com o esqueleto do pacote CLI e os diretórios de artefatos, sem instalar nada ainda**.
 
 [1]: https://docs.npmjs.com/cli/v8/using-npm/package-spec/?utm_source=chatgpt.com "package-spec | npm Docs"

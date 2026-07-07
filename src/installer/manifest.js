@@ -1,7 +1,7 @@
 /**
- * Installation manifest management for the OpenCode Engineering Harness.
+ * Installation manifest management for OpenStrut.
  *
- * Manifest location: <target>/.engineering-harness/installation.json
+ * Manifest location: <target>/.openstrut/installation.json
  *
  * The manifest records:
  *   - manifest schema version

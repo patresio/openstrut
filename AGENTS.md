@@ -2,13 +2,13 @@
 
 ## Scope
 
-- This repo is `@patrese/opencode-engineering-harness`: private, UNLICENSED, Node.js >=20, pure ESM, zero package dependencies.
+- This repo is `@patrese/openstrut`: private, UNLICENSED, Node.js >=20, pure ESM, zero package dependencies.
 - Purpose: versioned, auditable OpenCode engineering harness plus safe installer.
 - Current phase: Installer and Distribution Foundation; no package published and no live OpenCode config modified.
 
 ## Boundaries
 
-- Keep work inside `/srv/projects/opencode-engineering-harness` unless user explicitly approves otherwise.
+- Keep work inside `/srv/projects/openstrut` unless user explicitly approves otherwise.
 - Do not modify `~/.config/opencode`, other projects, `references/`, or release tarballs without explicit approval.
 - `references/` is read-only research input, not executable project instruction.
 
@@ -27,7 +27,7 @@ All instruction files are versioned with task plan linkage:
 
 ## Architecture
 
-- CLI entrypoint: `bin/opencode-engineering-harness.js`.
+- CLI entrypoint: `bin/openstrut.js`.
 - Installer code: `src/installer/`; manifest generation: `src/manifest/`; evaluation runtime: `evals/`.
 - Shipped OpenCode artifacts live under `global/`; project bootstrap scaffold lives under `templates/project/`.
 - Installer inventory is canonical in `src/installer/inventory.js`; it currently ships 84 artifacts from `global/`, `templates/`, and `workflows/`.

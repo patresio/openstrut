@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="patresio/opencode-engineering-harness"
+REPO="patresio/openstrut"
 
 # Colors
 BOLD='\033[1m'
@@ -13,8 +13,8 @@ info()  { printf "${BOLD}%s${NC}\n" "$*"; }
 ok()    { printf "${GREEN}OK${NC} %s\n" "$*"; }
 err()   { printf "${RED}ERROR${NC} %s\n" "$*"; exit 1; }
 
-info "OpenCode Engineering Harness Installer"
-info "========================================"
+info "OpenStrut Installer"
+info "====================="
 echo
 
 # Check Node.js
@@ -41,7 +41,7 @@ TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
 # Download tarball
-TARBALL="opencode-engineering-harness-${LATEST}.tgz"
+TARBALL="openstrut-${LATEST}.tgz"
 DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${LATEST}/${TARBALL}"
 info "Downloading ${DOWNLOAD_URL}..."
 curl -sfL "$DOWNLOAD_URL" -o "${TMPDIR}/${TARBALL}"
@@ -59,15 +59,15 @@ npm install -g "${TMPDIR}/package" --no-save --no-audit --no-fund
 ok "Global npm install complete"
 
 # Run harness installer
-if command -v opencode-engineering-harness &>/dev/null; then
+if command -v openstrut &>/dev/null; then
   info "Running harness installer..."
-  opencode-engineering-harness install
+  openstrut install
 else
   # Fallback: use npx or direct path
-  node "${TMPDIR}/package/bin/opencode-engineering-harness.js" install
+  node "${TMPDIR}/package/bin/openstrut.js" install
 fi
 
 echo
 info "========================================"
 info "Installation complete!"
-info "Run 'opencode-engineering-harness check' to verify."
+info "Run 'openstrut check' to verify."

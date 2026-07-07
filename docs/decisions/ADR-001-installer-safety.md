@@ -8,7 +8,7 @@
 The harness installer must deploy 72+ artifacts (agents, skills, commands, workflows, templates) into the global OpenCode configuration directory (`~/.config/opencode/`). It must never overwrite user configuration, secrets, or machine-specific values.
 
 ## Decision
-- Installer uses a **manifest-based approach** with SHA-256 checksums stored in `.engineering-harness/installation.json`.
+- Installer uses a **manifest-based approach** with SHA-256 checksums stored in `.openstrut/installation.json`.
 - Six artifact classification states: `missing`, `identical`, `managed-outdated`, `managed-locally-modified`, `unmanaged-conflict`, `invalid-target`.
 - Atomic per-file writes via POSIX rename. Best-effort cross-file rollback.
 - Symlink target rejection, package-root rejection, explicit target resolution (CLI flag → XDG → HOME).

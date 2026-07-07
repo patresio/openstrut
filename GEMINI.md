@@ -39,7 +39,7 @@ When sources materially conflict, stop and report the conflict before modifying 
 
 All project work must remain inside the repository root:
 
-`/srv/projects/opencode-engineering-harness`
+`/srv/projects/openstrut`
 
 Do not modify:
 

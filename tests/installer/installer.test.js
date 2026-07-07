@@ -1,5 +1,5 @@
 /**
- * Installer tests for the OpenCode Engineering Harness.
+ * Installer tests for OpenStrut.
  *
  * All tests run against temporary directories. No test touches the real
  * home directory, $HOME/.config/opencode, or $XDG_CONFIG_HOME/opencode.
@@ -50,12 +50,12 @@ import {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(__dirname, '../..');
-const CLI_PATH = path.join(PACKAGE_ROOT, 'bin', 'opencode-engineering-harness.js');
+const CLI_PATH = path.join(PACKAGE_ROOT, 'bin', 'openstrut.js');
 
 const SHARED = {
   packageRoot: PACKAGE_ROOT,
   packageVersion: '0.1.0',
-  packageName: '@patrese/opencode-engineering-harness',
+  packageName: '@patrese/openstrut',
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -435,7 +435,7 @@ describe('Symlink safety', () => {
     let created = false;
     assertNotRealConfig(tmp);
     try {
-      const manifestDir = path.join(tmp, '.engineering-harness');
+      const manifestDir = path.join(tmp, '.openstrut');
       fs.symlinkSync(real, manifestDir);
       created = true;
       const { state } = getManifestState(tmp);
@@ -533,7 +533,7 @@ describe('Plan (read-only)', () => {
     assertNotRealConfig(tmp);
     try {
       // Create a malformed manifest
-      const mDir = path.join(tmp, '.engineering-harness');
+      const mDir = path.join(tmp, '.openstrut');
       fs.mkdirSync(mDir, { recursive: true });
       fs.writeFileSync(path.join(mDir, 'installation.json'), '{ invalid json ');
 
@@ -886,7 +886,7 @@ describe('Rollback', () => {
       const preContent0 = fs.readFileSync(targetPaths[0]);
       const preContent1 = fs.readFileSync(targetPaths[1]);
       const preManifestBytes = fs.readFileSync(
-        path.join(tmp, '.engineering-harness', 'installation.json')
+        path.join(tmp, '.openstrut', 'installation.json')
       );
 
       // 6. Also record a sentinel unrelated file to verify it is untouched
@@ -918,7 +918,7 @@ describe('Rollback', () => {
 
         // 9. Manifest must be unchanged from pre-second-install state
         const postManifestBytes = fs.readFileSync(
-          path.join(tmp, '.engineering-harness', 'installation.json')
+          path.join(tmp, '.openstrut', 'installation.json')
         );
         assert.deepEqual(
           postManifestBytes,
@@ -1143,7 +1143,7 @@ describe('Manifest state', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
-      const mDir = path.join(tmp, '.engineering-harness');
+      const mDir = path.join(tmp, '.openstrut');
       fs.mkdirSync(mDir, { recursive: true });
       fs.writeFileSync(path.join(mDir, 'installation.json'), 'NOT VALID JSON {{{{');
       const { state, reason } = getManifestState(tmp);
@@ -1158,7 +1158,7 @@ describe('Manifest state', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
-      const mDir = path.join(tmp, '.engineering-harness');
+      const mDir = path.join(tmp, '.openstrut');
       fs.mkdirSync(mDir, { recursive: true });
       fs.writeFileSync(path.join(mDir, 'installation.json'), JSON.stringify({
         manifestVersion: '99',
@@ -1178,7 +1178,7 @@ describe('Manifest state', () => {
     let created = false;
     assertNotRealConfig(tmp);
     try {
-      const manifestDir = path.join(tmp, '.engineering-harness');
+      const manifestDir = path.join(tmp, '.openstrut');
       fs.symlinkSync(real, manifestDir);
       created = true;
       const { state } = getManifestState(tmp);
@@ -1196,7 +1196,7 @@ describe('Manifest state', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
-      const mDir = path.join(tmp, '.engineering-harness');
+      const mDir = path.join(tmp, '.openstrut');
       fs.mkdirSync(mDir, { recursive: true });
       fs.writeFileSync(path.join(mDir, 'installation.json'), '{ bad json }');
       const result = install({ ...SHARED, target: tmp });
@@ -1212,7 +1212,7 @@ describe('Manifest state', () => {
     try {
       // Install first, then corrupt manifest
       install({ ...SHARED, target: tmp });
-      const mPath = path.join(tmp, '.engineering-harness', 'installation.json');
+      const mPath = path.join(tmp, '.openstrut', 'installation.json');
       fs.writeFileSync(mPath, '{ corrupted }');
       const result = check({ ...SHARED, target: tmp });
       assert.ok(result.drifted);

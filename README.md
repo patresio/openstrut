@@ -1,8 +1,8 @@
-# OpenCode Engineering Harness
+# OpenStrut
 
-A versioned, auditable engineering harness and safe installer for OpenCode.
+A versioned, auditable engineering harness and safe installer for OpenCode — rebranded as OpenStrut.
 
-**Current phase: Installer and Distribution Foundation**
+**Current phase: Installer and Distribution Foundation — rebranded to OpenStrut**
 
 ---
 
@@ -30,7 +30,7 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 The global artifact set, project bootstrap templates, safe installer CLI, execution-manifest generator, workflow validation scaffolding, and installable `0.1.0` package are implemented.
 
-The recommended distribution path is npm installing from the local git bare repository at `/srv/git/opencode-engineering-harness.git`. The package is not published to a public npm registry.
+The recommended distribution path is npm installing from the local git bare repository at `/srv/git/openstrut.git`. The package is not published to a public npm registry.
 See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
 
 ## Documentation Governance
@@ -53,7 +53,7 @@ This repository uses task-linked documentation:
 Install on any new machine:
 
 ```bash
-npm install -g /srv/git/opencode-engineering-harness.git && opencode-engineering-harness plan && opencode-engineering-harness install && opencode-engineering-harness check
+npm install -g /srv/git/openstrut.git && openstrut plan && openstrut install && openstrut check
 ```
 
 ### Manual Steps
@@ -61,15 +61,15 @@ npm install -g /srv/git/opencode-engineering-harness.git && opencode-engineering
 1. **Install globally:**
 
    ```bash
-   npm install -g /srv/git/opencode-engineering-harness.git
+   npm install -g /srv/git/openstrut.git
    ```
 
 2. **Review, install, and verify:**
 
    ```bash
-   opencode-engineering-harness plan
-   opencode-engineering-harness install
-   opencode-engineering-harness check
+   openstrut plan
+   openstrut install
+   openstrut check
    ```
 
 ### Target Directory Overrides
@@ -77,34 +77,34 @@ npm install -g /srv/git/opencode-engineering-harness.git && opencode-engineering
 Use custom target for isolated validation (CI, nested configs):
 
 ```bash
-opencode-engineering-harness plan --target ./my-config
-opencode-engineering-harness install --target ./my-config
-opencode-engineering-harness check --target ./my-config
+openstrut plan --target ./my-config
+openstrut install --target ./my-config
+openstrut check --target ./my-config
 ```
 
 ## CLI Usage
 
 ```bash
 # Show what would be installed (read-only)
-opencode-engineering-harness plan [--target <dir>] [--json]
+openstrut plan [--target <dir>] [--json]
 
 # Install managed artifacts into the target configuration root
-opencode-engineering-harness install [--target <dir>] [--dry-run] [--json]
+openstrut install [--target <dir>] [--dry-run] [--json]
 
 # Report drift between installed artifacts and the packaged version
-opencode-engineering-harness check [--target <dir>] [--json]
+openstrut check [--target <dir>] [--json]
 
 # Generate deterministic execution manifest for an approved OpenSpec change
-opencode-engineering-harness generate-manifest --change <openspec-change-dir>
+openstrut generate-manifest --change <openspec-change-dir>
 
 # Manage workflow definitions
-opencode-engineering-harness workflow list
-opencode-engineering-harness workflow validate <workflow-file>
-opencode-engineering-harness workflow run <workflow-file>
+openstrut workflow list
+openstrut workflow validate <workflow-file>
+openstrut workflow run <workflow-file>
 
 # Options
-opencode-engineering-harness --help
-opencode-engineering-harness --version
+openstrut --help
+openstrut --version
 ```
 
 ### Runtime Evaluation
@@ -152,7 +152,7 @@ The following are installed into the target configuration root:
 An installation manifest is stored at:
 
 ```
-<target>/.engineering-harness/installation.json
+<target>/.openstrut/installation.json
 ```
 
 The manifest records which files were installed and their checksums. It never stores secrets, API keys, tokens, or private data.

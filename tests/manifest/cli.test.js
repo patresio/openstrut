@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
-const CLI_PATH = path.join(PROJECT_ROOT, 'bin', 'opencode-engineering-harness.js');
+const CLI_PATH = path.join(PROJECT_ROOT, 'bin', 'openstrut.js');
 
 test('CLI generate-manifest — canonical path checks and portability', async (t) => {
   const tmpDir = fs.mkdtempSync(path.join('/tmp', 'harness-cli-test-'));

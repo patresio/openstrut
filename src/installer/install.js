@@ -53,6 +53,7 @@ import {
   resolveTarget,
   validateTargetRootNotSymlinked,
   validateTargetNotPackageRoot,
+  MANIFEST_DIR,
 } from './target.js';
 
 /** @returns {string} 16 hex characters of cryptographic randomness */
@@ -87,8 +88,8 @@ export function install(opts) {
   // Block on invalid or unsafe manifest
   if (manifestStateResult.state === 'invalid' || manifestStateResult.state === 'unsafe') {
     const manifestConflict = {
-      source: `.engineering-harness/${manifestStateResult.state}`,
-      target: '.engineering-harness/installation.json',
+      source: `${MANIFEST_DIR}/${manifestStateResult.state}`,
+      target: `${MANIFEST_DIR}/installation.json`,
       absoluteTarget: '',
       class: 'invalid-target',
       sourceChecksum: '',

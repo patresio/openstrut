@@ -45,7 +45,7 @@ registerScenario({
       const pkgRoot = path.join(extractDir, 'package');
 
       // 3. Run the installer from the extracted package
-      const installerPath = path.join(pkgRoot, 'bin/opencode-engineering-harness.js');
+      const installerPath = path.join(pkgRoot, 'bin/openstrut.js');
       const installOut = execSync(`node ${installerPath} install --target ${targetDir} --json`, {
         encoding: 'utf8'
       });

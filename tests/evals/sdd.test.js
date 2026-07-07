@@ -91,12 +91,12 @@ describe('SDD Barsa Retrieval Policy', () => {
   });
 
   it('the skill does not depend on shared filesystem library paths', () => {
-    assert.ok(!content.includes('$HOME/.local/share/opencode-engineering-harness/references/'), 'Must not depend on shared reference path');
+    assert.ok(!content.includes('$HOME/.local/share/openstrut/references/'), 'Must not depend on shared reference path');
     assert.ok(!content.includes('/srv/docs/biblioteca'), 'Must not reference local biblioteca path');
   });
 
   it('no /srv/... absolute project path is packaged', () => {
-    assert.ok(!content.includes('/srv/projects/opencode-engineering-harness/'), 'Must not package server-specific absolute paths');
+    assert.ok(!content.includes('/srv/projects/openstrut/'), 'Must not package server-specific absolute paths');
   });
 
   it('missing retrieval evidence must be disclosed', () => {

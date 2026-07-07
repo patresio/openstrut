@@ -1,5 +1,5 @@
 /**
- * Target directory resolution for the OpenCode Engineering Harness installer.
+ * Target directory resolution for the OpenStrut installer.
  *
  * Resolution order:
  * 1. Explicit --target <dir>
@@ -19,7 +19,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 
 /** Manifest directory name within the target root. */
-export const MANIFEST_DIR = '.engineering-harness';
+export const MANIFEST_DIR = '.openstrut';
 
 /** Manifest filename within MANIFEST_DIR. */
 export const MANIFEST_FILE = 'installation.json';

@@ -1,12 +1,12 @@
 # Server-Based Installation Guide
 
-Install `@patrese/opencode-engineering-harness` on any new machine from this server.
+Install `@patrese/openstrut` on any new machine from this server.
 
 ## Prerequisites
 
 | Machine | Requirements |
 |---|---|
-| **Server** (this machine) | Node.js ≥20, npm, repository checked out at `/srv/projects/opencode-engineering-harness` |
+| **Server** (this machine) | Node.js ≥20, npm, repository checked out at `/srv/projects/openstrut` |
 | **Client** (target machine) | Node.js ≥20, npm, SSH access to this server |
 
 ## Step-by-Step
@@ -14,17 +14,17 @@ Install `@patrese/opencode-engineering-harness` on any new machine from this ser
 ### 1. Build the package on the server
 
 ```bash
-cd /srv/projects/opencode-engineering-harness
+cd /srv/projects/openstrut
 npm pack
 ```
 
-This creates `patrese-opencode-engineering-harness-0.2.0.tgz` in the current directory.
+This creates `patrese-openstrut-0.2.0.tgz` in the current directory.
 
 ### 2. Transfer to the client
 
 ```bash
 # From the client machine
-scp patrese@<server-ip>:/srv/projects/opencode-engineering-harness/patrese-opencode-engineering-harness-0.1.0.tgz ./
+scp patrese@<server-ip>:/srv/projects/openstrut/patrese-openstrut-0.1.0.tgz ./
 ```
 
 Replace `<server-ip>` with the server's IP (Tailscale `100.100.141.105`, LAN `192.168.0.101`, or hostname `homelab`).
@@ -32,22 +32,22 @@ Replace `<server-ip>` with the server's IP (Tailscale `100.100.141.105`, LAN `19
 ### 3. Verify checksum
 
 ```bash
-sha256sum patrese-opencode-engineering-harness-0.1.0.tgz
+sha256sum patrese-openstrut-0.1.0.tgz
 ```
 
-Compare with the server output of `sha256sum patrese-opencode-engineering-harness-0.1.0.tgz`.
+Compare with the server output of `sha256sum patrese-openstrut-0.1.0.tgz`.
 
 ### 4. Install the package globally
 
 ```bash
-npm install -g ./patrese-opencode-engineering-harness-0.1.0.tgz
+npm install -g ./patrese-openstrut-0.1.0.tgz
 ```
 
 ### 5. Verify the CLI
 
 ```bash
-opencode-engineering-harness --version
-opencode-engineering-harness --help
+openstrut --version
+openstrut --help
 ```
 
 Expected output shows version `0.2.0` and available commands.
@@ -56,13 +56,13 @@ Expected output shows version `0.2.0` and available commands.
 
 ```bash
 # Review what will be installed
-opencode-engineering-harness plan
+openstrut plan
 
 # Install 84 managed artifacts into ~/.config/opencode
-opencode-engineering-harness install
+openstrut install
 
 # Verify everything matches
-opencode-engineering-harness check
+openstrut check
 ```
 
 Expected output: `All managed artifacts match the installed version.`
@@ -116,13 +116,13 @@ The `opencode.json` includes:
 
 ```bash
 # Remove global package
-npm uninstall -g @patrese/opencode-engineering-harness
+npm uninstall -g @patrese/openstrut
 
 # Remove installed harness artifacts
-rm -rf ~/.config/opencode/.engineering-harness
+rm -rf ~/.config/opencode/.openstrut
 
 # Remove individual managed files listed in:
-#   ~/.config/opencode/.engineering-harness/installation.json
+#   ~/.config/opencode/.openstrut/installation.json
 ```
 
 > **Warning:** This does not revert local modifications to `opencode.json` or `AGENTS.md`. Back up these files before removal if you need to preserve local changes.

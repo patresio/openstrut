@@ -325,4 +325,4 @@ Fixed versioned allowlist containing supported native and harness-managed agents
 A lista é hardcoded na implementação do gerador (`build` é nativo, `code-reviewer` e `project-rules-auditor` são gerenciados).
 
 ### CLI v1
-Adição do subcomando `generate-manifest --change <path>` no CLI existente (`opencode-engineering-harness`).
+Adição do subcomando `generate-manifest --change <path>` no CLI existente (`openstrut`).
