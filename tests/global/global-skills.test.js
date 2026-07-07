@@ -41,7 +41,9 @@ const SKILL_NAMES = fs.readdirSync(SKILLS_DIR, { withFileTypes: true })
   .filter(d => d.isDirectory())
   .map(d => d.name)
   // engineering-sdd-change uses a single ## Workflow with ### substeps — pre-convention format
-  .filter(name => name !== 'engineering-sdd-change');
+  .filter(name => name !== 'engineering-sdd-change')
+  // opentrust-* are workflow-integration skills loaded by ot-* commands, not standalone loadable skills
+  .filter(name => !name.startsWith('opentrust-'));
 
 const INVENTORY_AGENTS = new Set(
   INVENTORY.filter(e => e.source.startsWith('global/agents/'))
