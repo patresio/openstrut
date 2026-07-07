@@ -1,79 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "share": "disabled",
-  "snapshot": true,
-  "autoupdate": "notify",
-  "compaction": {
-    "auto": true
-  },
-  "model": "9router/combo-main",
-  "small_model": "9router/combo-cheap",
-  "provider": {
-    "9router": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "9Router Homelab",
-      "options": {
-        "baseURL": "{env:BASE_URL_9ROUTER}",
-        "apiKey": "{file:~/.local/share/opencode/secrets/9router-api-key}"
-      },
-      "models": {
-        "combo-main": {
-          "name": "combo-main",
-          "variants": {
-            "high": {
-              "reasoningEffort": "high",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "low": {
-              "reasoningEffort": "low",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        },
-        "combo-cheap": {
-          "name": "combo-cheap",
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 16000
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "mcp": {
-    "homelab-ai-coding": {
-      "type": "remote",
-      "url": "{env:HOMELAB_AI_CODING_MCP_URL}"
-    },
-    "barsa": {
-      "type": "remote",
-      "url": "{env:BARSA_MCP}",
-      "enabled": true
-    }
-  },
   "default_agent": "trust-lead",
+
   "instructions": [
     "docs/opencode/TEAM_TOPOLOGY.md",
     "docs/opencode/WORKFLOW.md",
@@ -83,16 +11,18 @@
     "docs/opencode/OPERATIONAL_RETRIEVAL_MAP.md",
     "docs/opencode/REFERENCE_PROFILES.md"
   ],
+
   "references": {
     "reference-map": {
       "path": "docs/opencode/reference-map",
-      "description": "OpenTrust Reference Library \u2014 selector definitions and team-context matrix for the Operational Retrieval Map"
+      "description": "OpenTrust Reference Library — selector definitions and team-context matrix for the Operational Retrieval Map"
     },
     "docs-opencode": {
       "path": "docs/opencode",
-      "description": "OpenTrust foundation documentation \u2014 team topology, workflow, contracts, permissions, retrieval architecture"
+      "description": "OpenTrust foundation documentation — team topology, workflow, contracts, permissions, retrieval architecture"
     }
   },
+
   "watcher": {
     "ignore": [
       "node_modules/**",
@@ -106,6 +36,7 @@
       ".ruff_cache/**"
     ]
   },
+
   "permission": {
     "read": "allow",
     "glob": "allow",
@@ -116,6 +47,7 @@
     "doom_loop": "ask",
     "skill": "ask"
   },
+
   "agent": {
     "trust-lead": {
       "description": "Coordinates cross-team communication, decision logging, meeting facilitation, and overall process health",
@@ -168,7 +100,7 @@
       }
     },
     "engineering-lead": {
-      "description": "Implementation, refactoring, performance, security, and privacy \u2014 primary implementation team lead",
+      "description": "Implementation, refactoring, performance, security, and privacy — primary implementation team lead",
       "mode": "primary",
       "permission": {
         "read": "allow",
@@ -190,7 +122,7 @@
       }
     },
     "review-lead": {
-      "description": "Independent review, compliance, frontend/UX review, and accessibility \u2014 gating function before delivery",
+      "description": "Independent review, compliance, frontend/UX review, and accessibility — gating function before delivery",
       "mode": "primary",
       "permission": {
         "read": "allow",
@@ -259,6 +191,7 @@
         "task": "allow"
       }
     },
+
     "coordination-facilitator": {
       "description": "Facilitates cross-team coordination and communication",
       "mode": "subagent",

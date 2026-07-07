@@ -22,7 +22,8 @@
     "test:evals": "node --test tests/evals/runner.test.js tests/evals/sdd.test.js",
     "eval:deterministic": "node evals/runner/run.js --layer deterministic",
     "eval:runtime": "node evals/runner/run.js --layer runtime",
-    "eval:all": "node evals/runner/run.js --layer all"
+    "eval:all": "node evals/runner/run.js --layer all",
+    "validate:opentrust": "node scripts/validate-opencode-config.mjs && node scripts/validate-opentrust-taxonomy.mjs"
   },
   "engines": {
     "node": ">=20"

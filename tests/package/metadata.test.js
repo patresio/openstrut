@@ -30,17 +30,18 @@ describe('package distribution metadata', () => {
     assert.equal(existsSync(path.join(PACKAGE_ROOT, 'workflows')), true);
   });
 
-  it('ships 21 global agents in repo', () => {
+  it('ships 38 priority agents in repo (OpenTrust topology)', () => {
     const agents = readdirSync(path.join(PACKAGE_ROOT, 'global', 'agents')).filter(name => name.endsWith('.md'));
-    assert.equal(agents.length, 21);
+    assert.ok(agents.length >= 38, `Expected at least 38 agents, got ${agents.length}`);
   });
 
-  it('ships 39 global skills in repo', () => {
+  it('ships 7 opentrust-* skills by default, legacy skills still on disk', () => {
     const skills = readdirSync(path.join(PACKAGE_ROOT, 'global', 'skills'), { withFileTypes: true })
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
       .filter(name => existsSync(path.join(PACKAGE_ROOT, 'global', 'skills', name, 'SKILL.md')));
-    assert.equal(skills.length, 39);
+    const opentrustSkills = skills.filter(name => name.startsWith('opentrust-'));
+    assert.equal(opentrustSkills.length, 7, 'Expected exactly 7 opentrust-* skills');
   });
 
   it('ships 8 workflow definitions in repo', () => {

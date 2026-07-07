@@ -45,6 +45,26 @@ import { INVENTORY } from '../src/installer/inventory.js';
 
 const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow']);
 
+// ─── Splash screen ─────────────────────────────────────────────────────────
+
+const SPLASH = `
+\x1b[36m  ___                    ____  _              _   \x1b[0m
+\x1b[36m / _ \\ _ __   ___  _ __ / ___|| |_ _   _ _ __| |_ \x1b[0m
+\x1b[36m| | | | '_ \\ / _ \\| '_ \\\\___ \\| __| | | | '__| __|\x1b[0m
+\x1b[36m| |_| | |_) |  __/| | | |___) | |_| |_| | |  | |_ \x1b[0m
+\x1b[36m \\___/| .__/ \\___||_| |_|____/ \\__|\\__,_|_|   \\__|\x1b[0m
+\x1b[36m      |_|                                          \x1b[0m
+\x1b[90m====================================================\x1b[0m
+\x1b[37m    Auditable Engineering Harness & Safe Installer\x1b[0m
+\x1b[90m====================================================\x1b[0m
+`.trim();
+
+function showSplash() {
+  if (process.stdout.isTTY) {
+    process.stdout.write(SPLASH + '\n\n');
+  }
+}
+
 const USAGE = `
 OpenStrut v${pkg.version}
 
@@ -218,9 +238,11 @@ function main() {
 
   if (parsed.help || !parsed.opts) {
     if (parsed.error) {
+      showSplash();
       process.stderr.write(`Error: ${parsed.error}\n\n${USAGE}\n`);
       process.exit(parsed.exitCode ?? EXIT.INVALID);
     }
+    showSplash();
     process.stdout.write(USAGE + '\n');
     process.exit(EXIT.OK);
   }
@@ -242,6 +264,7 @@ function main() {
       process.exit(exitCode);
 
     } else if (opts.command === 'install') {
+      showSplash();
       const result = install({ ...shared, dryRun: opts.dryRun });
       const { exitCode, output } = formatInstall(result, { json: opts.json });
       process.stdout.write(output + '\n');

@@ -59,24 +59,24 @@ describe('HARNESS-024: permission hardening', () => {
 
   it('global opencode.json has correct permission shape', () => {
     const cfg = readJSON(join(ROOT, 'global', 'opencode.json'));
-    // Verify default permissions restrict skills and tasks
+    // OpenTrust top-level permission: skill=ask, no wildcard task/edit
     const perm = cfg.permission || {};
-    assert.equal(perm.skill, 'deny', 'default skill permission must be deny');
-    assert.equal(perm.task, 'deny', 'default task permission must be deny');
-    assert.equal(perm.edit, 'ask', 'default edit permission must be ask');
+    assert.equal(perm.skill, 'ask', 'OpenTrust default skill permission must be ask');
     assert.equal(perm.external_directory, 'ask', 'external_directory must default ask');
+    // No top-level task or edit — permissions are per-agent in OpenTrust
+    assert.equal(perm.task, undefined, 'OpenTrust has no top-level task permission');
+    assert.equal(perm.edit, undefined, 'OpenTrust has no top-level edit permission');
   });
 
-  it('build agent has edit allow for primary agent role', () => {
+  it('trust-lead agent has task allow for coordination role', () => {
     const cfg = readJSON(join(ROOT, 'global', 'opencode.json'));
-    const build = cfg.agent?.build;
-    assert.ok(build, 'build agent must be configured');
-    // build is the primary implementation agent — edit:allow is intentional
-    assert.equal(build.permission?.edit, 'allow',
-      'build agent must have edit allow as primary implementation agent');
-    // build must NOT have wildcard bash allow
-    assert.notEqual(build.permission?.bash, 'allow',
-      'build agent must not have wildcard bash allow');
+    const lead = cfg.agent?.['trust-lead'];
+    assert.ok(lead, 'trust-lead agent must be configured');
+    assert.equal(lead.mode, 'primary', 'trust-lead is primary agent');
+    assert.equal(lead.permission?.task, 'allow',
+      'trust-lead must have task allow as coordination lead');
+    assert.notEqual(lead.permission?.bash, 'allow',
+      'trust-lead must not have wildcard bash allow');
   });
 
   it('SDD agent must not allow production edit', () => {
