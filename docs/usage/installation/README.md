@@ -6,7 +6,7 @@ Install `@patrese/openstrut` on any new machine from this server.
 
 | Machine | Requirements |
 |---|---|
-| **Server** (this machine) | Node.js ≥20, npm, repository checked out at `/srv/projects/openstrut` |
+| **Server** (this machine) | Node.js ≥20, npm, repository checked out at `/srv/projects/opencode-engineering-harness` |
 | **Client** (target machine) | Node.js ≥20, npm, SSH access to this server |
 
 ## Step-by-Step
@@ -14,33 +14,31 @@ Install `@patrese/openstrut` on any new machine from this server.
 ### 1. Build the package on the server
 
 ```bash
-cd /srv/projects/openstrut
+cd /srv/projects/opencode-engineering-harness
 npm pack
 ```
 
-This creates `patrese-openstrut-0.2.0.tgz` in the current directory.
+This creates `patrese-openstrut-0.2.1.tgz` in the current directory.
 
 ### 2. Transfer to the client
 
 ```bash
 # From the client machine
-scp patrese@<server-ip>:/srv/projects/openstrut/patrese-openstrut-0.1.0.tgz ./
+scp patrese@<server-ip>:/srv/projects/opencode-engineering-harness/patrese-openstrut-0.2.1.tgz ./
 ```
-
-Replace `<server-ip>` with the server's IP (Tailscale `100.100.141.105`, LAN `192.168.0.101`, or hostname `homelab`).
 
 ### 3. Verify checksum
 
 ```bash
-sha256sum patrese-openstrut-0.1.0.tgz
+sha256sum patrese-openstrut-0.2.1.tgz
 ```
 
-Compare with the server output of `sha256sum patrese-openstrut-0.1.0.tgz`.
+Compare with the server output.
 
 ### 4. Install the package globally
 
 ```bash
-npm install -g ./patrese-openstrut-0.1.0.tgz
+npm install -g ./patrese-openstrut-0.2.1.tgz
 ```
 
 ### 5. Verify the CLI
@@ -50,82 +48,58 @@ openstrut --version
 openstrut --help
 ```
 
-Expected output shows version `0.2.0` and available commands.
+Expected output shows version `0.2.1`.
 
-### 6. Install harness artifacts into OpenCode
+### 6. Install OpenTrust runtime into OpenCode
 
 ```bash
-# Review what will be installed
 openstrut plan
-
-# Install 84 managed artifacts into ~/.config/opencode
 openstrut install
-
-# Verify everything matches
 openstrut check
 ```
 
-Expected output: `All managed artifacts match the installed version.`
+`install` now reconciles stale previously-managed legacy artifacts:
+- removes stale managed files no longer in current inventory;
+- preserves locally modified legacy files;
+- updates `.openstrut/installation.json` to current inventory.
 
 ### 7. Verify in OpenCode
 
-```bash
-opencode agent list
-```
+Restart OpenCode after install.
 
-You should see the following harness-managed agents in addition to native agents:
-
-- `sdd` — OpenSpec change specification
-- `code-reviewer` — read-only implementation review
-- `project-rules-auditor` — read-only project rules audit
-- `documentation-generator` — documentation generation
-- `harness-generator` — harness bootstrapping
+Check for:
+- `trust-lead` as default agent;
+- 7 `/ot-*` commands;
+- OpenTrust leader/subagent topology.
 
 ## What Gets Installed
 
-After `install`, the following artifacts are materialized under `~/.config/opencode/`:
+After `install`, the active runtime under `~/.config/opencode/` is:
 
 | Category | Count | Contents |
 |---|---|---|
 | Root config | 2 | `AGENTS.md`, `opencode.json` |
-| Agent Count | 21 | sdd, code-reviewer, project-rules-auditor, documentation-generator, harness-generator, skill-creator, performance-optimizer, release-manager, compliance-auditor, 12 domain specialists |
-| Commands | 10 | `eng-*` workflow commands |
-| Skills | 39 | 13 engineering skills + 26 domain skills |
-| Workflows | 8 | sequential and cowork workflow definitions |
+| Agents | 38 | 9 leaders + 29 subagents |
+| Commands | 7 | `ot-*` workflow commands |
+| Skills | 7 | `opentrust-*` workflow skills |
+| Workflows | 8 | workflow definitions |
 | Templates | 4 | project bootstrap scaffold |
 
-The `opencode.json` includes:
-
-- **Barsa MCP** configured via `{env:BARSA_MCP}` for documentation retrieval
-- **Skill allowlist**: all 39 skills permitted for build agent
-- **Task allowlist**: all 21 agents permitted for build agent
-- **Task delegation**: `explore`, `scout`, `code-reviewer`, `project-rules-auditor`, `documentation-generator`, `harness-generator`
+The installed `opencode.json` includes:
+- `trust-lead` as `default_agent`;
+- OpenTrust instructions and references;
+- scoped per-agent permissions;
+- Barsa MCP and project provider settings preserved from shipped runtime.
 
 ## Troubleshooting
 
 | Problem | Check |
 |---|---|
-| `sha256sum` mismatch | File corrupted during transfer; re-run SCP |
-| `npm install -g` fails | Node.js ≥20 required; `npm --version` to verify |
-| `check` reports drift | Run `plan` to see changes; do not overwrite local config manually |
-| SSH connection refused | Verify server IP and Tailscale/LAN connectivity |
-| Permission denied | Ensure SSH key is added (`ssh-add -l`) or use password auth |
-| Agents not visible in OpenCode | Verify `~/.config/opencode/agents/` has `.md` files; restart OpenCode |
-
-## Uninstall
-
-```bash
-# Remove global package
-npm uninstall -g @patrese/openstrut
-
-# Remove installed harness artifacts
-rm -rf ~/.config/opencode/.openstrut
-
-# Remove individual managed files listed in:
-#   ~/.config/opencode/.openstrut/installation.json
-```
-
-> **Warning:** This does not revert local modifications to `opencode.json` or `AGENTS.md`. Back up these files before removal if you need to preserve local changes.
+| `check` reports drift | Run `plan`; review local modifications before reinstall |
+| `/ot-*` commands not visible | Confirm `~/.config/opencode/commands/ot-*.md` exists; restart OpenCode |
+| `build` still appears as default | Confirm installed `~/.config/opencode/opencode.json` has `default_agent: "trust-lead"` |
+| Legacy `eng-*` commands still visible | Re-run `openstrut install`; stale managed legacy files should be removed automatically |
+| Agents not visible in OpenCode | Verify `~/.config/opencode/agents/` contains OpenTrust files; restart OpenCode |
 
 ## Security
 
@@ -133,4 +107,3 @@ rm -rf ~/.config/opencode/.openstrut
 - Do not install from untrusted sources
 - Always verify tarball checksums before installation
 - No telemetry, no external network calls from the installed artifacts
-- Barsa MCP is optional and must be configured separately via `BARSA_MCP` env var

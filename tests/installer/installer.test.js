@@ -619,6 +619,60 @@ describe('Install', () => {
     }
   });
 
+  it('removes stale managed artifacts from prior inventory but preserves locally modified stale files', () => {
+    const tmp = makeTmpTarget();
+    assertNotRealConfig(tmp);
+    try {
+      const staleCommand = path.join(tmp, 'commands', 'eng-plan.md');
+      const staleSkill = path.join(tmp, 'skills', 'engineering-tdd-first', 'SKILL.md');
+      fs.mkdirSync(path.dirname(staleCommand), { recursive: true });
+      fs.mkdirSync(path.dirname(staleSkill), { recursive: true });
+      fs.writeFileSync(staleCommand, '# legacy command');
+      fs.writeFileSync(staleSkill, '# legacy skill');
+      const staleCommandHash = checksumFile(staleCommand);
+      const staleSkillHash = checksumFile(staleSkill);
+      fs.appendFileSync(staleSkill, '\nlocal edit');
+
+      writeManifest(tmp, {
+        packageName: SHARED.packageName,
+        packageVersion: SHARED.packageVersion,
+        installedAt: new Date().toISOString(),
+        targetRoot: tmp,
+        artifacts: [
+          {
+            relativePath: 'commands/eng-plan.md',
+            sourceChecksum: staleCommandHash,
+            installedChecksum: staleCommandHash,
+          },
+          {
+            relativePath: 'skills/engineering-tdd-first/SKILL.md',
+            sourceChecksum: staleSkillHash,
+            installedChecksum: staleSkillHash,
+          },
+        ],
+      });
+
+      const result = install({ ...SHARED, target: tmp });
+      assert.ok(result.success, `Install failed: ${result.error}`);
+      assert.equal(fs.existsSync(staleCommand), false, 'Unmodified stale managed command must be removed');
+      assert.equal(fs.existsSync(staleSkill), true, 'Locally modified stale managed skill must be preserved');
+      assert.equal(fs.readFileSync(staleSkill, 'utf8'), '# legacy skill\nlocal edit');
+      const manifest = readManifest(tmp);
+      assert.equal(
+        manifest.artifacts.some(a => a.relativePath === 'commands/eng-plan.md'),
+        false,
+        'Removed stale command must be absent from new manifest'
+      );
+      assert.equal(
+        manifest.artifacts.some(a => a.relativePath === 'skills/engineering-tdd-first/SKILL.md'),
+        false,
+        'Preserved locally modified stale skill must be unmanaged in new manifest'
+      );
+    } finally {
+      removeTmp(tmp);
+    }
+  });
+
   it('managed upgrade: re-installs managed-outdated artifacts', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);

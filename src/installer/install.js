@@ -61,6 +61,23 @@ function randomHex() {
   return crypto.randomBytes(8).toString('hex');
 }
 
+function pruneEmptyParents(startPath, stopPath) {
+  let current = path.dirname(startPath);
+  while (current.startsWith(stopPath) && current !== stopPath) {
+    try {
+      if (fs.readdirSync(current).length > 0) break;
+      fs.rmdirSync(current);
+      current = path.dirname(current);
+    } catch {
+      break;
+    }
+  }
+}
+
+function isCurrentInventoryTarget(relativePath) {
+  return INVENTORY.some(entry => entry.target === relativePath);
+}
+
 /**
  * Installs managed artifacts into the target configuration root.
  *
@@ -165,7 +182,7 @@ export function install(opts) {
 
   /**
    * @typedef {{
-   *   type: 'created'|'replaced',
+   *   type: 'created'|'replaced'|'removed',
    *   final: string,
    *   backup: string|null
    * }} WriteOp
@@ -177,6 +194,21 @@ export function install(opts) {
   const skipped = [];
 
   try {
+    if (manifest) {
+      for (const entry of manifest.artifacts) {
+        if (isCurrentInventoryTarget(entry.relativePath)) continue;
+        const absTarget = path.resolve(targetRoot, entry.relativePath);
+        if (!absTarget.startsWith(targetRoot + path.sep)) continue;
+        if (!fs.existsSync(absTarget)) continue;
+        const stat = fs.lstatSync(absTarget);
+        if (!stat.isFile() || stat.isSymbolicLink()) continue;
+        if (checksumFile(absTarget) !== entry.installedChecksum) continue;
+        const backup = absTarget + '.' + randomHex() + '.harness-backup';
+        fs.renameSync(absTarget, backup);
+        operations.push({ type: 'removed', final: absTarget, backup });
+      }
+    }
+
     for (const artifact of classified) {
       if (!requiresWrite(artifact.class)) {
         skipped.push(artifact.target);
@@ -187,12 +219,13 @@ export function install(opts) {
       const absTarget = artifact.absoluteTarget;
       const existed = fs.existsSync(absTarget);
 
+
       // Create parent directory
       fs.mkdirSync(path.dirname(absTarget), { recursive: true, mode: 0o755 });
 
       // Create backup of existing file before overwriting
       let backup = null;
-      if (existed) {
+      if (existed && isCurrentInventoryTarget(artifact.target)) {
         backup = absTarget + '.' + randomHex() + '.harness-backup';
         fs.copyFileSync(absTarget, backup);
       }
@@ -231,6 +264,7 @@ export function install(opts) {
       if (op.backup) {
         try { fs.unlinkSync(op.backup); } catch { /* ignore */ }
       }
+      if (op.type === 'removed') pruneEmptyParents(op.final, targetRoot);
     }
 
     return {
@@ -254,8 +288,9 @@ export function install(opts) {
     for (let i = operations.length - 1; i >= 0; i--) {
       const op = operations[i];
       try {
-        if (op.type === 'replaced' && op.backup) {
+        if ((op.type === 'replaced' || op.type === 'removed') && op.backup) {
           // Atomically restore from backup (same filesystem)
+          fs.mkdirSync(path.dirname(op.final), { recursive: true, mode: 0o755 });
           try {
             fs.renameSync(op.backup, op.final);
           } catch {

@@ -4,121 +4,82 @@ Commands are workflow entry points installed under `commands/` in the OpenCode c
 
 ## Current Commands
 
-### `/eng-spec-change`
+The active runtime installs 7 OpenTrust workflow commands:
 
-Agent: `sdd`
+- `/ot-explore`
+- `/ot-propose`
+- `/ot-apply`
+- `/ot-review`
+- `/ot-ship`
+- `/ot-status`
+- `/ot-incident`
 
-Purpose: start the SDD workflow for a change before implementation.
+Legacy `eng-*` commands are no longer part of the active install inventory.
 
-Use when:
+## Command Reference
 
-- you need OpenSpec artifacts;
-- you want approval before code;
-- the change needs scope, constraints, acceptance criteria, and tasks.
+### `/ot-explore`
 
-Example:
-
-```text
-/eng-spec-change Force password change on first login. Do not implement code.
-```
-
-Stops at: Approval Gate.
-
-### `/eng-init-project`
-
-Agent: `build`
-
-Purpose: initialize project-local engineering instructions safely.
+Purpose: inspect repository state, constraints, risks, and current behavior without mutation.
 
 Use when:
+- entering a project;
+- reviewing architecture or implementation state;
+- gathering evidence before proposing work.
 
-- entering a real project repository;
-- creating or refreshing local `AGENTS.md`;
-- establishing authoritative commands and architecture boundaries.
+### `/ot-propose`
 
-Expected internal flow:
-
-1. load `engineering-project-bootstrap`;
-2. delegate repository audit to `project-rules-auditor`;
-3. propose localized project rules;
-4. stop at Approval Gate.
-
-### `/eng-plan`
-
-Purpose: structure implementation planning after exploration.
+Purpose: turn exploration evidence into a small scoped proposal with acceptance criteria.
 
 Use when:
-
 - scope is understood;
 - implementation is not approved yet;
-- the next step is turning evidence into a plan.
+- next step is choosing smallest safe change.
 
-### `/eng-review`
+### `/ot-apply`
 
-Purpose: trigger review-oriented workflow before delivery.
+Purpose: execute approved work under Task Plan and validation gates.
 
 Use when:
+- proposal is approved;
+- mutation is explicitly authorized;
+- tests and validation must run as part of execution.
 
+### `/ot-review`
+
+Purpose: inspect diff, validation evidence, scope, and policy compliance before delivery.
+
+Use when:
 - implementation exists;
-- validation evidence is available;
-- an independent read-only review is desired.
+- validation evidence exists;
+- delivery decision is next.
 
-### `/eng-deliver`
+### `/ot-ship`
 
 Purpose: finalize approved delivery actions.
 
 Use when:
+- review is complete;
+- commit/push/PR work is explicitly approved.
 
-- commit/push/PR work is explicitly approved;
-- review and validation are complete.
+### `/ot-status`
 
-### `/eng-incident`
+Purpose: summarize current runtime or task state.
+
+Use when:
+- you want a concise factual status update.
+
+### `/ot-incident`
 
 Purpose: enter incident triage mode.
 
 Use when:
-
 - urgent diagnosis, containment, or rollback planning is required.
 
-### `/eng-checkpoint`
+## Selection Rule
 
-Purpose: create factual progress checkpoints for long-running work.
-
-Use when:
-
-- work is multi-step;
-- handoff or pause may happen;
-- current state needs explicit summary.
-
-### `/eng-resume`
-
-Purpose: resume interrupted work from repository evidence.
-
-Use when:
-
-- returning after interruption;
-- task plan and diff must be reloaded before proceeding.
-
-### `/eng-status`
-
-Purpose: summarize current state of tracked work.
-
-Use when:
-
-- you want a concise factual status update based on repository state.
-
-### `/eng-refresh-project-rules`
-
-Purpose: refresh local project rules from repository evidence.
-
-Use when:
-
-- project docs changed;
-- local `AGENTS.md` drifted;
-- architecture or commands need re-audit.
-
-## Command Selection Rule
-
-- choose `/eng-spec-change` for specification work;
-- choose `/eng-init-project` for preparing a real project;
-- choose review/delivery commands only after implementation exists.
+- choose `/ot-explore` first for unknown state;
+- choose `/ot-propose` before implementation;
+- choose `/ot-apply` only after approval;
+- choose `/ot-review` before delivery;
+- choose `/ot-ship` only for approved delivery work.
