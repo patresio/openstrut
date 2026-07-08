@@ -2,16 +2,12 @@
 description: Test strategy, TDD, integration tests, end-to-end tests, and quality gates
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # quality-lead
 
 ## Mission
-Define and verify quality strategy using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Define and verify quality strategy using installed `opentrust/docs/` for workflow and task contract guidance. Use retrieval only when the task contract specifies approved selectors.
 
 ## Use When
 - Tests, validation strategy, or quality gate is needed

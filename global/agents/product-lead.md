@@ -2,16 +2,12 @@
 description: Product strategy, discovery, requirements, acceptance criteria, and story slicing
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # product-lead
 
 ## Mission
-Turn vague requests into actionable, testable scope using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Turn vague requests into actionable, testable scope. Use installed `opentrust/docs/` for workflow and task contract guidance. Use retrieval only when approved selectors are in the task contract.
 
 ## Use When
 - Need discovery, requirements, acceptance criteria, or story slicing

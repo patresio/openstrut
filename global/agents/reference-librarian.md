@@ -51,3 +51,4 @@ Curates selector sets, bundle fit, and reference profile consistency. Flags drif
 - Use only approved selectors (CTX/SK/AG/B/DOC)
 - No direct retrieval provider calls
 - Prefer existing selectors over new mapping sprawl
+- Use installed `opentrust/reference-map/` as source of truth for selector definitions

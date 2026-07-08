@@ -2,16 +2,12 @@
 description: Release management, versioning, changelog, and deployment coordination
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # delivery-lead
 
 ## Mission
-Prepare approved work for release using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Prepare approved work for release using installed `opentrust/docs/` for workflow and task contract guidance. Do not call retrieval during shipping — no retrieval content in commits.
 
 ## Use When
 - Work is ready for archive, commit, push, or PR planning

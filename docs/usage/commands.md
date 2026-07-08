@@ -16,6 +16,12 @@ The active runtime installs 7 OpenTrust workflow commands:
 
 Legacy `eng-*` commands are no longer part of the active install inventory.
 
+## Key Properties
+
+- All `/ot-*` commands are self-contained: they do not depend on repository-local paths like `docs/opencode/`.
+- Commands read OpenTrust workflow docs from the installed `opentrust/docs/` directory inside the config root.
+- Retrieval/Barsa calls are conditional — commands use them only when the task contract specifies approved selectors.
+
 ## Command Reference
 
 ### `/ot-explore`

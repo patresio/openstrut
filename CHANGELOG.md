@@ -2,6 +2,25 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.2.2 (2026-07-08)
+
+### Added
+
+- OpenTrust runtime docs package: 10 files installed to `opentrust/docs/` and `opentrust/reference-map/` inside the config root.
+- `opencode.json` instructions and references now point to `opentrust/` paths instead of uninstalled `docs/opencode/`.
+
+### Changed
+
+- **Permission source of truth**: removed `permission:` frontmatter block from all 9 lead agent files (`trust-lead`, `product-lead`, `architecture-lead`, `engineering-lead`, `quality-lead`, `review-lead`, `devops-lead`, `delivery-lead`, `knowledge-lead`). The installed `global/opencode.json` is now the sole permission authority for all agents, resolving the `task: deny` vs `task: allow` conflict.
+- **Command prompts**: all 7 `/ot-*` commands rewritten — no longer reference `docs/opencode/` paths; use installed `opentrust/docs/` or skip loading (status, incident). Added explicit boundary: no retrieval/Barsa calls unless task contract specifies approved selectors.
+- **Retrieval policy**: lead agents updated to use retrieval/Barsa conditionally instead of as default behavior. Knowledge team remains the sole retrieval coordinator.
+- **Inventory**: reduced from 76 to 68 artifacts — removed 8 legacy workflow definitions that reference uninstalled agents/skills. Workflow source files remain in the repository for future migration.
+- **Installation layout**: installed runtime no longer ships workflows. New `opentrust/docs/` and `opentrust/reference-map/` directories provide self-contained documentation.
+
+### Removed
+
+- 8 legacy workflow definitions removed from install inventory (`backend-safe-change`, `harness-generation`, `project-documentation`, `feature-spec-to-build`, `product-to-implementation`, `rag-feature-sequential`, `team-cowork-worktree`, `full-harness-orchestration`).
+
 ## v0.2.1 (2026-07-07)
 
 ### Added

@@ -15,7 +15,7 @@ The package is private and not published to a public npm registry.
 ### 1. Download the release tarball
 
 ```bash
-curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
+curl -L -o patrese-openstrut-0.2.2.tgz https://github.com/patresio/openstrut/releases/download/v0.2.2/patrese-openstrut-0.2.2.tgz
 ```
 
 ### 2. Verify checksum
@@ -23,13 +23,13 @@ curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/rel
 Download or compare the release checksum published with the release notes:
 
 ```bash
-sha256sum patrese-openstrut-0.2.1.tgz
+sha256sum patrese-openstrut-0.2.2.tgz
 ```
 
 ### 3. Install the package globally
 
 ```bash
-npm install -g ./patrese-openstrut-0.2.1.tgz
+npm install -g ./patrese-openstrut-0.2.2.tgz
 ```
 
 ### 4. Verify the CLI
@@ -39,7 +39,7 @@ openstrut --version
 openstrut --help
 ```
 
-Expected output shows version `0.2.1`.
+Expected output shows version `0.2.2`.
 
 ### 5. Install OpenTrust runtime into OpenCode
 
@@ -73,14 +73,15 @@ After `install`, the active runtime under `~/.config/opencode/` is:
 | Agents | 38 | 9 leaders + 29 subagents |
 | Commands | 7 | `ot-*` workflow commands |
 | Skills | 7 | `opentrust-*` workflow skills |
-| Workflows | 8 | workflow definitions |
+| OpenTrust docs | 10 | `opentrust/docs/*.md`, `opentrust/reference-map/*.md` |
 | Templates | 4 | project bootstrap scaffold |
 
 The installed `opencode.json` includes:
 - `trust-lead` as `default_agent`;
-- OpenTrust instructions and references;
-- scoped per-agent permissions;
-- Barsa MCP and project provider settings preserved from shipped runtime.
+- `opentrust/docs/` and `opentrust/reference-map/` pointers in instructions and references;
+- scoped per-agent permissions (no frontmatter permission conflicts);
+- explicit Barsa usage policy: conditional, not default.
+- Legacy workflow definitions are no longer installed.
 
 ## Troubleshooting
 
@@ -91,6 +92,7 @@ The installed `opencode.json` includes:
 | `build` still appears as default | Confirm installed `~/.config/opencode/opencode.json` has `default_agent: "trust-lead"` |
 | Legacy `eng-*` commands still visible | Re-run `openstrut install`; stale managed legacy files should be removed automatically |
 | Agents not visible in OpenCode | Verify `~/.config/opencode/agents/` contains OpenTrust files; restart OpenCode |
+| Workflow commands fail | Workflows are no longer installed by default — legacy definitions remain in the source repository for migration |
 
 ## Security
 
