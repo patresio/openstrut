@@ -1,6 +1,6 @@
 # Skills
 
-This page documents the global engineering skills shipped by the harness and explains what happened to the domain-skill catalog from `mapa_operacional.xlsx`.
+This page documents the active OpenTrust runtime skills and explains what happened to the older broader skill catalog from `mapa_operacional.xlsx`.
 
 ## Source Status
 

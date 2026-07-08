@@ -2,6 +2,18 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.2.1 (2026-07-07)
+
+### Added
+
+- OpenTrust install cleanup: `openstrut install` now removes stale previously-managed legacy artifacts that are no longer in the current inventory when their installed checksum still matches the manifest.
+- Installer regression test covering stale managed cleanup while preserving locally modified legacy files.
+
+### Changed
+
+- OpenTrust runtime is the active installable baseline: `trust-lead` default agent, 38 agents total, 7 `ot-*` commands, and 7 `opentrust-*` skills.
+- Installation docs and usage docs now describe the OpenTrust runtime instead of the legacy `build` / `eng-*` workflow.
+
 ## v0.2.0 (2026-07-06)
 
 ### Added
