@@ -2,6 +2,20 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.2.3 (2026-07-08)
+
+### Added
+
+- `tui.json` — installable OpenCode TUI keybinding configuration with custom leader key (`ctrl+o`) and optimized navigation bindings. Installed as root config alongside `AGENTS.md` and `opencode.json`.
+- Legacy agents (18), commands (10), and skills (39) archived to `archive/global/` — removed from active source tree, preserved for reference.
+- `docs/usage/agents.md` now includes individual role descriptions for each lead agent.
+- `mapa_operacional.xlsx` updated with OpenTrust runtime entries (38 agents, 7 skills, 7 commands, 6 workflows, 3 bundles, 1 project, 4 docs, 6 prompts).
+
+### Changed
+
+- **Inventory**: increased from 68 to 69 artifacts — added `tui.json` as new root config file.
+- **Tests**: updated artifact count assertions; rollback test refactored for new inventory layout; removed legacy skill-specific tests (SK29–SK31); updated manifest fixture skills to `opentrust-*` variants.
+
 ## v0.2.2 (2026-07-08)
 
 ### Added
