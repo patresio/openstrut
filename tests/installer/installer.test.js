@@ -114,15 +114,16 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 68 artifacts', () => {
-    assert.equal(INVENTORY.length, 68, `Expected 68 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 69 artifacts', () => {
+    assert.equal(INVENTORY.length, 69, `Expected 69 artifacts, got ${INVENTORY.length}`);
   });
 
-  it('inventory has exactly 2 root configuration files', () => {
+  it('inventory has exactly 3 root configuration files', () => {
     const root = INVENTORY.filter(e => !e.target.includes('/'));
-    assert.equal(root.length, 2, `Expected 2 root config files, got ${root.length}: ${root.map(e => e.target).join(', ')}`);
+    assert.equal(root.length, 3, `Expected 3 root config files, got ${root.length}: ${root.map(e => e.target).join(', ')}`);
     assert.ok(root.some(e => e.target === 'AGENTS.md'), 'AGENTS.md must be in inventory');
     assert.ok(root.some(e => e.target === 'opencode.json'), 'opencode.json must be in inventory');
+    assert.ok(root.some(e => e.target === 'tui.json'), 'tui.json must be in inventory');
   });
 
   it('inventory has exactly 38 agents', () => {
@@ -186,7 +187,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('2 + 38 + 7 + 7 + 10 + 0 + 4 = 68', () => {
+  it('3 + 38 + 7 + 7 + 10 + 0 + 4 = 69', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -197,7 +198,7 @@ describe('Inventory', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const sum = root + agents + commands + skills + opentrust + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 68, `Expected sum 68, got ${sum}`);
+    assert.equal(sum, 69, `Expected sum 69, got ${sum}`);
   });
 });
 
@@ -906,19 +907,21 @@ describe('Rollback', () => {
       const first = install({ ...SHARED, target: tmp });
       assert.ok(first.success, 'First install must succeed');
 
-      // 2. Identify first three artifacts by their installed target paths
+      // 2. Identify artifacts: two root files + first agents/ file (for write-failure trigger)
       //    INVENTORY[0] → AGENTS.md (in tmp/)
       //    INVENTORY[1] → opencode.json (in tmp/)
-      //    INVENTORY[2] → agents/code-reviewer.md (in tmp/agents/)
-      const targetPaths = INVENTORY.slice(0, 3).map(e => path.join(tmp, e.target));
+      //    INVENTORY[3] → agents/trust-lead.md (in tmp/agents/) — first agent, used as failure target
+      const rootTargets = INVENTORY.slice(0, 2).map(e => path.join(tmp, e.target));
+      const agentTarget = path.join(tmp, INVENTORY[3].target);
+      const targetPaths = [...rootTargets, agentTarget];
       const agentsDir = path.join(tmp, 'agents');
 
       // 3. Overwrite all three files with "old" content so they become managed-outdated.
-      //    INVENTORY[2] (code-reviewer.md) must also be tampered so the install tries
+      //    The agents/ file must also be tampered so the install tries
       //    to write into agents/ (which we will make read-only), causing a failure there.
       const oldContent0 = Buffer.from('old content for artifact 0 — ' + crypto.randomBytes(8).toString('hex'));
       const oldContent1 = Buffer.from('old content for artifact 1 — ' + crypto.randomBytes(8).toString('hex'));
-      const oldContent2 = Buffer.from('old content for artifact 2 — ' + crypto.randomBytes(8).toString('hex'));
+      const oldContent2 = Buffer.from('old content for artifact 3 — ' + crypto.randomBytes(8).toString('hex'));
       fs.writeFileSync(targetPaths[0], oldContent0);
       fs.writeFileSync(targetPaths[1], oldContent1);
       fs.writeFileSync(targetPaths[2], oldContent2);
@@ -934,7 +937,7 @@ describe('Rollback', () => {
           if (a.relativePath === INVENTORY[1].target) {
             return { ...a, installedChecksum: checksumBuffer(oldContent1) };
           }
-          if (a.relativePath === INVENTORY[2].target) {
+          if (a.relativePath === INVENTORY[3].target) {
             return { ...a, installedChecksum: checksumBuffer(oldContent2) };
           }
           return a;
@@ -954,8 +957,8 @@ describe('Rollback', () => {
       const sentinelContent = 'sentinel — must not change';
       fs.writeFileSync(sentinel, sentinelContent);
 
-      // 7. Make agents/ directory read-only to cause failure on the third write
-      //    (agents/code-reviewer.md backup creation will fail on a read-only dir)
+      // 7. Make agents/ directory read-only to cause failure on the agents write
+      //    (agents/trust-lead.md backup creation will fail on a read-only dir)
       fs.chmodSync(agentsDir, 0o555);
 
       let restorePermissionsCalled = false;
