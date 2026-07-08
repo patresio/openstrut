@@ -2,7 +2,7 @@
 
 Agent: build
 Skills:
-- engineering-tdd-first
+- opentrust-tdd
 Depends on: none
 Parallel group: none
 
@@ -10,8 +10,8 @@ Parallel group: none
 
 Agent: build
 Skills:
-- engineering-tdd-first
-- engineering-bdd-discovery
+- opentrust-tdd
+- opentrust-spec-change
 Depends on:
 - T001
 Parallel group: none

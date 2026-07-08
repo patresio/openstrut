@@ -28,7 +28,7 @@ function validInput() {
         title: 'Modelar estado de primeiro acesso',
         heading: 'T001 — Modelar estado de primeiro acesso',
         agent: 'build',
-        skills: ['engineering-tdd-first'],
+        skills: ['opentrust-tdd'],
         dependsOn: [],
         parallelGroup: null,
       },
@@ -70,11 +70,11 @@ describe('serializeManifest', () => {
 
   it('skills are sorted alphabetically', () => {
     const input = validInput();
-    input.tasks[0].skills = ['engineering-tdd-first', 'engineering-bdd-discovery'];
+    input.tasks[0].skills = ['opentrust-spec-change', 'opentrust-tdd'];
     const out = serializeManifest(input);
-    // engineering-bdd-discovery < engineering-tdd-first alphabetically
-    const bddIdx = out.indexOf('engineering-bdd-discovery');
-    const tddIdx = out.indexOf('engineering-tdd-first');
+    // opentrust-spec-change < opentrust-tdd alphabetically
+    const bddIdx = out.indexOf('opentrust-spec-change');
+    const tddIdx = out.indexOf('opentrust-tdd');
     assert.ok(bddIdx < tddIdx, `bdd-discovery must appear before tdd-first\n${out}`);
   });
 

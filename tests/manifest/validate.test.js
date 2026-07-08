@@ -135,10 +135,10 @@ describe('validateTaskAgents', () => {
 // ─── validateTaskSkills ───────────────────────────────────────────────────────
 
 describe('validateTaskSkills', () => {
-  const SKILLS = ['engineering-tdd-first', 'engineering-bdd-discovery'];
+  const SKILLS = ['opentrust-tdd', 'opentrust-spec-change'];
 
   it('returns no errors for known skills', () => {
-    const errors = validateTaskSkills([baseTask({ skills: ['engineering-tdd-first'], skillsDeclared: true })], SKILLS);
+    const errors = validateTaskSkills([baseTask({ skills: ['opentrust-tdd'], skillsDeclared: true })], SKILLS);
     assert.deepEqual(errors, []);
   });
 
@@ -239,7 +239,7 @@ describe('collectErrors', () => {
     const frontmatter = validFrontmatter();
     const tasks = [baseTask({ id: 'T001' })];
     const agentList = ['build', 'code-reviewer', 'project-rules-auditor'];
-    const skillInventory = ['engineering-tdd-first'];
+    const skillInventory = ['opentrust-tdd'];
     const errors = collectErrors({ frontmatter, tasks, agentList, skillInventory });
     assert.deepEqual(errors, []);
   });

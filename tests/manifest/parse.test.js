@@ -105,15 +105,15 @@ Parallel group: none
 
 Agent: build
 Skills:
-- engineering-tdd-first
-- engineering-bdd-discovery
+- opentrust-tdd
+- opentrust-spec-change
 Depends on: none
 Parallel group: none
 `;
     const tasks = parseTasks(src);
     assert.equal(tasks[0].skills.length, 2);
-    assert.ok(tasks[0].skills.includes('engineering-tdd-first'));
-    assert.ok(tasks[0].skills.includes('engineering-bdd-discovery'));
+    assert.ok(tasks[0].skills.includes('opentrust-tdd'));
+    assert.ok(tasks[0].skills.includes('opentrust-spec-change'));
   });
 
   it('parses multiple dependencies', () => {

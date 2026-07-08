@@ -8,15 +8,15 @@ The installed runtime provides 38 agents: 9 leaders + 29 subagents, organized in
 
 | Team | Lead | Subagents |
 |------|------|-----------|
-| Trust Coordination | trust-lead | coordination-facilitator, meeting-scribe, decision-logger |
-| Product / Discovery | product-lead | product-discovery, requirements-analyzer, story-slicer |
-| Architecture | architecture-lead | architecture-decision-designer, domain-modeler, api-database-designer, distributed-systems-reviewer |
-| Engineering | engineering-lead | feature-implementer, code-refactoring-specialist, performance-engineer, security-reviewer, privacy-reviewer |
-| Testing / Quality | quality-lead | tdd-engineer, integration-tester, testing-strategy-designer |
-| Review / Governance | review-lead | code-reviewer, compliance-auditor, ux-accessibility-reviewer |
-| DevOps / SRE | devops-lead | ci-cd-infrastructure-engineer, observability-designer, incident-triage-specialist |
-| Delivery / Release | delivery-lead | release-manager, changelog-writer |
-| Knowledge / Context | knowledge-lead | context-historian, reference-librarian, documentation-skill-creator |
+| Trust Coordination | trust-lead — coordinates cross-team communication, decisions, meetings, and process health | coordination-facilitator, meeting-scribe, decision-logger |
+| Product / Discovery | product-lead — product strategy, discovery, requirements, and story slicing | product-discovery, requirements-analyzer, story-slicer |
+| Architecture | architecture-lead — structural decisions, domain modeling, API/database contracts, ADRs | architecture-decision-designer, domain-modeler, api-database-designer, distributed-systems-reviewer |
+| Engineering | engineering-lead — implementation, refactoring, performance, security, and privacy | feature-implementer, code-refactoring-specialist, performance-engineer, security-reviewer, privacy-reviewer |
+| Testing / Quality | quality-lead — test strategy, TDD, integration tests, quality gates | tdd-engineer, integration-tester, testing-strategy-designer |
+| Review / Governance | review-lead — independent review, compliance, UX/accessibility, delivery gating | code-reviewer, compliance-auditor, ux-accessibility-reviewer |
+| DevOps / SRE | devops-lead — CI/CD, infrastructure, observability, incident response | ci-cd-infrastructure-engineer, observability-designer, incident-triage-specialist |
+| Delivery / Release | delivery-lead — release management, versioning, changelog, deployment coordination | release-manager, changelog-writer |
+| Knowledge / Context | knowledge-lead — context retrieval, reference library, documentation, skills; sole retrieval-provider interface | context-historian, reference-librarian, documentation-skill-creator |
 
 ## Permission Model
 
@@ -47,4 +47,4 @@ Read-only planning and exploration agent. Ideal for discovery before approval.
 
 ## Legacy Agents
 
-Agent files from prior iterations remain on disk in `global/agents/` but are **not installed** into the runtime. They include: `sdd`, `project-rules-auditor`, `documentation-generator`, `harness-generator`, `performance-optimizer`, `skill-creator`, and domain agents AG01–AG12.
+Legacy agent, command, and skill files from prior iterations are preserved in `archive/global/` — they are **not installed** into the runtime. These include 18 agents (`sdd`, `project-rules-auditor`, `documentation-generator`, `harness-generator`, `performance-optimizer`, `skill-creator`, and others), 10 commands (`eng-*`), and 39 skills.

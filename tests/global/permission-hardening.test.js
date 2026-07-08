@@ -79,8 +79,8 @@ describe('HARNESS-024: permission hardening', () => {
       'trust-lead must not have wildcard bash allow');
   });
 
-  it('SDD agent must not allow production edit', () => {
-    const sddPath = join(ROOT, 'global', 'agents', 'sdd.md');
+  it('legacy SDD agent (archived) restricts edit', () => {
+    const sddPath = join(ROOT, 'archive', 'global', 'agents', 'sdd.md');
     const content = readFileSync(sddPath, 'utf8');
     // Check that the YAML frontmatter has edit: deny or edit.*: deny
     const hasDenyEdit = content.includes('edit:\n    "*": deny') ||
