@@ -87,15 +87,20 @@ export const INVENTORY = [
   { source: 'global/skills/opentrust-observability/SKILL.md',                 target: 'skills/opentrust-observability/SKILL.md' },
   { source: 'global/skills/opentrust-reference-research/SKILL.md',            target: 'skills/opentrust-reference-research/SKILL.md' },
 
-  // Workflows
-  { source: 'workflows/backend-safe-change.yaml',                            target: 'workflows/backend-safe-change.yaml' },
-  { source: 'workflows/harness-generation.yaml',                             target: 'workflows/harness-generation.yaml' },
-  { source: 'workflows/project-documentation.yaml',                          target: 'workflows/project-documentation.yaml' },
-  { source: 'workflows/feature-spec-to-build.yaml',                          target: 'workflows/feature-spec-to-build.yaml' },
-  { source: 'workflows/product-to-implementation.yaml',                      target: 'workflows/product-to-implementation.yaml' },
-  { source: 'workflows/rag-feature-sequential.yaml',                         target: 'workflows/rag-feature-sequential.yaml' },
-  { source: 'workflows/team-cowork-worktree.yaml',                           target: 'workflows/team-cowork-worktree.yaml' },
-  { source: 'workflows/full-harness-orchestration.yaml',                     target: 'workflows/full-harness-orchestration.yaml' },
+  // Workflows — none currently installed (legacy workflows reference uninstalled agents;
+  // reserved for future OpenTrust-native workflow definitions)
+
+  // OpenTrust runtime docs (installed so instructions/references resolve locally)
+  { source: 'global/opentrust/docs/TEAM_TOPOLOGY.md',                        target: 'opentrust/docs/TEAM_TOPOLOGY.md' },
+  { source: 'global/opentrust/docs/WORKFLOW.md',                             target: 'opentrust/docs/WORKFLOW.md' },
+  { source: 'global/opentrust/docs/TASK_CONTRACT.md',                        target: 'opentrust/docs/TASK_CONTRACT.md' },
+  { source: 'global/opentrust/docs/PERMISSIONS.md',                          target: 'opentrust/docs/PERMISSIONS.md' },
+  { source: 'global/opentrust/docs/OBSERVABILITY.md',                        target: 'opentrust/docs/OBSERVABILITY.md' },
+  { source: 'global/opentrust/docs/OPERATIONAL_RETRIEVAL_MAP.md',            target: 'opentrust/docs/OPERATIONAL_RETRIEVAL_MAP.md' },
+  { source: 'global/opentrust/docs/REFERENCE_PROFILES.md',                   target: 'opentrust/docs/REFERENCE_PROFILES.md' },
+  { source: 'global/opentrust/reference-map/README.md',                     target: 'opentrust/reference-map/README.md' },
+  { source: 'global/opentrust/reference-map/TEAM_CONTEXT_MATRIX.md',         target: 'opentrust/reference-map/TEAM_CONTEXT_MATRIX.md' },
+  { source: 'global/opentrust/reference-map/MCP_PROVIDER_CONTRACT.md',      target: 'opentrust/reference-map/MCP_PROVIDER_CONTRACT.md' },
 
   // Project bootstrap templates (installed so the bootstrap skill can locate
   // them at runtime without access to the harness repository working tree)

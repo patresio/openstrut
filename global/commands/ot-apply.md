@@ -9,7 +9,7 @@ agent: engineering-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md` and `docs/opencode/TASK_CONTRACT.md`.
+1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
 2. Load `AGENTS.md` global rules.
 3. Read the approved Task Plan.
 4. Validate that this matches the approved scope and contract.
@@ -19,6 +19,7 @@ agent: engineering-lead
    - Update Task Plan with evidence
 6. Do not implement未经approved items or scope creep.
 7. Stop when microincrement is complete.
+8. Use the retrieval provider only when selectors are approved in the task contract.
 
 ## Input Format
 

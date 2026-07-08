@@ -9,13 +9,13 @@ agent: devops-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md`.
-2. Load project `docs/observability.md` if exists.
-3. Classify failure type: runtime, test, build, deployment, or configuration.
-4. Collect evidence: logs, stack traces, test output, system state.
-5. Propose minimal safe fix with rollback plan.
-6. Validate resolution: run tests, verify behavior.
-7. Document incident and lessons learned.
+1. Read WORKFLOW.md from installed `opentrust/docs/` for incident procedure.
+2. Classify failure type: runtime, test, build, deployment, or configuration.
+3. Collect local evidence: logs, stack traces, test output, system state.
+4. Propose minimal safe fix with rollback plan.
+5. Validate resolution: run tests, verify behavior.
+6. Document incident and lessons learned.
+7. Do not call the retrieval provider — focus on local diagnostics first.
 
 ## Input Format
 

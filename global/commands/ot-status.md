@@ -9,7 +9,7 @@ agent: trust-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md`.
+1. Read WORKFLOW.md from installed `opentrust/docs/` if phase context is needed.
 2. Inspect current Git state: branch, diff, log.
 3. Identify active Task Plan if any.
 4. Summarize:
@@ -19,6 +19,7 @@ agent: trust-lead
    - Pending validation and blockers
    - Next step and requirements
 5. Do not mutate anything.
+6. Do not call the retrieval provider — status is read-only local evidence synthesis.
 
 ## Input Format
 

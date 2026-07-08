@@ -9,7 +9,7 @@ agent: delivery-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md` and `docs/opencode/TASK_CONTRACT.md`.
+1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
 2. Load project `CONTRIBUTING.md` for delivery rules.
 3. Verify: all tests pass, review approved, diff inspected.
 4. Prepare delivery artifacts:
@@ -19,6 +19,7 @@ agent: delivery-lead
    - Pull Request (with approved template)
 5. Do not push or PR without explicit user authorization.
 6. Do not include unrelated files or retrieval content.
+7. Do not call the retrieval provider during shipping — no retrieval content in commits.
 
 ## Input Format
 

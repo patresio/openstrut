@@ -2,16 +2,12 @@
 description: Coordinates cross-team communication, decision logging, meeting facilitation, and process health
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # trust-lead
 
 ## Mission
-Coordinate OpenTrust workflow, decisions, handoffs, and process health using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Coordinate OpenTrust workflow, decisions, handoffs, and process health. Use installed `opentrust/docs/` for workflow, task contract, and permissions guidance. Use retrieval only when the task contract specifies approved selectors.
 
 ## Use When
 - Work spans teams

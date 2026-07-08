@@ -9,8 +9,8 @@ agent: review-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md` and `docs/opencode/TASK_CONTRACT.md`.
-2. Load `docs/opencode/PERMISSIONS.md`.
+1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
+2. Read PERMISSIONS.md from installed `opentrust/docs/`.
 3. Read the approved Task Plan and implementation diff.
 4. Review for:
    - Acceptance criteria compliance
@@ -21,6 +21,7 @@ agent: review-lead
    - Scope creep (unintended changes)
 5. Approve or block with findings.
 6. Do not modify code during review.
+7. Use the retrieval provider only to verify selector usage, not for general context.
 
 ## Input Format
 

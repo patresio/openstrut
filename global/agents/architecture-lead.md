@@ -2,16 +2,12 @@
 description: Structural decisions, domain modeling, API/database contracts, distributed systems, and ADRs
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # architecture-lead
 
 ## Mission
-Guide structural decisions and trade-offs using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Guide structural decisions and trade-offs. Use installed `opentrust/docs/` for task contract and permissions guidance. Use retrieval only when approved selectors are in the task contract.
 
 ## Use When
 - Architecture choice affects boundaries, contracts, data, or operations

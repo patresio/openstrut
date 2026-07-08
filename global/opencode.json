@@ -75,21 +75,21 @@
   },
   "default_agent": "trust-lead",
   "instructions": [
-    "docs/opencode/TEAM_TOPOLOGY.md",
-    "docs/opencode/WORKFLOW.md",
-    "docs/opencode/TASK_CONTRACT.md",
-    "docs/opencode/PERMISSIONS.md",
-    "docs/opencode/OBSERVABILITY.md",
-    "docs/opencode/OPERATIONAL_RETRIEVAL_MAP.md",
-    "docs/opencode/REFERENCE_PROFILES.md"
+    "opentrust/docs/TEAM_TOPOLOGY.md",
+    "opentrust/docs/WORKFLOW.md",
+    "opentrust/docs/TASK_CONTRACT.md",
+    "opentrust/docs/PERMISSIONS.md",
+    "opentrust/docs/OBSERVABILITY.md",
+    "opentrust/docs/OPERATIONAL_RETRIEVAL_MAP.md",
+    "opentrust/docs/REFERENCE_PROFILES.md"
   ],
   "references": {
     "reference-map": {
-      "path": "docs/opencode/reference-map",
+      "path": "opentrust/reference-map",
       "description": "OpenTrust Reference Library \u2014 selector definitions and team-context matrix for the Operational Retrieval Map"
     },
     "docs-opencode": {
-      "path": "docs/opencode",
+      "path": "opentrust/docs",
       "description": "OpenTrust foundation documentation \u2014 team topology, workflow, contracts, permissions, retrieval architecture"
     }
   },

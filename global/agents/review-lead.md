@@ -2,16 +2,12 @@
 description: Independent review, compliance, UX/accessibility review, and delivery gating
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # review-lead
 
 ## Mission
-Gate changes through independent review using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Gate changes through independent review using installed `opentrust/docs/` for workflow and permissions guidance. Use retrieval only to verify selector usage, not for general context.
 
 ## Use When
 - Diff needs scope, correctness, security, compliance, or UX review

@@ -28,7 +28,7 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 **Phase: OpenTrust Runtime Foundation**
 
-The OpenTrust runtime, safe installer CLI, project bootstrap templates, execution-manifest generator, workflow validation scaffolding, and installable `0.2.1` package are implemented.
+The OpenTrust runtime, safe installer CLI, project bootstrap templates, execution-manifest generator, workflow validation scaffolding, and installable `0.2.2` package are implemented.
 
 The recommended distribution path is downloading the release tarball from GitHub Releases and installing it with `npm install -g`. The package is not published to a public npm registry.
 See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
@@ -53,8 +53,8 @@ This repository uses task-linked documentation:
 Install on any new machine:
 
 ```bash
-curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
-npm install -g ./patrese-openstrut-0.2.1.tgz
+curl -L -o patrese-openstrut-0.2.2.tgz https://github.com/patresio/openstrut/releases/download/v0.2.2/patrese-openstrut-0.2.2.tgz
+npm install -g ./patrese-openstrut-0.2.2.tgz
 openstrut plan
 openstrut install
 openstrut check
@@ -65,13 +65,13 @@ openstrut check
 1. **Download the release asset:**
 
    ```bash
-   curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
+   curl -L -o patrese-openstrut-0.2.2.tgz https://github.com/patresio/openstrut/releases/download/v0.2.2/patrese-openstrut-0.2.2.tgz
    ```
 
 2. **Install globally:**
 
    ```bash
-   npm install -g ./patrese-openstrut-0.2.1.tgz
+   npm install -g ./patrese-openstrut-0.2.2.tgz
    ```
 
 3. **Review, install, and verify:**
@@ -149,6 +149,8 @@ The following are installed into the target configuration root:
 - `agents/` — custom subagent definitions
 - `commands/` — workflow command shortcuts
 - `skills/` — reusable engineering skills
+- `opentrust/docs/` — OpenTrust workflow and architecture documentation
+- `opentrust/reference-map/` — OpenTrust selector definitions and context matrix
 - `templates/project/` — project bootstrap templates (installed for runtime access, never blindly applied to a project)
 
 ### Conflict behavior

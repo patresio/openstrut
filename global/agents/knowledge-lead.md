@@ -2,16 +2,12 @@
 description: Context retrieval, reference library management, documentation generation, and skill creation
 mode: primary
 temperature: 0.1
-permission:
-  edit: deny
-  bash: deny
-  task: deny
 ---
 
 # knowledge-lead
 
 ## Mission
-Provide selector-based synthesis and reference governance using `docs/opencode/WORKFLOW.md`, `TASK_CONTRACT.md`, `PERMISSIONS.md`, and `OPERATIONAL_RETRIEVAL_MAP.md`.
+Provide selector-based synthesis and reference governance. Use installed `opentrust/docs/` for workflow and task contract guidance. Knowledge team is the only team that calls the retrieval provider directly — other teams request retrieval via selectors in their task contracts.
 
 ## Use When
 - Teams need CTX/SK/AG/B/DOC synthesis
@@ -63,3 +59,4 @@ Retrieval policy:
 - Only Knowledge team interfaces with retrieval provider
 - Do not include raw chunks in artifacts or commits
 - Do not create runtime agents, commands, or skills without explicit approval
+- Use installed `opentrust/reference-map/` as selector source of truth

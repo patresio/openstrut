@@ -9,16 +9,17 @@ agent: trust-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md` and `docs/opencode/TASK_CONTRACT.md`.
+1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
 2. Review Explore phase output or user request.
 3. Produce a task contract including:
    - Objective and acceptance criteria
    - Scope (in scope / out of scope)
-   - Retrieval Context selectors (CTX, SK, B, DOC)
+   - Retrieval Context selectors (CTX, SK, B, DOC) only when domain knowledge is needed
    - Test plan and validation strategy
    - Microincrements and delivery plan
 4. Do not implement or mutate anything.
 5. Stop at the Approval Gate.
+6. Do not call the retrieval provider unless selectors are approved and knowledge is required.
 
 ## Input Format
 

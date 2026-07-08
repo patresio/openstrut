@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 66 artifacts', () => {
-    assert.equal(INVENTORY.length, 66, `Expected 66 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 68 artifacts', () => {
+    assert.equal(INVENTORY.length, 68, `Expected 68 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 2 root configuration files', () => {
@@ -145,9 +145,14 @@ describe('Inventory', () => {
     assert.equal(templates.length, 4, `Expected 4 templates, got ${templates.length}`);
   });
 
-  it('inventory has exactly 8 workflows', () => {
+  it('inventory has exactly 0 workflows (legacy workflows not installed)', () => {
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/'));
-    assert.equal(workflows.length, 8, `Expected 8 workflows, got ${workflows.length}`);
+    assert.equal(workflows.length, 0, `Expected 0 workflows, got ${workflows.length}`);
+  });
+
+  it('inventory has exactly 10 opentrust runtime doc files', () => {
+    const docs = INVENTORY.filter(e => e.source.startsWith('global/opentrust/'));
+    assert.equal(docs.length, 10, `Expected 10 opentrust runtime docs, got ${docs.length}`);
   });
 
   it('inventory contains no reference-library paths', () => {
@@ -181,17 +186,18 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('2 + 38 + 7 + 7 + 8 + 4 = 66', () => {
+  it('2 + 38 + 7 + 7 + 10 + 0 + 4 = 68', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/')).length;
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/')).length;
+    const opentrust = INVENTORY.filter(e => e.source.startsWith('global/opentrust/')).length;
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
-    const sum = root + agents + commands + skills + workflows + templates;
+    const sum = root + agents + commands + skills + opentrust + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 66, `Expected sum 66, got ${sum}`);
+    assert.equal(sum, 68, `Expected sum 68, got ${sum}`);
   });
 });
 

@@ -9,7 +9,7 @@ agent: trust-lead
 
 ## Instructions
 
-1. Load `docs/opencode/WORKFLOW.md` and `docs/opencode/TASK_CONTRACT.md`.
+1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
 2. Inspect current repository state: branch, diff, git log, open issues.
 3. Identify affected files, dependencies, and risks.
 4. Determine needed Retrieval Context selectors:
@@ -19,6 +19,7 @@ agent: trust-lead
    - DOC: Official documentation
 5. Do not implement, commit, or mutate anything.
 6. Stop at the Explore phase. Do not propose or plan.
+7. Do not call the retrieval provider unless the task contract explicitly requires selectors.
 
 ## Input Format
 
