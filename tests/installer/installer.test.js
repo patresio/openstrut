@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 69 artifacts', () => {
-    assert.equal(INVENTORY.length, 69, `Expected 69 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 70 artifacts', () => {
+    assert.equal(INVENTORY.length, 70, `Expected 70 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -126,9 +126,9 @@ describe('Inventory', () => {
     assert.ok(root.some(e => e.target === 'tui.json'), 'tui.json must be in inventory');
   });
 
-  it('inventory has exactly 38 agents', () => {
+  it('inventory has exactly 39 agents', () => {
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/'));
-    assert.equal(agents.length, 38, `Expected 38 agents, got ${agents.length}`);
+    assert.equal(agents.length, 39, `Expected 39 agents, got ${agents.length}`);
   });
 
   it('inventory has exactly 7 commands', () => {
@@ -187,7 +187,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 38 + 7 + 7 + 10 + 0 + 4 = 69', () => {
+  it('3 + 39 + 7 + 7 + 10 + 0 + 4 = 70', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -198,7 +198,7 @@ describe('Inventory', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const sum = root + agents + commands + skills + opentrust + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 69, `Expected sum 69, got ${sum}`);
+    assert.equal(sum, 70, `Expected sum 70, got ${sum}`);
   });
 });
 

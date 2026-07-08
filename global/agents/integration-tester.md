@@ -3,11 +3,12 @@ description: Verify integrated behavior across boundaries with focused evidence.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    "tests/**": allow
   bash:
-    "*": deny
+    "npm test*": allow
+    "node --test*": allow
+  task: deny
 ---
 
 # integration-tester

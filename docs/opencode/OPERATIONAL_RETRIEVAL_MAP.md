@@ -27,7 +27,7 @@ A set of curated files in `docs/opencode/reference-map/` that define:
 
 - **CTX** — Operational contexts (knowledge domains, numbered 01–32)
 - **SK** — Reusable skills (numbered 01–39)
-- **AG** — Legacy agent capability references (numbered 01–21)
+- **AG** — *(removed — agent names used directly in prompts)*
 - **BUNDLE** — Grouped context bundles (numbered 01–24)
 - **DOC** — Official documentation files (numbered 01–16)
 
@@ -43,7 +43,7 @@ A local MCP-compatible provider that responds to selector queries with synthesiz
 |----------|--------|-------|---------|
 | Context | CTX | 01–32 | Knowledge domain or operational area |
 | Skill | SK | 01–39 | Reusable procedure or methodology |
-| Agent | AG | 01–21 | Legacy agent capability reference |
+| Agent | (name) | — | Agent name used directly in prompts |
 | Bundle | B | 01–24 | Grouped set of contexts for a domain |
 | Doc | DOC | 01–16 | Official OpenCode documentation |
 
@@ -76,7 +76,7 @@ Agent prompt: "I need CTX14 and B08"
 | `reference-map/README.md` | Map index and usage guide |
 | `reference-map/CONTEXTS.md` | CTX01–CTX32 definitions |
 | `reference-map/SKILLS.md` | SK01–SK39 definitions |
-| `reference-map/AGENTS_LEGACY_MAP.md` | AG01–AG21 capability map |
+| ~~`reference-map/AGENTS_LEGACY_MAP.md`~~ | *(removed — references replaced with current agent names)* |
 | `reference-map/BUNDLES.md` | B01–B24 bundle definitions |
 | `reference-map/OFFICIAL_DOCS.md` | DOC01–DOC16 references |
 | `reference-map/TEAM_CONTEXT_MATRIX.md` | 9 teams mapped to selectors |

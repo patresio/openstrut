@@ -4,10 +4,11 @@ mode: subagent
 model: 9router/combo-main
 permission:
   edit: deny
-  task: deny
-  external_directory: deny
   bash:
-    "*": deny
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+  task: deny
 ---
 
 # security-reviewer

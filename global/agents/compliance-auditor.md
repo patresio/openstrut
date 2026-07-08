@@ -4,17 +4,9 @@ mode: subagent
 model: 9router/combo-main
 permission:
   edit: deny
+  bash: deny
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
-  skill:
-    "*": deny
-    "compliance-audit": allow
-    "security-review": allow
-    "engineering-task-plan": allow
 x-harness:
-  agent_id: AG21
   status: active
   source_type: domain-catalog
   source_policy:
@@ -23,7 +15,7 @@ x-harness:
     bundles: []
   primary_skills: [SK34]
   support_skills: [SK15, SK26]
-  cowork_agents: [AG13, AG14, AG15]
+  cowork_agents: [code-reviewer]
   workflow_mode: sequential
 ---
 
@@ -55,7 +47,7 @@ Auditar dependências, licenças, vulnerabilidades de supply chain, conformidade
 - `engineering-task-plan` (`SK26`)
 
 ## Cowork
-Allowed cowork agents: `AG13`, `AG14`, `AG15`.
+Allowed cowork agents: `code-reviewer`.
 
 Sequential only.
 

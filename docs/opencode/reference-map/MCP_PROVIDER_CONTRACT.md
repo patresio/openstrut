@@ -17,7 +17,7 @@ provider:
   selectors:
     context: CTX01..CTX32
     skill: SK01..SK39
-    agent: AG01..AG21
+    agent: trust-lead, product-lead, architecture-lead, engineering-lead, quality-lead, review-lead, devops-lead, delivery-lead, knowledge-lead, build, feature-implementer, code-refactoring-specialist, performance-engineer, security-reviewer, privacy-reviewer, tdd-engineer, integration-tester, testing-strategy-designer, code-reviewer, compliance-auditor, ux-accessibility-reviewer, ci-cd-infrastructure-engineer, observability-designer, incident-triage-specialist, release-manager, changelog-writer, coordination-facilitator, meeting-scribe, decision-logger, product-discovery, requirements-analyzer, story-slicer, architecture-decision-designer, domain-modeler, api-database-designer, distributed-systems-reviewer, context-historian, reference-librarian, documentation-skill-creator
     bundle: B01..B24
     doc: DOC01..DOC16
 

@@ -3,11 +3,13 @@ description: Design lean test strategy matched to risk, scope, and feedback spee
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    "tests/**": allow
+    "docs/**": allow
   bash:
-    "*": deny
+    "git status*": allow
+    "git diff*": allow
+  task: deny
 ---
 
 # testing-strategy-designer

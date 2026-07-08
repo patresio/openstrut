@@ -4,10 +4,8 @@ mode: subagent
 model: 9router/combo-main
 permission:
   edit: deny
+  bash: deny
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # context-historian

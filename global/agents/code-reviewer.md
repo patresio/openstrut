@@ -4,18 +4,12 @@ mode: subagent
 model: 9router/combo-main
 permission:
   edit: deny
-  task: deny
-  external_directory: deny
   bash:
-    "*": deny
     "git status*": allow
     "git diff*": allow
     "git log*": allow
     "git show*": allow
-    "git branch --show-current": allow
-    "git remote -v": allow
-    "git worktree list*": allow
-    "git ls-files*": allow
+  task: deny
 ---
 
 You are a read-only code review subagent.

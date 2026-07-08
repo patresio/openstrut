@@ -3,11 +3,13 @@ description: Produces compact changelog entries from approved diffs and release 
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    "CHANGELOG.md": allow
   bash:
-    "*": deny
+    "git log*": allow
+    "git status*": allow
+    "git diff*": allow
+  task: deny
 ---
 
 # changelog-writer

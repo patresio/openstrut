@@ -3,11 +3,10 @@ description: Curates selector mappings, bundles, and reference profile consisten
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
+  edit:
+    "docs/opencode/reference-map/**": allow
+  bash: deny
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # reference-librarian

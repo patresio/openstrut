@@ -3,11 +3,12 @@ description: Refactor code incrementally while preserving approved behavior.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit: allow
   bash:
-    "*": deny
+    "npm test*": allow
+    "git status*": allow
+    "git diff*": allow
+  task: deny
 ---
 
 # code-refactoring-specialist

@@ -20,7 +20,7 @@ export const INVENTORY = [
   { source: 'global/opencode.json',                                          target: 'opencode.json' },
   { source: 'global/tui.json',                                               target: 'tui.json' },
 
-  // Agents — OpenTrust topology (9 leaders + 26 new subagents + 3 preserved legacy)
+  // Agents — OpenTrust topology (9 leaders + build agent + 26 new subagents + 3 preserved legacy)
   // Leaders
   { source: 'global/agents/trust-lead.md',                                   target: 'agents/trust-lead.md' },
   { source: 'global/agents/product-lead.md',                                  target: 'agents/product-lead.md' },
@@ -31,6 +31,8 @@ export const INVENTORY = [
   { source: 'global/agents/devops-lead.md',                                   target: 'agents/devops-lead.md' },
   { source: 'global/agents/delivery-lead.md',                                 target: 'agents/delivery-lead.md' },
   { source: 'global/agents/knowledge-lead.md',                                target: 'agents/knowledge-lead.md' },
+  // Worker
+  { source: 'global/agents/build.md',                                           target: 'agents/build.md' },
   // Subagents — Trust Coordination
   { source: 'global/agents/coordination-facilitator.md',                      target: 'agents/coordination-facilitator.md' },
   { source: 'global/agents/meeting-scribe.md',                                target: 'agents/meeting-scribe.md' },

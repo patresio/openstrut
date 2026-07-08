@@ -3,11 +3,11 @@ description: Shapes documentation and skill drafts around approved selectors and
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
+  edit:
+    "docs/**": allow
+    ".opencode/skills/**": allow
+  bash: deny
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # documentation-skill-creator

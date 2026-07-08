@@ -60,6 +60,25 @@
           }
         }
       }
+    },
+    "opencode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenCode Zen",
+      "options": {
+        "baseURL": "{env:OPENCODE_ZEN_URL}",
+        "apiKey": "{file:~/.local/share/opencode/secrets/opencode-zen-api-key}"
+      },
+      "models": {
+        "big-pickle": {
+          "name": "Big Pickle"
+        },
+        "deepseek-v4-flash-free": {
+          "name": "DeepSeek V4 Flash Free"
+        },
+        "mimo-v2.5-free": {
+          "name": "MiMo V2.5 Free"
+        }
+      }
     }
   },
   "mcp": {
@@ -117,9 +136,21 @@
     "skill": "ask"
   },
   "agent": {
+    "build": {
+      "description": "General-purpose implementation agent for approved changes",
+      "mode": "primary",
+      "model": "opencode/big-pickle",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "task": "deny"
+      }
+    },
     "trust-lead": {
       "description": "Coordinates cross-team communication, decision logging, meeting facilitation, and overall process health",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -137,6 +168,7 @@
     "product-lead": {
       "description": "Product strategy, discovery, requirements, acceptance criteria, and story slicing",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -153,6 +185,7 @@
     "architecture-lead": {
       "description": "Structural decisions, domain modeling, API contracts, database schemas, distributed systems, and ADRs",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -170,16 +203,27 @@
     "engineering-lead": {
       "description": "Implementation, refactoring, performance, security, and privacy \u2014 primary implementation team lead",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
-        "edit": "allow",
-        "bash": "allow",
+        "edit": {
+          "src/**": "allow",
+          "tests/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "node --test*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        },
         "task": "allow"
       }
     },
     "quality-lead": {
       "description": "Test strategy, TDD, integration tests, end-to-end tests, and quality gates",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -192,6 +236,7 @@
     "review-lead": {
       "description": "Independent review, compliance, frontend/UX review, and accessibility \u2014 gating function before delivery",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -208,6 +253,7 @@
     "devops-lead": {
       "description": "CI/CD, infrastructure, observability, and incident response",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -222,6 +268,7 @@
     "delivery-lead": {
       "description": "Release management, versioning, changelog, and deployment coordination",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -243,6 +290,7 @@
     "knowledge-lead": {
       "description": "Context retrieval, reference library management, documentation generation, and skill creation",
       "mode": "primary",
+      "model": "opencode/big-pickle",
       "permission": {
         "read": "allow",
         "edit": {
@@ -262,6 +310,7 @@
     "coordination-facilitator": {
       "description": "Facilitates cross-team coordination and communication",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -272,6 +321,7 @@
     "meeting-scribe": {
       "description": "Records meeting notes, decisions, and action items",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -282,6 +332,7 @@
     "decision-logger": {
       "description": "Logs and tracks team decisions and their rationale",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -292,6 +343,7 @@
     "product-discovery": {
       "description": "Conducts product discovery and user research",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -302,6 +354,7 @@
     "requirements-analyzer": {
       "description": "Analyzes and structures requirements from stakeholder input",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -312,6 +365,7 @@
     "story-slicer": {
       "description": "Slices features into small, incremental, deliverable stories",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -322,6 +376,7 @@
     "architecture-decision-designer": {
       "description": "Designs and documents architecture decisions with trade-off analysis",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -332,6 +387,7 @@
     "domain-modeler": {
       "description": "Models business domains, bounded contexts, aggregates, and domain language",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -342,6 +398,7 @@
     "api-database-designer": {
       "description": "Designs API contracts, database schemas, migrations, and integration patterns",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -352,6 +409,7 @@
     "distributed-systems-reviewer": {
       "description": "Reviews consistency, concurrency, failure modes, and recovery patterns",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -458,6 +516,7 @@
     "testing-strategy-designer": {
       "description": "Designs testing strategies and selects appropriate test levels",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -499,6 +558,7 @@
     "ux-accessibility-reviewer": {
       "description": "Reviews user experience, accessibility (WCAG, ARIA), and interface consistency",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -509,6 +569,7 @@
     "ci-cd-infrastructure-engineer": {
       "description": "Designs CI/CD pipelines and manages infrastructure as code",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -524,6 +585,7 @@
     "observability-designer": {
       "description": "Designs metrics, traces, logs, dashboards, alerts, and SLOs",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -541,6 +603,7 @@
     "incident-triage-specialist": {
       "description": "Diagnoses, contains, and recovers from production incidents",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -556,6 +619,7 @@
     "release-manager": {
       "description": "Manages releases, versioning, semantic versioning, and changelog",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -576,6 +640,7 @@
     "changelog-writer": {
       "description": "Writes and maintains changelog entries from commit history",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -592,6 +657,7 @@
     "context-historian": {
       "description": "Tracks context usage, selector queries, and retrieval patterns",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -602,6 +668,7 @@
     "reference-librarian": {
       "description": "Maintains reference maps, selector definitions, and knowledge indexes",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {
@@ -614,6 +681,7 @@
     "documentation-skill-creator": {
       "description": "Generates documentation and creates reusable skills following SKILL.md standard",
       "mode": "subagent",
+      "model": "9router/combo-cheap",
       "permission": {
         "read": "allow",
         "edit": {

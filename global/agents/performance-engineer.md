@@ -3,11 +3,11 @@ description: Find and reduce performance bottlenecks with measured evidence.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
+  edit:
+    "src/**": allow
+    "tests/**": allow
+  bash: allow
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # performance-engineer

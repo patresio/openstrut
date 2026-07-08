@@ -3,11 +3,9 @@ description: Build approved feature changes in small validated increments.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
+  edit: allow
+  bash: allow
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # feature-implementer

@@ -4,10 +4,12 @@ mode: subagent
 model: 9router/combo-main
 permission:
   edit: deny
-  task: deny
-  external_directory: deny
   bash:
-    "*": deny
+    "git status*": allow
+    "git log*": allow
+    "journalctl*": ask
+    "systemctl*": ask
+  task: deny
 ---
 
 # incident-triage-specialist

@@ -10,7 +10,7 @@ The Reference Map is the routing layer between OpenTrust agents and the Retrieva
 |------|---------|
 | `CONTEXTS.md` | CTX01–CTX32 definitions — knowledge domain descriptions |
 | `SKILLS.md` | SK01–SK39 definitions — reusable skill descriptions |
-| `AGENTS_LEGACY_MAP.md` | AG01–AG21 legacy agent capability references |
+| ~~`AGENTS_LEGACY_MAP.md`~~ | *(removed — references replaced with current agent names)* |
 | `BUNDLES.md` | B01–B24 bundle definitions (grouped contexts) |
 | `OFFICIAL_DOCS.md` | DOC01–DOC16 official OpenCode documentation references |
 | `TEAM_CONTEXT_MATRIX.md` | 9 teams mapped to their primary/secondary selectors |
@@ -29,7 +29,7 @@ The Reference Map is the routing layer between OpenTrust agents and the Retrieva
 |----------|------|--------|
 | CTX01–32 | `CONTEXTS.md` | `CTXX — Title (brief description)` |
 | SK01–39 | `SKILLS.md` | `SKXX — Title (brief description)` |
-| AG01–21 | `AGENTS_LEGACY_MAP.md` | `AGXX — Title (capability summary)` |
+| agent-name | per-agent prompt files | `description, role, responsibilities` |
 | B01–24 | `BUNDLES.md` | `BXX — Title (included CTX list)` |
 | DOC01–16 | `OFFICIAL_DOCS.md` | `DOCXX — Title (file reference)` |
 

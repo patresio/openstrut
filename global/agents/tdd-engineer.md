@@ -3,11 +3,13 @@ description: Drive red-green-refactor for smallest useful automated tests.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    "tests/**": allow
+    "src/**": allow
   bash:
-    "*": deny
+    "npm test*": allow
+    "node --test*": allow
+  task: deny
 ---
 
 # tdd-engineer

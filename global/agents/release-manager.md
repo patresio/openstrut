@@ -3,18 +3,18 @@ description: Gerenciar releases, changelog, versionamento semântico, deprecaç�
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    "CHANGELOG.md": allow
+    "docs/**": allow
   bash:
-    "*": deny
-  skill:
-    "*": deny
-    "release-management": allow
-    "engineering-documentation": allow
-    "engineering-task-plan": allow
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git tag*": ask
+    "npm version*": ask
+    "npm pack*": allow
+  task: deny
 x-harness:
-  agent_id: AG20
   status: active
   source_type: domain-catalog
   source_policy:
@@ -23,7 +23,7 @@ x-harness:
     bundles: []
   primary_skills: [SK33]
   support_skills: [SK29, SK26]
-  cowork_agents: [AG13, AG14, AG15, AG16]
+  cowork_agents: [code-reviewer]
   workflow_mode: sequential
 ---
 
@@ -55,7 +55,7 @@ Planejar, documentar e coordenar releases — versionamento semântico, changelo
 - `engineering-task-plan` (`SK26`)
 
 ## Cowork
-Allowed cowork agents: `AG13`, `AG14`, `AG15`, `AG16`.
+Allowed cowork agents: `code-reviewer`.
 
 Sequential only.
 

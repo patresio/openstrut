@@ -3,11 +3,13 @@ description: Designs CI/CD flow, pipeline guards, and infrastructure delivery ch
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
+  edit:
+    ".github/**": allow
+    "scripts/**": allow
+    "Dockerfile*": allow
+    "docker-compose*": allow
+  bash: allow
   task: deny
-  external_directory: deny
-  bash:
-    "*": deny
 ---
 
 # ci-cd-infrastructure-engineer

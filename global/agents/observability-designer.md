@@ -3,11 +3,14 @@ description: Designs logs, metrics, traces, alerts, and debug paths.
 mode: subagent
 model: 9router/combo-main
 permission:
-  edit: deny
-  task: deny
-  external_directory: deny
+  edit:
+    ".github/**": allow
+    "scripts/**": allow
+    ".opencode/**": allow
   bash:
-    "*": deny
+    "git status*": allow
+    "git diff*": allow
+  task: deny
 ---
 
 # observability-designer
