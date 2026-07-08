@@ -14,6 +14,9 @@ agent: review-lead
 3. Read the approved Task Plan and implementation diff.
 4. Review for:
    - Acceptance criteria compliance
+   - Issue linkage and issue decision evidence
+   - PR scope when PR workflow applies
+   - Branch/worktree safety
    - TDD-First evidence (RED-GREEN)
    - Security and privacy issues
    - Architecture and design patterns
@@ -62,7 +65,7 @@ TDD-RED: <verified/unverified>
 TDD-GREEN: <verified/unverified>
 Validation: <tests/build/lint status>
 
-[SELELCTOR USAGE]
+[SELECTOR USAGE]
 CTX: <verified/unverified>
 SK: <verified/unverified>
 B: <verified/unverified>

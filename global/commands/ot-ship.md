@@ -12,14 +12,17 @@ agent: delivery-lead
 1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.
 2. Load project `CONTRIBUTING.md` for delivery rules.
 3. Verify: all tests pass, review approved, diff inspected.
-4. Prepare delivery artifacts:
+4. Verify branch/worktree state is safe and delivery matches recorded issue/PR decisions.
+5. If issue exists, ensure PR links the issue.
+6. Prepare delivery artifacts:
    - Archive (OpenSpec, ADR, docs update)
    - Commit (Conventional Commits in English)
    - Push (to approved branch)
    - Pull Request (with approved template)
-5. Do not push or PR without explicit user authorization.
-6. Do not include unrelated files or retrieval content.
-7. Do not call the retrieval provider during shipping — no retrieval content in commits.
+7. Do not commit, push, or open PR without explicit user authorization or approved workflow.
+8. Merge only after passing checks and review approval.
+9. Do not include unrelated files or retrieval content.
+10. Do not call the retrieval provider during shipping — no retrieval content in commits.
 
 ## Input Format
 

@@ -47,19 +47,27 @@ Default mutating workflow:
 
 `issue → branch → TDD → small change → focused validation → self-review → commit → PR → review → merge`
 
+Decision criteria before non-trivial mutation:
+
+- Issue required for new features, behavioral bugfixes, architecture/API/schema changes, large refactors, CI/CD or infra behavior changes, and non-trivial prompt/agent/skill behavior changes.
+- Branch required whenever issue workflow or non-trivial repository mutation is required.
+- PR required for the same non-trivial work; optional only when explicitly confirmed for tiny typo, comment, docs-only, or tiny config changes.
+- Worktree is optional by default; use it for isolation when unrelated branch work exists, risky refactor needs separation, parallel independent work exists, or user requests isolation.
+
 For non-trivial mutating work:
 
 1. Reuse or create an issue before branch when issue workflow is required.
 2. Reuse or create a task branch before code mutation when branch workflow is required.
-3. Define acceptance criteria and explicit exclusions.
-4. Create or adopt one task plan before implementation.
-5. Establish RED before production behavior change.
-6. Change one small batch at a time.
-7. Run narrow validation after each meaningful increment.
-8. Self-review diff against issue, task plan, tests, security, and docs.
-9. Commit only after validation and review evidence.
-10. Open PR with issue link, scope, validation, risks, and migration notes.
-11. Merge only after required checks pass and review approves.
+3. Decide whether worktree isolation is needed and record the reason.
+4. Define acceptance criteria and explicit exclusions.
+5. Create or adopt one task plan before implementation.
+6. Establish RED before production behavior change and record RED/GREEN evidence.
+7. Change one small batch at a time.
+8. Run narrow validation after each meaningful increment.
+9. Self-review diff against issue, task plan, tests, security, docs, and PR scope when PR workflow applies.
+10. Commit only after validation and review evidence.
+11. Open PR with issue link when issue exists, plus scope, validation, risks, and migration notes.
+12. Merge only after required checks pass and review approves.
 
 When issue, branch, PR, or merge expectations are not explicit, ask whether that workflow is required before non-trivial mutation.
 
@@ -127,6 +135,8 @@ Before changing Git state, inspect status, branch, remotes, history, and diff. R
 When worktree is dirty, record pre-existing modified and untracked files, separate baseline from task changes, identify overlap, and preserve unrelated work. Stop when safe isolation is not possible.
 
 Never use stash, reset, clean, checkout, restore, force push, history rewrite, or destructive commands to discard, overwrite, or hide existing work without explicit authorization.
+
+The implementation owner decides whether worktree isolation is needed before mutation; delivery verifies branch/worktree safety before commit or PR.
 
 Branch creation or switching is allowed only after confirming current work will be preserved. Worktrees are allowed only for explicit isolation or independent approved parallel work.
 
