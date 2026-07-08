@@ -26,11 +26,11 @@ The project must remain small, auditable, reversible, and independent of unneces
 
 ## Status
 
-**Phase: Installer and Distribution Foundation**
+**Phase: OpenTrust Runtime Foundation**
 
-The global artifact set, project bootstrap templates, safe installer CLI, execution-manifest generator, workflow validation scaffolding, and installable `0.1.0` package are implemented.
+The OpenTrust runtime, safe installer CLI, project bootstrap templates, execution-manifest generator, workflow validation scaffolding, and installable `0.2.1` package are implemented.
 
-The recommended distribution path is npm installing from the local git bare repository at `/srv/git/openstrut.git`. The package is not published to a public npm registry.
+The recommended distribution path is downloading the release tarball from GitHub Releases and installing it with `npm install -g`. The package is not published to a public npm registry.
 See [Architecture](docs/ARCHITECTURE.md) for the distribution strategy.
 
 ## Documentation Governance
@@ -48,23 +48,33 @@ This repository uses task-linked documentation:
 
 ## Installation
 
-### Quick One-Liner (Recommended)
+### GitHub Release Tarball (Recommended)
 
 Install on any new machine:
 
 ```bash
-npm install -g /srv/git/openstrut.git && openstrut plan && openstrut install && openstrut check
+curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
+npm install -g ./patrese-openstrut-0.2.1.tgz
+openstrut plan
+openstrut install
+openstrut check
 ```
 
 ### Manual Steps
 
-1. **Install globally:**
+1. **Download the release asset:**
 
    ```bash
-   npm install -g /srv/git/openstrut.git
+   curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
    ```
 
-2. **Review, install, and verify:**
+2. **Install globally:**
+
+   ```bash
+   npm install -g ./patrese-openstrut-0.2.1.tgz
+   ```
+
+3. **Review, install, and verify:**
 
    ```bash
    openstrut plan

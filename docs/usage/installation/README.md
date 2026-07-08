@@ -1,47 +1,38 @@
-# Server-Based Installation Guide
+# GitHub Release Installation Guide
 
-Install `@patrese/openstrut` on any new machine from this server.
+Install `@patrese/openstrut` on a new machine from a GitHub Release tarball.
+
+The package is private and not published to a public npm registry.
 
 ## Prerequisites
 
 | Machine | Requirements |
 |---|---|
-| **Server** (this machine) | Node.js ≥20, npm, repository checked out at `/srv/projects/opencode-engineering-harness` |
-| **Client** (target machine) | Node.js ≥20, npm, SSH access to this server |
+| **Client** | Node.js ≥20, npm, GitHub access to `patresio/openstrut` |
 
 ## Step-by-Step
 
-### 1. Build the package on the server
+### 1. Download the release tarball
 
 ```bash
-cd /srv/projects/opencode-engineering-harness
-npm pack
+curl -L -o patrese-openstrut-0.2.1.tgz https://github.com/patresio/openstrut/releases/download/v0.2.1/patrese-openstrut-0.2.1.tgz
 ```
 
-This creates `patrese-openstrut-0.2.1.tgz` in the current directory.
+### 2. Verify checksum
 
-### 2. Transfer to the client
-
-```bash
-# From the client machine
-scp patrese@<server-ip>:/srv/projects/opencode-engineering-harness/patrese-openstrut-0.2.1.tgz ./
-```
-
-### 3. Verify checksum
+Download or compare the release checksum published with the release notes:
 
 ```bash
 sha256sum patrese-openstrut-0.2.1.tgz
 ```
 
-Compare with the server output.
-
-### 4. Install the package globally
+### 3. Install the package globally
 
 ```bash
 npm install -g ./patrese-openstrut-0.2.1.tgz
 ```
 
-### 5. Verify the CLI
+### 4. Verify the CLI
 
 ```bash
 openstrut --version
@@ -50,7 +41,7 @@ openstrut --help
 
 Expected output shows version `0.2.1`.
 
-### 6. Install OpenTrust runtime into OpenCode
+### 5. Install OpenTrust runtime into OpenCode
 
 ```bash
 openstrut plan
@@ -58,12 +49,12 @@ openstrut install
 openstrut check
 ```
 
-`install` now reconciles stale previously-managed legacy artifacts:
+`install` reconciles stale previously-managed legacy artifacts:
 - removes stale managed files no longer in current inventory;
 - preserves locally modified legacy files;
 - updates `.openstrut/installation.json` to current inventory.
 
-### 7. Verify in OpenCode
+### 6. Restart and verify OpenCode
 
 Restart OpenCode after install.
 
@@ -103,7 +94,7 @@ The installed `opencode.json` includes:
 
 ## Security
 
-- This package is **private and UNLICENSED** — do not publish to any npm registry
+- This package is **private and UNLICENSED** — do not publish to any public npm registry
 - Do not install from untrusted sources
 - Always verify tarball checksums before installation
 - No telemetry, no external network calls from the installed artifacts
