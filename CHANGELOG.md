@@ -2,6 +2,13 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.3.1 (2026-07-08)
+
+### Fixed
+
+- `global/tui.json` is now tracked and shipped again so `npx github:patresio/openstrut install` installs the OpenCode keybinding config.
+- Root `/tui.json` remains ignored for local per-project theme overrides.
+
 ## v0.3.0 (2026-07-08)
 
 ### Added
