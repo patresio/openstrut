@@ -1,7 +1,18 @@
 ---
 description: Coordinates cross-team communication, decision logging, meeting facilitation, and process health
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    ".opencode/**": allow
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git branch --show-current": allow
+  task: allow
 ---
 
 # trust-lead

@@ -1,5 +1,6 @@
 ---
 description: Review implementation for security risks and minimum effective controls.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:

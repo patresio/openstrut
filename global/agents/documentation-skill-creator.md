@@ -1,7 +1,8 @@
 ---
 description: Shapes documentation and skill drafts around approved selectors and source policy.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/**": allow

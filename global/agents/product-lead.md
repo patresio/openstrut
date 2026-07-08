@@ -1,7 +1,17 @@
 ---
 description: Product strategy, discovery, requirements, acceptance criteria, and story slicing
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    "docs/opencode/**": allow
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+  task: allow
 ---
 
 # product-lead

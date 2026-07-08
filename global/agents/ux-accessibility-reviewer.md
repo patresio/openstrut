@@ -1,5 +1,6 @@
 ---
 description: Review user experience and accessibility issues before delivery gates.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:

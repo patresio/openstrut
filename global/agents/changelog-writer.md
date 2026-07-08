@@ -1,7 +1,8 @@
 ---
 description: Produces compact changelog entries from approved diffs and release facts.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "CHANGELOG.md": allow

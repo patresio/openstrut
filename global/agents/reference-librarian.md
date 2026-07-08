@@ -1,7 +1,8 @@
 ---
 description: Curates selector mappings, bundles, and reference profile consistency.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/opencode/reference-map/**": allow

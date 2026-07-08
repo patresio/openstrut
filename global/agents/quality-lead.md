@@ -1,7 +1,14 @@
 ---
 description: Test strategy, TDD, integration tests, end-to-end tests, and quality gates
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    "tests/**": allow
+  bash: allow
+  task: allow
 ---
 
 # quality-lead

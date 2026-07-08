@@ -1,7 +1,18 @@
 ---
 description: Structural decisions, domain modeling, API/database contracts, distributed systems, and ADRs
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    "docs/opencode/**": allow
+    "docs/decisions/**": allow
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+  task: allow
 ---
 
 # architecture-lead

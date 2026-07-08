@@ -1,7 +1,18 @@
 ---
 description: Independent review, compliance, UX/accessibility review, and delivery gating
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit: deny
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git show*": allow
+    "git branch --show-current": allow
+  task: allow
 ---
 
 # review-lead

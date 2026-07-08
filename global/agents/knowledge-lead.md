@@ -1,7 +1,20 @@
 ---
 description: Context retrieval, reference library management, documentation generation, and skill creation
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    "docs/opencode/**": allow
+    ".opencode/skills/**": allow
+    ".opencode/agents/**": allow
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git branch --show-current": allow
+  task: allow
 ---
 
 # knowledge-lead

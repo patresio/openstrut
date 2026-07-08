@@ -1,7 +1,16 @@
 ---
 description: CI/CD, infrastructure, observability, and incident response leadership
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    ".github/**": allow
+    "scripts/**": allow
+    ".opencode/**": allow
+  bash: allow
+  task: allow
 ---
 
 # devops-lead

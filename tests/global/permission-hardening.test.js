@@ -19,14 +19,18 @@ function readFrontmatter(p) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {};
   const frontmatter = {};
-  const lines = match[1].split('\n');
-  for (const line of lines) {
-    if (!line.trim() || line.startsWith('#')) continue;
+  const stack = [{ indent: -1, value: frontmatter }];
+  for (const line of match[1].split('\n')) {
+    if (!line.trim() || line.trimStart().startsWith('#')) continue;
     const idx = line.indexOf(':');
     if (idx === -1) continue;
+    const indent = line.match(/^ */)[0].length;
     const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim();
-    frontmatter[key] = value;
+    const rawValue = line.slice(idx + 1).trim();
+    while (stack.at(-1).indent >= indent) stack.pop();
+    const parent = stack.at(-1).value;
+    parent[key] = rawValue || {};
+    if (!rawValue) stack.push({ indent, value: parent[key] });
   }
   return frontmatter;
 }
@@ -69,13 +73,13 @@ describe('HARNESS-024: permission hardening', () => {
   });
 
   it('trust-lead agent has task allow for coordination role', () => {
-    const cfg = readJSON(join(ROOT, 'global', 'opencode.json'));
-    const lead = cfg.agent?.['trust-lead'];
-    assert.ok(lead, 'trust-lead agent must be configured');
+    const lead = readFrontmatter(join(ROOT, 'global', 'agents', 'trust-lead.md'));
     assert.equal(lead.mode, 'primary', 'trust-lead is primary agent');
     assert.equal(lead.permission?.task, 'allow',
       'trust-lead must have task allow as coordination lead');
     assert.notEqual(lead.permission?.bash, 'allow',
+      'trust-lead must not have wildcard bash allow');
+    assert.ok(!Object.keys(lead.permission?.bash || {}).includes('*'),
       'trust-lead must not have wildcard bash allow');
   });
 

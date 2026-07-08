@@ -1,7 +1,22 @@
 ---
 description: Release management, versioning, changelog, and deployment coordination
+model: opencode/big-pickle
 mode: primary
 temperature: 0.1
+permission:
+  read: allow
+  edit:
+    "docs/**": allow
+    ".opencode/**": allow
+  bash:
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git show*": allow
+    "git branch --show-current": allow
+    "git remote -v": allow
+    "git push*": ask
+  task: allow
 ---
 
 # delivery-lead

@@ -1,5 +1,6 @@
 ---
 description: Drive red-green-refactor for smallest useful automated tests.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:

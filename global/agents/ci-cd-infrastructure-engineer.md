@@ -1,5 +1,6 @@
 ---
 description: Designs CI/CD flow, pipeline guards, and infrastructure delivery checks.
+temperature: 0.3
 mode: subagent
 model: 9router/combo-main
 permission:

@@ -1,5 +1,6 @@
 ---
 description: Review privacy impact, data handling, retention, and exposure risks.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
