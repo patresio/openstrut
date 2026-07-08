@@ -84,4 +84,4 @@ references/books/*.epub
 # before being committed.
 mapa_operacional.xlsx
 references/tips/
-tui.json
+/tui.json

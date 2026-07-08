@@ -18,6 +18,7 @@ export const INVENTORY = [
   // Global rules
   { source: 'global/AGENTS.md',                                              target: 'AGENTS.md' },
   { source: 'global/opencode.json',                                          target: 'opencode.json' },
+  { source: 'global/tui.json',                                               target: 'tui.json' },
 
   // Agents — OpenTrust topology (9 leaders + build agent + 26 new subagents + 3 preserved legacy)
   // Leaders
