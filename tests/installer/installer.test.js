@@ -114,16 +114,15 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 70 artifacts', () => {
-    assert.equal(INVENTORY.length, 70, `Expected 70 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 69 artifacts', () => {
+    assert.equal(INVENTORY.length, 69, `Expected 69 artifacts, got ${INVENTORY.length}`);
   });
 
-  it('inventory has exactly 3 root configuration files', () => {
+  it('inventory has exactly 2 root configuration files', () => {
     const root = INVENTORY.filter(e => !e.target.includes('/'));
-    assert.equal(root.length, 3, `Expected 3 root config files, got ${root.length}: ${root.map(e => e.target).join(', ')}`);
+    assert.equal(root.length, 2, `Expected 2 root config files, got ${root.length}: ${root.map(e => e.target).join(', ')}`);
     assert.ok(root.some(e => e.target === 'AGENTS.md'), 'AGENTS.md must be in inventory');
     assert.ok(root.some(e => e.target === 'opencode.json'), 'opencode.json must be in inventory');
-    assert.ok(root.some(e => e.target === 'tui.json'), 'tui.json must be in inventory');
   });
 
   it('inventory has exactly 39 agents', () => {
@@ -187,7 +186,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 39 + 7 + 7 + 10 + 0 + 4 = 70', () => {
+  it('2 + 39 + 7 + 7 + 10 + 0 + 4 = 69', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -198,7 +197,7 @@ describe('Inventory', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const sum = root + agents + commands + skills + opentrust + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 70, `Expected sum 70, got ${sum}`);
+    assert.equal(sum, 69, `Expected sum 69, got ${sum}`);
   });
 });
 
