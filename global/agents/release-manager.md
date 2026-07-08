@@ -1,7 +1,7 @@
 ---
 description: Gerenciar releases, changelog, versionamento semântico, deprecação e notas de release.
 mode: subagent
-model: 9router/combo-main
+model: 9router/combo-cheap
 permission:
   edit:
     "CHANGELOG.md": allow

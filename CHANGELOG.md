@@ -2,6 +2,21 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.3.0 (2026-07-08)
+
+### Added
+
+- **Delegation architecture**: `## Delegation Workflow` section (PLAN→DELEGATE→COLLECT→SYNTHESIZE→VALIDATE→REPORT) added to all 9 lead prompts. Leads now explicitly forbidden from implementing work themselves.
+- **build agent**: New general-purpose worker agent with `edit: allow`, `bash: allow`, `task: deny` — sits at the bottom of the delegation chain.
+- **Model routing**: Added `opencode` provider (Big Pickle, DeepSeek V4 Flash Free, MiMo V2.5 Free). Leads + build use `opencode/big-pickle`; 20 lightweight subagents use `9router/combo-cheap`.
+- **Task plan**: HARNESS-001.md documents the delegation fix implementation.
+
+### Changed
+
+- **Permissions**: Engineering-lead restricted (edit scoped to `src/**`/`tests/**`, bash scoped to npm test/node/git). Subagent frontmatter permissions simplified and aligned with `opencode.json`. Removed legacy `external_directory` and `skill` permission blocks.
+- **AG references replaced**: `agent_id: AG20/AG21` removed from agent frontmatter. `cowork_agents` updated from AG codes to current agent names. TEAM_CONTEXT_MATRIX, MCP_PROVIDER_CONTRACT, README, and OPERATIONAL_RETRIEVAL_MAP cleared of legacy AG01-AG21 references.
+- **Inventory**: Increased from 69 to 70 artifacts, 38 to 39 agents.
+
 ## v0.2.3 (2026-07-08)
 
 ### Added
