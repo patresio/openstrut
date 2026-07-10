@@ -4,7 +4,7 @@ This page documents agents available after installing the OpenTrust runtime.
 
 ## OpenTrust Topology
 
-The installed runtime provides 38 agents: 9 leaders + 29 subagents, organized into 9 teams:
+The installed runtime provides 40 agents: 9 leaders + 31 subagents, organized into 9 teams:
 
 | Team | Lead | Subagents |
 |------|------|-----------|
@@ -13,9 +13,9 @@ The installed runtime provides 38 agents: 9 leaders + 29 subagents, organized in
 | Architecture | architecture-lead — structural decisions, domain modeling, API/database contracts, ADRs | architecture-decision-designer, domain-modeler, api-database-designer, distributed-systems-reviewer |
 | Engineering | engineering-lead — implementation, refactoring, performance, security, and privacy | feature-implementer, code-refactoring-specialist, performance-engineer, security-reviewer, privacy-reviewer |
 | Testing / Quality | quality-lead — test strategy, TDD, integration tests, quality gates | tdd-engineer, integration-tester, testing-strategy-designer |
-| Review / Governance | review-lead — independent review, compliance, UX/accessibility, delivery gating | code-reviewer, compliance-auditor, ux-accessibility-reviewer |
+| Review / Governance | review-lead — independent review, compliance, UX/accessibility, delivery gating | code-reviewer, compliance-auditor, ux-accessibility-reviewer, workflow-governance-auditor |
 | DevOps / SRE | devops-lead — CI/CD, infrastructure, observability, incident response | ci-cd-infrastructure-engineer, observability-designer, incident-triage-specialist |
-| Delivery / Release | delivery-lead — release management, versioning, changelog, deployment coordination | release-manager, changelog-writer |
+| Delivery / Release | delivery-lead — release management, versioning, changelog, deployment coordination | release-manager, changelog-writer, issue-pr-coordinator |
 | Knowledge / Context | knowledge-lead — context retrieval, reference library, documentation, skills; sole retrieval-provider interface | context-historian, reference-librarian, documentation-skill-creator |
 
 ## Permission Model
@@ -26,12 +26,12 @@ Agent permissions are configured in the installed `opencode.json` — **not** in
 - Subagents: `task: deny` — they execute delegated tasks but do not re-delegate.
 - Permission frontmatter was removed from all 9 lead agent files to eliminate conflicts. The config file is the sole permission authority.
 
-## Retrieval / Barsa Policy
+## Retrieval / Local Catalog Policy
 
 - Normal project work starts with **local evidence**: repository inspection, Git state, tests.
-- Retrieval/Barsa is **conditional**: used only when the task contract specifies approved selectors (CTX, SK, B, DOC).
-- Knowledge team is the **only** team authorized to call the retrieval provider directly.
-- All other teams request retrieval by specifying selectors in their task contracts.
+- Selector meaning comes from the installed local catalog under `context/`.
+- External retrieval is optional refresh input, not a runtime dependency.
+- All teams use approved selectors (CTX, SK, B, DOC) plus named runtime agents and installed skills.
 
 ## Native OpenCode Agents
 

@@ -202,7 +202,7 @@ scripts/                    Reserved for future validation helpers
 docs/
   README.md                 Documentation index
   ARCHITECTURE.md           Current system structure (canonical)
-  barsa/                    Barsa MCP retrieval catalog and source policy summaries
+  barsa/                    Historical retrieval catalog and source policy summaries
   usage/                    Operational usage and installation guides
   decisions/                Accepted architectural decisions (ADRs)
   design/                   Active design proposals
@@ -231,8 +231,8 @@ Files under `references/` are **read-only research material**.
 - Do not modify, rename, or redistribute reference files.
 - Reference manifests and MDX documentation are version-controlled.
 - PDF book files are excluded from version control by `.gitignore`.
-- Barsa MCP is the retrieval boundary for books, official docs, and curated operational knowledge.
-- Local source paths are ingestion provenance only; use Barsa collections, contexts, bundles, and source policies in agent-facing docs.
+- `global/context/` is the semantic source of truth for selectors used at runtime.
+- Local source paths and external extraction inputs are provenance only; do not depend on live providers in agent-facing runtime docs.
 
 ---
 

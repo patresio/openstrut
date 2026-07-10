@@ -50,6 +50,6 @@ Checks behavior across modules, contracts, fixtures, and regressions.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Report failing integration paths clearly

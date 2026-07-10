@@ -30,9 +30,9 @@ describe('package distribution metadata', () => {
     assert.equal(existsSync(path.join(PACKAGE_ROOT, 'workflows')), true);
   });
 
-  it('ships 39 priority agents in repo (OpenTrust topology)', () => {
+  it('ships 40 priority agents in repo (OpenTrust topology)', () => {
     const agents = readdirSync(path.join(PACKAGE_ROOT, 'global', 'agents')).filter(name => name.endsWith('.md'));
-    assert.ok(agents.length >= 38, `Expected at least 38 agents, got ${agents.length}`);
+    assert.ok(agents.length >= 40, `Expected at least 40 agents, got ${agents.length}`);
   });
 
   it('ships 7 opentrust-* skills by default, legacy skills still on disk', () => {

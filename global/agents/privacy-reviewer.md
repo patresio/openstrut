@@ -50,6 +50,6 @@ Checks data minimization, consent, retention, sharing, logging exposure.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Protect personal data and secrets

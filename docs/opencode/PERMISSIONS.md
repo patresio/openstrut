@@ -45,7 +45,7 @@ Subagents inherit their lead's permissions with further narrowing. Each subagent
 - Global `npm install` or system package installation
 - Access to files outside the project root (without explicit approval)
 - Force push, history rewrite, or destructive git operations
-- Direct retrieval provider calls (only Knowledge team may call the provider)
+- Runtime dependence on external retrieval providers
 
 ## Permission Verification
 

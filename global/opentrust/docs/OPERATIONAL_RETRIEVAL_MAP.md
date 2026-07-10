@@ -2,50 +2,49 @@
 
 ## Architecture
 
-OpenTrust implements a three-layer retrieval architecture that separates concerns between agent behavior, selector routing, and knowledge retrieval.
+OpenTrust uses a local semantic catalog so selector meaning stays explicit, versioned, and independent of external retrieval infrastructure.
 
 ```
 Layer 1: OpenCode Runtime
     OpenTrust agents, commands, skills, opencode.jsonc
-        ↓  declares selectors (CTX / SK / AG / BUNDLE / DOC)
-Layer 2: Operational Retrieval Map
-    docs/opencode/reference-map/
-        ↓  routes selectors to provider queries
-Layer 3: Retrieval Provider
-    Local provider (configured per-environment)
-        ↓  returns synthesis (not raw chunks)
-    Agent context (synthesized, actionable)
+        ↓  declares selectors (CTX / SK / B / DOC)
+Layer 2: Local Semantic Catalog
+    global/context/
+        ↓  defines selector meaning and runtime mappings
+Layer 3: Optional Enrichment
+    manual extraction or offline refresh into Markdown
+        ↓  updates the local catalog when needed
 ```
 
 ### Layer 1 — OpenCode Runtime
 
-The execution environment. Agents declare their reference profile using selectors (CTX, SK, AG, BUNDLE, DOC). Commands and skills also declare which selectors they require.
+The execution environment. Agents declare their reference profile using selectors (CTX, SK, B, DOC). Agent names are runtime identities, not selector IDs.
 
-### Layer 2 — Operational Retrieval Map
+### Layer 2 — Local Semantic Catalog
 
-A set of curated files in `docs/opencode/reference-map/` that define:
+A curated set of Markdown files in `global/context/` that define:
 
 - **CTX** — Operational contexts (knowledge domains, numbered 01–32)
-- **SK** — Reusable skills (numbered 01–39)
-- **AG** — Legacy agent capability references (numbered 01–21)
+- **SK** — Semantic skill maps (numbered 01–39)
+- **AG** — Legacy or compatibility agent maps (numbered 01–21; not active runtime selectors)
 - **BUNDLE** — Grouped context bundles (numbered 01–24)
-- **DOC** — Official documentation files (numbered 01–16)
+- **DOC** — Official documentation references used by runtime prompts
 
-The map translates these selectors into retrieval queries for the provider layer. It does not contain book content or chunk data — only routing metadata.
+The catalog is the runtime semantic source of truth. It contains local summaries, mappings, and policy notes — not raw excerpts.
 
-### Layer 3 — Retrieval Provider
+### Layer 3 — Optional Enrichment
 
-A local MCP-compatible provider that responds to selector queries with synthesized summaries. Configuration is environment-specific and not committed to version control.
+External research may be used only to refresh the local Markdown catalog. Runtime behavior must not depend on a live provider.
 
 ## Selector System
 
 | Selector | Prefix | Range | Purpose |
 |----------|--------|-------|---------|
 | Context | CTX | 01–32 | Knowledge domain or operational area |
-| Skill | SK | 01–39 | Reusable procedure or methodology |
-| Agent | AG | 01–21 | Legacy agent capability reference |
+| Skill | SK | 01–39 | Semantic procedure map |
+| Agent map | AG | 01–21 | Legacy or compatibility capability map |
 | Bundle | B | 01–24 | Grouped set of contexts for a domain |
-| Doc | DOC | 01–16 | Official OpenCode documentation |
+| Doc | DOC | symbolic | Official OpenCode documentation reference |
 
 ### Selector Format
 
@@ -59,28 +58,27 @@ DOC_OPENCODE_CONFIG — official doc reference
 
 ## How Agents Use Selectors
 
-Agents do not call the Retrieval Provider directly. Instead, every agent file includes a `## Reference Profile` section that declares which selectors are relevant to its work. The Knowledge team (knowledge-lead) is the only team authorized to call the Retrieval Provider.
+Agents do not resolve selector meaning from external services at runtime. Instead, every agent file includes a `## Reference Profile` section and the local catalog under `global/context/` defines what each selector means.
 
 ```
 Agent prompt: "I need CTX14 and B08"
-    → Knowledge lead receives selector query
-    → Knowledge lead calls Provider with CTX14+B08
-    → Provider returns synthesis
-    → Knowledge lead delivers synthesis to requesting agent
+    → agent or lead reads the local selector catalog
+    → matching context and bundle files define scope
+    → synthesis uses local Markdown plus approved repo evidence
 ```
 
 ## Map Files
 
 | File | Content |
 |------|---------|
-| `reference-map/README.md` | Map index and usage guide |
-| `reference-map/CONTEXTS.md` | CTX01–CTX32 definitions |
-| `reference-map/SKILLS.md` | SK01–SK39 definitions |
-| `reference-map/AGENTS_LEGACY_MAP.md` | AG01–AG21 capability map |
-| `reference-map/BUNDLES.md` | B01–B24 bundle definitions |
-| `reference-map/OFFICIAL_DOCS.md` | DOC01–DOC16 references |
+| `global/context/README.md` | Catalog overview and rules |
+| `global/context/contexts/*.md` | CTX01–CTX32 definitions |
+| `global/context/skills/*.md` | SK01–SK39 semantic skill maps |
+| `global/context/agent-maps/*.md` | AG01–AG21 legacy/runtime mapping docs |
+| `global/context/bundles/*.md` | B01–B24 bundle definitions |
+| `global/context/docs/*.md` | Official documentation references |
 | `reference-map/TEAM_CONTEXT_MATRIX.md` | 9 teams mapped to selectors |
-| `reference-map/MCP_PROVIDER_CONTRACT.md` | Provider interface contract |
+| `reference-map/MCP_PROVIDER_CONTRACT.md` | Historical provider contract reference |
 
 ## Naming Convention
 
@@ -98,4 +96,4 @@ Agent prompt: "I need CTX14 and B08"
 2. Include source IDs (CTX, BUNDLE, SK, DOC) when available
 3. No raw book content, excerpts, or internal library names in versioned files
 4. Use only selectors approved in the task contract
-5. The Knowledge team is the sole interface to the Retrieval Provider
+5. Keep runtime semantics local — external retrieval may refresh the catalog but must not be required during execution

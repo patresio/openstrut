@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 69 artifacts', () => {
-    assert.equal(INVENTORY.length, 69, `Expected 69 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 198 artifacts', () => {
+    assert.equal(INVENTORY.length, 198, `Expected 198 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -126,10 +126,11 @@ describe('Inventory', () => {
     assert.ok(root.some(e => e.target === 'tui.json'), 'tui.json must be in inventory');
   });
 
-  it('inventory has exactly 38 agents', () => {
-    const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/'));
-    assert.equal(agents.length, 38, `Expected 38 agents, got ${agents.length}`);
+  it('inventory has exactly 40 agents', () => {
+    const agents = INVENTORY.filter(({ target }) => target.startsWith('agents/'));
+    assert.equal(agents.length, 40, `Expected 40 agents, got ${agents.length}`);
   });
+
 
   it('inventory has exactly 7 commands', () => {
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/'));
@@ -154,6 +155,11 @@ describe('Inventory', () => {
   it('inventory has exactly 10 opentrust runtime doc files', () => {
     const docs = INVENTORY.filter(e => e.source.startsWith('global/opentrust/'));
     assert.equal(docs.length, 10, `Expected 10 opentrust runtime docs, got ${docs.length}`);
+  });
+
+  it('inventory has exactly 127 local context catalog files', () => {
+    const context = INVENTORY.filter(e => e.source.startsWith('global/context/'));
+    assert.equal(context.length, 127, `Expected 127 local context catalog files, got ${context.length}`);
   });
 
   it('inventory contains no reference-library paths', () => {
@@ -187,18 +193,19 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 38 + 7 + 7 + 10 + 0 + 4 = 69', () => {
+  it('3 + 40 + 7 + 7 + 10 + 127 + 0 + 4 = 198', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/')).length;
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/')).length;
     const opentrust = INVENTORY.filter(e => e.source.startsWith('global/opentrust/')).length;
+    const context = INVENTORY.filter(e => e.source.startsWith('global/context/')).length;
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
-    const sum = root + agents + commands + skills + opentrust + workflows + templates;
+    const sum = root + agents + commands + skills + opentrust + context + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 69, `Expected sum 69, got ${sum}`);
+    assert.equal(sum, 198, `Expected sum 198, got ${sum}`);
   });
 });
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Reference Map is the routing layer between OpenTrust agents and the Retrieval Provider. It defines all available selectors (CTX, SK, AG, BUNDLE, DOC) and maps them to teams, tasks, and provider queries.
+The Reference Map is the routing layer between OpenTrust agents and the local semantic catalog. It defines available selectors (CTX, SK, BUNDLE, DOC) plus legacy AG mappings, and points teams to the catalog files that explain each selector.
 
 ## Files
 
@@ -21,7 +21,7 @@ The Reference Map is the routing layer between OpenTrust agents and the Retrieva
 1. Find your team in `TEAM_CONTEXT_MATRIX.md`
 2. Look up the CTX/BUNDLE/SK/DOC selectors for your task
 3. Include these selectors in your task contract's `# Retrieval Context` section
-4. The Knowledge team will query the Retrieval Provider and return synthesis
+4. Use the local catalog entries as the semantic source of truth during execution
 
 ## Selector Reference
 

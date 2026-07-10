@@ -41,7 +41,7 @@ Official docs:
 - DOC...
 
 Provider:
-- none | operational-reference-map | both
+- local-context-catalog | none
 
 Policy:
 - synthesize-only
@@ -75,7 +75,7 @@ Policy:
 2. **Bundles** group related contexts for complex tasks
 3. **Skills** indicate which reusable procedures apply
 4. **Official docs** reference OpenCode documentation by DOC ID
-5. **Provider** declares which retrieval source to use
+5. **Provider** declares whether local catalog context is required
 6. **Policy** governs how synthesis is delivered and used
 
 ## Contract Lifecycle
@@ -91,9 +91,9 @@ Policy:
 | Prefix | Range | Description |
 |--------|-------|-------------|
 | CTX | 01–32 | Operational contexts (knowledge domains) |
-| SK | 01–39 | Reusable skills |
-| AG | 01–21 | Legacy agent references |
+| SK | 01–39 | Semantic skill maps |
+| AG | 01–21 | Legacy or compatibility agent maps |
 | B | 01–24 | Reference bundles (grouped contexts) |
-| DOC | 01–16 | Official OpenCode documentation files |
+| DOC | symbolic | Official OpenCode documentation references |
 
 Example: `CTX14`, `B08`, `SK08`, `DOC_OPENCODE_CONFIG`

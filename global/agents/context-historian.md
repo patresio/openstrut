@@ -47,6 +47,6 @@ Tracks context decisions, selector use, and knowledge continuity across tasks. H
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Keep source IDs attached to findings

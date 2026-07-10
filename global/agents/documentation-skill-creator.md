@@ -49,6 +49,6 @@ Prepares documentation and skill creation guidance from approved selectors and r
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Do not expose private source details

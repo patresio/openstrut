@@ -51,6 +51,6 @@ Shapes CI/CD and infra rollout plan. Checks pipeline gates, rollback path, and d
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Keep recommendations reversible

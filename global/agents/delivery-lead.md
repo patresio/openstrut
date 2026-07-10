@@ -42,6 +42,7 @@ Prepare approved work for release using installed `opentrust/docs/` for workflow
 ## Delegation
 - release-manager
 - changelog-writer
+- issue-pr-coordinator
 
 ## Delegation Workflow
 

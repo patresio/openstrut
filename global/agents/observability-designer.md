@@ -52,6 +52,6 @@ Defines observability plan for logs, metrics, traces, and alerts. Favors low-noi
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Link signals to failure diagnosis

@@ -59,12 +59,12 @@ All instruction files are versioned with task plan linkage:
 - Show planned changes, back up before mutation, modify only managed paths, keep managed-file hashes, block on unmanaged conflicts, and support rollback.
 - Reject package root as install target and reject symlink targets.
 
-## Barsa MCP Retrieval
+## Local Semantic Catalog
 
 - Do not reference local library paths such as `/srv/docs/biblioteca` in agent, skill, or project-facing instructions.
-- Use Barsa MCP collections, contexts, bundles, and source policies as the retrieval interface.
-- Treat filesystem source paths as ingestion provenance only, not runtime interface.
-- Keep `mapa_operacional.xlsx` as operational input for curation until a reviewed textual catalog replaces it.
+- Use `global/context/` Markdown files as the runtime semantic source of truth for CTX, SK, AG, B, and DOC selectors.
+- Treat external retrieval systems and filesystem source paths as optional extraction provenance, not runtime interface.
+- Keep selector semantics explicit, versioned, and reviewable in Markdown.
 
 ## Delivery
 

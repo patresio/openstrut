@@ -1,51 +1,42 @@
-# Barsa MCP Integration
+# Catalog and Extraction Guidance
 
-Barsa MCP is the canonical retrieval boundary for books, official documentation, and curated operational knowledge used by the harness.
+The harness runtime uses the local semantic catalog as its source of truth. External extraction is optional and must be written back into Markdown before it becomes operationally relevant.
 
-## Current Collections
+## Runtime Rule
 
-- `documentation`
-- `technology`
-- `personal`
-
-## Retrieval Rule
-
-Agents, skills, and project-facing docs must reference retrieval logically, not by local filesystem path.
+Agents, skills, and project-facing docs must use the local selector catalog during execution.
 
 Use:
 
-- collection;
-- context;
-- bundle;
-- source policy;
-- project profile.
+- `global/context/` Markdown files;
+- selector IDs already versioned in the repo;
+- repository evidence and installed runtime docs.
 
 Do not use:
 
 - `/srv/docs/biblioteca/...`;
 - raw ingestion paths in prompts;
-- whole-library injection.
+- whole-library injection;
+- live provider dependence during normal execution.
 
-## Routing Model
+## Extraction Rule
 
-Recommended order:
+If fresh external research is needed:
 
-1. explicit bundle;
-2. context;
-3. collection-wide retrieval only if needed.
-
-This keeps prompts smaller and reduces irrelevant context.
+1. extract only the smallest useful delta;
+2. convert it into reviewed Markdown inside the repo;
+3. treat the committed Markdown as the new operational source.
 
 ## Examples
 
 ### Good
 
 ```text
-Use Barsa MCP collection `documentation` and the smallest relevant context for OpenCode agent configuration.
+Use `context/contexts/CTX14.md` and `context/bundles/B08.md` during runtime.
 ```
 
 ```text
-Use Barsa MCP bundle `B21` / rag-agent-core for RAG and agent design questions.
+Refresh the local catalog offline, then commit the resulting Markdown before relying on it.
 ```
 
 ### Bad
@@ -54,24 +45,22 @@ Use Barsa MCP bundle `B21` / rag-agent-core for RAG and agent design questions.
 Read everything under /srv/docs/biblioteca/opencode-docs/...
 ```
 
+```text
+Depend on a live MCP provider to understand selector meaning during runtime.
+```
+
 ## Relationship with `mapa_operacional.xlsx`
 
-`mapa_operacional.xlsx` is a curation and planning input.
+`mapa_operacional.xlsx` is now provenance only.
 
-It helps define:
+It may explain where older selector groupings came from, but it is **not** the runtime API and it is **not** the semantic source of truth.
 
-- contexts (`CTX##`)
-- skills (`SK##`)
-- agents (`AG##`)
-- bundles (`B##`)
-- projects (`PRJ##`)
+The active semantic source is the Markdown catalog under `global/context/`.
 
-It is **not** the runtime API.
-
-## Barsa in Documentation Work
+## External Research in Documentation Work
 
 When writing or updating harness docs:
 
-1. use Barsa to confirm current concepts and terminology;
-2. record durable conclusions in markdown under `docs/`;
-3. avoid leaving important decisions only in spreadsheets or chat.
+1. extract only what is needed;
+2. record durable conclusions in Markdown under the repo;
+3. avoid leaving important decisions only in spreadsheets, chats, or external tools.

@@ -2,9 +2,9 @@
 
 ## Overview
 
-This document defines the contract between OpenTrust and the Retrieval Provider, a local MCP-compatible service that responds to selector queries with synthesized knowledge.
+This document is a historical reference for environments that still maintain an external retrieval provider. The active runtime must not depend on a live provider; selector meaning comes from the local catalog under `global/context/`.
 
-Only the Knowledge team (knowledge-lead) is authorized to call the Retrieval Provider. All other teams request retrieval by specifying selectors in their task contracts.
+If a provider exists, it may be used only to refresh the local catalog offline. Runtime execution must continue to work without it.
 
 ## Provider Specification
 
@@ -17,9 +17,9 @@ provider:
   selectors:
     context: CTX01..CTX32
     skill: SK01..SK39
-    agent: AG01..AG21
+    agent_map: AG01..AG21
     bundle: B01..B24
-    doc: DOC01..DOC16
+    doc: DOC_*
 
   query_formats:
     single: CTX{id}
@@ -61,21 +61,14 @@ CTX14+B08 → "Return synthesis combining CTX14 and B08"
 
 | Mode | When | Behavior |
 |------|------|----------|
-| `none` | No retrieval needed | Agent works from its built-in knowledge |
-| `operational-reference-map` | Provider unavailable | Agent uses reference-map definitions as fallback |
-| `both` | Provider + map | Full retrieval with map fallback |
+| `none` | No external refresh needed | Agent works from local catalog and repository evidence |
+| `local-context-catalog` | Default | Agent uses `global/context/` definitions |
 
-The task contract's `# Retrieval Context` section declares which mode to use.
+The task contract's `# Retrieval Context` section declares whether local catalog context is required.
 
 ## Configuration
 
-The Retrieval Provider is configured per-environment via a gitignored file:
-
-```
-.opentrust/local/retrieval-provider.json
-```
-
-This file contains connection details, authentication (if any), and environment-specific settings. It is not committed to version control.
+If a provider is used for offline refresh, its configuration stays environment-specific and must not become a runtime dependency.
 
 ## Security
 

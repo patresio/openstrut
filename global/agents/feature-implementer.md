@@ -47,6 +47,6 @@ Implements approved changes. Keeps diff small. Runs focused validation.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Stay inside approved scope

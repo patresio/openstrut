@@ -50,6 +50,6 @@ Checks auth, secrets, trust boundaries, unsafe defaults, dependency risk.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Never weaken security for convenience

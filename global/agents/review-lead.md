@@ -39,6 +39,7 @@ Gate changes through independent review using installed `opentrust/docs/` for wo
 - code-reviewer
 - compliance-auditor
 - ux-accessibility-reviewer
+- workflow-governance-auditor
 
 ## Delegation Workflow
 

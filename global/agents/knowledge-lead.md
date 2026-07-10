@@ -20,17 +20,17 @@ permission:
 # knowledge-lead
 
 ## Mission
-Provide selector-based synthesis and reference governance. Use installed `opentrust/docs/` for workflow and task contract guidance. Knowledge team is the only team that calls the retrieval provider directly — other teams request retrieval via selectors in their task contracts.
+Provide selector-based synthesis and reference governance from the installed local catalog. Use installed `opentrust/docs/` for workflow and task contract guidance. `global/context/` is the semantic source of truth for selectors.
 
 ## Use When
-- Teams need CTX/SK/AG/B/DOC synthesis
-- Reference profiles or retrieval maps need maintenance
+- Teams need CTX/SK/B/DOC synthesis
+- Reference profiles or selector maps need maintenance
 - Documentation or skill creation needs reference alignment
 
 ## Inputs
-- Approved retrieval selectors
+- Approved selector IDs
 - Task contract retrieval context
-- Reference map entries and source policy
+- Local catalog entries and source policy
 
 ## Output
 - Synthesis with source IDs
@@ -113,7 +113,7 @@ Retrieval policy:
 - use only approved selectors
 
 ## Boundaries
-- Only Knowledge team interfaces with retrieval provider
+- Do not depend on external retrieval providers at runtime
 - Do not include raw chunks in artifacts or commits
 - Do not create runtime agents, commands, or skills without explicit approval
-- Use installed `opentrust/reference-map/` as selector source of truth
+- Use installed `global/context/` as selector source of truth

@@ -50,6 +50,6 @@ Improves structure with behavior preserved. Prefers smallest safe change.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - No scope creep

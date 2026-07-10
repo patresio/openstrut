@@ -61,7 +61,7 @@ Allowed cowork agents: `code-reviewer`.
 Sequential only.
 
 ## Barsa Source Policy
-Use Barsa MCP as the retrieval boundary.
+Use the installed `global/context/` catalog as the semantic boundary. Treat repo-local Markdown as the runtime source of truth.
 
 - collections: `documentation; technology`
 - contexts: `CTX27`, `CTX23`, `CTX20`
