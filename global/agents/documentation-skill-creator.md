@@ -1,7 +1,8 @@
 ---
 description: Shapes documentation and skill drafts around approved selectors and source policy.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/**": allow
@@ -48,6 +49,6 @@ Prepares documentation and skill creation guidance from approved selectors and r
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Do not expose private source details

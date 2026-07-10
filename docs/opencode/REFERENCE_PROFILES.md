@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Reference profiles allow agents to declare their knowledge requirements declaratively. Instead of embedding book lists or content in agent prompts, agents use selectors (CTX, SK, AG, BUNDLE, DOC) to specify what knowledge they need.
+Reference profiles allow agents to declare their knowledge requirements declaratively. Instead of embedding book lists or content in agent prompts, agents use selectors (CTX, SK, BUNDLE, DOC) to specify what knowledge they need. Legacy `AG` IDs may appear only as compatibility mappings in the local catalog, not as active runtime selectors.
 
 ## Profile Structure
 
@@ -53,11 +53,11 @@ Knowledge domains that define the operational area. Examples: architecture decis
 
 ### Skills (SK)
 
-Reusable procedures that an agent can invoke. Examples: architecture-decision skill, tdd-first skill, code-review skill.
+Semantic procedure maps that describe reusable methods. A skill map may point to an installed runtime skill under `global/skills/*/SKILL.md`, but it must not duplicate that executable file.
 
 ### Agents (AG)
 
-References to legacy agent capabilities that may inform prompt design. These are informational only — not active retrieval.
+References to legacy or compatibility agent capabilities. These are informational mapping documents only — not active runtime selectors and not executable agent files.
 
 ### Bundles (B)
 
@@ -94,6 +94,6 @@ References to official OpenCode documentation files.
 
 1. Every agent must have a `## Reference Profile` section
 2. Every subagent must have at least one context or explicit `none`
-3. Selectors must reference IDs that exist in the Operational Retrieval Map
+3. Selectors must reference IDs that exist in the local selector catalog under `global/context/`
 4. No agent file may contain inline book lists, excerpts, or personal library names
 5. Retrieval policy should specify when references are and are not needed

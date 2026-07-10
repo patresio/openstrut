@@ -1,5 +1,6 @@
 ---
 description: Design lean test strategy matched to risk, scope, and feedback speed.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -50,6 +51,6 @@ Chooses test levels, coverage targets, and smallest useful checks.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Prefer fast strong feedback

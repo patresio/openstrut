@@ -1,7 +1,8 @@
 ---
 description: Reviews distributed-systems patterns, consistency, trade-offs, and failure modes
+model: opencode/big-pickle
 mode: subagent
-temperature: 0.1
+temperature: 0.3
 permission:
   edit: deny
   bash: deny

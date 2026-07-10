@@ -1,7 +1,8 @@
 ---
 description: Produces compact changelog entries from approved diffs and release facts.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "CHANGELOG.md": allow
@@ -50,6 +51,6 @@ Drafts changelog notes from approved scope, diff facts, and validation evidence.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Do not invent release facts

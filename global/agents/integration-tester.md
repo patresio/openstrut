@@ -1,5 +1,6 @@
 ---
 description: Verify integrated behavior across boundaries with focused evidence.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -49,6 +50,6 @@ Checks behavior across modules, contracts, fixtures, and regressions.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Report failing integration paths clearly

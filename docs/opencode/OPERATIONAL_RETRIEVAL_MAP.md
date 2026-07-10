@@ -2,7 +2,7 @@
 
 ## Architecture
 
-OpenTrust implements a three-layer retrieval architecture that separates concerns between agent behavior, selector routing, and knowledge retrieval.
+OpenTrust uses a local semantic catalog that separates selector meaning from executable runtime artifacts and avoids runtime dependence on external retrieval infrastructure.
 
 ```
 Layer 1: OpenCode Runtime
@@ -59,14 +59,13 @@ DOC_OPENCODE_CONFIG — official doc reference
 
 ## How Agents Use Selectors
 
-Agents do not call the Retrieval Provider directly. Instead, every agent file includes a `## Reference Profile` section that declares which selectors are relevant to its work. The Knowledge team (knowledge-lead) is the only team authorized to call the Retrieval Provider.
+Agents do not resolve selector meaning from external services at runtime. Instead, every agent file includes a `## Reference Profile` section and the local catalog under `global/context/` defines what each selector means.
 
 ```
 Agent prompt: "I need CTX14 and B08"
-    → Knowledge lead receives selector query
-    → Knowledge lead calls Provider with CTX14+B08
-    → Provider returns synthesis
-    → Knowledge lead delivers synthesis to requesting agent
+    → agent or lead reads the local selector catalog
+    → matching context and bundle files define scope
+    → synthesis uses local Markdown plus approved repo evidence
 ```
 
 ## Map Files
@@ -98,4 +97,4 @@ Agent prompt: "I need CTX14 and B08"
 2. Include source IDs (CTX, BUNDLE, SK, DOC) when available
 3. No raw book content, excerpts, or internal library names in versioned files
 4. Use only selectors approved in the task contract
-5. The Knowledge team is the sole interface to the Retrieval Provider
+5. Keep runtime semantics local — external retrieval may refresh the catalog but must not be required during execution

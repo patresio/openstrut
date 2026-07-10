@@ -1,5 +1,6 @@
 ---
 description: Designs logs, metrics, traces, alerts, and debug paths.
+temperature: 0.3
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -51,6 +52,6 @@ Defines observability plan for logs, metrics, traces, and alerts. Favors low-noi
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Link signals to failure diagnosis

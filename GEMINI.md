@@ -233,14 +233,14 @@ Not yet allowed:
 * global machine configuration changes;
 * release tarball creation without explicit approval.
 
-## Barsa MCP Retrieval
+## Local Semantic Catalog
 
-Barsa MCP is the retrieval interface for books, official docs, and curated operational knowledge.
+`global/context/` is the runtime semantic source of truth for selectors.
 
 * Do not reference local library paths in agent-facing instructions.
-* Use Barsa collections, contexts, bundles, and source policies.
-* Treat filesystem paths as ingestion provenance only.
-* Keep durable retrieval decisions in `docs/barsa/` and architecture/design docs.
+* Do not depend on live retrieval providers during runtime.
+* Treat filesystem paths and external extraction inputs as provenance only.
+* Keep durable selector decisions in Markdown inside the repository.
 
 ## Reporting
 

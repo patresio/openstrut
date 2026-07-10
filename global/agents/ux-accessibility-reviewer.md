@@ -1,5 +1,6 @@
 ---
 description: Review user experience and accessibility issues before delivery gates.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -46,6 +47,6 @@ Checks flows, clarity, keyboard access, semantics, and blocking UX risks.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Report user-facing risk with evidence

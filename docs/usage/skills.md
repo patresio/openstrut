@@ -4,13 +4,14 @@ This page documents the active OpenTrust runtime skills and explains what happen
 
 ## Source Status
 
-`mapa_operacional.xlsx` was transformed into reviewed Barsa-facing summaries under `docs/barsa/`.
+`mapa_operacional.xlsx` is now provenance only. Its reviewed outcomes should live in Markdown under `global/context/` and supporting documentation under `docs/`.
 
-- `docs/barsa/skills.md` records 26 proposed domain-skill contracts from sheet `03_SKILLS`, plus 13 harness-global engineering skills now mirrored into the spreadsheet as `SK19`–`SK31`.
-- `docs/barsa/agents.md` records 12 proposed domain-agent contracts from sheet `04_AGENTS`, plus 9 harness-global agents mirrored as `AG13`–`AG21`.
-- `docs/barsa/operational-map.md` records the routing layers and recommended pilot path.
+- `global/context/skills/*.md` records semantic `SK##` mappings.
+- `docs/barsa/skills.md` remains historical catalog material.
+- `docs/barsa/agents.md` remains historical catalog material.
+- `docs/barsa/operational-map.md` remains historical routing context.
 
-All 39 skills (13 engineering workflow + 26 domain) are now installed as harness-global runtime skills under `global/skills/`.
+Only the installed runtime skills under `global/skills/*/SKILL.md` are executable runtime skills. Semantic `SK##` maps do not imply installed executable skills.
 
 ## What Is a Skill in This Harness?
 
@@ -103,7 +104,7 @@ The harness currently ships 39 skills in `global/skills/`:
 - behavior is already specified and clear;
 - implementation has already started and no discovery gap remains.
 
-**Barsa usage:** query Barsa MCP when examples need official product/domain docs or curated operational references.
+**Catalog usage:** use the local selector catalog and repo-local docs when examples need official or operational references.
 
 ### `engineering-code-review`
 
@@ -241,7 +242,7 @@ The harness currently ships 39 skills in `global/skills/`:
 - `specs/<capability>/spec.md`;
 - optional `design.md` only when complexity requires it.
 
-**Current Barsa note:** this skill still contains older direct reference-directory discovery text. Project policy now says Barsa MCP is canonical retrieval boundary for books, official docs, and curated operational knowledge. When using the skill, prefer Barsa retrieval and record the logical source used.
+**Current catalog note:** older retrieval wording may still appear in historical material. For runtime work, prefer the local selector catalog and record any durable updates back into Markdown.
 
 ### `engineering-task-plan`
 
@@ -334,7 +335,7 @@ The harness currently ships 39 skills in `global/skills/`:
 - ADR, PRD, AGENTS.md, specs, runbooks, protocol docs;
 - complete documentation tree under `docs/`.
 
-**Barsa usage:** queries all three Barsa collections — `documentation` for templates/examples, `technology` for stack alignment, `personal` for context.
+**Catalog usage:** prefer local Markdown context plus repository evidence; if external research is ever needed, write the result back into the catalog before operational use.
 
 ### `harness-generation`
 
@@ -354,7 +355,7 @@ The harness currently ships 39 skills in `global/skills/`:
 - `src/installer/inventory.js` update;
 - documented in an OpenSpec change proposal for approval.
 
-**Barsa usage:** queries `technology` (stack analysis), `personal` (methodology/context), and `documentation` (templates and ADR patterns).
+**Catalog usage:** derive stack, workflow, and documentation context from local catalog files plus project evidence; do not depend on live retrieval during runtime.
 
 ### `worktree-lifecycle-management`
 
@@ -378,7 +379,7 @@ The harness currently ships 39 skills in `global/skills/`:
 
 **Key rule:** never create worktrees without explicit approval; never exceed 3 simultaneous worktrees; keep branches short-lived (< 1 day).
 
-**Barsa usage:** queries `documentation` and `technology` for official Git docs and curated engineering references on worktree strategy, merge policy, and cleanup.
+**Catalog usage:** use local Markdown guidance and project evidence for worktree strategy, merge policy, and cleanup.
 
 ## Skill Selection Rule
 
@@ -398,28 +399,28 @@ Good examples:
 
 ## Domain Skills from `mapa_operacional.xlsx`
 
-The spreadsheet defines 18 domain-skill contracts. They are cataloged in `docs/barsa/skills.md` and now materialized for global runtime installation.
+The spreadsheet defined domain-skill contracts that are now represented as semantic catalog entries. They are not automatically materialized as executable runtime skills.
 
 | ID | Skill | Current status | Focus |
 |---|---|---|---|
-| SK01 | `knowledge-system-design` | global-runtime | knowledge systems and retrieval structure |
-| SK02 | `learning-plan-design` | global-runtime | learning plans and evidence of mastery |
-| SK03 | `personal-execution-system` | global-runtime | routine, WIP limits, hyperfocus-aware execution |
-| SK04 | `financial-organization` | global-runtime | finance organization and decision rules |
-| SK05 | `product-discovery` | global-runtime | hypothesis, MVP, experiments, metrics |
-| SK06 | `leadership-feedback` | global-runtime | feedback, expectations, agreements |
-| SK07 | `career-positioning` | global-runtime | narrative, CV, interviews, communication |
-| SK08 | `architecture-decision` | global-runtime | ADRs and architecture trade-offs |
-| SK09 | `domain-modeling` | global-runtime | vocabulary, invariants, bounded contexts |
-| SK10 | `distributed-systems-review` | global-runtime | consistency, failure, recovery, observability |
-| SK11 | `api-data-design` | global-runtime | contracts, schemas, data design |
-| SK12 | `devops-sre-diagnostics` | global-runtime | incidents, pipelines, SLOs, rollback |
-| SK13 | `frontend-ux-review` | global-runtime | UX heuristics, forms, accessibility |
-| SK14 | `code-refactoring` | global-runtime | incremental refactoring |
-| SK15 | `security-review` | global-runtime | threats, controls, validation |
-| SK16 | `testing-strategy` | global-runtime | risk-based testing strategy |
-| SK17 | `rag-agent-design` | global-runtime (pilot-priority) | RAG, MCP, agents, retrieval, evaluation |
-| SK18 | `health-planning` | global-runtime | health research organization and practical planning |
+| SK01 | `knowledge-system-design` | catalog-only | knowledge systems and retrieval structure |
+| SK02 | `learning-plan-design` | catalog-only | learning plans and evidence of mastery |
+| SK03 | `personal-execution-system` | catalog-only | routine, WIP limits, hyperfocus-aware execution |
+| SK04 | `financial-organization` | catalog-only | finance organization and decision rules |
+| SK05 | `product-discovery` | catalog-only | hypothesis, MVP, experiments, metrics |
+| SK06 | `leadership-feedback` | catalog-only | feedback, expectations, agreements |
+| SK07 | `career-positioning` | catalog-only | narrative, CV, interviews, communication |
+| SK08 | `architecture-decision` | catalog-only | ADRs and architecture trade-offs |
+| SK09 | `domain-modeling` | catalog-only | vocabulary, invariants, bounded contexts |
+| SK10 | `distributed-systems-review` | catalog-only | consistency, failure, recovery, observability |
+| SK11 | `api-data-design` | catalog-only | contracts, schemas, data design |
+| SK12 | `devops-sre-diagnostics` | catalog-only | incidents, pipelines, SLOs, rollback |
+| SK13 | `frontend-ux-review` | catalog-only | UX heuristics, forms, accessibility |
+| SK14 | `code-refactoring` | catalog-only | incremental refactoring |
+| SK15 | `security-review` | catalog-only | threats, controls, validation |
+| SK16 | `testing-strategy` | catalog-only | risk-based testing strategy |
+| SK17 | `rag-agent-design` | catalog-only (pilot-priority) | RAG, MCP, agents, retrieval, evaluation |
+| SK18 | `health-planning` | catalog-only | health research organization and practical planning |
 
 ## Materialization Rule
 
@@ -427,18 +428,18 @@ Do not promote a domain skill from `docs/barsa/skills.md` into `global/skills/` 
 
 1. approved runtime contract;
 2. clear trigger and output shape;
-3. Barsa source policy;
+3. local catalog policy;
 4. tests/evals;
 5. limits and safety rules;
 6. clear proof of recurring need.
 
-## Barsa-Aware Usage
+## Catalog-Aware Usage
 
-When a global engineering skill needs books, official docs, or curated operational knowledge:
+When a global engineering skill needs domain or documentation context:
 
-1. identify the relevant collection, context, or bundle;
-2. query Barsa MCP for focused evidence;
-3. cite the retrieved source conceptually in the working artifact when needed;
+1. identify the relevant local selector, bundle, or doc map;
+2. use the local catalog and repository evidence first;
+3. record any durable external extraction back into Markdown before operational reuse;
 4. avoid injecting broad unrelated context;
 5. do not reference local library filesystem paths as runtime instructions.
 
@@ -446,4 +447,4 @@ When a global engineering skill needs books, official docs, or curated operation
 
 Keep global runtime skills engineering-focused and small.
 
-Use Barsa catalog skills as design backlog, not as installed runtime prompts, until a focused pilot is approved. Best next pilot remains `SK17 rag-agent-design`, ideally paired with `AG11 ai-rag-agent-architect` for MCP/RAG work.
+Use catalog skill maps as design backlog, not as installed runtime prompts, until a focused pilot is approved. Best next pilot remains `SK17 rag-agent-design`, paired with a named runtime agent only if a future implementation is approved.

@@ -1,5 +1,6 @@
 ---
 description: Auditar conformidade — dependências, licenças, vulnerabilidades, supply chain, regulamentação e políticas.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -52,7 +53,7 @@ Allowed cowork agents: `code-reviewer`.
 Sequential only.
 
 ## Barsa Source Policy
-Use Barsa MCP as the retrieval boundary.
+Use the installed `global/context/` catalog as the semantic boundary. Treat repo-local Markdown as the runtime source of truth.
 
 - collections: `documentation; technology`
 - contexts: `CTX20`, `CTX23`, `CTX31`

@@ -1,7 +1,8 @@
 ---
 description: Explores product problems, users, outcomes, and discovery risks
+model: opencode/deepseek-v4-flash-free
 mode: subagent
-temperature: 0.1
+temperature: 0.3
 permission:
   edit: deny
   bash: deny

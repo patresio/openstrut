@@ -13,13 +13,15 @@ agent: engineering-lead
 2. Load `AGENTS.md` global rules.
 3. Read the approved Task Plan.
 4. Validate that this matches the approved scope and contract.
-5. Implement one microincrement at a time:
+5. Verify issue, branch, PR, and worktree decisions are recorded before mutation.
+6. For behavioral changes, verify RED evidence before production code changes.
+7. Implement one microincrement at a time:
    - TDD-First for behavioral changes (RED-GREEN-REFACTOR)
    - Run validation after each increment
    - Update Task Plan with evidence
-6. Do not implement未经approved items or scope creep.
-7. Stop when microincrement is complete.
-8. Use the retrieval provider only when selectors are approved in the task contract.
+8. Do not implement未经approved items or scope creep.
+9. Stop when microincrement is complete.
+10. Use the retrieval provider only when selectors are approved in the task contract.
 
 ## Input Format
 

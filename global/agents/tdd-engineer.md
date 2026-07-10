@@ -1,5 +1,6 @@
 ---
 description: Drive red-green-refactor for smallest useful automated tests.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -50,6 +51,6 @@ Defines failing test first. Confirms red and green evidence.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Do not skip failing proof

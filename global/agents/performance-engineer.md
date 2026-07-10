@@ -1,5 +1,6 @@
 ---
 description: Find and reduce performance bottlenecks with measured evidence.
+temperature: 0.1
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -48,6 +49,6 @@ Profiles hot paths. Suggests smallest fix with evidence.
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Report evidence before claims

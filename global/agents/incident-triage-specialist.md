@@ -1,5 +1,6 @@
 ---
 description: Triage incidents with smallest safe containment and recovery steps.
+temperature: 0.3
 mode: subagent
 model: 9router/combo-main
 permission:
@@ -50,6 +51,6 @@ Triage incidents, narrow blast radius, and propose recovery order. Prefers evide
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Do not hide partial recovery state

@@ -1,6 +1,6 @@
 # Team Context Matrix
 
-Each OpenTrust team maps to a set of contexts (CTX), bundles (B), skills (SK), and legacy agent references (AG) from the Reference Map. This matrix defines the primary retrieval profile for each team.
+Each OpenTrust team maps to a set of contexts (CTX), bundles (B), skills (SK), and optional legacy agent maps (AG) from the local selector catalog. This matrix defines the primary selector profile for each team.
 
 ## 1. Trust Coordination
 

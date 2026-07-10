@@ -4,7 +4,7 @@
 
 OpenTrust organizes AI-assisted engineering into 9 specialized teams. Each team has one lead agent and a team of subagents. Teams are autonomous within their scope and coordinate through explicit contracts (task contracts and reference profiles).
 
-Total: 9 leads + 29 subagents = **38 agents** (final approved topology).
+Total: 9 leads + 31 subagents = **40 agents** (final approved topology).
 
 ## Teams
 
@@ -58,9 +58,9 @@ Test strategy, TDD, integration tests, end-to-end tests, and quality gates.
 | Role | Agent |
 |------|-------|
 | Lead | review-lead |
-| Subagents | code-reviewer, compliance-auditor, ux-accessibility-reviewer |
+| Subagents | code-reviewer, compliance-auditor, ux-accessibility-reviewer, workflow-governance-auditor |
 
-Independent review, compliance, frontend/UX review, and accessibility. Gating function before delivery.
+Independent review, compliance, frontend/UX review, accessibility, and workflow-governance audit. Gating function before delivery.
 
 ### 7. DevOps / SRE
 
@@ -76,9 +76,9 @@ CI/CD, infrastructure, observability, and incident response.
 | Role | Agent |
 |------|-------|
 | Lead | delivery-lead |
-| Subagents | release-manager, changelog-writer |
+| Subagents | release-manager, changelog-writer, issue-pr-coordinator |
 
-Release management, versioning, changelog, and deployment coordination.
+Release management, versioning, changelog, deployment coordination, and issue/PR traceability.
 
 ### 9. Knowledge / Context
 
@@ -102,4 +102,4 @@ Product → Architecture → Engineering → Review → DevOps → Delivery
    +--------- Trust Coordination (oversees all)
 ```
 
-Each team communicates via task contracts with a Retrieval Context section. The Knowledge team is the only team authorized to call the retrieval provider directly; other teams request retrieval by specifying selectors in their task contracts.
+Each team communicates via task contracts with a Retrieval Context section. Teams use the local selector catalog during runtime; any external research must be written back into Markdown before it becomes operationally relevant.

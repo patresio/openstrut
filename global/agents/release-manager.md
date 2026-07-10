@@ -1,7 +1,8 @@
 ---
 description: Gerenciar releases, changelog, versionamento semântico, deprecação e notas de release.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-cheap
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "CHANGELOG.md": allow
@@ -60,7 +61,7 @@ Allowed cowork agents: `code-reviewer`.
 Sequential only.
 
 ## Barsa Source Policy
-Use Barsa MCP as the retrieval boundary.
+Use the installed `global/context/` catalog as the semantic boundary. Treat repo-local Markdown as the runtime source of truth.
 
 - collections: `documentation; technology`
 - contexts: `CTX27`, `CTX23`, `CTX20`

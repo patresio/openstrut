@@ -1,7 +1,8 @@
 ---
 description: Curates selector mappings, bundles, and reference profile consistency.
+temperature: 0.3
 mode: subagent
-model: 9router/combo-main
+model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/opencode/reference-map/**": allow
@@ -47,7 +48,7 @@ Curates selector sets, bundle fit, and reference profile consistency. Flags drif
 - bash: deny
 
 ## Rules
-- Use only approved selectors (CTX/SK/AG/B/DOC)
+- Use only approved selectors (CTX/SK/B/DOC)
 - No direct retrieval provider calls
 - Prefer existing selectors over new mapping sprawl
 - Use installed `opentrust/reference-map/` as source of truth for selector definitions
