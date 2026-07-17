@@ -13,8 +13,8 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "9Router Homelab",
       "options": {
-        "baseURL": "{env:BASE_URL_9ROUTER}",
-        "apiKey": "{file:~/.local/share/opencode/secrets/9router-api-key}"
+        "baseURL": "{env:NINE_ROUTER_BASE_URL}",
+        "apiKey": "{env:NINE_ROUTER_API_KEY}"
       },
       "models": {
         "combo-main": {
@@ -69,7 +69,7 @@
     },
     "barsa": {
       "type": "remote",
-      "url": "{env:BARSA_MCP}",
+      "url": "{env:BARSA_MCP_URL}",
       "enabled": true
     }
   },
