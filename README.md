@@ -48,6 +48,7 @@ npx github:patresio/openstrut plan
 |------|-------------|
 | `--target <dir>` | Target config root (default: `$XDG_CONFIG_HOME/opencode`) |
 | `--dry-run` | Simulate without writing |
+| `--force`, `-f` | Overwrite existing files (backup before overwrite) |
 | `--json` | Machine-readable JSON output |
 | `--cli <ids>` | Comma-separated CLI IDs for non-interactive setup |
 | `--home <dir>` | Home root for path expansion (testing/isolation) |
@@ -139,6 +140,32 @@ OpenTrust organizes AI-assisted engineering into **9 specialized teams**:
 | Knowledge / Context | Context retrieval, reference management |
 
 Each team has one lead agent and 2-5 subagents. Teams coordinate through task contracts and explicit file-level ownership.
+
+## How the Installer Works
+
+The installer tracks what it installed using a **manifest** (`.harness/installation.json`):
+
+```
+~/.config/opencode/
+├── .harness/
+│   └── installation.json    ← manifest (checksums of all 202 artifacts)
+├── AGENTS.md                ← installed by harness
+├── opencode.json            ← installed by harness
+└── agents/                  ← installed by harness
+```
+
+**Conflict detection:**
+- File not in manifest + different content → `unmanaged-conflict` (blocks install)
+- File in manifest + content changed → `managed-locally-modified` (blocks install)
+- File in manifest + content same as packaged → `managed-outdated` (safe to update)
+
+**With `--force`:** All conflicts are overwritten (backup created first), except manifest corruption.
+
+**Commands:**
+- `openstrut plan` — see what would change (read-only)
+- `openstrut install` — install with conflict detection
+- `openstrut install --force` — install, overwrite conflicts
+- `openstrut check` — detect drift from installed version
 
 ## Skills
 

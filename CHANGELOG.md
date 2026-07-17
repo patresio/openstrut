@@ -7,6 +7,8 @@ All changes are documented here; this file is excluded from the npm package. Pac
 ### Added
 
 - **Multi-CLI installer** (`openstrut setup`): Interactive TUI for configuring OpenCode, Codex, Claude Code, Aider, Goose, and Cursor. Supports `--cli`, `--home`, `--dry-run`, `--json` flags.
+- **`--force` flag** (`openstrut install --force`): Overwrites existing files during install. Backs up user files before overwriting. Skips all conflicts except manifest corruption.
+- **OpenCode as default in setup menu**: Pressing Enter installs OpenCode without selecting other CLIs.
 - **4 new skills**: `opentrust-grilling` (interview pattern), `opentrust-domain-modeling` (living glossary + ADR 3-gate), `opentrust-handoff` (context compactation), `opentrust-diagnose` (6-phase bug diagnosis).
 - **Permission isolation tests**: Tests verifying no wildcard `"*": "allow"` in opencode.jsonc agent permissions.
 - **Multi-team isolation guide**: `docs/usage/multi-team-isolation.md` — file ownership, branch strategy, conflict prevention.
