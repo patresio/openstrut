@@ -178,8 +178,8 @@ export function classifyArtifact({ source, target, packageRoot, targetRoot, mani
  * @returns {boolean}
  */
 export function isBlockingConflict(cls, opts) {
-  // With --force, unmanaged-conflict becomes non-blocking (overwrite allowed)
-  if (opts?.force && cls === 'unmanaged-conflict') return false;
+  // With --force, overwrite all conflicts except invalid-target (manifest corruption)
+  if (opts?.force) return cls === 'invalid-target';
   return cls === 'managed-locally-modified' ||
     cls === 'unmanaged-conflict' ||
     cls === 'invalid-target';
