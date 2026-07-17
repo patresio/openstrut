@@ -167,8 +167,8 @@ describe('configure', () => {
 
     const written = JSON.parse(fs.readFileSync(result.path, 'utf8'));
     assert.equal(written.model, 'keep-me');
-    assert.ok(written.openstrut);
-    assert.equal(written.openstrut.managed, true);
+    // OpenCode rejects unknown keys — no openstrut metadata
+    assert.equal(written.openstrut, undefined);
     assert.ok(written.mcp.other);
     assert.ok(written.mcp.barsa);
   });

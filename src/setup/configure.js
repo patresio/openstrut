@@ -98,9 +98,9 @@ function buildContent(cli, configPath) {
     return (existing ? existing + '\n' : '') + block;
   }
 
-  // JSON formats (opencode, pi, omp, antigravity)
+  // JSON formats (pi, omp, antigravity) — OpenCode rejects unknown keys, skip metadata
   const base = readJsonSafe(configPath);
-  const withMeta = { ...base, openstrut: openstrutMeta() };
+  const withMeta = cli.id === 'opencode' ? base : { ...base, openstrut: openstrutMeta() };
   const withMcp = applyMcpConfig(cli, withMeta);
   return JSON.stringify(withMcp, null, 2) + '\n';
 }
