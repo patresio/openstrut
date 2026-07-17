@@ -1,6 +1,6 @@
 # HARNESS-040: OpenStrut v0.4.0 — System Coherence, Multi-CLI Installer & Skills Enrichment
 
-## Status: IN-PROGRESS
+## Status: COMPLETE
 
 ## Classification: implementation + refactoring + feature
 
@@ -89,13 +89,13 @@
 - [x] D7: Update 11 agent reference profiles
 - [x] D8: Update inventory.js (198→202), test counts updated
 
-### Fase E — Validation & Release
-- [ ] E1: Permission isolation test
-- [ ] E2: Wildcard scan test
-- [ ] E3: Multi-team guide
-- [ ] E4: Version bump 0.4.0
-- [ ] E5: CHANGELOG v0.4.0
-- [ ] E6: CI + GitHub release
+### Fase E — Validation & Release — COMPLETE ✅
+- [x] E1: Permission isolation test
+- [x] E2: Wildcard scan test
+- [x] E3: Multi-team guide
+- [x] E4: Version bump 0.4.0
+- [x] E5: CHANGELOG v0.4.0
+- [x] E6: CI + GitHub release
 
 ## Evidence Log
 | Date | Step | Evidence |
