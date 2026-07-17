@@ -86,7 +86,8 @@ function isCurrentInventoryTarget(relativePath) {
  *   packageRoot: string,
  *   packageVersion: string,
  *   packageName: string,
- *   dryRun?: boolean
+ *   dryRun?: boolean,
+ *   force?: boolean
  * }} opts
  */
 export function install(opts) {
@@ -140,7 +141,7 @@ export function install(opts) {
     })
   );
 
-  const conflicts = classified.filter(a => isBlockingConflict(a.class));
+  const conflicts = classified.filter(a => isBlockingConflict(a.class, { force: opts.force }));
 
   // Dry-run path: return install-shaped result with full classification, no writes
   if (opts.dryRun) {

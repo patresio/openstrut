@@ -14,17 +14,19 @@ export function renderMenu(clis, status = []) {
   clis.forEach((cli, i) => {
     const st = status[i];
     let badge = '';
+    if (i === 0) badge = ' (default)';
     if (st) {
       const bits = [];
       if (st.installed) bits.push('installed');
       if (st.configExists) bits.push('config');
-      if (bits.length) badge = ` [${bits.join(', ')}]`;
+      if (bits.length) badge += ` [${bits.join(', ')}]`;
     }
     lines.push(`  ${i + 1}. ${cli.name}${badge}`);
     lines.push(`     ${cli.description}`);
   });
   lines.push('');
   lines.push('Enter number(s) comma-separated, "all", or "q" to quit.');
+  lines.push('Press Enter to install OpenCode (default).');
   return lines.join('\n');
 }
 
@@ -35,7 +37,11 @@ export function renderMenu(clis, status = []) {
  */
 export function parseSelection(input, clis) {
   const raw = String(input ?? '').trim().toLowerCase();
-  if (!raw || raw === 'q' || raw === 'quit') return [];
+  if (!raw || raw === 'q' || raw === 'quit') {
+    // Empty input defaults to OpenCode (first CLI)
+    if (!raw) return clis.length > 0 ? [clis[0].id] : [];
+    return [];
+  }
   if (raw === 'all' || raw === '*') return clis.map((c) => c.id);
 
   const parts = raw.split(/[,\s]+/).filter(Boolean);

@@ -91,6 +91,7 @@ Options:
   --cli <ids>       Comma-separated CLI ids for setup (e.g. opencode,codex)
   --home <dir>      Alternate home for setup path expansion (tests / isolation)
   --dry-run         Simulate install/setup without writing any files
+  --force, -f       Overwrite existing files during install (skip unmanaged conflicts)
   --json            Output machine-readable JSON
   --help            Show this help message
   --version         Print the package version
@@ -112,7 +113,7 @@ Exit codes:
 function parseArgs(argv) {
   const args = argv.slice(2);
 
-  /** @type {{ target?: string, change?: string, home?: string, cli?: string, dryRun: boolean, json: boolean, command: string|null, args: string[] }} */
+  /** @type {{ target?: string, change?: string, home?: string, cli?: string, dryRun: boolean, force: boolean, json: boolean, command: string|null, args: string[] }} */
   const opts = {
     command: null,
     target: undefined,
@@ -120,6 +121,7 @@ function parseArgs(argv) {
     home: undefined,
     cli: undefined,
     dryRun: false,
+    force: false,
     json: false,
     args: [],
   };
@@ -141,6 +143,8 @@ function parseArgs(argv) {
 
     if (arg === '--dry-run') {
       opts.dryRun = true;
+    } else if (arg === '--force' || arg === '-f') {
+      opts.force = true;
     } else if (arg === '--json') {
       opts.json = true;
     } else if (arg === '--change') {
@@ -318,7 +322,7 @@ async function main() {
 
     } else if (opts.command === 'install') {
       showSplash();
-      const result = install({ ...shared, dryRun: opts.dryRun });
+      const result = install({ ...shared, dryRun: opts.dryRun, force: opts.force });
       const { exitCode, output } = formatInstall(result, { json: opts.json });
       process.stdout.write(output + '\n');
       process.exit(exitCode);

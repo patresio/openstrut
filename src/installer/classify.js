@@ -174,9 +174,12 @@ export function classifyArtifact({ source, target, packageRoot, targetRoot, mani
  * Returns true if the classified artifact class blocks installation.
  *
  * @param {ArtifactClass} cls
+ * @param {{ force?: boolean }} [opts]
  * @returns {boolean}
  */
-export function isBlockingConflict(cls) {
+export function isBlockingConflict(cls, opts) {
+  // With --force, unmanaged-conflict becomes non-blocking (overwrite allowed)
+  if (opts?.force && cls === 'unmanaged-conflict') return false;
   return cls === 'managed-locally-modified' ||
     cls === 'unmanaged-conflict' ||
     cls === 'invalid-target';

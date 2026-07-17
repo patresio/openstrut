@@ -123,7 +123,8 @@ describe('menu', () => {
     assert.deepEqual(parseSelection(' 2 , 5 ', CLIS), ['codex', 'omp']);
     assert.deepEqual(parseSelection('all', CLIS), CLIS.map((c) => c.id));
     assert.deepEqual(parseSelection('q', CLIS), []);
-    assert.deepEqual(parseSelection('', CLIS), []);
+    // Empty input defaults to OpenCode (first CLI)
+    assert.deepEqual(parseSelection('', CLIS), ['opencode']);
   });
 
   it('parseSelection rejects out-of-range', () => {
