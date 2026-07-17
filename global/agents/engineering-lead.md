@@ -103,6 +103,8 @@ Primary bundles:
 Related skills:
 - SK11
 - SK12
+- opentrust-grilling — one Q at a time interview
+- opentrust-diagnose — 6-phase bug diagnosis
 Official docs:
 - DOC_OPENCODE_AGENTS
 - DOC_OPENCODE_PERMISSIONS

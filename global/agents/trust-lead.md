@@ -95,6 +95,7 @@ Primary bundles:
 Related skills:
 - SK01
 - SK03
+- opentrust-handoff — session context compactation
 Official docs:
 - DOC_OPENCODE_AGENTS
 - DOC_OPENCODE_CONFIG

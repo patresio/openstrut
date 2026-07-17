@@ -8,9 +8,9 @@
 - [x] Build — MI1: define `global/context/` structure and templates
 - [x] Build — MI2: create full Markdown catalog for CTX/SK/AG/B/DOC
 - [x] Build — MI3: update installer inventory and count-sensitive tests
-- [ ] Review
-- [ ] Commit
-- [ ] Push
+- [x] Review (closed via HARNESS-040 reconciliation)
+- [x] Commit (committed in PR #5)
+- [x] Push (pushed in PR #5)
 
 ## Objective
 Create a simple Markdown semantic catalog under `global/context/` so CTX/SK/AG/B/DOC meanings are explicit, versioned, and separated from executable runtime artifacts.

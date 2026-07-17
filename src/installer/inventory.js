@@ -89,6 +89,10 @@ export const INVENTORY = [
   { source: 'global/skills/opentrust-delivery/SKILL.md',                      target: 'skills/opentrust-delivery/SKILL.md' },
   { source: 'global/skills/opentrust-observability/SKILL.md',                 target: 'skills/opentrust-observability/SKILL.md' },
   { source: 'global/skills/opentrust-reference-research/SKILL.md',            target: 'skills/opentrust-reference-research/SKILL.md' },
+  { source: 'global/skills/opentrust-grilling/SKILL.md',                     target: 'skills/opentrust-grilling/SKILL.md' },
+  { source: 'global/skills/opentrust-domain-modeling/SKILL.md',               target: 'skills/opentrust-domain-modeling/SKILL.md' },
+  { source: 'global/skills/opentrust-handoff/SKILL.md',                      target: 'skills/opentrust-handoff/SKILL.md' },
+  { source: 'global/skills/opentrust-diagnose/SKILL.md',                     target: 'skills/opentrust-diagnose/SKILL.md' },
 
   // Workflows — none currently installed (legacy workflows reference uninstalled agents;
   // reserved for future OpenTrust-native workflow definitions)

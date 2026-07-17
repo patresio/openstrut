@@ -26,9 +26,7 @@ Not yet allowed:
 
 ## Working Directory Boundary
 
-All work must remain inside the repository root:
-
-`/srv/projects/openstrut`
+All work must remain inside the repository root. The working directory is whatever directory contains the repository checkout.
 
 Do not modify `~/.config/opencode`, other projects, or external directories.
 

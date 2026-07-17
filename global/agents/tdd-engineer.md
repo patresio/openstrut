@@ -27,6 +27,7 @@ Primary bundles:
 
 Related skills:
 - SK16
+- opentrust-grilling — one Q at a time interview
 
 Official docs:
 - DOC_OPENCODE_AGENT_TEMPLATE

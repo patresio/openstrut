@@ -2,6 +2,35 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.4.0 (2026-07-17)
+
+### Added
+
+- **Multi-CLI installer** (`openstrut setup`): Interactive TUI for configuring OpenCode, Codex, Claude Code, Aider, Goose, and Cursor. Supports `--cli`, `--home`, `--dry-run`, `--json` flags.
+- **4 new skills**: `opentrust-grilling` (interview pattern), `opentrust-domain-modeling` (living glossary + ADR 3-gate), `opentrust-handoff` (context compactation), `opentrust-diagnose` (6-phase bug diagnosis).
+- **Permission isolation tests**: Tests verifying no wildcard `"*": "allow"` in opencode.jsonc agent permissions.
+- **Multi-team isolation guide**: `docs/usage/multi-team-isolation.md` — file ownership, branch strategy, conflict prevention.
+- **SK→runtime skill mapping**: `global/context/skills/MAPPING.md` maps selector IDs to installed skills.
+
+### Changed
+
+- **Skills enrichment**: Enhanced `opentrust-review` (two-axis: Standards + Spec, Fowler code smell baseline) and `opentrust-tdd` (seams-first discipline, vertical slices).
+- **Agent reference profiles**: 11 agents updated with references to new skills.
+- **Reference map coherence**: Removed references to 4 non-existent files (CONTEXTS.md, SKILLS.md, BUNDLES.md, OFFICIAL_DOCS.md). `global/context/` is SSoT.
+- **TEAM_CONTEXT_MATRIX**: Skills section completed for all 9 teams.
+- **Orphan CTXs deprecated**: CTX04, CTX05, CTX06, CTX07, CTX11, CTX13, CTX32 marked deprecated.
+- **OPERATIONAL_RETRIEVAL_MAP**: Corrected `OFFICIAL_DOCS.md` reference to `global/context/docs/`.
+
+### Removed
+
+- **`mapa_operacional.xlsx`**: Deleted — Barsa MCP API (`/api/selectors`) is SSoT for selectors.
+
+### Fixed
+
+- **Engineering-lead permissions**: Restricted in opencode.jsonc (edit scoped to `src/**`/`tests/**`, bash scoped to npm test/node/git).
+- **Feature-implementer contradiction**: Permission Seams now match frontmatter.
+- **CONTRIBUTING.md**: Removed hardcoded `/srv/projects/openstrut` path.
+
 ## v0.3.1 (2026-07-08)
 
 ### Fixed

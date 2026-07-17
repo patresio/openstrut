@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 198 artifacts', () => {
-    assert.equal(INVENTORY.length, 198, `Expected 198 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 202 artifacts', () => {
+    assert.equal(INVENTORY.length, 202, `Expected 202 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -137,9 +137,9 @@ describe('Inventory', () => {
     assert.equal(commands.length, 7, `Expected 7 commands, got ${commands.length}`);
   });
 
-  it('inventory has exactly 7 skills', () => {
+  it('inventory has exactly 11 skills', () => {
     const skills = INVENTORY.filter(e => e.source.startsWith('global/skills/'));
-    assert.equal(skills.length, 7, `Expected 7 skills, got ${skills.length}`);
+    assert.equal(skills.length, 11, `Expected 11 skills, got ${skills.length}`);
   });
 
   it('inventory has exactly 4 templates', () => {
@@ -193,7 +193,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 40 + 7 + 7 + 10 + 127 + 0 + 4 = 198', () => {
+  it('3 + 40 + 7 + 11 + 10 + 127 + 0 + 4 = 202', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -205,7 +205,7 @@ describe('Inventory', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const sum = root + agents + commands + skills + opentrust + context + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 198, `Expected sum 198, got ${sum}`);
+    assert.equal(sum, 202, `Expected sum 202, got ${sum}`);
   });
 });
 
