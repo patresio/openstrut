@@ -1,6 +1,6 @@
 {
   "name": "@patrese/openstrut",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "description": "A versioned, auditable engineering harness and safe installer for OpenCode — now OpenStrut.",
   "type": "module",

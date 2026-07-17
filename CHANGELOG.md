@@ -2,6 +2,15 @@
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
 
+## v0.4.1 (2026-07-17)
+
+### Fixed
+
+- **`--force` flag**: Now overwrites all conflicts (unmanaged-conflict + managed-locally-modified), not just unmanaged. Manifest corruption still blocks.
+- **OpenCode config**: No longer adds `openstrut` metadata key (OpenCode rejects unknown keys).
+- **Env vars**: `BASE_URL_9ROUTER` → `NINE_ROUTER_BASE_URL`, `BARSA_MCP` → `BARSA_MCP_URL`, apiKey uses `{env:NINE_ROUTER_API_KEY}` instead of file path.
+- **Setup menu**: OpenCode is now default — pressing Enter installs OpenCode without selecting other CLIs.
+
 ## v0.4.0 (2026-07-17)
 
 ### Added
