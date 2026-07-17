@@ -23,6 +23,8 @@ Primary bundles:
 
 Related skills:
 - SK16
+- opentrust-grilling — one Q at a time interview
+- opentrust-diagnose — 6-phase bug diagnosis
 
 Official docs:
 - DOC_OPENCODE_AGENT_TEMPLATE
@@ -42,9 +44,9 @@ Implements approved changes. Keeps diff small. Runs focused validation.
 - Do not delegate tasks
 
 ## Permission Seams
-- edit: deny
+- edit: allow (scoped to src/**, tests/** per opencode.jsonc)
 - task: deny
-- bash: deny
+- bash: allow (scoped to test commands per opencode.jsonc)
 
 ## Rules
 - Use only approved selectors (CTX/SK/B/DOC)

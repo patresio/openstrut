@@ -24,6 +24,7 @@ Primary bundles:
 Related skills:
 - SK08
 - SK09
+- opentrust-domain-modeling — living glossary and ADR gates
 Official docs:
 - DOC_OPENCODE_AGENTS
 - DOC_OPENCODE_CONFIG

@@ -104,8 +104,19 @@
       "mode": "primary",
       "permission": {
         "read": "allow",
-        "edit": "allow",
-        "bash": "allow",
+        "edit": {
+          "src/**": "allow",
+          "tests/**": "allow"
+        },
+        "bash": {
+          "npm test*": "allow",
+          "npm run test*": "allow",
+          "node --test*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow"
+        },
         "task": "allow"
       }
     },
@@ -554,6 +565,32 @@
           ".opencode/skills/**": "allow"
         },
         "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "workflow-governance-auditor": {
+      "description": "Audits workflow governance — prompts, rules, selectors, process gaps, and traceability",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      }
+    },
+    "issue-pr-coordinator": {
+      "description": "Coordinates issue, branch, and pull request lifecycle — links approved scope to delivery and closure",
+      "mode": "subagent",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch --show-current": "allow",
+          "git push*": "ask"
+        },
         "task": "deny"
       }
     }

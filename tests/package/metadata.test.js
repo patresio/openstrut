@@ -35,13 +35,13 @@ describe('package distribution metadata', () => {
     assert.ok(agents.length >= 40, `Expected at least 40 agents, got ${agents.length}`);
   });
 
-  it('ships 7 opentrust-* skills by default, legacy skills still on disk', () => {
+  it('ships 11 opentrust-* skills by default, legacy skills still on disk', () => {
     const skills = readdirSync(path.join(PACKAGE_ROOT, 'global', 'skills'), { withFileTypes: true })
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
       .filter(name => existsSync(path.join(PACKAGE_ROOT, 'global', 'skills', name, 'SKILL.md')));
     const opentrustSkills = skills.filter(name => name.startsWith('opentrust-'));
-    assert.equal(opentrustSkills.length, 7, 'Expected exactly 7 opentrust-* skills');
+    assert.equal(opentrustSkills.length, 11, 'Expected exactly 11 opentrust-* skills');
   });
 
   it('ships 8 workflow definitions in repo', () => {

@@ -103,6 +103,7 @@ Primary bundles:
 Related skills:
 - SK29
 - SK30
+- opentrust-handoff — session context compactation
 Official docs:
 - DOC_OPENCODE_AGENTS
 - DOC_OPENCODE_SKILLS

@@ -6,19 +6,22 @@
  *   plan     Read-only inspection of what would be installed
  *   install  Install managed artifacts into the target OpenCode config root
  *   check    Report drift between installed artifacts and the packaged version
+ *   setup    Configure OpenStrut for one or more agentic LLM CLIs
  *
  * Options:
  *   --target <dir>   Target configuration root
  *                    Default: $XDG_CONFIG_HOME/opencode, then $HOME/.config/opencode
- *   --dry-run        Simulate install without writing (valid only with install)
+ *   --dry-run        Simulate install/setup without writing
  *   --json           Output machine-readable JSON
+ *   --cli <ids>      Comma-separated CLI ids for setup (non-interactive)
+ *   --home <dir>     Home root for setup path expansion (tests / isolation)
  *   --help           Show usage and exit
  *   --version        Print version and exit
  *
  * Strict parsing rules:
  *   - Unknown options are rejected (exit 3)
  *   - --target requires a non-empty value that is not itself an option flag
- *   - --dry-run is valid only with install
+ *   - --dry-run is valid with install and setup
  *   - --target, --json are valid with plan, install, and check
  *   - Multiple positional commands are rejected
  *   - Parsing errors never trigger default installation behavior
@@ -42,8 +45,9 @@ const pkg = require('../package.json');
 import { parseWorkflow, parseWorkflowSteps } from '../src/workflows/parse.js';
 import { collectWorkflowErrors } from '../src/workflows/validate.js';
 import { INVENTORY } from '../src/installer/inventory.js';
+import { runSetup } from '../src/setup/index.js';
 
-const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow']);
+const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow', 'setup']);
 
 // ─── Splash screen ─────────────────────────────────────────────────────────
 
@@ -77,13 +81,16 @@ Commands:
   check             Report drift between installed artifacts and the packaged version
   generate-manifest Generate an execution-manifest.yaml for an approved OpenSpec change
   workflow          Manage workflow definitions (list, validate, run)
+  setup             Configure OpenStrut for supported agentic LLM CLIs (TUI or --cli)
 
 Options:
   --target <dir>    Target OpenCode configuration root (plan, install, check)
                     Default: $XDG_CONFIG_HOME/opencode  (when XDG_CONFIG_HOME is set)
                           or $HOME/.config/opencode
   --change <dir>    Path to the OpenSpec change directory (generate-manifest only)
-  --dry-run         Simulate install without writing any files (install only)
+  --cli <ids>       Comma-separated CLI ids for setup (e.g. opencode,codex)
+  --home <dir>      Alternate home for setup path expansion (tests / isolation)
+  --dry-run         Simulate install/setup without writing any files
   --json            Output machine-readable JSON
   --help            Show this help message
   --version         Print the package version
@@ -105,11 +112,13 @@ Exit codes:
 function parseArgs(argv) {
   const args = argv.slice(2);
 
-  /** @type {{ target?: string, change?: string, dryRun: boolean, json: boolean, command: string|null, args: string[] }} */
+  /** @type {{ target?: string, change?: string, home?: string, cli?: string, dryRun: boolean, json: boolean, command: string|null, args: string[] }} */
   const opts = {
     command: null,
     target: undefined,
     change: undefined,
+    home: undefined,
+    cli: undefined,
     dryRun: false,
     json: false,
     args: [],
@@ -164,6 +173,36 @@ function parseArgs(argv) {
         };
       }
       opts.target = val;
+    } else if (arg === '--home') {
+      const val = args[++i];
+      if (val === undefined) {
+        return {
+          error: '--home requires a directory path argument but none was provided.',
+          exitCode: EXIT.INVALID,
+        };
+      }
+      if (val.startsWith('-')) {
+        return {
+          error: `--home requires a directory path, got option flag "${val}".`,
+          exitCode: EXIT.INVALID,
+        };
+      }
+      opts.home = val;
+    } else if (arg === '--cli') {
+      const val = args[++i];
+      if (val === undefined) {
+        return {
+          error: '--cli requires a comma-separated list of CLI ids.',
+          exitCode: EXIT.INVALID,
+        };
+      }
+      if (val.startsWith('-')) {
+        return {
+          error: `--cli requires CLI ids, got option flag "${val}".`,
+          exitCode: EXIT.INVALID,
+        };
+      }
+      opts.cli = val;
     } else if (!arg.startsWith('-')) {
       if (!opts.command) {
         opts.command = arg;
@@ -199,14 +238,14 @@ function parseArgs(argv) {
 
   if (!VALID_COMMANDS.has(opts.command)) {
     return {
-      error: `Unknown command: "${opts.command}". Valid commands: plan, install, check, generate-manifest`,
+      error: `Unknown command: "${opts.command}". Valid commands: plan, install, check, generate-manifest, workflow, setup`,
       exitCode: EXIT.INVALID,
     };
   }
 
-  if (opts.dryRun && opts.command !== 'install') {
+  if (opts.dryRun && opts.command !== 'install' && opts.command !== 'setup') {
     return {
-      error: `--dry-run is only valid with the install command, not "${opts.command}".`,
+      error: `--dry-run is only valid with install or setup, not "${opts.command}".`,
       exitCode: EXIT.INVALID,
     };
   }
@@ -214,6 +253,20 @@ function parseArgs(argv) {
   if (opts.change && opts.command !== 'generate-manifest') {
     return {
       error: `--change is only valid with the generate-manifest command, not "${opts.command}".`,
+      exitCode: EXIT.INVALID,
+    };
+  }
+
+  if (opts.cli && opts.command !== 'setup') {
+    return {
+      error: `--cli is only valid with the setup command, not "${opts.command}".`,
+      exitCode: EXIT.INVALID,
+    };
+  }
+
+  if (opts.home && opts.command !== 'setup') {
+    return {
+      error: `--home is only valid with the setup command, not "${opts.command}".`,
       exitCode: EXIT.INVALID,
     };
   }
@@ -228,7 +281,7 @@ function parseArgs(argv) {
   return { opts };
 }
 
-function main() {
+async function main() {
   const parsed = parseArgs(process.argv);
 
   if (parsed.version) {
@@ -275,6 +328,45 @@ function main() {
       const { exitCode, output } = formatCheck(result, { json: opts.json });
       process.stdout.write(output + '\n');
       process.exit(exitCode);
+
+    } else if (opts.command === 'setup') {
+      showSplash();
+      const cliIds = opts.cli
+        ? opts.cli.split(',').map((s) => s.trim()).filter(Boolean)
+        : undefined;
+      const result = await runSetup({
+        homeDir: opts.home,
+        cliIds,
+        dryRun: opts.dryRun,
+        interactive: !cliIds,
+      });
+      if (opts.json) {
+        process.stdout.write(JSON.stringify({
+          command: 'setup',
+          status: result.ok ? (result.cancelled ? 'cancelled' : 'ok') : 'error',
+          configured: (result.configured ?? []).map((r) => ({
+            id: r.id,
+            ok: r.ok,
+            path: r.path,
+            backup: r.backup ?? null,
+            dryRun: r.dryRun ?? false,
+            error: r.error,
+          })),
+          error: result.error,
+        }, null, 2) + '\n');
+      } else if (result.cancelled) {
+        process.stdout.write('Setup cancelled.\n');
+      } else if (!result.ok) {
+        process.stderr.write(`Error: ${result.error}\n`);
+        process.exit(EXIT.INVALID);
+      } else {
+        for (const r of result.configured) {
+          const verb = r.dryRun ? 'would write' : 'wrote';
+          process.stdout.write(`${verb}: ${r.path}${r.backup ? ` (backup: ${r.backup})` : ''}\n`);
+        }
+        process.stdout.write(`Configured ${result.configured.length} CLI(s).\n`);
+      }
+      process.exit(EXIT.OK);
 
   } else if (opts.command === 'generate-manifest') {
     const changeDir = path.resolve(opts.change);
@@ -446,4 +538,7 @@ function main() {
   }
 }
 
-main();
+main().catch((err) => {
+  process.stderr.write(`Error: ${err.message}\n`);
+  process.exit(EXIT.FAILURE);
+});

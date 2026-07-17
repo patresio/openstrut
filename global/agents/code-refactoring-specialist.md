@@ -26,6 +26,7 @@ Primary bundles:
 
 Related skills:
 - SK16
+- opentrust-diagnose — 6-phase bug diagnosis
 
 Official docs:
 - DOC_OPENCODE_AGENT_TEMPLATE

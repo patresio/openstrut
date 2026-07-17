@@ -73,13 +73,18 @@ Agent prompt: "I need CTX14 and B08"
 | File | Content |
 |------|---------|
 | `reference-map/README.md` | Map index and usage guide |
-| `reference-map/CONTEXTS.md` | CTX01–CTX32 definitions |
-| `reference-map/SKILLS.md` | SK01–SK39 definitions |
-| ~~`reference-map/AGENTS_LEGACY_MAP.md`~~ | *(removed — references replaced with current agent names)* |
-| `reference-map/BUNDLES.md` | B01–B24 bundle definitions |
-| `reference-map/OFFICIAL_DOCS.md` | DOC01–DOC16 references |
 | `reference-map/TEAM_CONTEXT_MATRIX.md` | 9 teams mapped to selectors |
 | `reference-map/MCP_PROVIDER_CONTRACT.md` | Provider interface contract |
+
+### Semantic Catalog (source of truth for selector definitions)
+
+| Directory | Content |
+|-----------|---------|
+| `global/context/contexts/CTX01-32.md` | CTX01–CTX32 definitions |
+| `global/context/skills/SK01-39.md` | SK01–SK39 definitions |
+| `global/context/agent-maps/AG01-21.md` | Legacy agent mappings |
+| `global/context/bundles/B01-24.md` | B01–B24 bundle definitions |
+| `global/context/docs/DOC_OPENCODE_*.md` | Official OpenCode documentation references |
 
 ## Naming Convention
 

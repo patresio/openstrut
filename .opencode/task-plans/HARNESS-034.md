@@ -5,13 +5,13 @@
 - [x] Proposal
 - [x] Planning
 - [x] Approval Gate (approved in conversation)
-- [ ] Build — MI1: create workflow-governance-auditor agent
-- [ ] Build — MI2: create issue-pr-coordinator agent
-- [ ] Build — MI3: update leads and inventory
-- [ ] Build — MI4: tests and validation
-- [ ] Review
-- [ ] Commit
-- [ ] Push
+- [x] Build — MI1: create workflow-governance-auditor agent
+- [x] Build — MI2: create issue-pr-coordinator agent
+- [x] Build — MI3: update leads and inventory
+- [x] Build — MI4: tests and validation
+- [x] Review (closed via HARNESS-040 reconciliation)
+- [x] Commit (committed in PR #5)
+- [x] Push (pushed in PR #5)
 
 ## Objective
 
