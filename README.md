@@ -1,66 +1,174 @@
-## Phase C HARNESS-040 Summary: Multi-CLI Setup TUI
+# OpenStrut
 
-### Deliverables Implemented:
+A versioned, auditable engineering harness and safe installer for OpenCode — with multi-CLI support for Codex, Claude Code, Aider, Goose, Cursor, and more.
 
-1. **src/setup/registry.js**
-   - Declarative metadata for 6 agentic LLM CLIs: opencode, codex, hermes, pi, omp, antigravity
-   - Complete required fields (id, name, description, configDir, configFile, installMethod, installCommand, mcpConfigKey, agentDefinitionMechanism)
+**v0.4.0** · Private · Node.js ≥20 · Zero npm dependencies
 
-2. **src/setup/detect.js**
-   - CLI detection logic using native Node.js
-   - Handles path expansion, binary existence checks, and config file checks
-   - Non-invasive - never mutates real paths
+## What is this?
 
-3. **src/setup/menu.js**
-   - Interactive TUI using Node.js readline (zero deps)
-   - Renders numbered CLI list with descriptions
-   - Parses comma-separated selections, "all", or "q" to quit
-   - Validates input format and range checking
+OpenStrut packages a complete AI-assisted engineering setup — agents, skills, workflows, permissions, and team topology — into a versioned, reproducible artifact. Install it into any supported CLI tool with a single command.
 
-4. **src/setup/configure.js**
-   - Per-CLI configuration writer with file backup safety
-   - JSON/YAML format handling per CLI type
-   - Openstrut metadata injection and MCP server configuration
-   - Dry-run support and configurable home directory for tests
+### Shipped artifacts
 
-5. **src/setup/mcp.js**
-   - Standardized Barsa MCP server snippets
-   - Format-specific configuration text generation (toml, yaml, json)
-   - Safe merging of barsa under appropriate config keys
+| Category | Count |
+|----------|-------|
+| Agents (9 leads + 31 subagents) | 40 |
+| Skills | 11 |
+| Commands | 7 |
+| Context catalog (CTX/SK/B/AG/DOC) | 127 |
+| OpenTrust runtime docs | 10 |
+| Templates | 4 |
+| **Total** | **202** |
 
-6. **src/setup/index.js**
-   - Central orchestration for non-interactive and interactive setup
-   - Batch processing of multiple CLIs
-   - Clean return format with ok/cancelled/error fields
-   - Strict adherence to TDD-first approach
+## Quick Start
 
-7. **CLI Integration**
-   - Updated `openstrut.js` to recognize `setup` command
-   - Added `--cli` flag for non-interactive mode
-   - Added `--home` flag for isolated test environments
-   - Proper JSON output for automated consumption
+```bash
+# Install from GitHub
+npx github:patresio/openstrut install
 
-8. **Tests**
-   - Comprehensive test suite in `tests/setup/setup.test.js`
-   - Covers registry metadata, detection logic, menu parsing, CLI configuration
-   - Integration tests for end-to-end flow
-   - All tests pass (RED→GREEN TDD compliance)
+# Configure for a specific CLI
+npx github:patresio/openstrut setup --cli opencode
 
-### Key Features:
+# See what would be installed (dry-run)
+npx github:patresio/openstrut plan
+```
 
-✅ **Zero npm dependencies** - Uses only Node.js built-ins (readline)
-✅ **TDD-first implementation** - All code covered by tests before finalization
-✅ **Backup & restore safety** - Robot `installer.js` collision-resistant backups
-✅ **Format-specific configuration** - Native JSON/YAML support per CLI
-✅ **MCP server injection** - Proper barsa integration per CLI's protocol
-✅ **Non-interactive CLI mode** - `--cli` flag for automation
-✅ **Test isolation** - All file ops use `tmpdir()` and mock environments
-✅ **Git-friendly** - Proper JSON output, atomic operations, no partial writes
+## CLI Commands
 
-### Test Results:
-- ✅ **239 existing tests** + ✅ **12 new setup tests** = **251 total passing tests**
-- ✅ **0 failures** - Full test suite passes
-- ✅ **CLI interface complete** - Works with `--cli`, `--dry-run`, `--home`, `--json`
+| Command | Description |
+|---------|-------------|
+| `openstrut plan` | Read-only inspection of what would be installed |
+| `openstrut install` | Install managed artifacts into the target config root |
+| `openstrut check` | Report drift between installed and packaged versions |
+| `openstrut setup` | Interactive TUI to configure OpenStrut for multiple CLIs |
 
-## Implementation Complete
-Phase C enables configuration of 6 agentic LLM CLI tools through a safe, interactive TUI that follows OpenTrust workflow rules and maintains system integrity through rigorous safety checks and backup protocols.
+### Global Options
+
+| Flag | Description |
+|------|-------------|
+| `--target <dir>` | Target config root (default: `$XDG_CONFIG_HOME/opencode`) |
+| `--dry-run` | Simulate without writing |
+| `--json` | Machine-readable JSON output |
+| `--cli <ids>` | Comma-separated CLI IDs for non-interactive setup |
+| `--home <dir>` | Home root for path expansion (testing/isolation) |
+
+### Supported CLIs
+
+| CLI | Config Format | MCP Support |
+|-----|---------------|-------------|
+| OpenCode | JSON (`opencode.jsonc`) | ✅ SSE |
+| Codex | TOML (`config.toml`) | ✅ stdio |
+| Claude Code | JSON (`settings.json`) | ✅ stdio |
+| Aider | YAML (`.aider.conf.yml`) | ✅ stdio |
+| Goose | YAML (`config.yaml`) | ✅ stdio |
+| Cursor | JSON (`settings.json`) | ✅ stdio |
+
+## Architecture
+
+```
+openstrut
+├── bin/openstrut.js          # CLI entrypoint
+├── src/
+│   ├── installer/            # Plan, install, check, inventory
+│   ├── manifest/             # Manifest generation and validation
+│   ├── setup/                # Multi-CLI TUI and config writers
+│   └── workflows/            # Workflow parsing and validation
+├── global/                   # Shipped OpenCode artifacts
+│   ├── agents/               # 40 agent prompt files
+│   ├── skills/               # 11 skill definitions
+│   ├── commands/             # 7 command definitions
+│   ├── context/              # Semantic selector catalog (CTX/SK/B/AG/DOC)
+│   ├── opentrust/docs/       # Runtime OpenTrust documentation
+│   └── opencode.json         # Default OpenCode configuration
+├── templates/project/        # Project bootstrap scaffold
+├── workflows/                # 8 workflow definitions
+└── tests/                    # 266 tests (node:test)
+```
+
+## Development
+
+```bash
+# Install
+npm install
+
+# Run all tests
+npm test
+
+# Run specific test suites
+npm run test:installer
+npm run test:setup
+npm run test:manifest
+
+# Package dry-run
+npm pack --dry-run
+```
+
+### Test Commands
+
+| Command | What it tests |
+|---------|---------------|
+| `npm test` | Full suite (266 tests, 40 suites) |
+| `npm run test:installer` | Installer logic and inventory |
+| `npm run test:setup` | Multi-CLI TUI and config writers |
+| `npm run test:manifest` | Manifest generation and validation |
+| `npm run eval:deterministic` | Deterministic evaluation layer |
+
+## Engineering Principles
+
+- **Zero dependencies** — pure Node.js built-ins only
+- **TDD-first** — test-first workflow for all behavioral changes
+- **Evidence before decision** — every gate requires demonstrable proof
+- **Approval before mutation** — no code changes without explicit plan approval
+- **Least privilege** — agents get only the permissions they need, no wildcards
+- **Versioned artifacts** — every agent, skill, command, and context is version-controlled
+
+## Team Topology
+
+OpenTrust organizes AI-assisted engineering into **9 specialized teams**:
+
+| Team | Focus |
+|------|-------|
+| Trust Coordination | Cross-team communication, decision logging |
+| Product / Discovery | Requirements, acceptance criteria, story slicing |
+| Architecture | Structural decisions, domain modeling, ADRs |
+| Engineering | Implementation, refactoring, performance, security |
+| Testing / Quality | Test strategy, TDD, integration tests |
+| Review / Governance | Independent review, compliance, accessibility |
+| DevOps / SRE | CI/CD, infrastructure, observability |
+| Delivery / Release | Versioning, changelog, deployment |
+| Knowledge / Context | Context retrieval, reference management |
+
+Each team has one lead agent and 2-5 subagents. Teams coordinate through task contracts and explicit file-level ownership.
+
+## Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `opentrust-grilling` | Interview pattern — one question at a time, exhaust decision tree |
+| `opentrust-domain-modeling` | Living glossary (GLOSSARY.md), ADR 3-gate |
+| `opentrust-handoff` | Context compactation between sessions |
+| `opentrust-diagnose` | 6-phase bug diagnosis, feedback-loop-first |
+| `opentrust-review` | Two-axis review: Standards + Spec, Fowler code smells |
+| `opentrust-tdd` | Seams-first TDD, vertical slices, RED-GREEN-REFACTOR |
+| `opentrust-task-contract` | Task contract creation with retrieval selectors |
+| `opentrust-spec-change` | Structured spec and design changes |
+| `opentrust-delivery` | Conventional Commits, PR creation |
+| `opentrust-observability` | Execution reports and validation evidence |
+| `opentrust-reference-research` | Operational Retrieval Map selector usage |
+
+## Security
+
+- No wildcard `"*": "allow"` permissions — verified by automated tests
+- Agent permissions scoped to specific file paths and command patterns
+- All file operations use temp directories — never mutates real config without approval
+- Secrets are never hardcoded or committed
+
+## Links
+
+- [GitHub Release](https://github.com/patresio/openstrut/releases/tag/v0.4.0)
+- [CHANGELOG](./CHANGELOG.md)
+- [Contributing Guide](./CONTRIBUTING.md)
+
+## License
+
+UNLICENSED — private project.
