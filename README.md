@@ -2,7 +2,7 @@
 
 A versioned, auditable engineering harness and safe installer for OpenCode — with multi-CLI support for Codex, Claude Code, Aider, Goose, Cursor, and more.
 
-**v0.4.0** · Private · Node.js ≥20 · Zero npm dependencies
+**v0.4.1** · Private · Node.js ≥20 · Zero npm dependencies
 
 ## What is this?
 
@@ -22,16 +22,42 @@ OpenStrut packages a complete AI-assisted engineering setup — agents, skills, 
 
 ## Quick Start
 
+### Prerequisites
+
+- Node.js >=20
+- [OpenCode](https://github.com/opencode-ai/opencode) installed globally (`npm install -g opencode-ai`)
+
+### Installation
+
 ```bash
-# Install from GitHub
-npx github:patresio/openstrut install
+# 1. Install OpenStrut into OpenCode config
+npx github:patresio/openstrut install --force
 
-# Configure for a specific CLI
-npx github:patresio/openstrut setup --cli opencode
+# 2. Configure MCP servers (interactive)
+npx github:patresio/openstrut setup
+# Press Enter = OpenCode only (default)
 
-# See what would be installed (dry-run)
+# 3. See what would be installed (dry-run)
 npx github:patresio/openstrut plan
 ```
+
+### Environment Variables
+
+Add to `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# 9Router — LLM provider
+export NINE_ROUTER_BASE_URL="http://your-server:port"
+export NINE_ROUTER_API_KEY="your-api-key"
+
+# homelab-ai-coding — MCP server (file operations, GitHub, etc.)
+export HOMELAB_AI_CODING_MCP_URL="http://your-server:port/sse"
+
+# Barsa — MCP server (reference retrieval, knowledge)
+export BARSA_MCP_URL="http://your-server:port/sse"
+```
+
+Then reload: `source ~/.bashrc`
 
 ## CLI Commands
 
@@ -192,7 +218,7 @@ The installer tracks what it installed using a **manifest** (`.harness/installat
 
 ## Links
 
-- [GitHub Release](https://github.com/patresio/openstrut/releases/tag/v0.4.0)
+- [GitHub Release](https://github.com/patresio/openstrut/releases/tag/v0.4.1)
 - [CHANGELOG](./CHANGELOG.md)
 - [Contributing Guide](./CONTRIBUTING.md)
 

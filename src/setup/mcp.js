@@ -9,7 +9,7 @@
 export function barsaMcpEntry() {
   return {
     type: 'remote',
-    url: '{env:BARSA_MCP}',
+    url: '{env:BARSA_MCP_URL}',
     enabled: true,
   };
 }
