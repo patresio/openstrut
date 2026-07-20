@@ -25,7 +25,7 @@ OpenStrut packages a complete AI-assisted engineering setup — agents, skills, 
 ### Prerequisites
 
 - Node.js >=20
-- [OpenCode](https://github.com/opencode-ai/opencode) installed globally (`npm install -g opencode-ai`)
+- One of the supported platforms: OpenCode, Claude Code, Codex, or Hermes-Agent
 
 ### Installation
 
@@ -40,6 +40,31 @@ npx github:patresio/openstrut setup
 # 3. See what would be installed (dry-run)
 npx github:patresio/openstrut plan
 ```
+
+### Multi-Platform Installation
+
+OpenStrut supports multiple platforms. Install plugins for your preferred platform:
+
+```bash
+# Install OpenCode plugin
+openstrut setup --platform opencode
+
+# Install Claude Code plugin
+openstrut setup --platform claude
+
+# Install Codex plugin
+openstrut setup --platform codex
+
+# Install Hermes plugin
+openstrut setup --platform hermes
+```
+
+Each platform plugin includes:
+- 40 agents (9 leads + 31 subagents)
+- 11 skills
+- 10 commands
+- 32 CTX + 24 B context selectors
+- Bootstrap injection for automatic loading
 
 ### Environment Variables
 
@@ -67,6 +92,7 @@ Then reload: `source ~/.bashrc`
 | `openstrut install` | Install managed artifacts into the target config root |
 | `openstrut check` | Report drift between installed and packaged versions |
 | `openstrut setup` | Interactive TUI to configure OpenStrut for multiple CLIs |
+| `openstrut setup --platform <name>` | Install plugin for specific platform |
 
 ### Global Options
 
@@ -77,18 +103,17 @@ Then reload: `source ~/.bashrc`
 | `--force`, `-f` | Overwrite existing files (backup before overwrite) |
 | `--json` | Machine-readable JSON output |
 | `--cli <ids>` | Comma-separated CLI IDs for non-interactive setup |
+| `--platform <name>` | Install plugin for specific platform (opencode, claude, codex, hermes) |
 | `--home <dir>` | Home root for path expansion (testing/isolation) |
 
-### Supported CLIs
+### Supported Platforms
 
-| CLI | Config Format | MCP Support |
-|-----|---------------|-------------|
-| OpenCode | JSON (`opencode.jsonc`) | ✅ SSE |
-| Codex | TOML (`config.toml`) | ✅ stdio |
-| Claude Code | JSON (`settings.json`) | ✅ stdio |
-| Aider | YAML (`.aider.conf.yml`) | ✅ stdio |
-| Goose | YAML (`config.yaml`) | ✅ stdio |
-| Cursor | JSON (`settings.json`) | ✅ stdio |
+| Platform | Plugin Location | Description |
+|----------|-----------------|-------------|
+| OpenCode | `.opencode/plugins/opentrust.js` | OpenCode plugin |
+| Claude Code | `.claude-plugin/plugin.json` | Claude Code plugin |
+| Codex | `.codex-plugin/plugin.json` | Codex plugin |
+| Hermes | `plugins/opentrust/plugin.yaml` | Hermes plugin |
 
 ## Architecture
 
@@ -99,6 +124,13 @@ openstrut
 │   ├── installer/            # Plan, install, check, inventory
 │   ├── manifest/             # Manifest generation and validation
 │   ├── setup/                # Multi-CLI TUI and config writers
+│   ├── plugins/              # Multi-platform plugin system
+│   │   ├── tool-mapping.js   # Tool mapping interface
+│   │   ├── opencode-mapping.js
+│   │   ├── claude-mapping.js
+│   │   ├── codex-mapping.js
+│   │   ├── hermes-mapping.js
+│   │   └── plugin-installer.js
 │   └── workflows/            # Workflow parsing and validation
 ├── global/                   # Shipped OpenCode artifacts
 │   ├── agents/               # 40 agent prompt files
@@ -107,9 +139,24 @@ openstrut
 │   ├── context/              # Semantic selector catalog (CTX/SK/B/AG/DOC)
 │   ├── opentrust/docs/       # Runtime OpenTrust documentation
 │   └── opencode.json         # Default OpenCode configuration
+├── .opencode/plugins/        # OpenCode plugin
+│   └── opentrust.js
+├── .claude-plugin/           # Claude Code plugin
+│   ├── plugin.json
+│   └── skills/
+├── .codex-plugin/            # Codex plugin
+│   ├── plugin.json
+│   ├── bootstrap.js
+│   └── skills/
+├── plugins/opentrust/        # Hermes plugin
+│   ├── plugin.yaml
+│   ├── __init__.py
+│   ├── hooks.py
+│   ├── tools.py
+│   └── skills/
 ├── templates/project/        # Project bootstrap scaffold
 ├── workflows/                # 8 workflow definitions
-└── tests/                    # 266 tests (node:test)
+└── tests/                    # 266+ tests (node:test)
 ```
 
 ## Development
