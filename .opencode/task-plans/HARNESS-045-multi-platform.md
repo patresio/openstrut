@@ -114,12 +114,12 @@ Feature
 - [x] Test plugin loads correctly
 
 ### MI5: Hermes Plugin
-- [ ] Create `plugin.yaml` manifest
-- [ ] Create `__init__.py` with `register(ctx)` function
-- [ ] Implement tools via `ctx.register_tool()`
-- [ ] Implement hooks via `ctx.register_hook()`
-- [ ] Implement skills via `ctx.register_skill()`
-- [ ] Test plugin loads correctly
+- [x] Create `plugin.yaml` manifest
+- [x] Create `__init__.py` with `register(ctx)` function
+- [x] Implement tools via `ctx.register_tool()`
+- [x] Implement hooks via `ctx.register_hook()`
+- [x] Implement skills via `ctx.register_skill()`
+- [x] Test plugin loads correctly
 
 ### MI6: Tool Mapping Layer
 - [ ] Create tool mapping interface
@@ -175,8 +175,8 @@ Feature
 | MI3 Complete | 2026-07-12 | Claude Code plugin tests passing (31 tests) |
 | MI4 Started | 2026-07-12 | Created Codex plugin |
 | MI4 Complete | 2026-07-12 | Codex plugin tests passing (31 tests) |
-| MI5 Started | | |
-| MI5 Complete | | |
+| MI5 Started | 2026-07-12 | Created Hermes plugin |
+| MI5 Complete | 2026-07-12 | Hermes plugin tests passing (51 tests) |
 | MI6 Started | | |
 | MI6 Complete | | |
 | MI7 Started | | |
@@ -191,6 +191,7 @@ Feature
 - MI2: Complete (OpenCode plugin + 39 tests)
 - MI3: Complete (Claude Code plugin + 31 tests)
 - MI4: Complete (Codex plugin + 31 tests)
-- Next Action: MI5 - Hermes Plugin
+- MI5: Complete (Hermes plugin + 51 tests)
+- Next Action: MI6 - Tool Mapping Layer
 - Blockers: None
 - Blockers: None
