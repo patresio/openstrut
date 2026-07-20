@@ -1,11 +1,13 @@
 # HARNESS-041: Enforce Branch-Per-Task for All Mutating Agents
 
-**Status:** Ready for Review  
+**Status:** Delivered — PR Open  
 **Issue:** [#7](https://github.com/patresio/openstrut/issues/7)  
+**PR:** [#8](https://github.com/patresio/openstrut/pull/8)  
 **Branch:** `feat/adr-005-branch-enforcement`  
 **Base:** `main`  
 **Created:** 2026-07-20  
-**ADR:** ADR-005
+**ADR:** ADR-005  
+**Commit:** `e663654`
 
 ## Objective
 
@@ -66,6 +68,13 @@ Implement ADR-005 to enforce branch-per-task discipline across all OpenTrust mut
 - [x] Tests pass (266/266)
 - [x] WORKFLOW.md references ADR-005
 
+## Delivery
+
+- [x] Commit `e663654` on `feat/adr-005-branch-enforcement`
+- [x] Pushed to origin
+- [x] PR #8 opened → https://github.com/patresio/openstrut/pull/8
+- [x] Working tree clean
+
 ## Current State
 
 - [x] ADR-005 created
@@ -75,7 +84,8 @@ Implement ADR-005 to enforce branch-per-task discipline across all OpenTrust mut
 - [x] MI2: Branch awareness in subagent prompts
 - [x] MI3: Explicit branch permissions
 - [x] MI4: Documentation update
+- [x] Committed, pushed, PR opened
 
 ## Next Action
 
-Ready for review. Commit changes and open PR.
+Await PR review and merge approval. Closes #7 on merge.
