@@ -7,11 +7,13 @@ import { detectCLI } from './detect.js';
 import { runMenu, parseSelection, renderMenu } from './menu.js';
 import { configureCLI, configureMany } from './configure.js';
 import { barsaMcpEntry } from './mcp.js';
+import { installPlugin, getPlatforms as getPluginPlatforms } from '../plugins/plugin-installer.js';
 
 /**
  * @param {{
  *   homeDir?: string,
  *   cliIds?: string[],
+ *   platform?: string,
  *   dryRun?: boolean,
  *   interactive?: boolean,
  *   input?: NodeJS.ReadableStream,
@@ -21,6 +23,29 @@ import { barsaMcpEntry } from './mcp.js';
 export async function runSetup(opts = {}) {
   const homeDir = opts.homeDir;
   const dryRun = opts.dryRun ?? false;
+
+  // Handle plugin installation for specific platform
+  if (opts.platform) {
+    const platform = opts.platform;
+    if (!getPluginPlatforms().includes(platform)) {
+      return {
+        ok: false,
+        error: `Unsupported platform: "${platform}". Supported platforms: ${getPluginPlatforms().join(', ')}`,
+        configured: [],
+      };
+    }
+
+    const pluginResult = installPlugin(platform, {
+      targetDir: homeDir || process.cwd(),
+      dryRun,
+    });
+
+    return {
+      ok: pluginResult.ok,
+      configured: [pluginResult],
+      error: pluginResult.error,
+    };
+  }
 
   let ids = opts.cliIds;
   if (!ids || ids.length === 0) {
@@ -70,4 +95,6 @@ export {
   configureCLI,
   configureMany,
   barsaMcpEntry,
+  installPlugin,
+  getPluginPlatforms,
 };
