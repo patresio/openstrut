@@ -107,11 +107,11 @@ Feature
 - [x] Test plugin loads correctly
 
 ### MI4: Codex Plugin
-- [ ] Create `.codex-plugin/plugin.json`
-- [ ] Create `skills/` directory with SKILL.md files
-- [ ] Implement bootstrap injection
-- [ ] Implement tool mapping for Codex
-- [ ] Test plugin loads correctly
+- [x] Create `.codex-plugin/plugin.json`
+- [x] Create `skills/` directory with SKILL.md files
+- [x] Implement bootstrap injection
+- [x] Implement tool mapping for Codex
+- [x] Test plugin loads correctly
 
 ### MI5: Hermes Plugin
 - [ ] Create `plugin.yaml` manifest
@@ -173,8 +173,8 @@ Feature
 | MI2 Complete | 2026-07-12 | OpenCode plugin tests passing (39 tests) |
 | MI3 Started | 2026-07-12 | Created Claude Code plugin |
 | MI3 Complete | 2026-07-12 | Claude Code plugin tests passing (31 tests) |
-| MI4 Started | | |
-| MI4 Complete | | |
+| MI4 Started | 2026-07-12 | Created Codex plugin |
+| MI4 Complete | 2026-07-12 | Codex plugin tests passing (31 tests) |
 | MI5 Started | | |
 | MI5 Complete | | |
 | MI6 Started | | |
@@ -190,6 +190,7 @@ Feature
 - MI1: Complete (ADR-007 + Design 011)
 - MI2: Complete (OpenCode plugin + 39 tests)
 - MI3: Complete (Claude Code plugin + 31 tests)
-- Next Action: MI4 - Codex Plugin
+- MI4: Complete (Codex plugin + 31 tests)
+- Next Action: MI5 - Hermes Plugin
 - Blockers: None
 - Blockers: None
