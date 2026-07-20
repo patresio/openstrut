@@ -81,8 +81,11 @@ export const INVENTORY = [
   { source: 'global/commands/ot-status.md',                                   target: 'commands/ot-status.md' },
   { source: 'global/commands/ot-incident.md',                                 target: 'commands/ot-incident.md' },
   { source: 'global/commands/ot-synthetize.md',                               target: 'commands/ot-synthetize.md' },
+  { source: 'global/commands/ot-create.md',                                   target: 'commands/ot-create.md' },
 
-  // Skills — OpenTrust workflow
+  { source: 'global/commands/ot-goal.md',                                     target: 'commands/ot-goal.md' },
+
+// Skills — OpenTrust workflow
   { source: 'global/skills/opentrust-task-contract/SKILL.md',                 target: 'skills/opentrust-task-contract/SKILL.md' },
   { source: 'global/skills/opentrust-tdd/SKILL.md',                           target: 'skills/opentrust-tdd/SKILL.md' },
   { source: 'global/skills/opentrust-spec-change/SKILL.md',                   target: 'skills/opentrust-spec-change/SKILL.md' },

@@ -76,6 +76,8 @@
 
 ## Gate Checklist
 
+> **Note:** Use `ot-goal` to process multiple pending tasks autonomously while respecting human approval gates. See ADR-006 for the autonomous execution policy.
+
 Every phase transition must pass:
 
 - [ ] Evidence recorded
