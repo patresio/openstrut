@@ -94,10 +94,10 @@ Feature
 - [x] Create ADR-007
 
 ### MI2: OpenCode Plugin
-- [ ] Create `.opencode/plugins/opentrust.js`
-- [ ] Implement bootstrap injection
-- [ ] Implement tool mapping for OpenCode
-- [ ] Test plugin loads correctly
+- [x] Create `.opencode/plugins/opentrust.js`
+- [x] Implement bootstrap injection
+- [x] Implement tool mapping for OpenCode
+- [x] Test plugin loads correctly
 
 ### MI3: Claude Code Plugin
 - [ ] Create `.claude-plugin/plugin.json`
@@ -169,8 +169,8 @@ Feature
 | Approved | 2026-07-12 | HARNESS-045 approval gate |
 | MI1 Started | 2026-07-12 | Created feature branch feat/harness-045-multi-platform |
 | MI1 Complete | 2026-07-12 | ADR-007 and Design 011 created and committed |
-| MI2 Started | | |
-| MI2 Complete | | |
+| MI2 Started | 2026-07-12 | Created OpenCode plugin |
+| MI2 Complete | 2026-07-12 | OpenCode plugin tests passing (39 tests) |
 | MI3 Started | | |
 | MI3 Complete | | |
 | MI4 Started | | |
@@ -188,6 +188,7 @@ Feature
 - Task Plan: Created
 - Branch: feat/harness-045-multi-platform
 - MI1: Complete (ADR-007 + Design 011)
-- Next Action: MI2 - OpenCode Plugin
+- MI2: Complete (OpenCode plugin + 39 tests)
+- Next Action: MI3 - Claude Code Plugin
 - Blockers: None
 - Blockers: None
