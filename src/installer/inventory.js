@@ -80,6 +80,7 @@ export const INVENTORY = [
   { source: 'global/commands/ot-ship.md',                                     target: 'commands/ot-ship.md' },
   { source: 'global/commands/ot-status.md',                                   target: 'commands/ot-status.md' },
   { source: 'global/commands/ot-incident.md',                                 target: 'commands/ot-incident.md' },
+  { source: 'global/commands/ot-synthetize.md',                               target: 'commands/ot-synthetize.md' },
 
   // Skills — OpenTrust workflow
   { source: 'global/skills/opentrust-task-contract/SKILL.md',                 target: 'skills/opentrust-task-contract/SKILL.md' },
