@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 204 artifacts', () => {
-    assert.equal(INVENTORY.length, 204, `Expected 204 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 205 artifacts', () => {
+    assert.equal(INVENTORY.length, 205, `Expected 205 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -132,9 +132,9 @@ describe('Inventory', () => {
   });
 
 
-  it('inventory has exactly 9 commands', () => {
+  it('inventory has exactly 10 commands', () => {
     const commands = INVENTORY.filter(e => e.source.startsWith('global/commands/'));
-    assert.equal(commands.length, 9, `Expected 9 commands, got ${commands.length}`);
+    assert.equal(commands.length, 10, `Expected 10 commands, got ${commands.length}`);
   });
 
   it('inventory has exactly 11 skills', () => {
@@ -193,7 +193,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 40 + 9 + 11 + 10 + 127 + 0 + 4 = 204', () => {
+  it('3 + 40 + 10 + 11 + 10 + 127 + 0 + 4 = 205', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -205,7 +205,7 @@ describe('Inventory', () => {
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const sum = root + agents + commands + skills + opentrust + context + workflows + templates;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 204, `Expected sum 204, got ${sum}`);
+    assert.equal(sum, 205, `Expected sum 205, got ${sum}`);
   });
 });
 
