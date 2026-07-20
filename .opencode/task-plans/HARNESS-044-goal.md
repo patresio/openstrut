@@ -40,6 +40,7 @@ Create `ot-goal` command that processes all pending tasks autonomously, orchestr
 ## Microincrements
 
 ### MI1: ADR for Autonomous Execution
+<<<<<<< HEAD
 - [x] Create ADR-006
 - [x] Define safety limits
 - [x] Document decisions and trade-offs
@@ -74,6 +75,42 @@ Create `ot-goal` command that processes all pending tasks autonomously, orchestr
 - [x] Update inventory (205 artifacts)
 - [x] Update tests (10 commands)
 - [x] Run full test suite
+=======
+- [ ] Create ADR-006
+- [ ] Define safety limits
+- [ ] Document decisions and trade-offs
+
+### MI2: Command Definition
+- [ ] Create `global/commands/ot-goal.md`
+- [ ] Define execution pipeline
+- [ ] Define output format
+
+### MI3: Task Scanner
+- [ ] Implement task plan reading
+- [ ] Implement topological sort
+- [ ] Implement pending task filter
+
+### MI4: Phase Chaining Engine
+- [ ] Implement auto-invocation
+- [ ] Implement human gates
+- [ ] Implement decision logging
+
+### MI5: Worktree Support
+- [ ] Implement worktree creation
+- [ ] Implement lifecycle management
+- [ ] Implement safety limits
+
+### MI6: Status Dashboard
+- [ ] Implement multi-task aggregation
+- [ ] Implement final report
+- [ ] Integrate with handoff skill
+
+### MI7: Integration & Tests
+- [ ] Update WORKFLOW.md
+- [ ] Update inventory (205 artifacts)
+- [ ] Update tests (9 → 10 commands)
+- [ ] Run full test suite
+>>>>>>> github/main
 
 ## Current State
 

@@ -7,6 +7,8 @@
 3. **Smallest viable increment** — microincrements, not monoliths
 4. **Retrieval by contract** — only the Knowledge team calls the Retrieval Provider directly
 
+> **Note:** Use `ot-create` to analyze your project and discover gaps in your agent/skill/workflow harness.
+
 ## Phases
 
 ### 1. Explore (Read Only)
