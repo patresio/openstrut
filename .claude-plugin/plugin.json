@@ -1,0 +1,134 @@
+{
+  "name": "opentrust",
+  "version": "1.0.0",
+  "description": "OpenTrust multi-platform agent harness",
+  "author": "OpenTrust Team",
+  "license": "UNLICENSED",
+  "skills": [
+    {
+      "name": "opentrust-task-contract",
+      "path": "skills/opentrust-task-contract",
+      "description": "Create task contracts with retrieval context"
+    },
+    {
+      "name": "opentrust-reference-research",
+      "path": "skills/opentrust-reference-research",
+      "description": "Use Operational Retrieval Map selectors"
+    },
+    {
+      "name": "opentrust-delivery",
+      "path": "skills/opentrust-delivery",
+      "description": "Prepare commit, push, and pull request"
+    },
+    {
+      "name": "opentrust-observability",
+      "path": "skills/opentrust-observability",
+      "description": "Require execution reports and validation evidence"
+    },
+    {
+      "name": "opentrust-spec-change",
+      "path": "skills/opentrust-spec-change",
+      "description": "Guide structured spec and design changes"
+    },
+    {
+      "name": "opentrust-meeting-facilitator",
+      "path": "skills/opentrust-meeting-facilitator",
+      "description": "Facilitate OpenTrust meetings"
+    },
+    {
+      "name": "opentrust-decision-logger",
+      "path": "skills/opentrust-decision-logger",
+      "description": "Log OpenTrust decisions"
+    },
+    {
+      "name": "opentrust-context-retrieval",
+      "path": "skills/opentrust-context-retrieval",
+      "description": "Retrieve context from Operational Retrieval Map"
+    },
+    {
+      "name": "opentrust-workflow-orchestrator",
+      "path": "skills/opentrust-workflow-orchestrator",
+      "description": "Orchestrate OpenTrust workflow"
+    },
+    {
+      "name": "opentrust-quality-gate",
+      "path": "skills/opentrust-quality-gate",
+      "description": "Enforce quality gates in OpenTrust"
+    },
+    {
+      "name": "opentrust-security-review",
+      "path": "skills/opentrust-security-review",
+      "description": "Review security in OpenTrust"
+    }
+  ],
+  "hooks": [
+    {
+      "name": "opentrust-bootstrap",
+      "event": "onSessionStart",
+      "action": "inject-opentrust-context"
+    },
+    {
+      "name": "opentrust-shutdown",
+      "event": "onSessionEnd",
+      "action": "cleanup-opentrust-context"
+    }
+  ],
+  "agents": [
+    {
+      "name": "trust-lead",
+      "path": "agents/trust-lead.md",
+      "description": "Trust Coordination lead agent"
+    },
+    {
+      "name": "product-lead",
+      "path": "agents/product-lead.md",
+      "description": "Product/Discovery lead agent"
+    },
+    {
+      "name": "architecture-lead",
+      "path": "agents/architecture-lead.md",
+      "description": "Architecture lead agent"
+    },
+    {
+      "name": "engineering-lead",
+      "path": "agents/engineering-lead.md",
+      "description": "Engineering lead agent"
+    },
+    {
+      "name": "quality-lead",
+      "path": "agents/quality-lead.md",
+      "description": "Testing/Quality lead agent"
+    },
+    {
+      "name": "review-lead",
+      "path": "agents/review-lead.md",
+      "description": "Review/Governance lead agent"
+    },
+    {
+      "name": "devops-lead",
+      "path": "agents/devops-lead.md",
+      "description": "DevOps/SRE lead agent"
+    },
+    {
+      "name": "delivery-lead",
+      "path": "agents/delivery-lead.md",
+      "description": "Delivery/Release lead agent"
+    },
+    {
+      "name": "knowledge-lead",
+      "path": "agents/knowledge-lead.md",
+      "description": "Knowledge/Context lead agent"
+    }
+  ],
+  "mcpServers": [],
+  "permissions": {
+    "fileSystem": {
+      "read": ["global/", "docs/", ".opencode/"],
+      "write": ["docs/", ".opencode/"]
+    },
+    "git": {
+      "read": true,
+      "write": true
+    }
+  }
+}
