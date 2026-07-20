@@ -100,11 +100,11 @@ Feature
 - [x] Test plugin loads correctly
 
 ### MI3: Claude Code Plugin
-- [ ] Create `.claude-plugin/plugin.json`
-- [ ] Create `skills/` directory with SKILL.md files
-- [ ] Implement bootstrap injection
-- [ ] Implement tool mapping for Claude Code
-- [ ] Test plugin loads correctly
+- [x] Create `.claude-plugin/plugin.json`
+- [x] Create `skills/` directory with SKILL.md files
+- [x] Implement bootstrap injection
+- [x] Implement tool mapping for Claude Code
+- [x] Test plugin loads correctly
 
 ### MI4: Codex Plugin
 - [ ] Create `.codex-plugin/plugin.json`
@@ -171,8 +171,8 @@ Feature
 | MI1 Complete | 2026-07-12 | ADR-007 and Design 011 created and committed |
 | MI2 Started | 2026-07-12 | Created OpenCode plugin |
 | MI2 Complete | 2026-07-12 | OpenCode plugin tests passing (39 tests) |
-| MI3 Started | | |
-| MI3 Complete | | |
+| MI3 Started | 2026-07-12 | Created Claude Code plugin |
+| MI3 Complete | 2026-07-12 | Claude Code plugin tests passing (31 tests) |
 | MI4 Started | | |
 | MI4 Complete | | |
 | MI5 Started | | |
@@ -189,6 +189,7 @@ Feature
 - Branch: feat/harness-045-multi-platform
 - MI1: Complete (ADR-007 + Design 011)
 - MI2: Complete (OpenCode plugin + 39 tests)
-- Next Action: MI3 - Claude Code Plugin
+- MI3: Complete (Claude Code plugin + 31 tests)
+- Next Action: MI4 - Codex Plugin
 - Blockers: None
 - Blockers: None
