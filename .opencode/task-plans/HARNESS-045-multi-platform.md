@@ -1,0 +1,190 @@
+# HARNESS-045: Multi-Platform Plugin Distribution
+
+## Objective
+Transform OpenStrut into a multi-platform plugin framework that distributes agents, skills, and workflows to OpenCode, Claude Code, Codex, and Hermes-Agent while maintaining the team coordination essence.
+
+## Classification
+Feature
+
+## Status
+- [ ] Approved (HARNESS-045 approval gate)
+- [ ] In Progress
+- [ ] Complete
+
+## Evidence
+- Task contract: `docs/proposals/HARNESS-045-multi-platform-plugins-task-contract.md`
+- Exploration report: `docs/explore/HARNESS-045-multi-platform-exploration.md`
+- User approval: HARNESS-045 approval gate
+
+## Scope
+### In Scope
+- Plugin manifest format for all 4 platforms
+- Bootstrap injection for all platforms
+- Tool mapping layer for platform differences
+- Installer updates with `--platform` flag
+- Platform-specific documentation
+
+### Out of Scope
+- Skill format changes (keep SKILL.md)
+- Agent topology changes (keep 9-team structure)
+- Retrieval system changes (keep CTX/B selectors)
+- New features (no new commands/skills/agents)
+- Platform-specific optimizations (generic first)
+
+## Assumptions
+- Platform plugin APIs are stable
+- Existing 266 tests continue to pass
+- Users have access to all 4 platforms for testing
+
+## Risks
+1. **Platform API Changes** → Pin platform versions in tests
+2. **Tool Mapping Complexity** → Start with minimal mapping, iterate
+3. **Agent Compatibility** → Start with core agents, add others later
+4. **Maintenance Burden** → Shared code, automated testing
+
+## Issue
+- HARNESS-045: Multi-Platform Plugin Distribution
+
+## Branch
+- feat/harness-045-multi-platform
+
+## Base
+- main (v0.4.1 + ADR-005 + ADR-006 + ot-synthetize + ot-create + ot-goal)
+
+## Affected Files
+### New Files
+- `.opencode/plugins/opentrust.js` (OpenCode plugin)
+- `.claude-plugin/plugin.json` (Claude Code plugin)
+- `.claude-plugin/skills/*/SKILL.md` (Claude Code skills)
+- `.codex-plugin/plugin.json` (Codex plugin)
+- `.codex-plugin/skills/*/SKILL.md` (Codex skills)
+- `plugins/opentrust/plugin.yaml` (Hermes plugin)
+- `plugins/opentrust/__init__.py` (Hermes plugin)
+- `plugins/opentrust/tools.py` (Hermes tools)
+- `plugins/opentrust/hooks.py` (Hermes hooks)
+- `src/plugins/tool-mapping.js` (Tool mapping interface)
+- `src/plugins/opencode-mapping.js` (OpenCode mapping)
+- `src/plugins/claude-mapping.js` (Claude mapping)
+- `src/plugins/codex-mapping.js` (Codex mapping)
+- `src/plugins/hermes-mapping.js` (Hermes mapping)
+- `tests/plugins/opencode.test.js` (OpenCode tests)
+- `tests/plugins/claude.test.js` (Claude tests)
+- `tests/plugins/codex.test.js` (Codex tests)
+- `tests/plugins/hermes.test.js` (Hermes tests)
+- `docs/installation/opencode.md` (OpenCode guide)
+- `docs/installation/claude.md` (Claude guide)
+- `docs/installation/codex.md` (Codex guide)
+- `docs/installation/hermes.md` (Hermes guide)
+- `docs/guides/plugin-development.md` (Plugin dev guide)
+- `docs/decisions/ADR-007-multi-platform-plugin-architecture.md` (ADR)
+
+### Modified Files
+- `src/setup/index.js` (add --platform flag)
+- `src/setup/configure.js` (add plugin installation)
+- `src/installer/inventory.js` (update artifact count)
+- `README.md` (update for multi-platform)
+- `docs/opencode/WORKFLOW.md` (update for plugins)
+
+## Microincrements
+
+### MI1: Plugin Architecture Design + ADR-007
+- [ ] Define plugin manifest format for each platform
+- [ ] Design bootstrap injection mechanism
+- [ ] Design tool mapping layer
+- [ ] Create ADR-007
+
+### MI2: OpenCode Plugin
+- [ ] Create `.opencode/plugins/opentrust.js`
+- [ ] Implement bootstrap injection
+- [ ] Implement tool mapping for OpenCode
+- [ ] Test plugin loads correctly
+
+### MI3: Claude Code Plugin
+- [ ] Create `.claude-plugin/plugin.json`
+- [ ] Create `skills/` directory with SKILL.md files
+- [ ] Implement bootstrap injection
+- [ ] Implement tool mapping for Claude Code
+- [ ] Test plugin loads correctly
+
+### MI4: Codex Plugin
+- [ ] Create `.codex-plugin/plugin.json`
+- [ ] Create `skills/` directory with SKILL.md files
+- [ ] Implement bootstrap injection
+- [ ] Implement tool mapping for Codex
+- [ ] Test plugin loads correctly
+
+### MI5: Hermes Plugin
+- [ ] Create `plugin.yaml` manifest
+- [ ] Create `__init__.py` with `register(ctx)` function
+- [ ] Implement tools via `ctx.register_tool()`
+- [ ] Implement hooks via `ctx.register_hook()`
+- [ ] Implement skills via `ctx.register_skill()`
+- [ ] Test plugin loads correctly
+
+### MI6: Tool Mapping Layer
+- [ ] Create tool mapping interface
+- [ ] Implement OpenCode tool mappings
+- [ ] Implement Claude Code tool mappings
+- [ ] Implement Codex tool mappings
+- [ ] Implement Hermes tool mappings
+
+### MI7: Installer Update
+- [ ] Update `openstrut setup` to support `--platform` flag
+- [ ] Implement plugin installation for each platform
+- [ ] Update inventory for new plugin files
+- [ ] Test installation across platforms
+
+### MI8: Documentation
+- [ ] Create platform-specific installation guides
+- [ ] Update main README for multi-platform support
+- [ ] Create plugin development guide
+- [ ] Update WORKFLOW.md for plugin usage
+
+## TDD Strategy
+- RED: Write failing test for plugin manifest validation
+- GREEN: Implement plugin manifest generation
+- REFACTOR: Clean up plugin code
+
+## Validation
+- Run `npm test` — all 266 tests pass
+- Run `npm run test:installer` — installer tests pass
+- Run `npm run eval:deterministic` — evals pass
+- Manual test: Install plugin on each platform
+
+## Review
+- [ ] Code reviewed
+- [ ] Tests reviewed
+- [ ] Documentation reviewed
+- [ ] Security reviewed
+
+## Delivery
+- [ ] Committed with conventional commit message
+- [ ] Merged to main branch
+- [ ] Inventory updated
+- [ ] WORKFLOW.md updated
+
+## Evidence Log
+| Step | Date | Evidence |
+|------|------|----------|
+| Approved | 2026-07-12 | HARNESS-045 approval gate |
+| MI1 Started | | |
+| MI1 Complete | | |
+| MI2 Started | | |
+| MI2 Complete | | |
+| MI3 Started | | |
+| MI3 Complete | | |
+| MI4 Started | | |
+| MI4 Complete | | |
+| MI5 Started | | |
+| MI5 Complete | | |
+| MI6 Started | | |
+| MI6 Complete | | |
+| MI7 Started | | |
+| MI7 Complete | | |
+| MI8 Started | | |
+| MI8 Complete | | |
+
+## Current State
+- Task Plan: Created
+- Next Action: Create feature branch
+- Blockers: None
