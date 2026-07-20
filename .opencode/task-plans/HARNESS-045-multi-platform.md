@@ -129,10 +129,10 @@ Feature
 - [x] Implement Hermes tool mappings
 
 ### MI7: Installer Update
-- [ ] Update `openstrut setup` to support `--platform` flag
-- [ ] Implement plugin installation for each platform
-- [ ] Update inventory for new plugin files
-- [ ] Test installation across platforms
+- [x] Update `openstrut setup` to support `--platform` flag
+- [x] Implement plugin installation for each platform
+- [x] Update inventory for new plugin files
+- [x] Test installation across platforms
 
 ### MI8: Documentation
 - [ ] Create platform-specific installation guides
@@ -179,8 +179,8 @@ Feature
 | MI5 Complete | 2026-07-12 | Hermes plugin tests passing (51 tests) |
 | MI6 Started | 2026-07-12 | Created tool mapping layer |
 | MI6 Complete | 2026-07-12 | Tool mapping tests passing (40 tests) |
-| MI7 Started | | |
-| MI7 Complete | | |
+| MI7 Started | 2026-07-12 | Created plugin installer |
+| MI7 Complete | 2026-07-12 | Plugin installer tests passing (26 tests) |
 | MI8 Started | | |
 | MI8 Complete | | |
 
@@ -193,6 +193,7 @@ Feature
 - MI4: Complete (Codex plugin + 31 tests)
 - MI5: Complete (Hermes plugin + 51 tests)
 - MI6: Complete (Tool Mapping Layer + 40 tests)
-- Next Action: MI7 - Installer Update
+- MI7: Complete (Plugin Installer + 26 tests)
+- Next Action: MI8 - Documentation
 - Blockers: None
 - Blockers: None
