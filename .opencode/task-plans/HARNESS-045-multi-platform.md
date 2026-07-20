@@ -7,9 +7,9 @@ Transform OpenStrut into a multi-platform plugin framework that distributes agen
 Feature
 
 ## Status
-- [ ] Approved (HARNESS-045 approval gate)
+- [x] Approved (HARNESS-045 approval gate)
 - [ ] In Progress
-- [ ] Complete
+- [x] Complete
 
 ## Evidence
 - Task contract: `docs/proposals/HARNESS-045-multi-platform-plugins-task-contract.md`
@@ -135,10 +135,10 @@ Feature
 - [x] Test installation across platforms
 
 ### MI8: Documentation
-- [ ] Create platform-specific installation guides
-- [ ] Update main README for multi-platform support
-- [ ] Create plugin development guide
-- [ ] Update WORKFLOW.md for plugin usage
+- [x] Create platform-specific installation guides
+- [x] Update main README for multi-platform support
+- [x] Create plugin development guide
+- [x] Update WORKFLOW.md for plugin usage
 
 ## TDD Strategy
 - RED: Write failing test for plugin manifest validation
@@ -181,8 +181,8 @@ Feature
 | MI6 Complete | 2026-07-12 | Tool mapping tests passing (40 tests) |
 | MI7 Started | 2026-07-12 | Created plugin installer |
 | MI7 Complete | 2026-07-12 | Plugin installer tests passing (26 tests) |
-| MI8 Started | | |
-| MI8 Complete | | |
+| MI8 Started | 2026-07-12 | Created documentation |
+| MI8 Complete | 2026-07-12 | Documentation complete (4 installation guides + 1 development guide) |
 
 ## Current State
 - Task Plan: Created
@@ -194,6 +194,7 @@ Feature
 - MI5: Complete (Hermes plugin + 51 tests)
 - MI6: Complete (Tool Mapping Layer + 40 tests)
 - MI7: Complete (Plugin Installer + 26 tests)
-- Next Action: MI8 - Documentation
+- MI8: Complete (Documentation)
+- Next Action: Ready for review and merge
 - Blockers: None
 - Blockers: None
