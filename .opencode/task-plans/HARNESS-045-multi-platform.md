@@ -122,11 +122,11 @@ Feature
 - [x] Test plugin loads correctly
 
 ### MI6: Tool Mapping Layer
-- [ ] Create tool mapping interface
-- [ ] Implement OpenCode tool mappings
-- [ ] Implement Claude Code tool mappings
-- [ ] Implement Codex tool mappings
-- [ ] Implement Hermes tool mappings
+- [x] Create tool mapping interface
+- [x] Implement OpenCode tool mappings
+- [x] Implement Claude Code tool mappings
+- [x] Implement Codex tool mappings
+- [x] Implement Hermes tool mappings
 
 ### MI7: Installer Update
 - [ ] Update `openstrut setup` to support `--platform` flag
@@ -177,8 +177,8 @@ Feature
 | MI4 Complete | 2026-07-12 | Codex plugin tests passing (31 tests) |
 | MI5 Started | 2026-07-12 | Created Hermes plugin |
 | MI5 Complete | 2026-07-12 | Hermes plugin tests passing (51 tests) |
-| MI6 Started | | |
-| MI6 Complete | | |
+| MI6 Started | 2026-07-12 | Created tool mapping layer |
+| MI6 Complete | 2026-07-12 | Tool mapping tests passing (40 tests) |
 | MI7 Started | | |
 | MI7 Complete | | |
 | MI8 Started | | |
@@ -192,6 +192,7 @@ Feature
 - MI3: Complete (Claude Code plugin + 31 tests)
 - MI4: Complete (Codex plugin + 31 tests)
 - MI5: Complete (Hermes plugin + 51 tests)
-- Next Action: MI6 - Tool Mapping Layer
+- MI6: Complete (Tool Mapping Layer + 40 tests)
+- Next Action: MI7 - Installer Update
 - Blockers: None
 - Blockers: None
