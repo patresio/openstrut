@@ -1,0 +1,87 @@
+{
+  "name": "opentrust",
+  "version": "1.0.0",
+  "description": "OpenTrust multi-platform agent harness",
+  "author": "OpenTrust Team",
+  "license": "UNLICENSED",
+  "skills": [
+    {
+      "name": "opentrust-task-contract",
+      "path": "skills/opentrust-task-contract",
+      "description": "Create task contracts with retrieval context"
+    },
+    {
+      "name": "opentrust-reference-research",
+      "path": "skills/opentrust-reference-research",
+      "description": "Use Operational Retrieval Map selectors"
+    },
+    {
+      "name": "opentrust-delivery",
+      "path": "skills/opentrust-delivery",
+      "description": "Prepare commit, push, and pull request"
+    },
+    {
+      "name": "opentrust-observability",
+      "path": "skills/opentrust-observability",
+      "description": "Require execution reports and validation evidence"
+    },
+    {
+      "name": "opentrust-spec-change",
+      "path": "skills/opentrust-spec-change",
+      "description": "Guide structured spec and design changes"
+    },
+    {
+      "name": "opentrust-meeting-facilitator",
+      "path": "skills/opentrust-meeting-facilitator",
+      "description": "Facilitate OpenTrust meetings"
+    },
+    {
+      "name": "opentrust-decision-logger",
+      "path": "skills/opentrust-decision-logger",
+      "description": "Log OpenTrust decisions"
+    },
+    {
+      "name": "opentrust-context-retrieval",
+      "path": "skills/opentrust-context-retrieval",
+      "description": "Retrieve context from Operational Retrieval Map"
+    },
+    {
+      "name": "opentrust-workflow-orchestrator",
+      "path": "skills/opentrust-workflow-orchestrator",
+      "description": "Orchestrate OpenTrust workflow"
+    },
+    {
+      "name": "opentrust-quality-gate",
+      "path": "skills/opentrust-quality-gate",
+      "description": "Enforce quality gates in OpenTrust"
+    },
+    {
+      "name": "opentrust-security-review",
+      "path": "skills/opentrust-security-review",
+      "description": "Review security in OpenTrust"
+    }
+  ],
+  "apps": [
+    {
+      "name": "opentrust-bootstrap",
+      "entrypoint": "bootstrap.js",
+      "description": "Inject OpenTrust context at session start"
+    },
+    {
+      "name": "opentrust-status",
+      "entrypoint": "status.js",
+      "description": "Check OpenTrust status"
+    }
+  ],
+  "mcpServers": [],
+  "permissions": {
+    "fileSystem": {
+      "read": ["global/", "docs/", ".opencode/"],
+      "write": ["docs/", ".opencode/"]
+    },
+    "git": {
+      "read": true,
+      "write": true
+    }
+  }
+}
