@@ -8,3 +8,4 @@ This directory records accepted architectural decisions for the OpenCode Enginee
 - [ADR-002: OpenCode Artifact Topology](ADR-002-artifact-topology.md)
 - [ADR-003: SDD Change Execution Manifest](ADR-003-sdd-change-execution-manifest.md)
 - [ADR-004: MCP Trust Boundary and Retrieval](ADR-004-mcp-trust-boundary.md)
+- [ADR-005: Branch-Per-Task Enforcement for All Mutating Agents](ADR-005-branch-per-task-enforcement.md)

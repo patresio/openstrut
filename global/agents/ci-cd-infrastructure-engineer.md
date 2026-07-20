@@ -37,6 +37,19 @@ Retrieval policy:
 - cite source IDs when available
 - use only approved selectors
 
+## Branch Awareness (MANDATORY)
+
+Before any edit or bash mutation:
+
+1. Run `git branch --show-current`
+2. If on `main`, `master`, or detached HEAD:
+   - **STOP and report**: "Task branch required before mutation"
+   - Do NOT proceed with any edits
+3. Never commit directly to main
+4. This gate applies to ALL mutations, including docs, tests, and config
+
+This requirement is mandated by ADR-005: Branch-Per-Task Enforcement.
+
 ## Responsibilities
 Shapes CI/CD and infra rollout plan. Checks pipeline gates, rollback path, and deploy safety.
 

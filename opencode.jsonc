@@ -322,7 +322,10 @@
         "bash": {
           "npm test*": "allow",
           "git status*": "allow",
-          "git diff*": "allow"
+          "git diff*": "allow",
+          "git branch --show-current": "allow",
+          "git checkout -b *": "allow",
+          "git switch -c *": "allow"
         },
         "task": "deny"
       }
@@ -379,7 +382,12 @@
         },
         "bash": {
           "npm test*": "allow",
-          "node --test*": "allow"
+          "node --test*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git branch --show-current": "allow",
+          "git checkout -b *": "allow",
+          "git switch -c *": "allow"
         },
         "task": "deny"
       }
