@@ -7,6 +7,19 @@ agent: engineering-lead
 
 **Purpose:** Implement only an approved task contract with TDD-First for behavioral changes.
 
+## Branch Verification (MANDATORY)
+
+Before any file edit or bash mutation:
+
+1. Run `git branch --show-current`
+2. If result is `main`, `master`, or empty (detached HEAD):
+   - **STOP immediately**
+   - Report: "Cannot mutate on main branch. Create a task branch first."
+   - Do NOT proceed with any edits
+3. If on a feature branch, proceed with approved mutations
+
+This gate is mandated by ADR-005: Branch-Per-Task Enforcement.
+
 ## Instructions
 
 1. Read WORKFLOW.md and TASK_CONTRACT.md from installed `opentrust/docs/`.

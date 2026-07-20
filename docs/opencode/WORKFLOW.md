@@ -35,6 +35,8 @@
 | Retrieval | Use only approved selectors from task contract |
 | Rule | One microincrement at a time, validate after each |
 
+> **Note:** Branch verification is mandatory before any mutation per [ADR-005](../decisions/ADR-005-branch-per-task-enforcement.md).
+
 ### 4. Review (Read Only)
 
 | Aspect | Rule |
