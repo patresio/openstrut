@@ -35,7 +35,7 @@ registerScenario({
         `artifact filename: ${tarballName}`,
         `artifact byte size: ${tarballSize}`,
         `artifact SHA-256: ${hash}`,
-        `Packaged installation verified 203 artifacts successfully.`
+        `Packaged installation verified 204 artifacts successfully.`
       ];
 
       // 2. Extract tarball
@@ -51,7 +51,7 @@ registerScenario({
       });
       const installRes = JSON.parse(installOut);
 
-      if (installRes.status !== 'ok' || installRes.installed.length !== 203) {
+      if (installRes.status !== 'ok' || installRes.installed.length !== 204) {
         return { status: FAIL, reason: `Install failed or incorrect count: ${installRes.installed.length}` };
       }
 
