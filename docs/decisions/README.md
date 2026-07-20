@@ -10,3 +10,4 @@ This directory records accepted architectural decisions for the OpenCode Enginee
 - [ADR-004: MCP Trust Boundary and Retrieval](ADR-004-mcp-trust-boundary.md)
 - [ADR-005: Branch-Per-Task Enforcement for All Mutating Agents](ADR-005-branch-per-task-enforcement.md)
 - [ADR-006: Autonomous Execution Policy for Multi-Task Processing](ADR-006-autonomous-execution-policy.md)
+- [ADR-007: Multi-Platform Plugin Architecture](ADR-007-multi-platform-plugin-architecture.md)
