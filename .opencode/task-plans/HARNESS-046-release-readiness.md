@@ -71,7 +71,7 @@ Feature + Bugfix + Infrastructure
 - All 266 tests pass
 - All 218 plugin tests pass
 
-### MI2: CI Improvements
+### MI2: CI Improvements ✅
 **Goal:** Improve CI pipeline with lint and badges
 **Files:**
 - `.github/workflows/ci.yml` — Add lint job
@@ -83,9 +83,14 @@ Feature + Bugfix + Infrastructure
 - Badge displays correctly
 
 **Acceptance Criteria:**
-- [ ] CI includes lint/format check
-- [ ] README shows CI status badge
-- [ ] All CI jobs pass
+- [x] CI includes lint/format check
+- [x] README shows CI status badge
+- [x] All CI jobs pass
+
+**Evidence:**
+- Commit: 5a5c28f
+- Lint job added with syntax checks
+- CI and MIT badges added to README
 
 ### MI3: Release Automation
 **Goal:** Implement automated releases with semantic-release
