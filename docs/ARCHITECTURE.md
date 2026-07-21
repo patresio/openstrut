@@ -307,6 +307,72 @@ Task Plans are execution ledgers stored in `.opencode/task-plans/`:
 
 ---
 
+## Multi-Platform Plugin System (HARNESS-045)
+
+OpenStrut supports multiple AI coding platforms through a plugin architecture:
+
+### Supported Platforms
+
+| Platform | Plugin Location | Format |
+|----------|----------------|--------|
+| OpenCode | `.opencode/plugins/opentrust.js` | JavaScript |
+| Claude Code | `.claude-plugin/plugin.json` | JSON + Skills |
+| Codex | `.codex-plugin/plugin.json` | JSON + Bootstrap |
+| Hermes-Agent | `plugins/opentrust/` | Python + YAML |
+
+### Plugin Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    OpenStrut Core                            │
+│  (40 agents, 11 skills, 10 commands, 32 CTX, 24 B)        │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Tool Mapping Layer                        │
+│              src/plugins/tool-mapping.js                    │
+│  (Abstracts platform differences behind common interface)  │
+└─────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+        ▼                     ▼                     ▼
+┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+│   OpenCode    │   │ Claude Code   │   │     Codex     │
+│    Plugin     │   │    Plugin     │   │    Plugin     │
+└───────────────┘   └───────────────┘   └───────────────┘
+        │                     │                     │
+        ▼                     ▼                     ▼
+┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+│  Bootstrap    │   │    Skills     │   │    Apps       │
+│  (40 agents)  │   │   (11 skills) │   │   (11 skills) │
+└───────────────┘   └───────────────┘   └───────────────┘
+```
+
+### Installation
+
+```bash
+# Install for specific platform
+openstrut setup --platform opencode
+openstrut setup --platform claude
+openstrut setup --platform codex
+openstrut setup --platform hermes
+
+# Install for all platforms
+openstrut setup --platform all
+```
+
+### Plugin Development
+
+See `docs/guides/plugin-development.md` for:
+- Creating custom plugins
+- Tool mapping customization
+- Platform-specific hooks
+- Testing strategies
+
+---
+
 ## Global Config Analyzer Decision (HARNESS-025)
 
 A dedicated global configuration analyzer agent is **not needed** at this point:

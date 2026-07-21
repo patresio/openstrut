@@ -92,7 +92,7 @@ Feature + Bugfix + Infrastructure
 - Lint job added with syntax checks
 - CI and MIT badges added to README
 
-### MI3: Release Automation
+### MI3: Release Automation ✅
 **Goal:** Implement automated releases with semantic-release
 **Files:**
 - `.github/workflows/release.yml` — Update for semantic-release
@@ -104,9 +104,14 @@ Feature + Bugfix + Infrastructure
 - CHANGELOG updates automatically
 
 **Acceptance Criteria:**
-- [ ] semantic-release config exists
-- [ ] Release workflow uses semantic-release
-- [ ] CHANGELOG auto-updates on release
+- [x] semantic-release config exists
+- [x] Release workflow uses semantic-release
+- [x] CHANGELOG auto-updates on release
+
+**Evidence:**
+- Commit: 2e33fc4
+- semantic-release GitHub Action configured
+- Conventional commits plugin enabled
 
 ### MI4: Documentation Updates
 **Goal:** Update contributing guide and architecture docs

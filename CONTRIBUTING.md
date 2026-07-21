@@ -164,11 +164,56 @@ npm pack --dry-run --ignore-scripts
 
 ## Release
 
-Releases are automated via `.github/workflows/release.yml`.
+Releases are automated via semantic-release and `.github/workflows/release.yml`.
 
-1. Tag a commit: `git tag v0.x.x`.
-2. Push the tag: `git push origin v0.x.x`.
+### Automated Releases (Recommended)
+
+1. Merge PR to `main` branch
+2. semantic-release analyzes commits using conventional commits:
+   - `fix:` → patch release (0.4.2)
+   - `feat:` → minor release (0.5.0)
+   - `BREAKING CHANGE:` → major release (1.0.0)
+3. Automatically updates CHANGELOG.md
+4. Creates GitHub Release with tarball
+5. Tags the commit
+
+### Manual Release (Fallback)
+
+1. Tag a commit: `git tag v0.x.x`
+2. Push the tag: `git push origin v0.x.x`
 3. The workflow runs tests, deterministic evals, packs the tarball, and creates a GitHub Release with the artifact.
+
+### Commit Message Format
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Types:**
+- `feat:` — A new feature
+- `fix:` — A bug fix
+- `docs:` — Documentation only changes
+- `style:` — Code style changes (formatting, etc.)
+- `refactor:` — Code change that neither fixes a bug nor adds a feature
+- `perf:` — Performance improvement
+- `test:` — Adding or correcting tests
+- `build:` — Build system or external dependency changes
+- `ci:` — CI configuration changes
+- `chore:` — Other changes that don't modify src or test files
+
+**Examples:**
+```bash
+git commit -m "feat: add new plugin for Codex"
+git commit -m "fix: resolve dirname import bug"
+git commit -m "docs: update installation guide"
+git commit -m "ci: improve CI pipeline with lint job"
+```
 
 One-liner install:
 
