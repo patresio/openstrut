@@ -8,7 +8,7 @@ Feature + Bugfix + Infrastructure
 
 ## Status
 - [x] Approved (HARNESS-046 approval gate)
-- [ ] In Progress
+- [x] In Progress
 - [ ] Complete
 
 ## Evidence
@@ -50,7 +50,7 @@ Feature + Bugfix + Infrastructure
 
 ## Microincrements
 
-### MI1: Critical Bug Fix + License Addition
+### MI1: Critical Bug Fix + License Addition ✅
 **Goal:** Fix the dirname bug and add license
 **Files:**
 - `src/plugins/plugin-installer.js` — Fix dirname import
@@ -62,9 +62,14 @@ Feature + Bugfix + Infrastructure
 - CLI subprocess tests pass (18 tests fixed)
 
 **Acceptance Criteria:**
-- [ ] `node bin/openstrut.js --help` exits 0
-- [ ] LICENSE file exists with MIT text
-- [ ] package.json has `"license": "MIT"`
+- [x] `node bin/openstrut.js --help` exits 0
+- [x] LICENSE file exists with MIT text
+- [x] package.json has `"license": "MIT"`
+
+**Evidence:**
+- Commit: ab03557
+- All 266 tests pass
+- All 218 plugin tests pass
 
 ### MI2: CI Improvements
 **Goal:** Improve CI pipeline with lint and badges

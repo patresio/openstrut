@@ -7,6 +7,21 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          find src bin -name "*.js" -exec node --check {} \;
+      - name: Check for common issues
+        run: |
+          grep -r "console.log" src/ --include="*.js" && echo "Warning: console.log found in src" || true
+          grep -r "TODO\|FIXME\|HACK" src/ --include="*.js" && echo "Warning: TODO/FIXME/HACK found" || true
+
   test:
     runs-on: ubuntu-latest
     strategy:

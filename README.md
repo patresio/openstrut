@@ -1,5 +1,8 @@
 # OpenStrut
 
+[![CI](https://github.com/patresio/openstrut/actions/workflows/ci.yml/badge.svg)](https://github.com/patresio/openstrut/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A versioned, auditable engineering harness and safe installer for OpenCode — with multi-CLI support for Codex, Claude Code, Aider, Goose, Cursor, and more.
 
 **v0.4.1** · Private · Node.js ≥20 · Zero npm dependencies
