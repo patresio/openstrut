@@ -89,6 +89,7 @@ Options:
                           or $HOME/.config/opencode
   --change <dir>    Path to the OpenSpec change directory (generate-manifest only)
   --cli <ids>       Comma-separated CLI ids for setup (e.g. opencode,codex)
+  --platform <name> Install plugin for specific platform (opencode, claude, codex, hermes, all)
   --home <dir>      Alternate home for setup path expansion (tests / isolation)
   --dry-run         Simulate install/setup without writing any files
   --force, -f       Overwrite existing files during install (skip unmanaged conflicts)
@@ -207,6 +208,21 @@ function parseArgs(argv) {
         };
       }
       opts.cli = val;
+    } else if (arg === '--platform') {
+      const val = args[++i];
+      if (val === undefined) {
+        return {
+          error: '--platform requires a platform name (opencode, claude, codex, hermes, all).',
+          exitCode: EXIT.INVALID,
+        };
+      }
+      if (val.startsWith('-')) {
+        return {
+          error: `--platform requires a platform name, got option flag "${val}".`,
+          exitCode: EXIT.INVALID,
+        };
+      }
+      opts.platform = val;
     } else if (!arg.startsWith('-')) {
       if (!opts.command) {
         opts.command = arg;
@@ -271,6 +287,13 @@ function parseArgs(argv) {
   if (opts.home && opts.command !== 'setup') {
     return {
       error: `--home is only valid with the setup command, not "${opts.command}".`,
+      exitCode: EXIT.INVALID,
+    };
+  }
+
+  if (opts.platform && opts.command !== 'setup') {
+    return {
+      error: `--platform is only valid with the setup command, not "${opts.command}".`,
       exitCode: EXIT.INVALID,
     };
   }
@@ -341,8 +364,9 @@ async function main() {
       const result = await runSetup({
         homeDir: opts.home,
         cliIds,
+        platform: opts.platform,
         dryRun: opts.dryRun,
-        interactive: !cliIds,
+        interactive: !cliIds && !opts.platform,
       });
       if (opts.json) {
         process.stdout.write(JSON.stringify({
