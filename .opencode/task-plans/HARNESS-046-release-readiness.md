@@ -9,7 +9,7 @@ Feature + Bugfix + Infrastructure
 ## Status
 - [x] Approved (HARNESS-046 approval gate)
 - [x] In Progress
-- [ ] Complete
+- [x] Complete
 
 ## Evidence
 - Task contract: `docs/proposals/HARNESS-046-release-readiness-task-contract.md`
@@ -113,7 +113,7 @@ Feature + Bugfix + Infrastructure
 - semantic-release GitHub Action configured
 - Conventional commits plugin enabled
 
-### MI4: Documentation Updates
+### MI4: Documentation Updates ✅
 **Goal:** Update contributing guide and architecture docs
 **Files:**
 - `CONTRIBUTING.md` — Update with current workflow
@@ -125,9 +125,14 @@ Feature + Bugfix + Infrastructure
 - Links work
 
 **Acceptance Criteria:**
-- [ ] CONTRIBUTING.md reflects current workflow
-- [ ] ARCHITECTURE.md includes plugin system
-- [ ] README quick start is accurate
+- [x] CONTRIBUTING.md reflects current workflow
+- [x] ARCHITECTURE.md includes plugin system
+- [x] README quick start is accurate
+
+**Evidence:**
+- Commit: 7531d9b
+- Semantic-release workflow documented
+- Plugin architecture section added
 
 ## Definition of Done
 - [ ] All acceptance criteria met
