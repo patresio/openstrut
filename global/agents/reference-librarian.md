@@ -2,7 +2,6 @@
 description: Curates selector mappings, bundles, and reference profile consistency.
 temperature: 0.3
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/opencode/reference-map/**": allow

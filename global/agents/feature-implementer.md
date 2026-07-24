@@ -2,7 +2,6 @@
 description: Build approved feature changes in small validated increments.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit: allow
   bash: allow

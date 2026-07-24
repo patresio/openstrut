@@ -2,7 +2,6 @@
 description: Auditar conformidade — dependências, licenças, vulnerabilidades, supply chain, regulamentação e políticas.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit: deny
   bash: deny

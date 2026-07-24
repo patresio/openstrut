@@ -2,7 +2,6 @@
 description: Tracks context lineage, decisions, and selector history across tasks.
 temperature: 0.3
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 permission:
   edit: deny
   bash: deny

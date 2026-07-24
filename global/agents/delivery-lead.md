@@ -1,6 +1,5 @@
 ---
 description: Release management, versioning, changelog, and deployment coordination
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

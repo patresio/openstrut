@@ -1,6 +1,5 @@
 ---
 description: Context retrieval, reference library management, documentation generation, and skill creation
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

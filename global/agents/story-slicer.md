@@ -1,6 +1,5 @@
 ---
 description: Slices product work into small testable stories with explicit exclusions
-model: opencode/deepseek-v4-flash-free
 mode: subagent
 temperature: 0.3
 permission:

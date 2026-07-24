@@ -2,7 +2,6 @@
 description: Verify integrated behavior across boundaries with focused evidence.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit:
     "tests/**": allow

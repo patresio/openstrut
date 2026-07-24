@@ -2,7 +2,6 @@
 description: Triage incidents with smallest safe containment and recovery steps.
 temperature: 0.3
 mode: subagent
-model: 9router/combo-main
 permission:
   edit: deny
   bash:

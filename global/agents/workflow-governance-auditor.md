@@ -2,7 +2,6 @@
 description: Auditar governança de workflow — prompts, regras, selectors, lacunas processuais e rastreabilidade.
 temperature: 0.3
 mode: subagent
-model: 9router/combo-main
 permission:
   edit: deny
   bash: deny

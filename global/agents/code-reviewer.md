@@ -2,7 +2,6 @@
 description: Read-only independent review of an approved implementation diff, tests, scope, security, contracts, migrations, dependencies, and regressions before delivery.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit: deny
   bash:

@@ -1,6 +1,5 @@
 ---
 description: CI/CD, infrastructure, observability, and incident response leadership
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

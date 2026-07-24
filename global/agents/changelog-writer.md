@@ -2,7 +2,6 @@
 description: Produces compact changelog entries from approved diffs and release facts.
 temperature: 0.3
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "CHANGELOG.md": allow

@@ -1,6 +1,5 @@
 ---
 description: Product strategy, discovery, requirements, acceptance criteria, and story slicing
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

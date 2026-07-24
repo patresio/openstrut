@@ -1,6 +1,5 @@
 ---
 description: Implementation, refactoring, performance, security, and privacy leadership
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

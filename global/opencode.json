@@ -6,8 +6,8 @@
   "compaction": {
     "auto": true
   },
-  "model": "9router/combo-main",
-  "small_model": "9router/combo-cheap",
+  "model": "{env:MODEL_TECH}",
+  "small_model": "{env:MODEL_LIGHT}",
   "provider": {
     "9router": {
       "npm": "@ai-sdk/openai-compatible",
@@ -18,46 +18,20 @@
       },
       "models": {
         "combo-main": {
-          "name": "combo-main",
+          "name": "9Router Combo Main",
           "variants": {
             "high": {
               "reasoningEffort": "high",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
+              "textVerbosity": "low"
             },
             "low": {
               "reasoningEffort": "low",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
+              "textVerbosity": "low"
             }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
           }
         },
         "combo-cheap": {
-          "name": "combo-cheap",
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 16000
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          }
+          "name": "9Router Combo Cheap"
         }
       }
     }
@@ -115,5 +89,49 @@
     "external_directory": "ask",
     "doom_loop": "ask",
     "skill": "ask"
+  },
+  "agent": {
+    "trust-lead": { "model": "{env:MODEL_LEAD}" },
+    "product-lead": { "model": "{env:MODEL_LEAD}" },
+    "architecture-lead": { "model": "{env:MODEL_LEAD}" },
+    "engineering-lead": { "model": "{env:MODEL_LEAD}" },
+    "quality-lead": { "model": "{env:MODEL_LEAD}" },
+    "review-lead": { "model": "{env:MODEL_LEAD}" },
+    "devops-lead": { "model": "{env:MODEL_LEAD}" },
+    "delivery-lead": { "model": "{env:MODEL_LEAD}" },
+    "knowledge-lead": { "model": "{env:MODEL_LEAD}" },
+    "architecture-decision-designer": { "model": "{env:MODEL_LEAD}" },
+    "domain-modeler": { "model": "{env:MODEL_LEAD}" },
+    "api-database-designer": { "model": "{env:MODEL_LEAD}" },
+    "distributed-systems-reviewer": { "model": "{env:MODEL_LEAD}" },
+    "issue-pr-coordinator": { "model": "{env:MODEL_LEAD}" },
+
+    "feature-implementer": { "model": "{env:MODEL_TECH}" },
+    "tdd-engineer": { "model": "{env:MODEL_TECH}" },
+    "code-refactoring-specialist": { "model": "{env:MODEL_TECH}" },
+    "performance-engineer": { "model": "{env:MODEL_TECH}" },
+    "security-reviewer": { "model": "{env:MODEL_TECH}" },
+    "privacy-reviewer": { "model": "{env:MODEL_TECH}" },
+    "integration-tester": { "model": "{env:MODEL_TECH}" },
+    "testing-strategy-designer": { "model": "{env:MODEL_TECH}" },
+    "code-reviewer": { "model": "{env:MODEL_TECH}" },
+    "compliance-auditor": { "model": "{env:MODEL_TECH}" },
+    "ux-accessibility-reviewer": { "model": "{env:MODEL_TECH}" },
+    "ci-cd-infrastructure-engineer": { "model": "{env:MODEL_TECH}" },
+    "observability-designer": { "model": "{env:MODEL_TECH}" },
+    "incident-triage-specialist": { "model": "{env:MODEL_TECH}" },
+    "workflow-governance-auditor": { "model": "{env:MODEL_TECH}" },
+
+    "coordination-facilitator": { "model": "{env:MODEL_LIGHT}" },
+    "meeting-scribe": { "model": "{env:MODEL_LIGHT}" },
+    "decision-logger": { "model": "{env:MODEL_LIGHT}" },
+    "context-historian": { "model": "{env:MODEL_LIGHT}" },
+    "reference-librarian": { "model": "{env:MODEL_LIGHT}" },
+    "documentation-skill-creator": { "model": "{env:MODEL_LIGHT}" },
+    "product-discovery": { "model": "{env:MODEL_LIGHT}" },
+    "requirements-analyzer": { "model": "{env:MODEL_LIGHT}" },
+    "story-slicer": { "model": "{env:MODEL_LIGHT}" },
+    "release-manager": { "model": "{env:MODEL_LIGHT}" },
+    "changelog-writer": { "model": "{env:MODEL_LIGHT}" }
   }
 }

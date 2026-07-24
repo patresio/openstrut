@@ -2,7 +2,6 @@
 description: Shapes documentation and skill drafts around approved selectors and source policy.
 temperature: 0.3
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "docs/**": allow

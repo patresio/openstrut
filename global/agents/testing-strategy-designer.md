@@ -2,7 +2,6 @@
 description: Design lean test strategy matched to risk, scope, and feedback speed.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit:
     "tests/**": allow

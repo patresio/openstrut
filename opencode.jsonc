@@ -156,7 +156,8 @@
         "edit": {
           ".github/**": "allow",
           "scripts/**": "allow",
-          ".opencode/**": "allow"
+          ".opencode/**": "allow",
+          "global/opencode.json": "allow"
         },
         "bash": "allow",
         "task": "allow"

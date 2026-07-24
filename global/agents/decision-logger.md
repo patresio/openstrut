@@ -1,6 +1,5 @@
 ---
 description: Records decisions, rationale, and unresolved risks for Trust Coordination
-model: opencode/mimo-v2.5-free
 mode: subagent
 temperature: 0.5
 permission:

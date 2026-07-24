@@ -2,7 +2,6 @@
 description: Coordenar issue, branch e pull request — ligação entre escopo aprovado, entrega e fechamento.
 temperature: 0.1
 mode: subagent
-model: opencode/big-pickle
 permission:
   edit: deny
   bash:

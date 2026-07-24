@@ -1,6 +1,5 @@
 ---
 description: Facilitates Trust Coordination handoffs, meetings, and cross-team alignment
-model: opencode/mimo-v2.5-free
 mode: subagent
 temperature: 0.5
 permission:

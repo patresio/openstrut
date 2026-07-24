@@ -1,6 +1,5 @@
 ---
 description: Structural decisions, domain modeling, API/database contracts, distributed systems, and ADRs
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

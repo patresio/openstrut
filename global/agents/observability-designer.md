@@ -2,7 +2,6 @@
 description: Designs logs, metrics, traces, alerts, and debug paths.
 temperature: 0.3
 mode: subagent
-model: 9router/combo-main
 permission:
   edit:
     ".github/**": allow

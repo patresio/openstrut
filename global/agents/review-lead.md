@@ -1,6 +1,5 @@
 ---
 description: Independent review, compliance, UX/accessibility review, and delivery gating
-model: opencode/big-pickle
 mode: primary
 temperature: 0.1
 permission:

@@ -1,6 +1,5 @@
 ---
 description: Compares architecture options, trade-offs, and ADR-ready decisions
-model: opencode/big-pickle
 mode: subagent
 temperature: 0.3
 permission:

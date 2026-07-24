@@ -2,7 +2,6 @@
 description: Gerenciar releases, changelog, versionamento semântico, deprecação e notas de release.
 temperature: 0.3
 mode: subagent
-model: opencode/deepseek-v4-flash-free
 permission:
   edit:
     "CHANGELOG.md": allow

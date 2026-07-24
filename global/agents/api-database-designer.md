@@ -1,6 +1,5 @@
 ---
 description: Designs APIs, schemas, data contracts, and evolution paths
-model: opencode/big-pickle
 mode: subagent
 temperature: 0.3
 permission:

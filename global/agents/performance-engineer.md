@@ -2,7 +2,6 @@
 description: Find and reduce performance bottlenecks with measured evidence.
 temperature: 0.1
 mode: subagent
-model: 9router/combo-main
 permission:
   edit:
     "src/**": allow
