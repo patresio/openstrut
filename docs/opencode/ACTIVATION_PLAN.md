@@ -84,8 +84,8 @@ The current top-level permission block was designed for the legacy `build` agent
 - `snapshot` — keep `true`
 - `autoupdate` — keep `"notify"`
 - `compaction` — keep `{"auto": true}`
-- `model` — keep `"9router/combo-main"`
-- `small_model` — keep `"9router/combo-cheap"`
+- `model` — use `"{env:MODEL_TECH}"` (default: `9router/combo-main`)
+- `small_model` — use `"{env:MODEL_LIGHT}"` (default: `9router/combo-cheap`)
 - `provider` — keep 9Router config as-is
 - `mcp` — keep homelab-ai-coding + barsa as-is
 
