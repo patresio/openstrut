@@ -16,7 +16,7 @@ import { checksumFile } from './manifest.js';
 import { isSymlink, validateRelativePath, findSymlinkedAncestorUnder } from './target.js';
 
 /**
- * @typedef {'missing'|'identical'|'managed-outdated'|'managed-locally-modified'|'unmanaged-conflict'|'invalid-target'} ArtifactClass
+ * @typedef {'missing'|'identical'|'managed-outdated'|'managed-locally-modified'|'unmanaged-conflict'|'mergeable-json'|'invalid-target'} ArtifactClass
  *
  * @typedef {{
  *   source: string,
@@ -150,6 +150,15 @@ export function classifyArtifact({ source, target, packageRoot, targetRoot, mani
       };
     } else {
       // Installed by harness but locally modified since
+      if (target.endsWith('.json')) {
+        return {
+          source, target, absoluteTarget: absTarget,
+          class: 'mergeable-json',
+          sourceChecksum,
+          targetChecksum,
+          reason: 'JSON file was installed by the harness but has been locally modified; safe to merge',
+        };
+      }
       return {
         source, target, absoluteTarget: absTarget,
         class: 'managed-locally-modified',
@@ -161,6 +170,16 @@ export function classifyArtifact({ source, target, packageRoot, targetRoot, mani
   }
 
   // No manifest ownership — unmanaged conflict
+  if (target.endsWith('.json')) {
+    return {
+      source, target, absoluteTarget: absTarget,
+      class: 'mergeable-json',
+      sourceChecksum,
+      targetChecksum,
+      reason: 'JSON file exists without harness ownership; safe to merge',
+    };
+  }
+
   return {
     source, target, absoluteTarget: absTarget,
     class: 'unmanaged-conflict',
@@ -183,6 +202,7 @@ export function isBlockingConflict(cls, opts) {
   return cls === 'managed-locally-modified' ||
     cls === 'unmanaged-conflict' ||
     cls === 'invalid-target';
+  // Note: 'mergeable-json' is NOT a blocking conflict
 }
 
 /**
@@ -192,5 +212,5 @@ export function isBlockingConflict(cls, opts) {
  * @returns {boolean}
  */
 export function requiresWrite(cls) {
-  return cls === 'missing' || cls === 'managed-outdated';
+  return cls === 'missing' || cls === 'managed-outdated' || cls === 'mergeable-json';
 }

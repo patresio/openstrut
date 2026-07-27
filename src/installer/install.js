@@ -49,6 +49,7 @@ import {
   checksumFile,
 } from './manifest.js';
 import { classifyArtifact, isBlockingConflict, requiresWrite } from './classify.js';
+import { mergeJson, findMissingKeys } from './merge.js';
 import {
   resolveTarget,
   validateTargetRootNotSymlinked,
@@ -193,6 +194,7 @@ export function install(opts) {
   const operations = [];
   const installed = [];
   const skipped = [];
+  const missingKeys = [];
 
   try {
     if (manifest) {
@@ -233,7 +235,20 @@ export function install(opts) {
 
       // Write new content to a collision-resistant temporary path
       const tmpPath = absTarget + '.' + randomHex() + '.harness-tmp';
-      const content = fs.readFileSync(absSource);
+      let content;
+      if (artifact.class === 'mergeable-json') {
+        const sourceJson = JSON.parse(fs.readFileSync(absSource, 'utf8'));
+        const targetJson = existed ? JSON.parse(fs.readFileSync(absTarget, 'utf8')) : {};
+        const merged = mergeJson(sourceJson, targetJson);
+        content = JSON.stringify(merged, null, 2) + '\n';
+
+        const missing = findMissingKeys(sourceJson, targetJson);
+        if (missing.length > 0) {
+          missingKeys.push({ target: artifact.target, keys: missing });
+        }
+      } else {
+        content = fs.readFileSync(absSource);
+      }
       fs.writeFileSync(tmpPath, content, { mode: 0o644 });
 
       // Atomic rename to final path
@@ -273,6 +288,7 @@ export function install(opts) {
       dryRun: false,
       installed,
       skipped,
+      missingKeys,
       artifacts: classified,
       conflicts: [],
       changesRequired: installed.length > 0,

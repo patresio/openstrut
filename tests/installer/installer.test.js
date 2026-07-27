@@ -745,14 +745,40 @@ describe('Install', () => {
     }
   });
 
-  it('unmanaged conflicting opencode.json is not overwritten', () => {
+  it('unmanaged conflicting opencode.json is merged, preserving user keys', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
       fs.writeFileSync(path.join(tmp, 'opencode.json'), '{"model":"custom"}');
       const result = install({ ...SHARED, target: tmp });
-      assert.ok(!result.success, 'Should fail due to unmanaged opencode.json conflict');
-      assert.equal(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'), '{"model":"custom"}');
+      assert.ok(result.success, 'Install should succeed with JSON merge');
+      const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
+      assert.equal(installed.model, 'custom', 'User model key preserved');
+    } finally {
+      removeTmp(tmp);
+    }
+  });
+
+  it('unmanaged opencode.json is merged, not blocked', () => {
+    const tmp = makeTmpTarget();
+    assertNotRealConfig(tmp);
+    try {
+      // User has a custom opencode.json with extra keys
+      const userConfig = {
+        model: 'custom-model',
+        customKey: 'preserved',
+        nested: { userSetting: true }
+      };
+      fs.writeFileSync(path.join(tmp, 'opencode.json'), JSON.stringify(userConfig));
+      const result = install({ ...SHARED, target: tmp });
+      // Should NOT be a conflict — should merge
+      assert.ok(result.success, 'Install should succeed with merge');
+      // Verify merge happened
+      const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
+      assert.equal(installed.model, 'custom-model', 'User model preserved');
+      assert.equal(installed.customKey, 'preserved', 'User custom key preserved');
+      // Source keys should be added (e.g. $schema, share, etc.)
+      assert.ok(installed.$schema || installed.share, 'Source keys merged in');
     } finally {
       removeTmp(tmp);
     }
