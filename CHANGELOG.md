@@ -1,3 +1,32 @@
+# [0.5.0](https://github.com/patresio/openstrut/compare/v0.4.1...v0.5.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* add --platform flag to setup command ([fdc2a4d](https://github.com/patresio/openstrut/commit/fdc2a4dd42d3bd18ca2bb5c05d051c669cad9e10))
+* **ci:** repair release workflow ([091b087](https://github.com/patresio/openstrut/commit/091b087b12ebf6cae35c949aacc4e28f820f3de9))
+* **evals:** update artifact count to 203 for ot-synthetize addition ([3bd6b9f](https://github.com/patresio/openstrut/commit/3bd6b9fd874a4c1348d5ebb5b5adab00d4f75b89))
+* **evals:** update artifact count to 204 for ot-create addition ([3f4d4e9](https://github.com/patresio/openstrut/commit/3f4d4e9ff4b6d6b1181a32991d9b8af6564acebc))
+* **installer:** deep-merge opencode.json instead of blocking on conflict ([acc8853](https://github.com/patresio/openstrut/commit/acc88534144293433691e5a848f3203d4660ff5d))
+* resolve dirname import bug in plugin-installer and add MIT license ([ab03557](https://github.com/patresio/openstrut/commit/ab03557293f53f03d6fb00216e41063fc6a9d618))
+* **tests:** update installer test counts for ot-create (204 artifacts, 9 commands) ([eb6c551](https://github.com/patresio/openstrut/commit/eb6c551ebfa018d78b5ea7c4f2b507550c3d32ab))
+
+
+### Features
+
+* add Claude Code plugin for multi-platform distribution ([651a79a](https://github.com/patresio/openstrut/commit/651a79acf459258a1b13e89e53742eb066cfbc42)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* add Codex plugin for multi-platform distribution ([b3bbe50](https://github.com/patresio/openstrut/commit/b3bbe50918c727b6534655b03739e20178d792b3)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* add Hermes plugin for multi-platform distribution ([a21d4ab](https://github.com/patresio/openstrut/commit/a21d4abcbbde197005242528679f91c352ea4258)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* add OpenCode plugin for multi-platform distribution ([dd82f63](https://github.com/patresio/openstrut/commit/dd82f63f99851716b34c446e6d98793674422a83)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* add plugin installer for multi-platform distribution ([b71d20c](https://github.com/patresio/openstrut/commit/b71d20ce3d00091cc64a80342c2b0a4120b6a6e2)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* add tool mapping layer for multi-platform distribution ([7541276](https://github.com/patresio/openstrut/commit/7541276054751b44a12119d6df18845009bcac78)), closes [#12](https://github.com/patresio/openstrut/issues/12)
+* **agents:** enforce branch-per-task per ADR-005 ([b5db906](https://github.com/patresio/openstrut/commit/b5db906c0e4910d60a8a94c9afec58d2e5873d8b)), closes [#7](https://github.com/patresio/openstrut/issues/7)
+* **agents:** enforce branch-per-task per ADR-005 ([e663654](https://github.com/patresio/openstrut/commit/e66365401b188c76696c8548ba6e385572681b46)), closes [#7](https://github.com/patresio/openstrut/issues/7)
+* **commands:** add ot-create project analyzer command ([cc88860](https://github.com/patresio/openstrut/commit/cc88860cf11c9231ba7897b37c3dcd87fa9123c5)), closes [#10](https://github.com/patresio/openstrut/issues/10)
+* **commands:** add ot-goal autonomous loop agent ([e759394](https://github.com/patresio/openstrut/commit/e759394efc045fa727487bb1d737d1c25f8fcd8a)), closes [#11](https://github.com/patresio/openstrut/issues/11)
+* **commands:** add ot-synthetize unified idea refinement command ([2abdc82](https://github.com/patresio/openstrut/commit/2abdc827f4476ea53bacd49fe048315dbee55c20)), closes [#9](https://github.com/patresio/openstrut/issues/9)
+* **commands:** add ot-synthetize unified idea refinement command ([eecfc87](https://github.com/patresio/openstrut/commit/eecfc87ab948e9ad91f31b07fbb710c4bbfd5dec)), closes [#9](https://github.com/patresio/openstrut/issues/9)
+
 # OpenStrut Changelog (formerly OpenCode Engineering Harness)
 
 All changes are documented here; this file is excluded from the npm package. Package versions are tagged by Git and used for distribution.
