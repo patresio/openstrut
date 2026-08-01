@@ -32,6 +32,24 @@
         },
         "combo-cheap": {
           "name": "9Router Combo Cheap"
+        },
+        "combo-lead": {
+          "name": "9Router Combo Lead"
+        },
+        "combo-tech": {
+          "name": "9Router Combo Tech"
+        },
+        "combo-light": {
+          "name": "9Router Combo Light"
+        },
+        "combo-prefeitura-lead": {
+          "name": "9Router Combo Prefeitura Lead"
+        },
+        "combo-prefeitura-tech": {
+          "name": "9Router Combo Prefeitura Tech"
+        },
+        "combo-prefeitura-light": {
+          "name": "9Router Combo Prefeitura Light"
         }
       }
     }
