@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/patresio/openstrut/compare/v0.5.0...v0.5.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* **config:** register combo-* models for 9router provider ([442f92e](https://github.com/patresio/openstrut/commit/442f92e4ebbe9882ae5e7f553c90dcf844367e59)), closes [#15](https://github.com/patresio/openstrut/issues/15)
+
 # [0.5.0](https://github.com/patresio/openstrut/compare/v0.4.1...v0.5.0) (2026-07-28)
 
 
