@@ -74,6 +74,42 @@ function copyDirRecursive(src, dest) {
 }
 
 /**
+ * Populate an installed Hermes plugin with its skills/ tree.
+ *
+ * The repo plugin source intentionally does NOT ship a committed skills/
+ * directory (skills live canonically in global/skills/<name>/SKILL.md and
+ * are discovered dynamically). For the installed plugin to be
+ * self-sufficient, the installer copies each canonical skill into
+ * <pluginDir>/skills/<name>/SKILL.md — the same layout the loader expects
+ * (Path(__file__).parent / "skills").
+ * @param {string} pluginDir - Installed plugin directory
+ */
+function populateHermesSkills(pluginDir) {
+  const globalSkills = path.join(projectRoot, 'global', 'skills');
+  if (!fs.existsSync(globalSkills)) {
+    return;
+  }
+
+  const skillsDest = path.join(pluginDir, 'skills');
+  const entries = fs.readdirSync(globalSkills, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const skillMd = path.join(globalSkills, entry.name, 'SKILL.md');
+    if (!fs.existsSync(skillMd)) {
+      continue;
+    }
+    const destSkillDir = path.join(skillsDest, entry.name);
+    if (!fs.existsSync(destSkillDir)) {
+      fs.mkdirSync(destSkillDir, { recursive: true });
+    }
+    fs.copyFileSync(skillMd, path.join(destSkillDir, 'SKILL.md'));
+  }
+}
+
+/**
  * Install plugin for a specific platform
  * @param {string} platform - Target platform
  * @param {Object} options - Installation options
@@ -111,6 +147,12 @@ export function installPlugin(platform, options = {}) {
     // Copy plugin files
     if (!options.dryRun) {
       copyDirRecursive(sourceDir, pluginDir);
+    }
+
+    // Hermes plugin must be self-sufficient: populate skills/ from the
+    // canonical source (global/skills/<name>/SKILL.md).
+    if (!options.dryRun && platform === 'hermes') {
+      populateHermesSkills(pluginDir);
     }
 
     return {
