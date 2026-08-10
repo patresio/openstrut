@@ -7,7 +7,7 @@ Fix installer to deep-merge `opencode.json` instead of blocking on conflict. Rep
 bugfix
 
 ## Status
-review_complete
+complete — delivered in `acc8853` (merged to main, no PR required per direct commit)
 
 ## Approval Evidence
 User-reported bug: installation on second computer failed because opencode.json was classified as unmanaged-conflict. User expects merge + missing key report.
@@ -115,7 +115,7 @@ GitHub issue creation pending (credentials unavailable)
 - GitHub credentials unavailable for issue/PR creation
 
 ## Current State
-Starting TDD RED phase
+**COMPLETE** — trabalho entregue em `acc8853` (2026-07-27) no main: `src/installer/merge.js` (mergeJson, findMissingKeys), classificação `mergeable-json`, path de merge no install, missing keys report. Testes: `tests/installer/merge.test.js` — 8/8 pass (verificado 2026-08-10). Follow-up conhecido: issue #17 (merge não propaga fixes de config em updates).
 
 ## Next Action
-Write merge.test.js with failing tests
+Nenhum — task completa. Follow-up registrado na issue #17.
