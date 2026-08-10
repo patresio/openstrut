@@ -21,7 +21,8 @@ Rewriter (SMALL REWRITE) da camada de adaptação Hermes do OpenStrut para o con
 - [x] Apply: M2-M8 concluído (M3 RED, M4/M5 GREEN, M6 docs, M7 isolamento, M8 validação)
 - [x] Review: code-reviewer APPROVE (sem blockers; findings menores não funcionais)
 - [x] Ship: commit `7b200a7` push + PR **#18** criado — CI verde (lint, test 20, test 22), mergeable
-- [ ] Merge (gate humano)
+- [x] Merge: PR #18 MERGED (squash `5a9da6e`) — aprovado pelo usuário 2026-08-10; release 0.5.2 gerado pelo CI
+- [x] **COMPLETE**
 
 ## Approval Evidence
 
@@ -230,7 +231,7 @@ Policy:
 - Commit: `7b200a7 fix(hermes): rewrite OpenTrust adapter for real Hermes contract`
 - Push: `github fix/hermes-adapter` ✅
 - PR: **https://github.com/patresio/openstrut/pull/18** — base `main`, CI verde (lint, test 20, test 22), MERGEABLE
-- Merge: aguardando aprovação humana (Merge Gate)
+- Merge: **MERGED** `5a9da6e` (squash) em 2026-08-10 — aprovado pelo usuário; release `0.5.2` gerado pelo CI; branches locais/remotas limpas
 
 ## Evidence
 
