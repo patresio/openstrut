@@ -1,301 +1,262 @@
 """
-OpenTrust Tools for Hermes-Agent
+OpenTrust Hermes plugin tools.
 
-This module implements the OpenTrust tools for Hermes-Agent,
-providing context-aware guidance for each phase of the workflow.
+Native Hermes plugin contract (validated against Hermes v0.20.0):
+
+- Each tool has a JSON schema with ``name`` and ``parameters``.
+- Each handler has the signature ``(args: dict, **kwargs) -> str`` and
+  returns a JSON string via ``json.dumps``.
+
+The tools are workflow-guidance only: they return a deterministic JSON
+synthesis for each OpenTrust phase; they do not mutate any state.
 """
 
+from __future__ import annotations
+
 import json
-from pathlib import Path
+
+TOOLSET = "opentrust"
+
+SCHEMAS: dict[str, dict] = {
+    "ot_explore": {
+        "name": "ot_explore",
+        "description": "OpenTrust Explore phase guidance (read-only investigation).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_propose": {
+        "name": "ot_propose",
+        "description": "OpenTrust Propose phase guidance (proposal and acceptance criteria).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_apply": {
+        "name": "ot_apply",
+        "description": "OpenTrust Apply phase guidance (approved-scope mutation, TDD gate).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_review": {
+        "name": "ot_review",
+        "description": "OpenTrust Review phase guidance (evidence-based review, read-only).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_ship": {
+        "name": "ot_ship",
+        "description": "OpenTrust Ship phase guidance (delivery, commit, PR).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_status": {
+        "name": "ot_status",
+        "description": "OpenTrust workflow status synthesis.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_incident": {
+        "name": "ot_incident",
+        "description": "OpenTrust incident guidance (smallest safe containment).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional incident state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_synthetize": {
+        "name": "ot_synthetize",
+        "description": "OpenTrust Synthetize guidance (grilling rounds, gap analysis, task contract).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_create": {
+        "name": "ot_create",
+        "description": "OpenTrust Create guidance (stack analysis, gap detection, recommendations).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+    "ot_goal": {
+        "name": "ot_goal",
+        "description": "OpenTrust Goal guidance (autonomous multi-task loop with human gates).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "object",
+                    "description": "Optional task contract state for context.",
+                },
+            },
+            "required": [],
+        },
+    },
+}
 
 
-def handle_ot_explore(session, task, project):
-    """
-    Handle ot_explore tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Explore Phase:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Explore (Read Only)\n"
-                    f"• Allowed: reading, searching, git history, diagnostics\n"
-                    f"• Forbidden: edits, installations, branch changes, commits"
-                )
-            }
-        ]
-    }
+def _guidance(tool: str, phase: str, message: str, args: dict) -> str:
+    """Return a deterministic JSON guidance string for a phase tool."""
+    return json.dumps({
+        "tool": tool,
+        "phase": phase,
+        "status": "guidance",
+        "message": message,
+        "received": bool(args),
+    })
 
 
-def handle_ot_propose(session, task, project):
-    """
-    Handle ot_propose tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Propose Phase:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Propose (Read Only)\n"
-                    f"• Allowed: writing proposal documents, comparing alternatives\n"
-                    f"• Forbidden: implementation, file creation outside proposal\n"
-                    f"• Output: Approved plan with Acceptance Criteria"
-                )
-            }
-        ]
-    }
+def handle_ot_explore(args, **kwargs):
+    """Explore phase guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_explore", "explore",
+        "OpenTrust Explore: read-only investigation; no edits, installs, or branch changes.",
+        args,
+    )
 
 
-def handle_ot_apply(session, task, project):
-    """
-    Handle ot_apply tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Apply Phase:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Apply (Mutation)\n"
-                    f"• Allowed: implementation within approved scope\n"
-                    f"• Required: Task Plan, TDD-First gate for behavioral changes\n"
-                    f"• Rule: One microincrement at a time, validate after each"
-                )
-            }
-        ]
-    }
+def handle_ot_propose(args, **kwargs):
+    """Propose phase guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_propose", "propose",
+        "OpenTrust Propose: write proposal and acceptance criteria; no implementation.",
+        args,
+    )
 
 
-def handle_ot_review(session, task, project):
-    """
-    Handle ot_review tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Review Phase:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Review (Read Only)\n"
-                    f"• Allowed: reading diff, running tests, inspecting evidence\n"
-                    f"• Forbidden: editing code during review\n"
-                    f"• Output: Review report with findings or approval"
-                )
-            }
-        ]
-    }
+def handle_ot_apply(args, **kwargs):
+    """Apply phase guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_apply", "apply",
+        "OpenTrust Apply: mutate only within approved scope; one microincrement at a time.",
+        args,
+    )
 
 
-def handle_ot_ship(session, task, project):
-    """
-    Handle ot_ship tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Ship Phase:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Ship (Delivery)\n"
-                    f"• Allowed: archive, commit, push, PR\n"
-                    f"• Required: all tests pass, review approved, diff inspected\n"
-                    f"• Retrieval: Must not include private retrieval content in commits"
-                )
-            }
-        ]
-    }
+def handle_ot_review(args, **kwargs):
+    """Review phase guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_review", "review",
+        "OpenTrust Review: inspect diff, tests, and evidence; no editing during review.",
+        args,
+    )
 
 
-def handle_ot_status(session, task, project):
-    """
-    Handle ot_status tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Status:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Status: Active\n"
-                    f"• Phase: Unknown\n"
-                    f"• Next Action: Check task plan"
-                )
-            }
-        ]
-    }
+def handle_ot_ship(args, **kwargs):
+    """Ship phase guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_ship", "ship",
+        "OpenTrust Ship: archive, commit, push, PR after tests pass and review approves.",
+        args,
+    )
 
 
-def handle_ot_incident(session, task, project):
-    """
-    Handle ot_incident tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Incident Response:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Phase: Incident\n"
-                    f"• Priority: diagnosis, containment, recovery\n"
-                    f"• Rule: smallest safe change"
-                )
-            }
-        ]
-    }
+def handle_ot_status(args, **kwargs):
+    """Status guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_status", "status",
+        "OpenTrust Status: check task plan state, evidence, and next action.",
+        args,
+    )
 
 
-def handle_ot_synthetize(session, task, project):
-    """
-    Handle ot_synthetize tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Synthetize:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Mode: 4-round Grilling + gap analysis + task contract\n"
-                    f"• Output: Task contract with retrieval context"
-                )
-            }
-        ]
-    }
+def handle_ot_incident(args, **kwargs):
+    """Incident guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_incident", "incident",
+        "OpenTrust Incident: diagnose, contain, recover with the smallest safe change.",
+        args,
+    )
 
 
-def handle_ot_create(session, task, project):
-    """
-    Handle ot_create tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Create:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Mode: stack analysis → gap detection → recommendations\n"
-                    f"• Output: Creation recommendations (recommend-only)"
-                )
-            }
-        ]
-    }
+def handle_ot_synthetize(args, **kwargs):
+    """Synthetize guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_synthetize", "synthetize",
+        "OpenTrust Synthetize: grilling rounds, gap analysis, task contract output.",
+        args,
+    )
 
 
-def handle_ot_goal(session, task, project):
-    """
-    Handle ot_goal tool call.
-    
-    Args:
-        session: Hermes session object
-        task: Task object
-        project: Project object
-        
-    Returns:
-        dict: Tool result
-    """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"OpenTrust Goal:\n"
-                    f"• Task: {task.get('name', 'unknown')}\n"
-                    f"• Project: {project.get('name', 'unknown')}\n"
-                    f"• Mode: multi-task autonomous loop\n"
-                    f"• Limits: max 5 tasks, 3 worktrees, 4h runtime, 3 retries\n"
-                    f"• Rule: human gates preserved"
-                )
-            }
-        ]
-    }
+def handle_ot_create(args, **kwargs):
+    """Create guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_create", "create",
+        "OpenTrust Create: stack analysis, gap detection, recommend-only output.",
+        args,
+    )
+
+
+def handle_ot_goal(args, **kwargs):
+    """Goal guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_goal", "goal",
+        "OpenTrust Goal: autonomous multi-task loop; human gates preserved.",
+        args,
+    )

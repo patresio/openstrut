@@ -67,6 +67,10 @@ desktop.ini
 evals/reports/*.json
 evals/reports/*.html
 
+# ─── Python (Hermes plugin) ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+
 # ─── References — read-only research material ───────────────────────────────
 #
 # IMPORTANT: references/ contains read-only research material.

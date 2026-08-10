@@ -1,8 +1,11 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { installPlugin } from '../../src/plugins/plugin-installer.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -145,6 +148,40 @@ describe('Plugin Installer', () => {
       const pluginInstallerPath = join(projectRoot, 'src', 'plugins', 'plugin-installer.js');
       const content = readFileSync(pluginInstallerPath, 'utf-8');
       assert.ok(content.includes("hermes: {"), 'Should support Hermes platform');
+    });
+  });
+
+  describe('Hermes installed plugin self-sufficiency (AC2/AC7)', () => {
+    let tmpHome = '';
+
+    before(() => {
+      tmpHome = mkdtempSync(join(tmpdir(), 'opentrust-installer-'));
+    });
+
+    after(() => {
+      if (tmpHome) rmSync(tmpHome, { recursive: true, force: true });
+    });
+
+    it('installed Hermes plugin ships skills/ populated from global/skills', () => {
+      const result = installPlugin('hermes', { targetDir: tmpHome });
+      assert.equal(result.ok, true, `installPlugin should succeed: ${result.error || ''}`);
+      const installed = join(tmpHome, 'plugins', 'opentrust');
+      const installedSkills = join(installed, 'skills');
+      assert.ok(existsSync(join(installed, 'plugin.yaml')), 'installed plugin.yaml should exist');
+      assert.ok(existsSync(installedSkills), 'installed plugin should ship skills/ (self-sufficient)');
+      const canonicalSkills = [];
+      const globalSkills = join(projectRoot, 'global', 'skills');
+      for (const child of readdirSync(globalSkills)) {
+        if (statSync(join(globalSkills, child)).isDirectory()
+            && existsSync(join(globalSkills, child, 'SKILL.md'))) {
+          canonicalSkills.push(child);
+        }
+      }
+      assert.ok(canonicalSkills.length >= 11, `canonical skills >= 11, got ${canonicalSkills.length}`);
+      for (const name of canonicalSkills) {
+        assert.ok(existsSync(join(installedSkills, name, 'SKILL.md')),
+          `installed plugin should ship skill "${name}"`);
+      }
     });
   });
 });

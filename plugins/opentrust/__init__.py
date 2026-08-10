@@ -1,92 +1,103 @@
 """
-OpenTrust Plugin for Hermes-Agent
+OpenTrust Plugin for Hermes-Agent (native contract).
 
-This plugin bootstraps OpenTrust context at session start,
-injecting 40 agents, 11 skills, 10 commands, and 32 CTX + 24 B context selectors.
+Registers 10 OpenTrust workflow-guidance tools with the native Hermes
+plugin API: ``ctx.register_tool(name=, toolset=, schema=, handler=)``.
 
-Usage:
-    Add to plugins/ directory in Hermes-Agent:
-    plugins/opentrust/
-
-    The plugin will be automatically loaded by Hermes-Agent.
+Skills are registered dynamically by the resource loader (no magic
+count): installed plugins load from ``<plugin_dir>/skills``; development
+plugins resolve ``$OPENSTRUST_ROOT/global/skills`` explicitly. Resource
+location never uses repo-relative traversal or legacy session injection.
 """
 
+from __future__ import annotations
+
+from .resource_loader import load_skills
 from .tools import (
-    handle_ot_explore,
-    handle_ot_propose,
+    SCHEMAS,
     handle_ot_apply,
+    handle_ot_create,
+    handle_ot_explore,
+    handle_ot_goal,
+    handle_ot_incident,
+    handle_ot_propose,
     handle_ot_review,
     handle_ot_ship,
     handle_ot_status,
-    handle_ot_incident,
     handle_ot_synthetize,
-    handle_ot_create,
-    handle_ot_goal,
 )
-
-from .hooks import on_session_start, on_session_end
 
 __version__ = "1.0.0"
 __author__ = "OpenTrust Team"
 __description__ = "OpenTrust multi-platform agent harness"
 
-__all__ = [
-    "register",
-    "on_session_start",
-    "on_session_end",
-    "handle_ot_explore",
-    "handle_ot_propose",
-    "handle_ot_apply",
-    "handle_ot_review",
-    "handle_ot_ship",
-    "handle_ot_status",
-    "handle_ot_incident",
-    "handle_ot_synthetize",
-    "handle_ot_create",
-    "handle_ot_goal",
-]
+TOOLSET = "opentrust"
 
 
 def register(ctx):
-    """
-    Register OpenTrust plugin with Hermes-Agent.
-    
-    This function is called by Hermes-Agent when loading the plugin.
-    It registers tools, hooks, and skills with the Hermes context.
-    
-    Args:
-        ctx: Hermes-Agent context object
-    """
-    # Register tools
-    ctx.register_tool("ot_explore", handle_ot_explore)
-    ctx.register_tool("ot_propose", handle_ot_propose)
-    ctx.register_tool("ot_apply", handle_ot_apply)
-    ctx.register_tool("ot_review", handle_ot_review)
-    ctx.register_tool("ot_ship", handle_ot_ship)
-    ctx.register_tool("ot_status", handle_ot_status)
-    ctx.register_tool("ot_incident", handle_ot_incident)
-    ctx.register_tool("ot_synthetize", handle_ot_synthetize)
-    ctx.register_tool("ot_create", handle_ot_create)
-    ctx.register_tool("ot_goal", handle_ot_goal)
-    
-    # Register hooks
-    ctx.register_hook("on_session_start", on_session_start)
-    ctx.register_hook("on_session_end", on_session_end)
-    
-    # Register skills
-    ctx.register_skill("opentrust_task_contract", "skills/opentrust_task_contract.md")
-    ctx.register_skill("opentrust_reference_research", "skills/opentrust_reference_research.md")
-    ctx.register_skill("opentrust_delivery", "skills/opentrust_delivery.md")
-    ctx.register_skill("opentrust_observability", "skills/opentrust_observability.md")
-    ctx.register_skill("opentrust_spec_change", "skills/opentrust_spec_change.md")
-    ctx.register_skill("opentrust_meeting_facilitator", "skills/opentrust_meeting_facilitator.md")
-    ctx.register_skill("opentrust_decision_logger", "skills/opentrust_decision_logger.md")
-    ctx.register_skill("opentrust_context_retrieval", "skills/opentrust_context_retrieval.md")
-    ctx.register_skill("opentrust_workflow_orchestrator", "skills/opentrust_workflow_orchestrator.md")
-    ctx.register_skill("opentrust_quality_gate", "skills/opentrust_quality_gate.md")
-    ctx.register_skill("opentrust_security_review", "skills/opentrust_security_review.md")
-    
+    """Register OpenTrust tools and skills with the Hermes context."""
+    ctx.register_tool(
+        name="ot_explore",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_explore"],
+        handler=handle_ot_explore,
+    )
+    ctx.register_tool(
+        name="ot_propose",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_propose"],
+        handler=handle_ot_propose,
+    )
+    ctx.register_tool(
+        name="ot_apply",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_apply"],
+        handler=handle_ot_apply,
+    )
+    ctx.register_tool(
+        name="ot_review",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_review"],
+        handler=handle_ot_review,
+    )
+    ctx.register_tool(
+        name="ot_ship",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_ship"],
+        handler=handle_ot_ship,
+    )
+    ctx.register_tool(
+        name="ot_status",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_status"],
+        handler=handle_ot_status,
+    )
+    ctx.register_tool(
+        name="ot_incident",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_incident"],
+        handler=handle_ot_incident,
+    )
+    ctx.register_tool(
+        name="ot_synthetize",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_synthetize"],
+        handler=handle_ot_synthetize,
+    )
+    ctx.register_tool(
+        name="ot_create",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_create"],
+        handler=handle_ot_create,
+    )
+    ctx.register_tool(
+        name="ot_goal",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_goal"],
+        handler=handle_ot_goal,
+    )
+
+    # Register skills dynamically (no magic count).
+    load_skills(ctx)
+
     print("OpenTrust Plugin: Registered successfully")
-    print("  • 10 tools registered")
-    print("  • 2 hooks registered")
-    print("  • 11 skills registered")
