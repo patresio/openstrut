@@ -22,6 +22,7 @@ The current harness release provides:
 - [Commands](commands.md)
 - [Catalog and Extraction Guidance](barsa-integration.md)
 - [Installation](installation/README.md)
+- [Using OpenTrust with Hermes-Agent](hermes.md)
 
 ## Operating Model
 
