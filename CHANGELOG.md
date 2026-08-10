@@ -1,3 +1,10 @@
+## [0.5.2](https://github.com/patresio/openstrut/compare/v0.5.1...v0.5.2) (2026-08-10)
+
+
+### Bug Fixes
+
+* **hermes:** rewrite OpenTrust adapter for real Hermes contract ([#18](https://github.com/patresio/openstrut/issues/18)) ([5a9da6e](https://github.com/patresio/openstrut/commit/5a9da6e629a06088eb047825af517684dbae897e))
+
 ## [0.5.1](https://github.com/patresio/openstrut/compare/v0.5.0...v0.5.1) (2026-08-01)
 
 
