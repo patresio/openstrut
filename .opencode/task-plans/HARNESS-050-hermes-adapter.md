@@ -19,8 +19,9 @@ Rewriter (SMALL REWRITE) da camada de adaptação Hermes do OpenStrut para o con
 - [x] Propose: task contract aprovado com 3 ajustes
 - [x] G5: validação do contrato real do Hermes concluída — **decisão SMALL REWRITE**
 - [x] Apply: M2-M8 concluído (M3 RED, M4/M5 GREEN, M6 docs, M7 isolamento, M8 validação)
-- [ ] Review
-- [ ] Ship
+- [x] Review: code-reviewer APPROVE (sem blockers; findings menores não funcionais)
+- [x] Ship: commit `7b200a7` push + PR **#18** criado — CI verde (lint, test 20, test 22), mergeable
+- [ ] Merge (gate humano)
 
 ## Approval Evidence
 
@@ -220,12 +221,16 @@ Policy:
 
 ## Review
 
-- Pendente após implementação
+- code-reviewer: **APPROVE** — sem blockers. Findings menores: F1 (plugin.yaml poderia ter `provides_hooks: []` cosmético), F2 (nit .gitignore). Nenhum funcional.
+- Escopo: diff limitado à camada Hermes; nenhum arquivo OpenCode runtime modificado (AC11).
+- Evidência: npm test 316/316; hermes_behavior_test.py 0 falhas (dev + instalado 11/11).
 
 ## Delivery
 
-- Commit conventional: `fix(hermes): rewrite OpenTrust adapter for real Hermes contract`
-- PR para `main`
+- Commit: `7b200a7 fix(hermes): rewrite OpenTrust adapter for real Hermes contract`
+- Push: `github fix/hermes-adapter` ✅
+- PR: **https://github.com/patresio/openstrut/pull/18** — base `main`, CI verde (lint, test 20, test 22), MERGEABLE
+- Merge: aguardando aprovação humana (Merge Gate)
 
 ## Evidence
 
