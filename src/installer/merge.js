@@ -1,7 +1,7 @@
 /**
  * Deep-merges source JSON into target JSON.
- * - Source keys are added to target
- * - Target keys not in source are preserved
+ * - Source scalars/arrays win (so packaged config fixes reach installed machines)
+ * - Target-only keys not present in source are preserved (user customizations)
  * - Nested objects are merged recursively
  * - Arrays in source replace arrays in target
  * @param {object} source - The new/harness version
@@ -24,8 +24,8 @@ export function mergeJson(source, target) {
     } else if (Array.isArray(sourceVal)) {
       // Arrays in source replace arrays in target
       result[key] = [...sourceVal];
-    } else if (!(key in target)) {
-      // Scalar keys not in target are added
+    } else {
+      // Scalars in source win over target values
       result[key] = sourceVal;
     }
   }
