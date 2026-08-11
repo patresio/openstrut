@@ -1,9 +1,9 @@
 # HARNESS-051 — Installer convergence: propagate config fixes + Hermes flat-tree skills
 
-Status: ship-ready (review approved)
+Status: done (merged 2026-08-11)
 Classification: bugfix (+ small feature: hermes flat-tree skills)
-Approval: user approved changes 2026-08-11 ("aprovadissimo pode fazer as mudanças")
-Issue: #17 (merge keeps stale scalars on reinstall)
+Approval: user approved changes 2026-08-11 ("aprovadissimo pode fazer as mudanças"); merge approved 2026-08-11 via ot-goal gate
+Issue: #17 (merge keeps stale scalars on reinstall) — CLOSED by merge
 Branch: fix/installer-merge-and-hermes-skills
 Base: main
 Note: task ID renamed HARNESS-050 -> HARNESS-051 to avoid collision with the
@@ -13,9 +13,10 @@ already-merged HARNESS-050 (hermes-adapter, PR #18).
 - Review: code-reviewer APPROVE (3 non-blocking findings: test:installer script omits
   merge.test.js; dryRun/non-hermes gating untested; flat-skills overwrite without backup —
   intended, note in release).
-- Commit: fix(installer): propagate config fixes on reinstall (source-wins merge)
-- PR: links issue #17
-- Push: github remote (patresio/openstrut)
+- Commit: 8e295d7 `fix(installer): propagate config fixes on reinstall (source-wins merge)`
+- PR: https://github.com/patresio/openstrut/pull/20 (links issue #17) — lint pass, test (20/22) running
+- Push: github remote (patresio/openstrut), branch fix/installer-merge-and-hermes-skills
+- Merge: awaiting CI green + user approval
 
 ## Objective
 1. Reinstall on this machine must converge `opencode.json` to the slim packaged
@@ -66,4 +67,6 @@ already-merged HARNESS-050 (hermes-adapter, PR #18).
 - Hermes flat-tree skills copied to `~/.hermes/skills/` and `~/.hermes/profiles/isagi/skills/` (11 skills each, verified content identical to canonical). `hermes skills list` and `hermes -p isagi skills list` both show all 11 opentrust skills local/enabled.
 
 ## Current state / next action
-State: code GREEN on branch, machine converged, hermes skills discoverable. Next: report install commands for other machines.
+State: DONE — PR #20 merged into main (squash, commit 5777291) on 2026-08-11T18:05Z;
+issue #17 closed. CI green (lint + test 20/22) before merge; merge approved by user via ot-goal.
+Next: none — task complete. Follow-up (approved): repair opentrust Hermes plugin (ot_* tools stub).
