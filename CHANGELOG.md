@@ -1,3 +1,10 @@
+## [0.5.3](https://github.com/patresio/openstrut/compare/v0.5.2...v0.5.3) (2026-08-11)
+
+
+### Bug Fixes
+
+* **installer:** propagate config fixes on reinstall (source-wins merge) ([#20](https://github.com/patresio/openstrut/issues/20)) ([5777291](https://github.com/patresio/openstrut/commit/57772913700af0c3d5a52f9005fb35b061958e67)), closes [#17](https://github.com/patresio/openstrut/issues/17)
+
 ## [0.5.2](https://github.com/patresio/openstrut/compare/v0.5.1...v0.5.2) (2026-08-10)
 
 
