@@ -74,23 +74,16 @@ function copyDirRecursive(src, dest) {
 }
 
 /**
- * Populate an installed Hermes plugin with its skills/ tree.
- *
- * The repo plugin source intentionally does NOT ship a committed skills/
- * directory (skills live canonically in global/skills/<name>/SKILL.md and
- * are discovered dynamically). For the installed plugin to be
- * self-sufficient, the installer copies each canonical skill into
- * <pluginDir>/skills/<name>/SKILL.md — the same layout the loader expects
- * (Path(__file__).parent / "skills").
- * @param {string} pluginDir - Installed plugin directory
+ * Copy each canonical skill from global/skills/<name>/SKILL.md into
+ * <skillsDest>/<name>/SKILL.md.
+ * @param {string} skillsDest - Destination skills root directory
  */
-function populateHermesSkills(pluginDir) {
+function populateSkillsInto(skillsDest) {
   const globalSkills = path.join(projectRoot, 'global', 'skills');
   if (!fs.existsSync(globalSkills)) {
     return;
   }
 
-  const skillsDest = path.join(pluginDir, 'skills');
   const entries = fs.readdirSync(globalSkills, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -107,6 +100,32 @@ function populateHermesSkills(pluginDir) {
     }
     fs.copyFileSync(skillMd, path.join(destSkillDir, 'SKILL.md'));
   }
+}
+
+/**
+ * Populate an installed Hermes plugin with its skills/ tree.
+ *
+ * The repo plugin source intentionally does NOT ship a committed skills/
+ * directory (skills live canonically in global/skills/<name>/SKILL.md and
+ * are discovered dynamically). For the installed plugin to be
+ * self-sufficient, the installer copies each canonical skill into
+ * <pluginDir>/skills/<name>/SKILL.md — the same layout the loader expects
+ * (Path(__file__).parent / "skills").
+ * @param {string} pluginDir - Installed plugin directory
+ */
+function populateHermesSkills(pluginDir) {
+  populateSkillsInto(path.join(pluginDir, 'skills'));
+}
+
+/**
+ * Populate the flat Hermes skills tree so `hermes skills list` and bare
+ * skill_view('opentrust-*') find canonical skills without namespace
+ * qualification. Copies each global/skills/<name>/SKILL.md into
+ * <targetDir>/skills/<name>/SKILL.md.
+ * @param {string} targetDir - Installation target directory
+ */
+function populateHermesFlatSkills(targetDir) {
+  populateSkillsInto(path.join(targetDir, 'skills'));
 }
 
 /**
@@ -150,9 +169,11 @@ export function installPlugin(platform, options = {}) {
     }
 
     // Hermes plugin must be self-sufficient: populate skills/ from the
-    // canonical source (global/skills/<name>/SKILL.md).
+    // canonical source (global/skills/<name>/SKILL.md), both inside the
+    // plugin dir and in the flat skills tree under the target dir.
     if (!options.dryRun && platform === 'hermes') {
       populateHermesSkills(pluginDir);
+      populateHermesFlatSkills(targetDir);
     }
 
     return {

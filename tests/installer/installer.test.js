@@ -745,7 +745,7 @@ describe('Install', () => {
     }
   });
 
-  it('unmanaged conflicting opencode.json is merged, preserving user keys', () => {
+  it('unmanaged conflicting opencode.json is merged, source scalar wins', () => {
     const tmp = makeTmpTarget();
     assertNotRealConfig(tmp);
     try {
@@ -753,7 +753,7 @@ describe('Install', () => {
       const result = install({ ...SHARED, target: tmp });
       assert.ok(result.success, 'Install should succeed with JSON merge');
       const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
-      assert.equal(installed.model, 'custom', 'User model key preserved');
+      assert.equal(installed.model, '{env:MODEL_TECH}', 'Source model wins over stale user value');
     } finally {
       removeTmp(tmp);
     }
@@ -775,8 +775,9 @@ describe('Install', () => {
       assert.ok(result.success, 'Install should succeed with merge');
       // Verify merge happened
       const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
-      assert.equal(installed.model, 'custom-model', 'User model preserved');
+      assert.equal(installed.model, '{env:MODEL_TECH}', 'Source model wins over user value');
       assert.equal(installed.customKey, 'preserved', 'User custom key preserved');
+      assert.deepEqual(installed.nested, { userSetting: true }, 'User-only nested key preserved');
       // Source keys should be added (e.g. $schema, share, etc.)
       assert.ok(installed.$schema || installed.share, 'Source keys merged in');
     } finally {

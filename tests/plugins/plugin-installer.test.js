@@ -183,5 +183,30 @@ describe('Plugin Installer', () => {
           `installed plugin should ship skill "${name}"`);
       }
     });
+
+    it('installed Hermes plugin copies canonical skills to flat skills tree', () => {
+      const result = installPlugin('hermes', { targetDir: tmpHome });
+      assert.equal(result.ok, true, `installPlugin should succeed: ${result.error || ''}`);
+      const flatSkills = join(tmpHome, 'skills');
+      assert.ok(existsSync(flatSkills), 'target dir should ship flat skills/ tree');
+      const canonicalSkills = [];
+      const globalSkills = join(projectRoot, 'global', 'skills');
+      for (const child of readdirSync(globalSkills)) {
+        if (statSync(join(globalSkills, child)).isDirectory()
+            && existsSync(join(globalSkills, child, 'SKILL.md'))) {
+          canonicalSkills.push(child);
+        }
+      }
+      assert.ok(canonicalSkills.length >= 11, `canonical skills >= 11, got ${canonicalSkills.length}`);
+      for (const name of canonicalSkills) {
+        assert.ok(existsSync(join(flatSkills, name, 'SKILL.md')),
+          `flat skills tree should ship skill "${name}"`);
+      }
+      const installedSkills = join(tmpHome, 'plugins', 'opentrust', 'skills');
+      for (const name of canonicalSkills) {
+        assert.ok(existsSync(join(installedSkills, name, 'SKILL.md')),
+          `installed plugin should still ship skill "${name}"`);
+      }
+    });
   });
 });
