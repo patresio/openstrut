@@ -21,15 +21,40 @@ This will:
 2. Populate `skills/<name>/SKILL.md` inside the installed plugin from the
    canonical `global/skills/` source (11 skills), so the installed plugin is
    **self-sufficient** — it does not need the OpenStrut repository at runtime
-3. Register the plugin with Hermes
+3. Copy the plugin files only — it does **not** enable the plugin (see
+   [Enable the plugin](#enable-the-plugin) below)
 
 To install into the Hermes user plugins directory:
 
 ```bash
-openstrut setup --platform hermes --home-dir ~/.hermes
+openstrut setup --platform hermes --home ~/.hermes
 ```
 
 The plugin lands at `~/.hermes/plugins/opentrust/`.
+
+> **Note:** the CLI flag is `--home`, not `--home-dir`.
+
+### Enable the plugin
+
+The installer copies files but does not enable the plugin. Enable it with
+the Hermes CLI (required once per Hermes home):
+
+```bash
+hermes plugins enable opentrust
+```
+
+For a non-default profile, enable it in that profile:
+
+```bash
+hermes -p <profile> plugins enable opentrust
+```
+
+Verify it is enabled:
+
+```bash
+hermes plugins list | grep opentrust
+# opentrust | enabled | 1.0.0 | OpenTrust | user
+```
 
 ### Manual Installation
 
@@ -56,6 +81,12 @@ The plugin lands at `~/.hermes/plugins/opentrust/`.
    done
    ```
 
+4. Enable the plugin:
+
+   ```bash
+   hermes plugins enable opentrust
+   ```
+
 > **Runtime self-sufficiency:** the installed plugin resolves resources from
 > its own directory (`Path(__file__).parent / "skills"`). The
 > `OPENSTRUST_ROOT` environment variable is only a **development** fallback:
@@ -65,26 +96,35 @@ The plugin lands at `~/.hermes/plugins/opentrust/`.
 
 ## Verification
 
-1. Load the plugin (Hermes calls `register(ctx)` once on startup). The
+1. Confirm the plugin is enabled:
+
+   ```bash
+   hermes plugins list | grep opentrust
+   # opentrust | enabled | 1.0.0 | OpenTrust | user
+   ```
+
+   If it shows `not enabled`, run `hermes plugins enable opentrust`.
+
+2. Load the plugin (Hermes calls `register(ctx)` once on startup). The
    plugin prints:
 
    ```
    OpenTrust Plugin: Registered successfully
    ```
 
-2. Check the plugin manifest:
+3. Check the plugin manifest:
 
    ```bash
    cat ~/.hermes/plugins/opentrust/plugin.yaml
    ```
 
-3. Run the behavioral contract test (no live Hermes needed — fake ctx):
+4. Run the behavioral contract test (no live Hermes needed — fake ctx):
 
    ```bash
    python3 tests/plugins/hermes_behavior_test.py
    ```
 
-4. The 10 `ot_*` tools are available to the model with toolset `opentrust`.
+5. The 10 `ot_*` tools are available to the model with toolset `opentrust`.
 
 ## Available Tools
 

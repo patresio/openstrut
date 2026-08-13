@@ -24,6 +24,12 @@ enabled. You do not call them directly — you ask the model to call them.
 Hermes plugins are **per-profile**. Each profile has its own
 `<profile>/plugins/` and `plugins.enabled` list in its `config.yaml`.
 
+> **Note:** the profile names below (`isagi`, `motoko-platform`) are examples
+> from the machine where this guide was written. On a new computer, install
+> and enable the plugin for the profile you actually use — or for the default
+> profile if you do not use profiles. See
+> [Installation](../installation/hermes.md#enable-the-plugin).
+
 | Profile | Plugin state |
 |---------|--------------|
 | `default` | disabled (installed, not loaded) |
