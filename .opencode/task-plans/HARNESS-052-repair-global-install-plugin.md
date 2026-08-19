@@ -43,6 +43,9 @@
   - `openstrut plan --target <tmp>`: lista `.opencode/plugins/opentrust.js` como install — plugin instalável
   - Review do diff: escopo (todos os arquivos mapeiam aos critérios de aceite), testes novos sem mocks/asserções fracas, sem secrets, sem mudanças destrutivas, docs consistentes com a realidade (commands=10, agents=40, manifest `.openstrut/`)
   - Review: **aprovado**
+- MI-10 (commit): `9493a75` em `fix/global-install-plugin-path` — `fix(installer): ship and wire OpenCode plugin globally` (20 arquivos, +983/-336). Working tree limpo.
+- Status: MI-1..MI-9 completos; **aguardando aprovação explícita do usuário para MI-10 (reinstalação global com backup)**
+- Decisão do usuário (2026-08-19): MI-10 **adiado para depois do HARNESS-053** — uma única reinstalação global cobrirá 052 + 053 (backup + install + setup + validação).
 
 ## Objective
 
