@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/patresio/openstrut/compare/v0.5.3...v0.6.0) (2026-08-19)
+
+
+### Features
+
+* **audit:** add spec-anchored audit gate ([#22](https://github.com/patresio/openstrut/issues/22)) ([20f0e27](https://github.com/patresio/openstrut/commit/20f0e27caf2fcb873b5c26dbe1f35650c26136f7))
+
 ## [0.5.3](https://github.com/patresio/openstrut/compare/v0.5.2...v0.5.3) (2026-08-11)
 
 
