@@ -1,6 +1,7 @@
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -118,7 +119,7 @@ describe('Hermes Plugin (structural contract)', () => {
 
     it('should register tools with native signature name/toolset/schema/handler', () => {
       const callCount = (initSource.match(/register_tool\(/g) || []).length;
-      assert.ok(callCount >= 10, `expected >=10 register_tool calls, got ${callCount}`);
+      assert.ok(callCount >= 11, `expected >=11 register_tool calls, got ${callCount}`);
       assert.ok(/register_tool\(\s*name=/.test(initSource),
         'register_tool should use name= keyword');
       assert.ok(/register_tool\([\s\S]*toolset=/.test(initSource),
@@ -129,10 +130,11 @@ describe('Hermes Plugin (structural contract)', () => {
         'register_tool should use handler= keyword');
     });
 
-    it('should register the 10 ot_* tools', () => {
+    it('should register the 11 ot_* tools', () => {
       const expected = [
         'ot_explore', 'ot_propose', 'ot_apply', 'ot_review', 'ot_ship',
         'ot_status', 'ot_incident', 'ot_synthetize', 'ot_create', 'ot_goal',
+        'ot_audit',
       ];
       for (const tool of expected) {
         assert.ok(initSource.includes(`"${tool}"`) || initSource.includes(`'${tool}'`),
@@ -145,6 +147,7 @@ describe('Hermes Plugin (structural contract)', () => {
       const expected = [
         'ot_explore', 'ot_propose', 'ot_apply', 'ot_review', 'ot_ship',
         'ot_status', 'ot_incident', 'ot_synthetize', 'ot_create', 'ot_goal',
+        'ot_audit',
       ];
       for (const tool of expected) {
         assert.ok(schemaNames.includes(tool), `schema for ${tool} should exist in tools.py`);
@@ -157,6 +160,7 @@ describe('Hermes Plugin (structural contract)', () => {
       for (const tool of [
         'ot_explore', 'ot_propose', 'ot_apply', 'ot_review', 'ot_ship',
         'ot_status', 'ot_incident', 'ot_synthetize', 'ot_create', 'ot_goal',
+        'ot_audit',
       ]) {
         const handlerName = `handle_${tool}`;
         assert.ok(new RegExp(`def ${handlerName}\\(\\s*args\\s*(,\\s*\\*\\*kwargs\\s*)?\\)`).test(toolsSource),
@@ -166,6 +170,42 @@ describe('Hermes Plugin (structural contract)', () => {
         'handlers should return JSON strings via json.dumps');
       assert.ok(!/def handle_ot_apply\(session, task, project\)/.test(toolsSource),
         'legacy (session, task, project) handler signature must be gone');
+    });
+
+    it('should define ot_audit schema with name, description, and change_dir parameter', () => {
+      const schemaNames = extractSchemaToolNames(toolsSource);
+      assert.ok(schemaNames.includes('ot_audit'),
+        'schema for ot_audit should exist in tools.py');
+      assert.match(toolsSource, /spec-anchored audit guidance/,
+        'ot_audit description should mention the mechanical gate');
+      assert.match(toolsSource, /change_dir/,
+        'ot_audit schema should declare change_dir');
+    });
+
+    it('handle_ot_audit uses the args/**kwargs contract signature', () => {
+      assert.ok(/def handle_ot_audit\(\s*args\s*(,\s*\*\*kwargs\s*)?\)/.test(toolsSource),
+        'handler handle_ot_audit should accept args (and **kwargs)');
+    });
+
+    it('handle_ot_audit returns parseable JSON with expected tool/phase/status fields', () => {
+      const script = [
+        'import importlib.util',
+        'import json',
+        `spec = importlib.util.spec_from_file_location("ot_tools", ${JSON.stringify(toolsPath)})`,
+        'm = importlib.util.module_from_spec(spec)',
+        'spec.loader.exec_module(m)',
+        'out = m.handle_ot_audit({"change_dir": "openspec/changes/foo"})',
+        'data = json.loads(out)',
+        'assert data["tool"] == "ot_audit", data',
+        'assert data["phase"] == "audit", data',
+        'assert data["status"] == "guidance", data',
+        'print(json.dumps(data))',
+      ].join('\n');
+      const res = execFileSync('python3', ['-c', script], { encoding: 'utf8' });
+      const data = JSON.parse(res.trim());
+      assert.equal(data.tool, 'ot_audit');
+      assert.equal(data.phase, 'audit');
+      assert.equal(data.status, 'guidance');
     });
   });
 

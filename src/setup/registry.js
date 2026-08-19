@@ -76,6 +76,18 @@ export const CLIS = [
     agentDefinitionMechanism: 'Context + plugins',
     format: 'json',
   },
+  {
+    id: 'cursor',
+    name: 'Cursor (Anysphere)',
+    description: 'Agentic IDE with CLI (cursor-agent / agent)',
+    configDir: '~/.cursor',
+    configFile: 'mcp.json',
+    installMethod: 'binary',
+    installCommand: 'curl https://cursor.com/install -fsS | bash',
+    mcpConfigKey: 'mcpServers',
+    agentDefinitionMechanism: 'Skills + rules (.cursor/rules/)',
+    format: 'json',
+  },
 ];
 
 /**

@@ -5,7 +5,9 @@
  * the OpenCode global configuration root (e.g. ~/.config/opencode/).
  *
  * Rules:
- * - references/, docs/, evals/, scripts/, .opencode/, src/, bin/ are NOT installed.
+ * - references/, docs/, evals/, scripts/, src/, bin/ are NOT installed.
+ * - .opencode/ is NOT installed EXCEPT .opencode/plugins/ (OpenCode plugin
+ *   runtime artifact wired via global/opencode.json "plugin" key).
  * - templates/ IS installed so the bootstrap skill can locate templates at runtime
  *   without depending on the harness repository working tree.
  * - workflows/ IS installed so the workflow CLI can discover packaged workflow definitions.
@@ -84,6 +86,7 @@ export const INVENTORY = [
   { source: 'global/commands/ot-create.md',                                   target: 'commands/ot-create.md' },
 
   { source: 'global/commands/ot-goal.md',                                     target: 'commands/ot-goal.md' },
+  { source: 'global/commands/ot-audit.md',                                    target: 'commands/ot-audit.md' },
 
 // Skills — OpenTrust workflow
   { source: 'global/skills/opentrust-task-contract/SKILL.md',                 target: 'skills/opentrust-task-contract/SKILL.md' },
@@ -97,6 +100,7 @@ export const INVENTORY = [
   { source: 'global/skills/opentrust-domain-modeling/SKILL.md',               target: 'skills/opentrust-domain-modeling/SKILL.md' },
   { source: 'global/skills/opentrust-handoff/SKILL.md',                      target: 'skills/opentrust-handoff/SKILL.md' },
   { source: 'global/skills/opentrust-diagnose/SKILL.md',                     target: 'skills/opentrust-diagnose/SKILL.md' },
+  { source: 'global/skills/opentrust-spec-anchored/SKILL.md',                target: 'skills/opentrust-spec-anchored/SKILL.md' },
 
   // Workflows — none currently installed (legacy workflows reference uninstalled agents;
   // reserved for future OpenTrust-native workflow definitions)
@@ -249,6 +253,12 @@ export const INVENTORY = [
   { source: 'templates/project/.opencode/task-plans/README.md',              target: 'templates/project/.opencode/task-plans/README.md' },
   { source: 'templates/project/openspec/changes/README.md',                  target: 'templates/project/openspec/changes/README.md' },
   { source: 'templates/project/openspec/specs/README.md',                    target: 'templates/project/openspec/specs/README.md' },
+
+  // OpenCode plugin (wired via global/opencode.json "plugin" key).
+  // Deliberate exception to the ".opencode/ is not installed" rule: this is a
+  // runtime artifact OpenCode loads from the global config, not project-local
+  // configuration. Kept at the end so earlier inventory indices stay stable.
+  { source: '.opencode/plugins/opentrust.js',                                target: '.opencode/plugins/opentrust.js' },
 ];
 
 /**
@@ -260,6 +270,6 @@ export const INVENTORY = [
  * @returns {boolean}
  */
 export function isAllowedSource(sourcePath) {
-  const allowed = ['global/', 'templates/', 'workflows/'];
+  const allowed = ['global/', 'templates/', 'workflows/', '.opencode/plugins/'];
   return allowed.some(prefix => sourcePath.startsWith(prefix));
 }

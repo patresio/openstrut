@@ -41,8 +41,8 @@ afterEach(() => {
 // ─── Registry ────────────────────────────────────────────────────────────────
 
 describe('registry', () => {
-  it('exports 6 CLIs', () => {
-    assert.equal(CLIS.length, 6);
+  it('exports 7 CLIs', () => {
+    assert.equal(CLIS.length, 7);
   });
 
   it('each CLI has required fields', () => {
@@ -61,8 +61,8 @@ describe('registry', () => {
 
   it('ids are unique and include known tools', () => {
     const ids = CLIS.map((c) => c.id);
-    assert.deepEqual(ids, ['opencode', 'codex', 'hermes', 'pi', 'omp', 'antigravity']);
-    assert.equal(new Set(ids).size, 6);
+    assert.deepEqual(ids, ['opencode', 'codex', 'hermes', 'pi', 'omp', 'antigravity', 'cursor']);
+    assert.equal(new Set(ids).size, 7);
   });
 
   it('getCLI returns entry by id or undefined', () => {
@@ -114,6 +114,7 @@ describe('menu', () => {
     const text = renderMenu(CLIS);
     assert.match(text, /1\.\s+OpenCode/);
     assert.match(text, /6\.\s+Antigravity/);
+    assert.match(text, /7\.\s+Cursor/);
     assert.match(text, /q.*quit/i);
   });
 

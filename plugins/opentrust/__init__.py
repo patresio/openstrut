@@ -1,7 +1,7 @@
 """
 OpenTrust Plugin for Hermes-Agent (native contract).
 
-Registers 10 OpenTrust workflow-guidance tools with the native Hermes
+Registers 11 OpenTrust workflow-guidance tools with the native Hermes
 plugin API: ``ctx.register_tool(name=, toolset=, schema=, handler=)``.
 
 Skills are registered dynamically by the resource loader (no magic
@@ -16,6 +16,7 @@ from .resource_loader import load_skills
 from .tools import (
     SCHEMAS,
     handle_ot_apply,
+    handle_ot_audit,
     handle_ot_create,
     handle_ot_explore,
     handle_ot_goal,
@@ -95,6 +96,12 @@ def register(ctx):
         toolset=TOOLSET,
         schema=SCHEMAS["ot_goal"],
         handler=handle_ot_goal,
+    )
+    ctx.register_tool(
+        name="ot_audit",
+        toolset=TOOLSET,
+        schema=SCHEMAS["ot_audit"],
+        handler=handle_ot_audit,
     )
 
     # Register skills dynamically (no magic count).

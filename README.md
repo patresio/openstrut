@@ -16,12 +16,12 @@ OpenStrut packages a complete AI-assisted engineering setup — agents, skills, 
 | Category | Count |
 |----------|-------|
 | Agents (9 leads + 31 subagents) | 40 |
-| Skills | 11 |
-| Commands | 7 |
+| Skills | 12 |
+| Commands | 11 |
 | Context catalog (CTX/SK/B/AG/DOC) | 127 |
 | OpenTrust runtime docs | 10 |
 | Templates | 4 |
-| **Total** | **202** |
+| **Total** | **208** |
 
 ## Quick Start
 
@@ -64,8 +64,8 @@ openstrut setup --platform hermes
 
 Each platform plugin includes:
 - 40 agents (9 leads + 31 subagents)
-- 11 skills
-- 10 commands
+- 12 skills
+- 11 commands
 - 32 CTX + 24 B context selectors
 - Bootstrap injection for automatic loading
 
@@ -137,8 +137,8 @@ openstrut
 │   └── workflows/            # Workflow parsing and validation
 ├── global/                   # Shipped OpenCode artifacts
 │   ├── agents/               # 40 agent prompt files
-│   ├── skills/               # 11 skill definitions
-│   ├── commands/             # 7 command definitions
+│   ├── skills/               # 12 skill definitions
+│   ├── commands/             # 11 command definitions
 │   ├── context/              # Semantic selector catalog (CTX/SK/B/AG/DOC)
 │   ├── opentrust/docs/       # Runtime OpenTrust documentation
 │   └── opencode.json         # Default OpenCode configuration
@@ -223,8 +223,8 @@ The installer tracks what it installed using a **manifest** (`.harness/installat
 
 ```
 ~/.config/opencode/
-├── .harness/
-│   └── installation.json    ← manifest (checksums of all 202 artifacts)
+├── .openstrut/
+│   └── installation.json    ← manifest (checksums of all 208 artifacts)
 ├── AGENTS.md                ← installed by harness
 ├── opencode.json            ← installed by harness
 └── agents/                  ← installed by harness
@@ -258,6 +258,7 @@ The installer tracks what it installed using a **manifest** (`.harness/installat
 | `opentrust-delivery` | Conventional Commits, PR creation |
 | `opentrust-observability` | Execution reports and validation evidence |
 | `opentrust-reference-research` | Operational Retrieval Map selector usage |
+| `opentrust-spec-anchored` | Spec-anchored development — machine audits the spec via `openstrut audit` exit code |
 
 ## Security
 

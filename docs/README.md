@@ -7,6 +7,7 @@ Repository documentation is organized for quick navigation and durable decisions
 - [Project README](../README.md) — purpose, status, CLI usage, and repository map.
 - [Architecture](ARCHITECTURE.md) — current system structure and boundaries.
 - [Contributing](../CONTRIBUTING.md) — workflow, task plans, validation, and Git policy.
+- [Attribution](attribution.md) — credits for adapted patterns (onp-spec-driven, MIT).
 
 ## Design Documents
 
@@ -21,6 +22,8 @@ Repository documentation is organized for quick navigation and durable decisions
 - [008 — Sequential Multi-Agent Workflows](design/008-sequential-multi-agent-workflows.md)
 - [009 — Cowork and Git Worktree Orchestration](design/009-cowork-and-git-worktree-orchestration.md)
 - [010 — Docker Runtime Analysis](design/010-docker-runtime-analysis.md)
+- [011 — Multi-Platform Plugin System](design/011-multi-platform-plugin-system.md)
+- [012 — Spec-Anchored Audit Gate](design/012-spec-anchored-gate.md)
 
 ## Usage Guides
 

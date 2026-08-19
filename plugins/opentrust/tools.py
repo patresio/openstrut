@@ -158,6 +158,20 @@ SCHEMAS: dict[str, dict] = {
             "required": [],
         },
     },
+    "ot_audit": {
+        "name": "ot_audit",
+        "description": "OpenTrust spec-anchored audit guidance (mechanical gate: exit 0 aligned, exit 1 findings).",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "change_dir": {
+                    "type": "string",
+                    "description": "Optional OpenSpec change directory path.",
+                },
+            },
+            "required": [],
+        },
+    },
 }
 
 
@@ -258,5 +272,14 @@ def handle_ot_goal(args, **kwargs):
     return _guidance(
         "ot_goal", "goal",
         "OpenTrust Goal: autonomous multi-task loop; human gates preserved.",
+        args,
+    )
+
+
+def handle_ot_audit(args, **kwargs):
+    """Audit guidance. Returns a JSON string."""
+    return _guidance(
+        "ot_audit", "audit",
+        "OpenTrust Audit: run the mechanical spec-anchored gate; exit 0 = aligned, 1 = findings; skip/todo is not proof.",
         args,
     )
