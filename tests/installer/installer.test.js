@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 205 artifacts', () => {
-    assert.equal(INVENTORY.length, 205, `Expected 205 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 206 artifacts', () => {
+    assert.equal(INVENTORY.length, 206, `Expected 206 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -177,7 +177,8 @@ describe('Inventory', () => {
       e.source.startsWith('docs/') ||
       e.source.startsWith('evals/') ||
       e.source.startsWith('scripts/') ||
-      e.source.startsWith('.opencode/')
+      // .opencode/ is forbidden EXCEPT .opencode/plugins/ (OpenCode plugin artifact)
+      (e.source.startsWith('.opencode/') && !e.source.startsWith('.opencode/plugins/'))
     );
     assert.equal(forbidden.length, 0, 'No docs/evals/scripts/.opencode/ in inventory');
   });
@@ -193,7 +194,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 40 + 10 + 11 + 10 + 127 + 0 + 4 = 205', () => {
+  it('3 + 40 + 10 + 11 + 10 + 127 + 0 + 4 + 1 = 206', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -203,9 +204,10 @@ describe('Inventory', () => {
     const context = INVENTORY.filter(e => e.source.startsWith('global/context/')).length;
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
-    const sum = root + agents + commands + skills + opentrust + context + workflows + templates;
+    const plugins = INVENTORY.filter(e => e.source.startsWith('.opencode/plugins/')).length;
+    const sum = root + agents + commands + skills + opentrust + context + workflows + templates + plugins;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 205, `Expected sum 205, got ${sum}`);
+    assert.equal(sum, 206, `Expected sum 206, got ${sum}`);
   });
 });
 

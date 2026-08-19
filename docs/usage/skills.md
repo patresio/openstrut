@@ -33,353 +33,212 @@ A skill is best when:
 
 ## Current Global Skills
 
-The harness currently ships 39 skills in `global/skills/`:
+The harness currently ships 11 runtime skills in `global/skills/`, all `opentrust-*`:
 
-- `engineering-bdd-discovery`
-- `engineering-code-review`
-- `engineering-delivery`
-- `engineering-documentation`
-- `engineering-incident-triage`
-- `engineering-legacy-change`
-- `engineering-project-bootstrap`
-- `engineering-sdd-change`
-- `engineering-task-plan`
-- `engineering-tdd-first`
-- `harness-generation`
-- `team-cowork-orchestration`
-- `worktree-lifecycle-management`
-- `knowledge-system-design`
-- `learning-plan-design`
-- `personal-execution-system`
-- `financial-organization`
-- `product-discovery`
-- `leadership-feedback`
-- `career-positioning`
-- `architecture-decision`
-- `domain-modeling`
-- `distributed-systems-review`
-- `api-data-design`
-- `devops-sre-diagnostics`
-- `frontend-ux-review`
-- `code-refactoring`
-- `security-review`
-- `testing-strategy`
-- `rag-agent-design`
-- `health-planning`
-- `performance-engineering`
-- `release-management`
-- `compliance-audit`
-- `database-design`
-- `observability-design`
-- `accessibility-review`
-- `localization`
-- `privacy-review`
+- `opentrust-task-contract`
+- `opentrust-tdd`
+- `opentrust-spec-change`
+- `opentrust-review`
+- `opentrust-delivery`
+- `opentrust-observability`
+- `opentrust-reference-research`
+- `opentrust-grilling`
+- `opentrust-domain-modeling`
+- `opentrust-handoff`
+- `opentrust-diagnose`
+
+The older broader catalog (39 `engineering-*` and domain skills) is archived under `archive/global/skills/` and remains catalog-only — those entries are not installed as runtime skills.
 
 ## Detailed Skill Reference
 
-### `engineering-bdd-discovery`
+### `opentrust-task-contract`
 
-**Location:** `global/skills/engineering-bdd-discovery/SKILL.md`
+**Location:** `global/skills/opentrust-task-contract/SKILL.md`
 
-**Purpose:** clarify business outcomes, journeys, rules, state transitions, and acceptance criteria through concrete examples.
+**Purpose:** create or refine task contracts using `docs/opencode/TASK_CONTRACT.md`, including Retrieval Context selectors when needed.
 
 **Use when:**
 
-- requirements are ambiguous;
-- user journeys matter more than internals;
-- state transitions or authorization rules are easy to misunderstand;
-- Given/When/Then examples would make scope testable.
+- a task needs a formal contract between teams;
+- scope, acceptance criteria, or retrieval selectors must be explicit;
+- a contract needs refinement before approval.
 
 **Expected outputs:**
 
-- business rules;
-- domain terminology clarification;
-- happy path and edge-case examples;
-- acceptance criteria;
-- scenario coverage candidates.
+- task contract with objective, acceptance criteria, scope, retrieval context, and definition of done.
 
-**Do not use when:**
+### `opentrust-tdd`
 
-- task is purely technical refactoring with no behavior change;
-- behavior is already specified and clear;
-- implementation has already started and no discovery gap remains.
+**Location:** `global/skills/opentrust-tdd/SKILL.md`
 
-**Catalog usage:** use the local selector catalog and repo-local docs when examples need official or operational references.
-
-### `engineering-code-review`
-
-**Location:** `global/skills/engineering-code-review/SKILL.md`
-
-**Purpose:** orchestrate an independent review of an approved implementation diff before delivery.
-
-**Use when:**
-
-- implementation is complete;
-- validation evidence exists;
-- delivery is being prepared;
-- you want a standard review workflow before commit/push/PR.
-
-**Expected outputs:**
-
-- findings by severity;
-- validation gaps;
-- risks accepted or unresolved;
-- review summary that can gate delivery.
-
-**Typical interaction:** often paired with `code-reviewer` subagent for actual independent review while the current agent keeps overall workflow state.
-
-### `engineering-delivery`
-
-**Location:** `global/skills/engineering-delivery/SKILL.md`
-
-**Purpose:** finalize approved work through review, archive, commit, push, and PR actions.
-
-**Use when:**
-
-- implementation and validation are complete;
-- user explicitly authorized Git and delivery actions;
-- repository requires structured finalization.
-
-**Expected outputs:**
-
-- final delivery checklist;
-- commit/push/PR evidence when applicable;
-- factual summary of what was shipped.
-
-**Hard limits:** must not bypass review, validation, or explicit user approval for Git mutations.
-
-### `engineering-incident-triage`
-
-**Location:** `global/skills/engineering-incident-triage/SKILL.md`
-
-**Purpose:** diagnose, contain, and recover from urgent failures using evidence, minimal safe action, and rollback awareness.
-
-**Use when:**
-
-- service is failing;
-- incident diagnosis is urgent;
-- recovery or containment needs a disciplined sequence;
-- repeated retries would risk loops or destructive action.
-
-**Expected outputs:**
-
-- symptoms;
-- hypotheses;
-- evidence gathered;
-- containment status;
-- next safe action;
-- blocker or recovery path.
-
-**Key value:** keeps urgent work evidence-based and prevents random retries.
-
-### `engineering-legacy-change`
-
-**Location:** `global/skills/engineering-legacy-change/SKILL.md`
-
-**Purpose:** change untested or fragile legacy behavior safely using characterization tests, seams, and narrow changes.
-
-**Use when:**
-
-- code lacks reliable tests;
-- wide rewrites would be risky;
-- change must preserve old behavior except for a narrow fix;
-- you need seams before implementation.
-
-**Expected outputs:**
-
-- characterization strategy;
-- seam candidates;
-- safe microincrements;
-- validation plan.
-
-**Key rule:** preserve behavior first; change second.
-
-### `engineering-project-bootstrap`
-
-**Location:** `global/skills/engineering-project-bootstrap/SKILL.md`
-
-**Purpose:** initialize or refresh project-local engineering instructions without duplicating global rules.
-
-**Use when:**
-
-- onboarding a real project into the harness;
-- creating or fixing project-local `AGENTS.md`;
-- recording project-specific commands, boundaries, and architecture;
-- refreshing stale project-local rules from evidence.
-
-**Expected outputs:**
-
-- project-local rule structure;
-- authoritative commands with evidence;
-- gaps between repository reality and project instructions;
-- safe bootstrap plan.
-
-**Typical pair:** works well with `project-rules-auditor`.
-
-### `engineering-sdd-change`
-
-**Location:** `global/skills/engineering-sdd-change/SKILL.md`
-
-**Purpose:** define the technical specification of a new feature or change before implementation begins.
-
-**Primary workflow:**
-
-1. discover project rules, architecture, existing specs, tests, and references;
-2. establish domain vocabulary and invariants;
-3. define scope, exclusions, dependencies, and risks;
-4. draft OpenSpec change artifacts;
-5. add verifiable examples;
-6. define test strategy;
-7. decompose into TDD-ready tasks;
-8. call `project-rules-auditor`;
-9. apply a consolidated revision;
-10. stop at Approval Gate.
-
-**Required outputs:**
-
-- `proposal.md`;
-- `tasks.md`;
-- `specs/<capability>/spec.md`;
-- optional `design.md` only when complexity requires it.
-
-**Current catalog note:** older retrieval wording may still appear in historical material. For runtime work, prefer the local selector catalog and record any durable updates back into Markdown.
-
-### `engineering-task-plan`
-
-**Location:** `global/skills/engineering-task-plan/SKILL.md`
-
-**Purpose:** maintain the repository-local execution ledger for approved mutating work.
-
-**Use when:**
-
-- a plan is approved;
-- file mutation is about to begin;
-- work must be resumed after interruption;
-- progress, evidence, and next action need a stable ledger.
-
-**Procedure focus:**
-
-- create/adopt one task plan;
-- record approved scope and exclusions;
-- map each action to ordered microincrements;
-- maintain one current state and one next action;
-- record evidence before marking progress;
-- stop and mark blocked when safe continuation is impossible.
-
-**Output:** `.opencode/task-plans/<task-id>.md`
-
-**Key value:** preserves execution truth across long-running sessions.
-
-### `engineering-tdd-first`
-
-**Location:** `global/skills/engineering-tdd-first/SKILL.md`
-
-**Purpose:** apply RED-GREEN-REFACTOR to new behavior and bug fixes.
+**Purpose:** seams-first TDD — agree test boundaries, then RED-GREEN-REFACTOR.
 
 **Use when:**
 
 - executable behavior changes;
-- bugfix needs a regression test first;
-- characterizing old behavior before change is practical;
-- the team wants explicit RED/GREEN evidence.
+- a bugfix needs a regression test first;
+- test boundaries are unclear and need agreement before writing tests.
 
 **Expected outputs:**
 
+- agreed seams and test boundaries;
 - RED evidence;
 - GREEN evidence;
-- refactor safety conditions;
-- exceptions when TDD is not applicable.
+- refactor safety conditions.
 
-**Key rule:** no production behavior change before a valid RED state exists.
+### `opentrust-spec-change`
 
-### `team-cowork-orchestration`
+**Location:** `global/skills/opentrust-spec-change/SKILL.md`
 
-**Location:** `global/skills/team-cowork-orchestration/SKILL.md`
-
-**Purpose:** coordinate human and agent teamwork with explicit ownership, handoffs, and optional Git worktree strategy.
+**Purpose:** guide structured spec and design changes using Explore → Propose before Apply.
 
 **Use when:**
 
-- multiple agents are useful;
-- work may split into independent tracks;
-- file ownership and handoffs must be explicit;
-- user asks for cowork/team workflow;
-- git worktree might reduce conflict risk.
+- a feature or design change needs a spec first;
+- the change is non-trivial and benefits from an approval gate;
+- OpenSpec change artifacts are required.
 
 **Expected outputs:**
 
-- cowork mode;
-- ownership matrix;
-- handoff contract;
-- optional worktree plan;
-- validation matrix;
-- stop conditions.
+- proposal, tasks, and spec artifacts;
+- approval gate evidence.
 
-**Key rule:** no worktree, branch, merge, or concurrent file edit without explicit approval and recorded ownership.
+### `opentrust-review`
 
-### `engineering-documentation`
+**Location:** `global/skills/opentrust-review/SKILL.md`
 
-**Location:** `global/skills/engineering-documentation/SKILL.md`
-
-**Purpose:** generate project documentation — docs/, PRD, ADR, AGENTS.md, specifications, runbooks, collaboration protocols.
+**Purpose:** two-axis review — Standards + Spec — approve or block with evidence.
 
 **Use when:**
 
-- a project needs structured documentation from scratch;
-- ADRs or PRDs need writing or updating;
-- AGENTS.md needs generation from project evidence;
-- specifications, runbooks, or protocol docs are needed.
+- an implementation diff is ready for review before delivery;
+- validation evidence must be checked against acceptance criteria;
+- a gate decision (approve/block) is needed.
 
 **Expected outputs:**
 
-- ADR, PRD, AGENTS.md, specs, runbooks, protocol docs;
-- complete documentation tree under `docs/`.
+- findings by axis (standards, spec);
+- approve or block decision with evidence.
 
-**Catalog usage:** prefer local Markdown context plus repository evidence; if external research is ever needed, write the result back into the catalog before operational use.
+### `opentrust-delivery`
 
-### `harness-generation`
+**Location:** `global/skills/opentrust-delivery/SKILL.md`
 
-**Location:** `global/skills/harness-generation/SKILL.md`
-
-**Purpose:** analyze a project's stack (package.json, framework, tests, deploy) and personal context (Obsidian, PARA, GTD, methodology, self-assessment), then generate custom agents, skills, workflows, and inventory entries for the engineering harness.
+**Purpose:** prepare commit, push, and pull request using Conventional Commits in English; avoid unrelated files.
 
 **Use when:**
 
-- bootstrapping a new project into the harness;
-- generating custom agents/skills/workflows tailored to a project;
-- auditing existing harness artifacts against project evidence.
+- implementation and validation are complete;
+- the user explicitly authorized Git and delivery actions;
+- a commit/PR needs a scoped, conventional message.
 
 **Expected outputs:**
 
-- proposed `global/agents/`, `global/skills/`, `workflows/` entries;
-- `src/installer/inventory.js` update;
-- documented in an OpenSpec change proposal for approval.
+- scoped commit(s) with conventional messages;
+- PR body with scope, validation, risks, and limitations.
 
-**Catalog usage:** derive stack, workflow, and documentation context from local catalog files plus project evidence; do not depend on live retrieval during runtime.
+### `opentrust-observability`
 
-### `worktree-lifecycle-management`
+**Location:** `global/skills/opentrust-observability/SKILL.md`
 
-**Location:** `global/skills/worktree-lifecycle-management/SKILL.md`
-
-**Purpose:** manage the full lifecycle of Git worktrees: create isolated working directories for parallel agent work, coordinate merges in dependency order, validate integration, and clean up.
+**Purpose:** require execution reports, validation evidence, and operational notes; do not implement external telemetry yet.
 
 **Use when:**
 
-- `team-cowork-orchestration` (SK28) has determined worktrees are justified;
-- parallel agent work needs file-level isolation;
-- a merge sequence with dependency ordering is required;
-- worktree branches need cleanup after merge.
+- work must produce evidence artifacts;
+- session logs, task plans, or retrieval audits need structure;
+- operational notes are required for handoff.
 
 **Expected outputs:**
 
-- created worktrees and branches;
-- merged integration branch;
-- cleaned up worktree artifacts;
-- evidence log of the full lifecycle.
+- execution reports;
+- validation evidence;
+- operational notes.
 
-**Key rule:** never create worktrees without explicit approval; never exceed 3 simultaneous worktrees; keep branches short-lived (< 1 day).
+### `opentrust-reference-research`
 
-**Catalog usage:** use local Markdown guidance and project evidence for worktree strategy, merge policy, and cleanup.
+**Location:** `global/skills/opentrust-reference-research/SKILL.md`
+
+**Purpose:** use Operational Retrieval Map selectors; request synthesis only; no raw chunks in output or commits.
+
+**Use when:**
+
+- domain knowledge is needed through the selector catalog;
+- retrieval synthesis must be cited by source ID;
+- external research must be written back into Markdown before operational use.
+
+**Expected outputs:**
+
+- synthesized summaries with source IDs;
+- no raw chunks or library paths in versioned files.
+
+### `opentrust-grilling`
+
+**Location:** `global/skills/opentrust-grilling/SKILL.md`
+
+**Purpose:** one-question-at-a-time interview that exhausts the decision tree before implementation begins; prevents misalignment.
+
+**Use when:**
+
+- a non-trivial change is about to start;
+- requirements or scope are ambiguous;
+- the #1 failure mode (misalignment) must be prevented.
+
+**Expected outputs:**
+
+- clarified requirements and decisions;
+- aligned scope before implementation.
+
+### `opentrust-domain-modeling`
+
+**Location:** `global/skills/opentrust-domain-modeling/SKILL.md`
+
+**Purpose:** maintain a living glossary (`GLOSSARY.md`) as the single source of truth for domain language when terminology is fuzzy or evolving.
+
+**Use when:**
+
+- project terminology is inconsistent;
+- domain concepts need explicit definitions;
+- a shared vocabulary is required across teams.
+
+**Expected outputs:**
+
+- living glossary entries;
+- clarified domain terminology.
+
+### `opentrust-handoff`
+
+**Location:** `global/skills/opentrust-handoff/SKILL.md`
+
+**Purpose:** produce a compact handoff document capturing everything needed to resume work in a new session or by another agent.
+
+**Use when:**
+
+- a conversation must continue in a new session;
+- context window limits or session end require a handoff;
+- another agent takes over the work.
+
+**Expected outputs:**
+
+- compact handoff document with objective, state, evidence, and next action.
+
+### `opentrust-diagnose`
+
+**Location:** `global/skills/opentrust-diagnose/SKILL.md`
+
+**Purpose:** 6-phase disciplined approach for hard bugs, performance regressions, and mysterious failures — build evidence before theorizing.
+
+**Use when:**
+
+- a bug is hard to reproduce or understand;
+- performance regressions need diagnosis;
+- repeated retries would risk loops or destructive action.
+
+**Expected outputs:**
+
+- symptoms, hypotheses, and evidence;
+- containment status and next safe action;
+- blocker or recovery path.
 
 ## Skill Selection Rule
 
@@ -387,15 +246,17 @@ Use the smallest skill that fits the task. Do not load all skills by default.
 
 Good examples:
 
-- ambiguous user journey → `engineering-bdd-discovery`
-- approved implementation starting now → `engineering-task-plan`
-- behavior change → `engineering-tdd-first`
-- untested legacy code → `engineering-legacy-change`
-- preparing OpenSpec → `engineering-sdd-change`
-- generating project docs → `engineering-documentation`
-- bootstrapping harness artifacts → `harness-generation`
-- final delivery after explicit approval → `engineering-delivery`
-- git worktree isolation needed → `worktree-lifecycle-management`
+- ambiguous requirements before a non-trivial change → `opentrust-grilling`
+- formal task contract needed → `opentrust-task-contract`
+- behavior change → `opentrust-tdd`
+- spec/design change before implementation → `opentrust-spec-change`
+- review gate before delivery → `opentrust-review`
+- final delivery after explicit approval → `opentrust-delivery`
+- evidence and operational notes required → `opentrust-observability`
+- selector-based research needed → `opentrust-reference-research`
+- fuzzy domain terminology → `opentrust-domain-modeling`
+- resuming work in a new session → `opentrust-handoff`
+- hard bug or performance regression → `opentrust-diagnose`
 
 ## Domain Skills from `mapa_operacional.xlsx`
 

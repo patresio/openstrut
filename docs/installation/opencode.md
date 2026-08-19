@@ -16,35 +16,44 @@ openstrut setup --platform opencode
 ```
 
 This will:
-1. Create `.opencode/plugins/` directory
-2. Copy OpenTrust plugin files
-3. Register plugin in OpenCode configuration
+1. Create `.opencode/plugins/` directory in the config root
+2. Copy the OpenTrust plugin file
+3. Register the plugin in the OpenCode configuration
 
 ### Manual Installation
 
-1. Create plugins directory:
+1. Create the plugins directory in your OpenCode config root
+   (`~/.config/opencode/` by default):
+
    ```bash
-   mkdir -p .opencode/plugins
+   mkdir -p ~/.config/opencode/.opencode/plugins
    ```
 
-2. Copy plugin file:
+2. Copy the plugin file from the harness repository:
+
    ```bash
-   cp global/plugins/opentrust.js .opencode/plugins/
+   cp .opencode/plugins/opentrust.js ~/.config/opencode/.opencode/plugins/
    ```
 
-3. Update `.opencode/opencode.json`:
+3. Register the plugin in `opencode.json` (the config root file). The OpenCode
+   config key is `plugin` (singular):
+
    ```json
    {
-     "plugins": [
-       { "spec": "file:plugins/opentrust.js" }
+     "plugin": [
+       { "spec": "file:.opencode/plugins/opentrust.js" }
      ]
    }
    ```
 
+> **Note:** the harness ships this wiring already in `global/opencode.json`
+> (installed as `opencode.json` in the config root), so manual registration is
+> only needed for custom setups.
+
 ## Verification
 
-1. Start OpenCode session
-2. Check for bootstrap message:
+1. Start an OpenCode session
+2. Check for the bootstrap message:
    ```
    OpenTrust Plugin: Bootstrapped successfully
      • 40 agents loaded
@@ -85,45 +94,45 @@ The plugin loads all 40 OpenTrust agents:
 
 The plugin loads all 11 OpenTrust skills:
 - opentrust-task-contract
-- opentrust-reference-research
+- opentrust-tdd
+- opentrust-spec-change
+- opentrust-review
 - opentrust-delivery
 - opentrust-observability
-- opentrust-spec-change
-- opentrust-meeting-facilitator
-- opentrust-decision-logger
-- opentrust-context-retrieval
-- opentrust-workflow-orchestrator
-- opentrust-quality-gate
-- opentrust-security-review
+- opentrust-reference-research
+- opentrust-grilling
+- opentrust-domain-modeling
+- opentrust-handoff
+- opentrust-diagnose
 
 ## Troubleshooting
 
 ### Plugin not loading
 
-1. Check plugin file exists:
+1. Check the plugin file exists in the config root:
    ```bash
-   ls -la .opencode/plugins/opentrust.js
+   ls -la ~/.config/opencode/.opencode/plugins/opentrust.js
    ```
 
-2. Check OpenCode configuration:
+2. Check the OpenCode configuration:
    ```bash
-   cat .opencode/opencode.json
+   cat ~/.config/opencode/opencode.json
    ```
 
-3. Restart OpenCode session
+3. Restart the OpenCode session
 
 ### Tools not available
 
-1. Check bootstrap message in session output
-2. Verify plugin is registered in configuration
+1. Check the bootstrap message in session output
+2. Verify the plugin is registered in the configuration
 3. Check for JavaScript errors in session logs
 
 ## Uninstallation
 
-1. Remove plugin file:
+1. Remove the plugin file:
    ```bash
-   rm .opencode/plugins/opentrust.js
+   rm ~/.config/opencode/.opencode/plugins/opentrust.js
    ```
 
-2. Update `.opencode/opencode.json` to remove plugin entry
-3. Restart OpenCode session
+2. Update `opencode.json` to remove the plugin entry
+3. Restart the OpenCode session

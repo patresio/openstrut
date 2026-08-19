@@ -7,8 +7,8 @@ This directory explains how to use the installed OpenCode Engineering Harness.
 The current harness release provides:
 
 - global engineering rules;
-- 21 harness-managed agents;
-- 39 skills;
+- 40 harness-managed agents (9 leads + 31 subagents);
+- 11 skills;
 - 10 workflow commands;
 - project bootstrap templates;
 - safe installer CLI;

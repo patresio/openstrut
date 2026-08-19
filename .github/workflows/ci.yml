@@ -17,6 +17,13 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           find src bin -name "*.js" -exec node --check {} \;
+          # .opencode/plugins has no package.json type; node --check on
+          # ESM-detected files misses await-in-non-async (Node >= 22.7 bug),
+          # so force ESM parsing via stdin.
+          find .opencode/plugins -name "*.js" -exec sh -c 'node --input-type=module --check < "$1"' _ {} \;
+      - name: Check Python syntax (Hermes plugin)
+        run: |
+          python3 -c "import ast, pathlib; [ast.parse(p.read_text()) for p in pathlib.Path('plugins/opentrust').glob('*.py')]"
       - name: Check for common issues
         run: |
           grep -r "console.log" src/ --include="*.js" && echo "Warning: console.log found in src" || true

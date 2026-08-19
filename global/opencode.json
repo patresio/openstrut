@@ -66,6 +66,9 @@
     }
   },
   "default_agent": "trust-lead",
+  "plugin": [
+    { "spec": "file:.opencode/plugins/opentrust.js" }
+  ],
   "instructions": [
     "opentrust/docs/TEAM_TOPOLOGY.md",
     "opentrust/docs/WORKFLOW.md",

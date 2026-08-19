@@ -15,7 +15,7 @@
  * @module opentrust
  */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -23,16 +23,33 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 /**
+ * Resolve a content directory in either the installed layout
+ * (<root>/agents, <root>/skills, ...) or the repo layout
+ * (<root>/global/agents, ...), preferring the installed layout.
+ * @param {string} root - config root (parent of .opencode/plugins/)
+ * @param {string} subdir - content directory name (agents, skills, context, commands)
+ * @returns {string}
+ */
+export function resolveContentDir(root, subdir) {
+  const installed = join(root, subdir);
+  const repo = join(root, 'global', subdir);
+  return existsSync(installed) ? installed : repo;
+}
+
+function contentDir(subdir) {
+  return resolveContentDir(join(__dirname, '..', '..'), subdir);
+}
+
+/**
  * Load agents from global/agents/
  * @returns {Object} Agent definitions
  */
 function loadAgents() {
-  const agentsDir = join(__dirname, '..', '..', 'global', 'agents');
+  const agentsDir = contentDir('agents');
   const agents = {};
   
   try {
-    const fs = await import('node:fs');
-    const files = fs.readdirSync(agentsDir);
+    const files = readdirSync(agentsDir);
     
     for (const file of files) {
       if (file.endsWith('.md')) {
@@ -57,23 +74,23 @@ function loadAgents() {
  * @returns {Object} Skill definitions
  */
 function loadSkills() {
-  const skillsDir = join(__dirname, '..', '..', 'global', 'skills');
+  const skillsDir = contentDir('skills');
   const skills = {};
   
   try {
-    const fs = await import('node:fs');
-    const files = fs.readdirSync(skillsDir);
-    
-    for (const file of files) {
-      if (file.endsWith('.md')) {
-        const skillName = file.replace('.md', '');
-        const content = readFileSync(join(skillsDir, file), 'utf-8');
-        skills[skillName] = {
-          name: skillName,
-          content,
-          type: 'skill'
-        };
-      }
+    const entries = readdirSync(skillsDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const skillName = entry.name;
+      const skillFile = join(skillsDir, skillName, 'SKILL.md');
+      if (!existsSync(skillFile)) continue;
+      const content = readFileSync(skillFile, 'utf-8');
+      skills[skillName] = {
+        name: skillName,
+        content,
+        type: 'skill'
+      };
     }
   } catch (error) {
     console.error('Failed to load skills:', error.message);
@@ -87,19 +104,17 @@ function loadSkills() {
  * @returns {Object} Context definitions (CTX + B)
  */
 function loadContext() {
-  const contextDir = join(__dirname, '..', '..', 'global', 'context');
+  const contextDir = contentDir('context');
   const context = {
     contexts: {},
     bundles: {}
   };
   
   try {
-    const fs = await import('node:fs');
-    
     // Load CTX definitions
     const contextsDir = join(contextDir, 'contexts');
-    if (fs.existsSync(contextsDir)) {
-      const files = fs.readdirSync(contextsDir);
+    if (existsSync(contextsDir)) {
+      const files = readdirSync(contextsDir);
       for (const file of files) {
         if (file.endsWith('.md')) {
           const contextName = file.replace('.md', '');
@@ -115,8 +130,8 @@ function loadContext() {
     
     // Load B definitions
     const bundlesDir = join(contextDir, 'bundles');
-    if (fs.existsSync(bundlesDir)) {
-      const files = fs.readdirSync(bundlesDir);
+    if (existsSync(bundlesDir)) {
+      const files = readdirSync(bundlesDir);
       for (const file of files) {
         if (file.endsWith('.md')) {
           const bundleName = file.replace('.md', '');
@@ -141,12 +156,11 @@ function loadContext() {
  * @returns {Object} Command definitions
  */
 function loadCommands() {
-  const commandsDir = join(__dirname, '..', '..', 'global', 'commands');
+  const commandsDir = contentDir('commands');
   const commands = {};
   
   try {
-    const fs = await import('node:fs');
-    const files = fs.readdirSync(commandsDir);
+    const files = readdirSync(commandsDir);
     
     for (const file of files) {
       if (file.endsWith('.md')) {
@@ -554,3 +568,6 @@ export default {
     console.log(`  • 10 tools registered`);
   }
 };
+
+// Named exports for unit testing (HARNESS-052)
+export { loadAgents, loadSkills, loadContext, loadCommands };

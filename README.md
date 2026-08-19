@@ -17,11 +17,11 @@ OpenStrut packages a complete AI-assisted engineering setup — agents, skills, 
 |----------|-------|
 | Agents (9 leads + 31 subagents) | 40 |
 | Skills | 11 |
-| Commands | 7 |
+| Commands | 10 |
 | Context catalog (CTX/SK/B/AG/DOC) | 127 |
 | OpenTrust runtime docs | 10 |
 | Templates | 4 |
-| **Total** | **202** |
+| **Total** | **206** |
 
 ## Quick Start
 
@@ -138,7 +138,7 @@ openstrut
 ├── global/                   # Shipped OpenCode artifacts
 │   ├── agents/               # 40 agent prompt files
 │   ├── skills/               # 11 skill definitions
-│   ├── commands/             # 7 command definitions
+│   ├── commands/             # 10 command definitions
 │   ├── context/              # Semantic selector catalog (CTX/SK/B/AG/DOC)
 │   ├── opentrust/docs/       # Runtime OpenTrust documentation
 │   └── opencode.json         # Default OpenCode configuration
@@ -223,8 +223,8 @@ The installer tracks what it installed using a **manifest** (`.harness/installat
 
 ```
 ~/.config/opencode/
-├── .harness/
-│   └── installation.json    ← manifest (checksums of all 202 artifacts)
+├── .openstrut/
+│   └── installation.json    ← manifest (checksums of all 206 artifacts)
 ├── AGENTS.md                ← installed by harness
 ├── opencode.json            ← installed by harness
 └── agents/                  ← installed by harness
