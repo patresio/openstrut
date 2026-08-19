@@ -132,11 +132,11 @@ Policy:
 ## Definition of Done
 
 - [x] Acceptance criteria met (todas as 8 ACs marcadas acima)
-- [x] Tests pass (382/382)
+- [x] Tests pass (382/382 local; CI lint + test(20) + test(22) verdes)
 - [x] Review approved (independente; BLOCK inicial → correções → APPROVE)
-- [ ] Committed with conventional commit message (ex.: `feat(audit): add spec-anchored audit gate`)
+- [x] Committed and delivered — commits `4d9d26d` (ledger 052), `290a58f` (feat(audit)), `1820f5d` (eval count) na branch `feat/spec-anchored-gate`; **PR #22 merged** em main via squash (`20f0e27`) em 2026-08-19
 
 ## Current State
 
-- MI-1..MI-9 completos; todas as correções do review aplicadas; `npm test` 382/0.
-- **Next action**: commit do HARNESS-053 na branch `feat/spec-anchored-gate` (após confirmação do usuário), depois reinstalação global (MI-10 do HARNESS-052, adiado até depois do 053).
+- **HARNESS-053 COMPLETE** — entregue via PR #22 (merge `20f0e27`).
+- **Next action**: reinstalação global (MI-10 do HARNESS-052, adiado até depois do 053) — executar após aprovação do usuário; cobre 052 + 053 + eval fix.

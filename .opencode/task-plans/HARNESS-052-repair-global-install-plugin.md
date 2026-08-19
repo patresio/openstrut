@@ -46,6 +46,7 @@
 - MI-10 (commit): `9493a75` em `fix/global-install-plugin-path` — `fix(installer): ship and wire OpenCode plugin globally` (20 arquivos, +983/-336). Working tree limpo.
 - Status: MI-1..MI-9 completos; **aguardando aprovação explícita do usuário para MI-10 (reinstalação global com backup)**
 - Decisão do usuário (2026-08-19): MI-10 **adiado para depois do HARNESS-053** — uma única reinstalação global cobrirá 052 + 053 (backup + install + setup + validação).
+- **Delivery (2026-08-19)**: commit `9493a75` entregue via **PR #22** (branch empilhada `feat/spec-anchored-gate` com HARNESS-053) — merge squash `20f0e27` em main. CI verde (lint, test 20/22). MI-10 (reinstalação global) **ainda pendente** — próxima ação após aprovação do usuário.
 
 ## Objective
 
