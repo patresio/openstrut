@@ -1,6 +1,6 @@
 name: opentrust
 version: 1.0.0
-description: OpenTrust multi-platform agent harness — 10 workflow-guidance tools (explore, propose, apply, review, ship, status, incident, synthetize, create, goal) and dynamic skill loading from plugin skills/ (installed) or $OPENSTRUST_ROOT/global/skills (development).
+description: OpenTrust multi-platform agent harness — 11 workflow-guidance tools (explore, propose, apply, review, ship, status, incident, synthetize, create, goal, audit) and dynamic skill loading from plugin skills/ (installed) or $OPENSTRUST_ROOT/global/skills (development).
 author: OpenTrust Team
 kind: backend
 provides_tools:
@@ -14,3 +14,4 @@ provides_tools:
   - ot_synthetize
   - ot_create
   - ot_goal
+  - ot_audit

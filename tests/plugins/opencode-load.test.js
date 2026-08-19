@@ -17,8 +17,8 @@ describe('OpenCode plugin loaders', () => {
     const skills = loadSkills();
     const opentrustSkills = Object.keys(skills).filter((name) => name.startsWith('opentrust-'));
     assert.ok(
-      opentrustSkills.length >= 11,
-      `Expected at least 11 opentrust-* skills, got ${opentrustSkills.length}`,
+      opentrustSkills.length >= 12,
+      `Expected at least 12 opentrust-* skills, got ${opentrustSkills.length}`,
     );
   });
 

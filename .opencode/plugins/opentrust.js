@@ -2,7 +2,7 @@
  * OpenTrust Plugin for OpenCode
  * 
  * This plugin bootstraps OpenTrust context at session start,
- * injecting 40 agents, 11 skills, 10 commands, and 32 CTX + 24 B context selectors.
+ * injecting 40 agents, 12 skills, 11 commands, and 32 CTX + 24 B context selectors.
  * 
  * Usage:
  *   Add to .opencode/opencode.json:

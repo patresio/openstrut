@@ -53,6 +53,8 @@ Options:
     ↓
     [Gate: Approval] → STOP, wait for human
     ↓
+    [Gate: Cost] → STOP, wait for human
+    ↓
     [Phase: Apply] → mutation, TDD required
     ↓
     [Gate: TDD RED] → STOP, wait for human
@@ -129,6 +131,7 @@ ot-goal reads task plans in this format:
 
 ### Apply Phase (Mutation)
 - Create branch if needed (per ADR-005)
+- **Cost confirmation gate** — before any mutation: present the task's model and effort estimate, then STOP and wait for the user to confirm or change the model/effort. Never execute a task's mutations without this confirmation; never silently switch to a more expensive model; the user's choice wins.
 - Implement changes
 - Run tests
 - Record evidence
@@ -237,6 +240,7 @@ HARNESS-044 | in_progress | feat/harness-044 | apply | RED evidence recorded
 - Respect ADR-006 autonomous execution policy
 - Respect Design 009 worktree limits
 - Never skip human approval gates
+- Cost confirmation is a human gate and cannot be skipped
 - Never exceed safety limits
 - Always record evidence in task plans
 - Always emit status dashboard

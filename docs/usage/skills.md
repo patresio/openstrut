@@ -33,11 +33,12 @@ A skill is best when:
 
 ## Current Global Skills
 
-The harness currently ships 11 runtime skills in `global/skills/`, all `opentrust-*`:
+The harness currently ships 12 runtime skills in `global/skills/`, all `opentrust-*`:
 
 - `opentrust-task-contract`
 - `opentrust-tdd`
 - `opentrust-spec-change`
+- `opentrust-spec-anchored`
 - `opentrust-review`
 - `opentrust-delivery`
 - `opentrust-observability`
@@ -102,6 +103,25 @@ The older broader catalog (39 `engineering-*` and domain skills) is archived und
 
 - proposal, tasks, and spec artifacts;
 - approval gate evidence.
+
+### `opentrust-spec-anchored`
+
+**Location:** `global/skills/opentrust-spec-anchored/SKILL.md`
+
+**Purpose:** spec-anchored audit gate — the spec stays true because the machine audits it via exit code, not because the agent promised.
+
+**Use when:**
+
+- specifying a feature;
+- auditing an implementation against a spec;
+- checking "what has no test";
+- verifying before calling it done.
+
+**Expected outputs:**
+
+- findings from `openstrut audit`;
+- exit-code gate verdict (0 = aligned, 1 = findings);
+- annotated tests `@spec:AC-xxx`.
 
 ### `opentrust-review`
 
@@ -250,6 +270,7 @@ Good examples:
 - formal task contract needed → `opentrust-task-contract`
 - behavior change → `opentrust-tdd`
 - spec/design change before implementation → `opentrust-spec-change`
+- auditing implementation against a spec / verifying before done → `opentrust-spec-anchored`
 - review gate before delivery → `opentrust-review`
 - final delivery after explicit approval → `opentrust-delivery`
 - evidence and operational notes required → `opentrust-observability`

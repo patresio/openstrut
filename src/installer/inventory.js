@@ -86,6 +86,7 @@ export const INVENTORY = [
   { source: 'global/commands/ot-create.md',                                   target: 'commands/ot-create.md' },
 
   { source: 'global/commands/ot-goal.md',                                     target: 'commands/ot-goal.md' },
+  { source: 'global/commands/ot-audit.md',                                    target: 'commands/ot-audit.md' },
 
 // Skills — OpenTrust workflow
   { source: 'global/skills/opentrust-task-contract/SKILL.md',                 target: 'skills/opentrust-task-contract/SKILL.md' },
@@ -99,6 +100,7 @@ export const INVENTORY = [
   { source: 'global/skills/opentrust-domain-modeling/SKILL.md',               target: 'skills/opentrust-domain-modeling/SKILL.md' },
   { source: 'global/skills/opentrust-handoff/SKILL.md',                      target: 'skills/opentrust-handoff/SKILL.md' },
   { source: 'global/skills/opentrust-diagnose/SKILL.md',                     target: 'skills/opentrust-diagnose/SKILL.md' },
+  { source: 'global/skills/opentrust-spec-anchored/SKILL.md',                target: 'skills/opentrust-spec-anchored/SKILL.md' },
 
   // Workflows — none currently installed (legacy workflows reference uninstalled agents;
   // reserved for future OpenTrust-native workflow definitions)

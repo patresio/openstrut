@@ -6,6 +6,9 @@
  *   plan     Read-only inspection of what would be installed
  *   install  Install managed artifacts into the target OpenCode config root
  *   check    Report drift between installed artifacts and the packaged version
+ *   generate-manifest Generate an execution-manifest.yaml for an approved OpenSpec change
+ *   audit    Spec-anchored audit gate: traceability US→AC→T→test (exit 0 = aligned)
+ *   workflow Manage workflow definitions (list, validate, run)
  *   setup    Configure OpenStrut for one or more agentic LLM CLIs
  *
  * Options:
@@ -35,6 +38,7 @@ import { install } from '../src/installer/install.js';
 import { check } from '../src/installer/check.js';
 import { formatPlan, formatInstall, formatCheck, EXIT } from '../src/installer/output.js';
 import { generate } from '../src/manifest/generate.js';
+import { auditChange } from '../src/audit/audit.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packageRoot = path.resolve(__dirname, '..');
@@ -47,7 +51,7 @@ import { collectWorkflowErrors } from '../src/workflows/validate.js';
 import { INVENTORY } from '../src/installer/inventory.js';
 import { runSetup } from '../src/setup/index.js';
 
-const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow', 'setup']);
+const VALID_COMMANDS = new Set(['plan', 'install', 'check', 'generate-manifest', 'workflow', 'setup', 'audit']);
 
 // ─── Splash screen ─────────────────────────────────────────────────────────
 
@@ -80,6 +84,7 @@ Commands:
   install           Install managed artifacts into the target configuration root
   check             Report drift between installed artifacts and the packaged version
   generate-manifest Generate an execution-manifest.yaml for an approved OpenSpec change
+  audit             Spec-anchored audit gate: traceability US→AC→T→test (exit 0 = aligned)
   workflow          Manage workflow definitions (list, validate, run)
   setup             Configure OpenStrut for supported agentic LLM CLIs (TUI or --cli)
 
@@ -87,7 +92,7 @@ Options:
   --target <dir>    Target OpenCode configuration root (plan, install, check)
                     Default: $XDG_CONFIG_HOME/opencode  (when XDG_CONFIG_HOME is set)
                           or $HOME/.config/opencode
-  --change <dir>    Path to the OpenSpec change directory (generate-manifest only)
+  --change <dir>    Path to the OpenSpec change directory (generate-manifest, audit)
   --cli <ids>       Comma-separated CLI ids for setup (e.g. opencode,codex)
   --platform <name> Install plugin for specific platform (opencode, claude, codex, hermes, all)
   --home <dir>      Alternate home for setup path expansion (tests / isolation)
@@ -99,8 +104,8 @@ Options:
 
 Exit codes:
   0  — OK: success, no conflicts
-  1  — DRIFT: check detected drift or missing / invalid manifest
-  2  — CONFLICT: plan or install blocked by a conflict
+  1  — DRIFT: check detected drift or missing / invalid manifest; audit found findings
+  2  — CONFLICT: plan or install blocked by a conflict; audit change path is non-canonical
   3  — INVALID: unknown option, invalid invocation, or unsafe target
   4  — FAILURE: unexpected internal failure
 `.trim();
@@ -270,9 +275,9 @@ function parseArgs(argv) {
     };
   }
 
-  if (opts.change && opts.command !== 'generate-manifest') {
+  if (opts.change && opts.command !== 'generate-manifest' && opts.command !== 'audit') {
     return {
-      error: `--change is only valid with the generate-manifest command, not "${opts.command}".`,
+      error: `--change is only valid with the generate-manifest and audit commands, not "${opts.command}".`,
       exitCode: EXIT.INVALID,
     };
   }
@@ -298,9 +303,9 @@ function parseArgs(argv) {
     };
   }
 
-  if (opts.command === 'generate-manifest' && !opts.change) {
+  if ((opts.command === 'generate-manifest' || opts.command === 'audit') && !opts.change) {
     return {
-      error: '--change <dir> is required for the generate-manifest command.',
+      error: '--change <dir> is required for the generate-manifest and audit commands.',
       exitCode: EXIT.INVALID,
     };
   }
@@ -422,6 +427,63 @@ async function main() {
     }
     process.stdout.write(`Generated: ${result.path}\n`);
     process.exit(EXIT.OK);
+  } else if (opts.command === 'audit') {
+    const changeDir = path.resolve(opts.change);
+
+    let gitRoot;
+    try {
+      gitRoot = require('node:child_process').execSync('git rev-parse --show-toplevel', { cwd: changeDir, encoding: 'utf8', stdio: 'pipe' }).trim();
+    } catch (err) {
+      process.stderr.write('BLOCKED — NON-CANONICAL CHANGE PATH: not inside a git repository\n');
+      process.exit(EXIT.CONFLICT);
+    }
+
+    const changeDirName = path.basename(changeDir);
+    const expectedPath = path.join(gitRoot, 'openspec', 'changes', changeDirName);
+
+    if (changeDir !== expectedPath) {
+      process.stderr.write(`BLOCKED — NON-CANONICAL CHANGE PATH: expected ${expectedPath}, got ${changeDir}\n`);
+      process.exit(EXIT.CONFLICT);
+    }
+
+    const result = auditChange({ changeDir });
+
+    if (result.errors.length > 0) {
+      if (opts.json) {
+        process.stdout.write(JSON.stringify({
+          command: 'audit',
+          change: changeDirName,
+          ok: false,
+          counts: result.counts,
+          findings: result.findings,
+          errors: result.errors,
+        }, null, 2) + '\n');
+      } else {
+        for (const e of result.errors) process.stdout.write(`[ERROR] ${e}\n`);
+      }
+      process.exit(EXIT.DRIFT);
+    }
+
+    if (opts.json) {
+      process.stdout.write(JSON.stringify({
+        command: 'audit',
+        change: changeDirName,
+        ok: result.ok,
+        counts: result.counts,
+        findings: result.findings,
+        errors: result.errors,
+      }, null, 2) + '\n');
+    } else {
+      for (const f of result.findings) {
+        process.stdout.write(`[${f.code}] ${f.message}\n`);
+      }
+      if (result.ok) {
+        process.stdout.write(`Audit OK: ${result.counts.stories} stories, ${result.counts.criteria} criteria, ${result.counts.tasks} tasks, ${result.counts.tests} test file(s).\n`);
+      } else {
+        process.stdout.write(`Audit FAILED: ${result.findings.length} finding(s).\n`);
+      }
+    }
+    process.exit(result.ok ? EXIT.OK : EXIT.DRIFT);
   } else if (opts.command === 'workflow') {
     let workflowArgIndex = 0;
     const subcmd = opts.args[workflowArgIndex++];

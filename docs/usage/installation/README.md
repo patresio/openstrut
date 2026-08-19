@@ -60,7 +60,7 @@ Restart OpenCode after install.
 
 Check for:
 - `trust-lead` as default agent;
-- 10 `/ot-*` commands;
+- 11 `/ot-*` commands;
 - OpenTrust leader/subagent topology.
 
 ## What Gets Installed
@@ -71,11 +71,15 @@ After `install`, the active runtime under `~/.config/opencode/` is:
 |---|---|---|
 | Root config | 2 | `AGENTS.md`, `opencode.json` |
 | Agents | 40 | 9 leaders + 31 subagents |
-| Commands | 10 | `ot-*` workflow commands |
-| Skills | 11 | `opentrust-*` workflow skills |
+| Commands | 11 | `ot-*` workflow commands |
+| Skills | 12 | `opentrust-*` workflow skills |
 | OpenTrust docs | 10 | `opentrust/docs/*.md`, `opentrust/reference-map/*.md` |
 | Templates | 4 | project bootstrap scaffold |
 | OpenCode plugin | 1 | `.opencode/plugins/opentrust.js` |
+
+The installed commands and skills include the spec-anchored audit gate:
+- `ot-audit` command — mechanical spec-anchored audit gate (`openstrut audit`; exit 0 aligned, exit 1 findings);
+- `opentrust-spec-anchored` skill — spec-anchored development workflow.
 
 The installed `opencode.json` includes:
 - `trust-lead` as `default_agent`;

@@ -57,10 +57,10 @@ This will:
    ```
    OpenTrust Plugin: Bootstrapped successfully
      • 40 agents loaded
-     • 11 skills loaded
+     • 12 skills loaded
      • 32 contexts loaded
      • 24 bundles loaded
-     • 10 commands loaded
+     • 11 commands loaded
      • 10 tools registered
    ```
 
@@ -84,6 +84,8 @@ This will:
 | `ot-create` | OpenTrust create mode |
 | `ot-goal` | OpenTrust goal mode |
 
+The plugin also loads the `ot-audit` command: mechanical spec-anchored audit gate (runs `openstrut audit`; exit 0 aligned, exit 1 findings).
+
 ## Available Agents
 
 The plugin loads all 40 OpenTrust agents:
@@ -92,10 +94,11 @@ The plugin loads all 40 OpenTrust agents:
 
 ## Available Skills
 
-The plugin loads all 11 OpenTrust skills:
+The plugin loads all 12 OpenTrust skills:
 - opentrust-task-contract
 - opentrust-tdd
 - opentrust-spec-change
+- opentrust-spec-anchored
 - opentrust-review
 - opentrust-delivery
 - opentrust-observability

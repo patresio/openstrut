@@ -4,9 +4,9 @@
 
 - Task ID: HARNESS-053
 - Classification: implementation (+ design)
-- Status: proposed (aguardando Approval Gate)
-- Approval: direção aprovada pelo usuário em 2026-08-17 ("vamos aproveitar algo do /srv/projects/onp-spec-driven"); contrato formal pendente de aprovação
-- Branch: `feat/spec-anchored-gate` (proposto)
+- Status: in-progress (MI-9 — validação completa + review; correções do review aplicadas; falta commit)
+- Approval: direção aprovada pelo usuário em 2026-08-17 ("vamos aproveitar algo do /srv/projects/onp-spec-driven"); MI-2/3 (audit gate) aprovado em 2026-08-19 (implementação + TDD evidenciado); MI-4..MI-8 aprovados no fluxo do task plan
+- Branch: `feat/spec-anchored-gate`
 - Base: main
 - Worktree: não necessário
 
@@ -21,14 +21,14 @@ Aproveitar os padrões comprovados do `/srv/projects/onp-spec-driven` (MIT © Vi
 
 ## Acceptance Criteria
 
-- [ ] Design doc `docs/design/012-spec-anchored-gate.md` aprovado e versionado
-- [ ] `ot-audit` command implementado: parseia spec/tasks/testes, reporta AC sem teste/prova, exit code gate (0 = alinhado)
-- [ ] Skill `opentrust-spec-anchored` criada (SKILL.md + referências), registrada no inventário
-- [ ] Testes RED→GREEN para ot-audit (parse, rastreabilidade, gate)
-- [ ] Variantes cursor/antigravity adicionadas ao registry de plugins/setup (padrão onp-spec: marcador `agent:`)
-- [ ] `ot-goal` atualizado: confirma modelo/esforço por tarefa com o usuário antes de executar
-- [ ] Hermes: tool `ot_audit` disponível no plugin (ou follow-up documentado)
-- [ ] `npm test` green; docs atualizados; atribuição MIT do onp-spec-driven registrada
+- [x] Design doc `docs/design/012-spec-anchored-gate.md` aprovado e versionado
+- [x] `ot-audit` command implementado: parseia spec/tasks/testes, reporta AC sem teste/prova, exit code gate (0 = alinhado)
+- [x] Skill `opentrust-spec-anchored` criada (SKILL.md + referências), registrada no inventário
+- [x] Testes RED→GREEN para ot-audit (parse, rastreabilidade, gate)
+- [x] Variantes cursor/antigravity adicionadas ao registry de plugins/setup (padrão onp-spec: marcador `agent:`)
+- [x] `ot-goal` atualizado: confirma modelo/esforço por tarefa com o usuário antes de executar
+- [x] Hermes: tool `ot_audit` disponível no plugin (registrada em `__init__.py` + `plugin.yaml` + testes)
+- [x] `npm test` green; docs atualizados; atribuição MIT do onp-spec-driven registrada
 
 ## Scope
 
@@ -93,19 +93,50 @@ Policy:
 
 ## Microincrements
 
-1. Design doc `docs/design/012-spec-anchored-gate.md` (proposta; comparar com `docs/design/005-sdd-agent-workflow.md` e ADR-003)
-2. RED: testes de parse/rastreabilidade/gate do ot-audit
-3. GREEN: implementação mínima do ot-audit (`src/audit/` ou `src/spec/`)
-4. Skill `opentrust-spec-anchored` (SKILL.md + referências) + inventário
-5. Registry: cursor/antigravity (padrão onp-spec, marcador `agent:`)
-6. `ot-goal`: controle de custo (modelo/esforço + confirmação)
-7. Hermes: tool `ot_audit` (ou follow-up documentado)
-8. Docs + atribuição MIT
-9. Validação completa + review
+1. Design doc `docs/design/012-spec-anchored-gate.md` (proposta; comparar com `docs/design/005-sdd-agent-workflow.md` e ADR-003) — versionado (untracked no branch) — DONE 2026-08-19 (escrito, aprovado como MI-1; alinhado ao motor real no MI-9)
+2. RED: testes de parse/rastreabilidade/gate do ot-audit — DONE 2026-08-19 (RED evidenciado: ERR_MODULE_NOT_FOUND em parse.js/trace.js/audit.js; 22/22, 10/10, 7/7 GREEN ao final)
+3. GREEN: implementação mínima do ot-audit (`src/audit/parse.js`, `src/audit/trace.js`, `src/audit/audit.js`) + wiring `bin/openstrut.js` (comando `audit`, `--change`, gate exit 0/1/2) + `global/commands/ot-audit.md` + inventário (11 commands, 208 artefatos no total final) + package.json (test/test:all) — DONE 2026-08-19 (`npm test` 382/382; `npm pack --dry-run` ok)
+4. Skill `opentrust-spec-anchored` (SKILL.md + referências) + inventário — DONE 2026-08-19 (12 skills, 208 artefatos; metadata.test.js/opencode-load.test.js atualizados factualmente)
+5. Registry: cursor/antigravity (padrão onp-spec, marcador `agent:`) — DONE 2026-08-19 (cursor adicionado; antigravity já existia)
+6. `ot-goal`: controle de custo (modelo/esforço + confirmação) — DONE 2026-08-19 (`[Gate: Cost]` no pipeline)
+7. Hermes: tool `ot_audit` (ou follow-up documentado) — DONE 2026-08-19 (tool registrada em `__init__.py` + `plugin.yaml` no MI-9, após review apontar dead code)
+8. Docs + atribuição MIT — DONE 2026-08-19 (README/docs/usage/installation/opencode.md + `docs/attribution.md` + design doc alinhado)
+9. Validação completa + review — DONE 2026-08-19 (npm test 382/0; smoke exit 0/1/2; review independente APPROVE após correções; falta commit)
+
+## Evidence
+
+### MI-2/3 (ot-audit engine + CLI)
+- RED parse: `ERR_MODULE_NOT_FOUND: Cannot find module '.../src/audit/parse.js'` (testes escritos antes do módulo)
+- RED trace: `ERR_MODULE_NOT_FOUND: .../src/audit/trace.js`
+- RED gate: `ERR_MODULE_NOT_FOUND: .../src/audit/audit.js`
+- GREEN: `node --test tests/audit/parse.test.js` 22/22; `trace.test.js` 10/10; `gate.test.js` 7/7
+- `npm test`: 382 tests, 0 fail
+- `node --check` src/bin: OK; `npm pack --dry-run --ignore-scripts`: OK (inclui src/audit/* e global/commands/ot-audit.md)
+- CLI smoke: aligned exit 0, findings exit 1 (5 códigos), non-canonical exit 2
+
+### MI-4..MI-8 (skill, registry, ot-goal, Hermes, docs)
+- Skill `opentrust-spec-anchored` criada (129 linhas, frontmatter `metadata.agent: opencode`); inventário 208 (3+40+11+12+10+127+0+4+1)
+- `tests/package/metadata.test.js` atualizado factualmente (11→12 skills); `tests/plugins/opencode-load.test.js` `>= 11` → `>= 12`
+- Registry: cursor adicionado (CLIS 6→7, `tests/setup/setup.test.js` atualizado)
+- `ot-goal`: `[Gate: Cost]` adicionado (sub-step antes de mutação; regra "cannot be skipped")
+- Hermes: `ot_audit` schema + handler em tools.py; **registro em `__init__.py` + `plugin.yaml`** (11 tools) no MI-9 após review apontar dead code; testes hermes atualizados para cobrir registro (>=11 register_tool, 11 ot_* tools)
+- Docs: README (208, 11 commands, 12 skills), docs/usage/skills.md, docs/usage/README.md, docs/usage/installation/README.md, docs/installation/opencode.md, docs/README.md, `docs/attribution.md` (nova)
+
+### MI-9 (validação + review)
+- `npm test`: 382 tests, 0 fail (65 suites) — confirmado pelo engineering-lead e pelo reviewer
+- CLI smoke (repo canônico temporário): aligned exit 0 ("Audit OK: 1 stories, 2 criteria, 2 tasks, 1 test file(s)"); findings exit 1 (5 códigos: AC_SEM_TESTE, TESTE_ORFAO, TASK_CONCLUIDA_SEM_PROVA, TASK_STATUS_INVALIDO, REF_QUEBRADA)
+- Review independente: BLOCK inicial (ot_audit dead code + ledger stale) → correções aplicadas → APPROVE
+- Correções do review: registro ot_audit (Hermes), `packageRoot` não usado removido de audit.js/CLI, `--json` com payload JSON em erro operacional, scan de testes exclui `fixtures/`, design doc 012 alinhado (5 códigos emitidos; ASM/Q/SECAO planejados v1.1; selectors do contrato; sem path de máquina), attribution sem path absoluto, docstring plugin OpenCode 11 commands/12 skills
+- Review follow-ups registrados: ASM_ABERTA/Q_ABERTA/SECAO_AUSENTE (v1.1), constituição verificável, lições com lastro
 
 ## Definition of Done
 
-- [ ] Acceptance criteria met
-- [ ] Tests pass
-- [ ] Review approved
+- [x] Acceptance criteria met (todas as 8 ACs marcadas acima)
+- [x] Tests pass (382/382)
+- [x] Review approved (independente; BLOCK inicial → correções → APPROVE)
 - [ ] Committed with conventional commit message (ex.: `feat(audit): add spec-anchored audit gate`)
+
+## Current State
+
+- MI-1..MI-9 completos; todas as correções do review aplicadas; `npm test` 382/0.
+- **Next action**: commit do HARNESS-053 na branch `feat/spec-anchored-gate` (após confirmação do usuário), depois reinstalação global (MI-10 do HARNESS-052, adiado até depois do 053).
