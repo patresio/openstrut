@@ -47,6 +47,7 @@
 - Status: MI-1..MI-9 completos; **aguardando aprovação explícita do usuário para MI-10 (reinstalação global com backup)**
 - Decisão do usuário (2026-08-19): MI-10 **adiado para depois do HARNESS-053** — uma única reinstalação global cobrirá 052 + 053 (backup + install + setup + validação).
 - **Delivery (2026-08-19)**: commit `9493a75` entregue via **PR #22** (branch empilhada `feat/spec-anchored-gate` com HARNESS-053) — merge squash `20f0e27` em main. CI verde (lint, test 20/22). MI-10 (reinstalação global) **ainda pendente** — próxima ação após aprovação do usuário.
+- **MI-10 DONE (2026-08-19, aprovação explícita do usuário)**: reinstalação global em `~/.config/opencode` — plan (2 updates + 3 installs, sem conflitos, exit 0) → install (5 artefatos + 203 inalterados = 208; backup transiente por arquivo + rollback por design; manifest 0.6.0) → setup --platform opencode (exit 0; `plugin` key + barsa MCP preservados) → check ("All managed artifacts match", exit 0) → validação runtime do plugin instalado (40 agents, 12 skills, 11 commands; ot-audit + opentrust-spec-anchored presentes).
 
 ## Objective
 
@@ -67,7 +68,7 @@ Reparar as causas raiz de "OpenStrut não instala global corretamente / não atu
 - [ ] Docs atualizados: `docs/usage/skills.md` (11 skills reais), README (contagens), `docs/installation/opencode.md` (caminhos reais)
 - [ ] Task plans: HARNESS-001-migrate-agents fechado como superseded; HARNESS-048/049 commitados ou arquivados
 - [ ] `npm test` green; `npm run validate:opentrust` green (ou falha pré-existente documentada)
-- [ ] (Delivery, com aprovação explícita) reinstalação global nesta máquina com backup
+- [x] (Delivery, com aprovação explícita) reinstalação global nesta máquina com backup — DONE 2026-08-19
 
 ## Scope
 
