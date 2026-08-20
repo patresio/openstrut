@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/patresio/openstrut/compare/v0.6.0...v0.6.1) (2026-08-20)
+
+
+### Bug Fixes
+
+* **opencode:** reconcile global config and plugin installation ([#23](https://github.com/patresio/openstrut/issues/23)) ([2d99722](https://github.com/patresio/openstrut/commit/2d99722ced58b508fe00d177fdfebcb856341a00))
+
 # [0.6.0](https://github.com/patresio/openstrut/compare/v0.5.3...v0.6.0) (2026-08-19)
 
 
