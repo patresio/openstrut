@@ -7,32 +7,82 @@ This guide explains how to install OpenTrust plugins for OpenCode.
 - OpenCode installed (`npm install -g opencode-ai`)
 - Node.js >= 20
 
-## Installation
+## What gets installed
 
-### Using OpenStrut Setup
+OpenTrust installs a baseline into the OpenCode configuration root
+(`~/.config/opencode/` by default):
 
-```bash
-openstrut setup --platform opencode
+```
+~/.config/opencode/
+├── opencode.json                          ← baseline config (wired plugin)
+└── .opencode/
+    ├── plugins/
+    │   └── opentrust.js                   ← plugin entrypoint (loaded by OpenCode)
+    └── lib/
+        └── opentrust-core.js              ← shared core (imported by the plugin)
 ```
 
-This will:
-1. Create `.opencode/plugins/` directory in the config root
-2. Copy the OpenTrust plugin file
-3. Register the plugin in the OpenCode configuration
+The `opencode.json` baseline contains the plugin wiring:
+
+```json
+{
+  "plugin": [
+    ".opencode/plugins/opentrust.js"
+  ]
+}
+```
+
+### How the plugin path resolves
+
+The plugin spec `".opencode/plugins/opentrust.js"` is a **relative path
+resolved against the directory that contains `opencode.json`** — the config
+root. So:
+
+```
+".opencode/plugins/opentrust.js"
+        ↓ resolved against ~/.config/opencode/
+~/.config/opencode/.opencode/plugins/opentrust.js
+```
+
+### Why the core lives outside the plugins directory
+
+`.opencode/plugins/` contains only the entrypoint OpenCode loads. The shared
+implementation lives in `.opencode/lib/opentrust-core.js`. This is
+intentional: OpenCode auto-discovers executable plugin files in plugin
+directories, so shared code must live outside those directories to avoid
+being loaded as a plugin.
+
+## Installation
+
+### Using OpenStrut
+
+```bash
+npx github:patresio/openstrut install --force
+```
+
+This installs the full baseline (including `opencode.json`, the plugin
+entrypoint, and the shared core) into the OpenCode config root. Use
+`openstrut plan` first to preview what would change:
+
+```bash
+npx github:patresio/openstrut plan
+```
 
 ### Manual Installation
 
-1. Create the plugins directory in your OpenCode config root
+1. Create the plugin and core directories in your OpenCode config root
    (`~/.config/opencode/` by default):
 
    ```bash
    mkdir -p ~/.config/opencode/.opencode/plugins
+   mkdir -p ~/.config/opencode/.opencode/lib
    ```
 
-2. Copy the plugin file from the harness repository:
+2. Copy the plugin entrypoint and shared core from the harness repository:
 
    ```bash
    cp .opencode/plugins/opentrust.js ~/.config/opencode/.opencode/plugins/
+   cp .opencode/lib/opentrust-core.js ~/.config/opencode/.opencode/lib/
    ```
 
 3. Register the plugin in `opencode.json` (the config root file). The OpenCode
@@ -55,6 +105,40 @@ This will:
 > **Note:** the harness ships this wiring already in `global/opencode.json`
 > (installed as `opencode.json` in the config root), so manual registration is
 > only needed for custom setups.
+
+## Updating
+
+Running the installer again performs an idempotent update:
+
+- updates properties managed by OpenTrust (source wins);
+- removes managed properties that no longer exist in the baseline;
+- preserves properties recognized as user configuration
+  (`share`, `snapshot`, `autoupdate`, `compaction`);
+- updates the plugin entrypoint and its shared core;
+- keeps the process idempotent (a second run with no changes is a no-op).
+
+```bash
+npx github:patresio/openstrut install --force
+```
+
+## Upgrading from older installs
+
+Older OpenTrust versions may have left legacy configuration such as:
+
+```json
+{
+  "plugin": [
+    { "spec": "file:.opencode/plugins/opentrust.js" }
+  ]
+}
+```
+
+or may not have the plugin installed correctly at all. Running the official
+installer/update command fixes this automatically: the legacy object spec is
+replaced by the relative string spec, and the plugin entrypoint plus shared
+core are installed in the correct paths.
+
+Do not edit `opencode.json` by hand unless troubleshooting as a last resort.
 
 ## Verification
 
@@ -116,6 +200,47 @@ The plugin loads all 12 OpenTrust skills:
 
 ## Troubleshooting
 
+### Verify configuration
+
+```bash
+cat ~/.config/opencode/opencode.json
+```
+
+Expected:
+
+```json
+"plugin": [
+  ".opencode/plugins/opentrust.js"
+]
+```
+
+### Verify plugin
+
+```bash
+test -f ~/.config/opencode/.opencode/plugins/opentrust.js && echo OK
+```
+
+### Verify core
+
+```bash
+test -f ~/.config/opencode/.opencode/lib/opentrust-core.js && echo OK
+```
+
+### Validate OpenCode
+
+Run a minimal OpenCode session and confirm it loads without:
+
+- `Configuration is invalid`
+- `Plugin export is not a function`
+- `failed to load plugin`
+- `ERR_INVALID_ARG_TYPE`
+
+```bash
+opencode --print-logs --log-level DEBUG run "hi"
+```
+
+If none of those errors appear, the installation is coherent.
+
 ### Plugin not loading
 
 1. Check the plugin file exists in the config root:
@@ -138,9 +263,10 @@ The plugin loads all 12 OpenTrust skills:
 
 ## Uninstallation
 
-1. Remove the plugin file:
+1. Remove the plugin entrypoint and shared core:
    ```bash
    rm ~/.config/opencode/.opencode/plugins/opentrust.js
+   rm ~/.config/opencode/.opencode/lib/opentrust-core.js
    ```
 
 2. Update `opencode.json` to remove the plugin entry

@@ -7,8 +7,15 @@ Accepted
 > spec `{ "spec": "file:..." }` to a relative string spec
 > `".opencode/plugins/opentrust.js"`, and the plugin now uses the current
 > OpenCode plugin API (named export function returning a `tool` registry)
-> instead of the legacy `bootstrap`/`registerTool` API. See
-> `docs/installation/opencode.md` for the current wiring.
+> instead of the legacy `bootstrap`/`registerTool` API. The installed layout is:
+>
+> - plugin entrypoint: `.opencode/plugins/opentrust.js`
+> - shared core: `.opencode/lib/opentrust-core.js`
+>
+> The core lives outside the plugins directory because OpenCode auto-discovers
+> executable plugin files in plugin directories; shared implementation must
+> live outside those directories. See `docs/installation/opencode.md` for the
+> current wiring.
 
 ## Context
 OpenStrut currently distributes 40 agents, 11 skills, 10 commands, and 32 CTX + 24 B context selectors for OpenCode only. Users want to use OpenTrust on multiple platforms: OpenCode, Claude Code, Codex, and Hermes-Agent. Each platform has a different plugin system:
@@ -60,21 +67,21 @@ We will implement a **hybrid plugin distribution architecture** with:
 
 #### OpenCode Plugin (`.opencode/plugins/opentrust.js`)
 ```javascript
-export default {
-  name: 'opentrust',
-  version: '1.0.0',
-  description: 'OpenTrust multi-platform agent harness',
-  bootstrap: async (ctx) => {
-    // Inject OpenTrust context
-    await ctx.injectContext('opentrust:agents');
-    await ctx.injectContext('opentrust:skills');
-    await ctx.injectContext('opentrust:context');
-    
-    // Register tools
-    ctx.registerTool('ot-explore', { ... });
-    ctx.registerTool('ot-propose', { ... });
-    // ... 10 tools total
-  }
+export const OpenTrustPlugin = async (input) => {
+  // Load OpenTrust content (agents, skills, context, commands)
+  return {
+    tool: {
+      'ot-explore': {
+        description: 'Synthesize OpenTrust context for exploration',
+        args: {
+          task: { type: 'string', description: 'Task name or identifier' },
+          project: { type: 'string', description: 'Project name or identifier' }
+        },
+        execute: async (args) => `OpenTrust Context Loaded: ...`
+      }
+      // ... 10 tools total
+    }
+  };
 };
 ```
 

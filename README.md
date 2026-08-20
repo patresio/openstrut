@@ -21,7 +21,7 @@ OpenStrut packages a complete AI-assisted engineering setup — agents, skills, 
 | Context catalog (CTX/SK/B/AG/DOC) | 127 |
 | OpenTrust runtime docs | 10 |
 | Templates | 4 |
-| **Total** | **208** |
+| **Total** | **209** |
 
 ## Quick Start
 
@@ -142,8 +142,10 @@ openstrut
 │   ├── context/              # Semantic selector catalog (CTX/SK/B/AG/DOC)
 │   ├── opentrust/docs/       # Runtime OpenTrust documentation
 │   └── opencode.json         # Default OpenCode configuration
-├── .opencode/plugins/        # OpenCode plugin
+├── .opencode/plugins/        # OpenCode plugin entrypoint
 │   └── opentrust.js
+├── .opencode/lib/            # OpenCode plugin shared core
+│   └── opentrust-core.js
 ├── .claude-plugin/           # Claude Code plugin
 │   ├── plugin.json
 │   └── skills/
@@ -159,7 +161,7 @@ openstrut
 │   └── skills/
 ├── templates/project/        # Project bootstrap scaffold
 ├── workflows/                # 8 workflow definitions
-└── tests/                    # 266+ tests (node:test)
+└── tests/                    # 396+ tests (node:test)
 ```
 
 ## Development
@@ -184,7 +186,7 @@ npm pack --dry-run
 
 | Command | What it tests |
 |---------|---------------|
-| `npm test` | Full suite (266 tests, 40 suites) |
+| `npm test` | Full suite (396 tests, 68 suites) |
 | `npm run test:installer` | Installer logic and inventory |
 | `npm run test:setup` | Multi-CLI TUI and config writers |
 | `npm run test:manifest` | Manifest generation and validation |
@@ -219,12 +221,12 @@ Each team has one lead agent and 2-5 subagents. Teams coordinate through task co
 
 ## How the Installer Works
 
-The installer tracks what it installed using a **manifest** (`.harness/installation.json`):
+The installer tracks what it installed using a **manifest** (`.openstrut/installation.json`):
 
 ```
 ~/.config/opencode/
 ├── .openstrut/
-│   └── installation.json    ← manifest (checksums of all 208 artifacts)
+│   └── installation.json    ← manifest (checksums of all 209 artifacts)
 ├── AGENTS.md                ← installed by harness
 ├── opencode.json            ← installed by harness
 └── agents/                  ← installed by harness
