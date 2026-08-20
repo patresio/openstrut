@@ -32,6 +32,13 @@ OpenTrust plugins distribute 40 agents, 11 skills, 10 commands, and 32 CTX + 24 
 
 **Location:** `.opencode/plugins/opentrust.js`
 
+> **Note (HARNESS-054):** the OpenCode plugin now uses the current plugin API —
+> a named export function `(input, options?) => Promise<Hooks>` returning a
+> `tool` registry — wired via a relative string spec in `opencode.json`:
+> `"plugin": [".opencode/plugins/opentrust.js"]`. The legacy `bootstrap` /
+> `ctx.registerTool()` API shown below is superseded and fails to load
+> (`Plugin export is not a function`). See `docs/installation/opencode.md`.
+
 **Key Concepts:**
 - Plugin array in `opencode.json`
 - Bootstrap function for initialization

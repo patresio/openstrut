@@ -37,6 +37,11 @@ describe('npm pack distribution', () => {
     assert.ok(files.includes('.opencode/plugins/opentrust.js'), 'opentrust.js should be packed');
   });
 
+  it('ships OpenCode plugin core (.opencode/lib/opentrust-core.js)', () => {
+    const files = packedFiles();
+    assert.ok(files.includes('.opencode/lib/opentrust-core.js'), 'opentrust-core.js should be packed');
+  });
+
   it('excludes Python bytecode (__pycache__) from the tarball', () => {
     const files = packedFiles();
     assert.ok(

@@ -36,15 +36,21 @@ This will:
    ```
 
 3. Register the plugin in `opencode.json` (the config root file). The OpenCode
-   config key is `plugin` (singular):
+   config key is `plugin` (singular), and each entry is a string spec resolved
+   relative to the config file directory:
 
    ```json
    {
      "plugin": [
-       { "spec": "file:.opencode/plugins/opentrust.js" }
+       ".opencode/plugins/opentrust.js"
      ]
    }
    ```
+
+   The spec resolves to `<config-root>/.opencode/plugins/opentrust.js`, which is
+   exactly where the installer places the plugin file. Object specs such as
+   `{ "spec": "file:..." }` are invalid and rejected by OpenCode's schema
+   (`Expected string | array`).
 
 > **Note:** the harness ships this wiring already in `global/opencode.json`
 > (installed as `opencode.json` in the config root), so manual registration is

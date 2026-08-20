@@ -3,6 +3,13 @@
 ## Status
 Accepted
 
+> **Updated (HARNESS-054):** The OpenCode plugin wiring changed from an object
+> spec `{ "spec": "file:..." }` to a relative string spec
+> `".opencode/plugins/opentrust.js"`, and the plugin now uses the current
+> OpenCode plugin API (named export function returning a `tool` registry)
+> instead of the legacy `bootstrap`/`registerTool` API. See
+> `docs/installation/opencode.md` for the current wiring.
+
 ## Context
 OpenStrut currently distributes 40 agents, 11 skills, 10 commands, and 32 CTX + 24 B context selectors for OpenCode only. Users want to use OpenTrust on multiple platforms: OpenCode, Claude Code, Codex, and Hermes-Agent. Each platform has a different plugin system:
 
@@ -178,11 +185,11 @@ export class ToolMapping {
 Bootstrap injection ensures agents/skills load automatically:
 
 ```javascript
-// OpenCode: Plugin array + bootstrap script
-// .opencode/opencode.json
+// OpenCode: Plugin array (string spec, relative to config root)
+// opencode.json
 {
-  "plugins": [
-    { "spec": "file:plugins/opentrust.js" }
+  "plugin": [
+    ".opencode/plugins/opentrust.js"
   ]
 }
 
