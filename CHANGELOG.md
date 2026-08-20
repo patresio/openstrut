@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/patresio/openstrut/compare/v0.6.1...v0.7.0) (2026-08-20)
+
+
+### Features
+
+* add openstrut ECC bundle ([#19](https://github.com/patresio/openstrut/issues/19)) ([5741630](https://github.com/patresio/openstrut/commit/57416308a0f61345ad7e9a2720e73560b9d0f147))
+
 ## [0.6.1](https://github.com/patresio/openstrut/compare/v0.6.0...v0.6.1) (2026-08-20)
 
 
