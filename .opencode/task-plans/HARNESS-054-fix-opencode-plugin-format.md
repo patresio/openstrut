@@ -127,10 +127,11 @@ Corrigir na origem a integração OpenTrust ↔ OpenCode para o `opencode.json` 
 
 ## Current State
 
-- MI-1..MI-8 concluídos (task plan, branch, RED, GREEN, validação, docs, self-review, commit)
+- MI-1..MI-9 concluídos
 - MI-6 validação: `npm test` 396 pass/0 fail; schema PASS; install isolado em temp dir (209 artifacts, core em `.opencode/lib/`); e2e binário 1.18.18 no repo: bootstrap OK (40 agents/12 skills/32 contexts/24 bundles/11 commands/10 tools), SEM `failed to load plugin`, SEM erros de schema; `npm pack --dry-run` inclui `.opencode/lib/opentrust-core.js` e `.opencode/plugins/opentrust.js`
 - MI-8: commit local `bf9d31f` em `fix/opencode-plugin-format` (18 arquivos, +857/−546); sem push/PR
+- MI-9: delivery em `~/.config/opencode` concluído — backup `opencode.json.bak-HARNESS-054-20260820-083453`; install 209 artifacts (plugin novo + core); merge cirúrgico (única mudança: chave `plugin` adicionada; user keys preservadas); verificação binário 1.18.18 em projeto fresco: bootstrap OK, zero erros de plugin/schema
 
 ## Next Action
 
-- Aguardar aprovação para delivery em `~/.config/opencode` (MI-9) com backup/rollback e relatório final
+- Nenhum (task completo). Push/PR somente com aprovação explícita
