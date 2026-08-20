@@ -259,6 +259,8 @@ export const INVENTORY = [
   // runtime artifact OpenCode loads from the global config, not project-local
   // configuration. Kept at the end so earlier inventory indices stay stable.
   { source: '.opencode/plugins/opentrust.js',                                target: '.opencode/plugins/opentrust.js' },
+  // Core loaders live outside `.opencode/plugins/` (auto-scanned by OpenCode).
+  { source: '.opencode/lib/opentrust-core.js',                               target: '.opencode/lib/opentrust-core.js' },
 ];
 
 /**
@@ -270,6 +272,6 @@ export const INVENTORY = [
  * @returns {boolean}
  */
 export function isAllowedSource(sourcePath) {
-  const allowed = ['global/', 'templates/', 'workflows/', '.opencode/plugins/'];
+  const allowed = ['global/', 'templates/', 'workflows/', '.opencode/plugins/', '.opencode/lib/'];
   return allowed.some(prefix => sourcePath.startsWith(prefix));
 }

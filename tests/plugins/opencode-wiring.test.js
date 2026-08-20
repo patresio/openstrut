@@ -21,17 +21,18 @@ function globalConfig() {
 }
 
 describe('OpenCode plugin global wiring', () => {
-  it('global/opencode.json registers the plugin via file: spec', () => {
+  it('global/opencode.json registers the plugin as a relative string spec', () => {
     const config = globalConfig();
     assert.ok(Array.isArray(config.plugin), 'config.plugin should be an array');
-    const spec = config.plugin[0]?.spec;
-    assert.ok(spec, 'plugin spec should be present');
-    assert.ok(spec.startsWith('file:'), `plugin spec should use file:, got ${spec}`);
+    const spec = config.plugin[0];
+    assert.equal(typeof spec, 'string', `plugin[0] should be a string, got ${typeof spec}`);
+    assert.ok(spec.startsWith('.'), `plugin spec should be a relative path, got ${spec}`);
+    assert.ok(!spec.includes('{'), 'plugin spec should not be an object');
   });
 
   it('plugin spec resolves to a shipped file', () => {
     const config = globalConfig();
-    const spec = config.plugin[0].spec.replace('file:', '');
+    const spec = config.plugin[0];
     assert.ok(existsSync(join(projectRoot, spec)), `plugin file should exist at ${spec}`);
   });
 

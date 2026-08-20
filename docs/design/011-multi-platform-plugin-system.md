@@ -47,7 +47,7 @@ Platform-specific implementations that wrap the common core.
 Mechanisms to inject OpenTrust context at session start.
 
 **Bootstrap Mechanisms:**
-- **OpenCode**: Plugin array + bootstrap script in `.opencode/plugins/`
+- **OpenCode**: Plugin array (string spec) + plugin function in `.opencode/plugins/`
 - **Claude Code**: Hooks in `.claude-plugin/plugin.json` (onSessionStart)
 - **Codex**: Apps in `.codex-plugin/plugin.json` (onSessionStart)
 - **Hermes**: hooks.py in `plugins/opentrust/` (on_session_start)
@@ -88,32 +88,39 @@ Platform Routes to Correct Tool/Agent/Skill
 ### OpenCode Plugin
 Location: `.opencode/plugins/opentrust.js`
 
+Wired from `opencode.json` with a relative string spec (resolved against the
+config root):
+
+```json
+{
+  "plugin": [".opencode/plugins/opentrust.js"]
+}
+```
+
+The plugin uses the current OpenCode plugin API: a named export function
+`(input, options?) => Promise<Hooks>` returning a `tool` registry. Content
+loaders live in `opentrust-core.js` so the plugin module exports only the
+plugin function (OpenCode's legacy loader iterates every named export). The
+core lives in `.opencode/lib/` — outside `.opencode/plugins/` — because
+OpenCode auto-loads every `*.{ts,js}` file under `{plugin,plugins}/` as a
+plugin, and the loaders would otherwise be invoked with plugin arguments.
+
 ```javascript
-export default {
-  name: 'opentrust',
-  version: '1.0.0',
-  description: 'OpenTrust multi-platform agent harness',
-  
-  // Bootstrap function called at session start
-  bootstrap: async (ctx) => {
-    // Inject OpenTrust context
-    await ctx.injectContext('opentrust:agents');
-    await ctx.injectContext('opentrust:skills');
-    await ctx.injectContext('opentrust:context');
-    
-    // Register tools
-    ctx.registerTool('ot-explore', {
-      description: 'Synthesize OpenTrust context for exploration',
-      parameters: {
-        session: { type: 'object', required: true },
-        task: { type: 'object', required: true },
-        project: { type: 'object', required: true }
-      },
-      handler: handleOtExplore
-    });
-    
-    // ... 9 more tools
-  }
+export const OpenTrustPlugin = async (input) => {
+  // Load OpenTrust content (agents, skills, context, commands)
+  return {
+    tool: {
+      'ot-explore': {
+        description: 'Synthesize OpenTrust context for exploration',
+        args: {
+          task: { type: 'string', description: 'Task name or identifier' },
+          project: { type: 'string', description: 'Project name or identifier' }
+        },
+        execute: async (args) => `OpenTrust Context Loaded: ...`
+      }
+      // ... 9 more tools
+    }
+  };
 };
 ```
 

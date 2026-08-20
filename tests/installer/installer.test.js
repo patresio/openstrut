@@ -114,8 +114,8 @@ function runCLI(args, opts = {}) {
 // ─── 1. Inventory integrity ───────────────────────────────────────────────────
 
 describe('Inventory', () => {
-  it('inventory contains exactly 208 artifacts', () => {
-    assert.equal(INVENTORY.length, 208, `Expected 208 artifacts, got ${INVENTORY.length}`);
+  it('inventory contains exactly 209 artifacts', () => {
+    assert.equal(INVENTORY.length, 209, `Expected 209 artifacts, got ${INVENTORY.length}`);
   });
 
   it('inventory has exactly 3 root configuration files', () => {
@@ -177,8 +177,8 @@ describe('Inventory', () => {
       e.source.startsWith('docs/') ||
       e.source.startsWith('evals/') ||
       e.source.startsWith('scripts/') ||
-      // .opencode/ is forbidden EXCEPT .opencode/plugins/ (OpenCode plugin artifact)
-      (e.source.startsWith('.opencode/') && !e.source.startsWith('.opencode/plugins/'))
+      // .opencode/ is forbidden EXCEPT .opencode/plugins/ and .opencode/lib/ (OpenCode plugin artifacts)
+      (e.source.startsWith('.opencode/') && !e.source.startsWith('.opencode/plugins/') && !e.source.startsWith('.opencode/lib/'))
     );
     assert.equal(forbidden.length, 0, 'No docs/evals/scripts/.opencode/ in inventory');
   });
@@ -194,7 +194,7 @@ describe('Inventory', () => {
     assert.deepEqual(missing, [], `Missing source files: ${missing.map(e => e.source).join(', ')}`);
   });
 
-  it('3 + 40 + 11 + 12 + 10 + 127 + 0 + 4 + 1 = 208', () => {
+  it('3 + 40 + 11 + 12 + 10 + 127 + 0 + 4 + 1 + 1 = 209', () => {
     // Arithmetic guard so a category change does not silently break the total
     const root = INVENTORY.filter(e => !e.target.includes('/')).length;
     const agents = INVENTORY.filter(e => e.source.startsWith('global/agents/')).length;
@@ -205,9 +205,10 @@ describe('Inventory', () => {
     const workflows = INVENTORY.filter(e => e.source.startsWith('workflows/')).length;
     const templates = INVENTORY.filter(e => e.source.startsWith('templates/')).length;
     const plugins = INVENTORY.filter(e => e.source.startsWith('.opencode/plugins/')).length;
-    const sum = root + agents + commands + skills + opentrust + context + workflows + templates + plugins;
+    const lib = INVENTORY.filter(e => e.source.startsWith('.opencode/lib/')).length;
+    const sum = root + agents + commands + skills + opentrust + context + workflows + templates + plugins + lib;
     assert.equal(sum, INVENTORY.length, `Category sum ${sum} !== INVENTORY.length ${INVENTORY.length}`);
-    assert.equal(sum, 208, `Expected sum 208, got ${sum}`);
+    assert.equal(sum, 209, `Expected sum 209, got ${sum}`);
   });
 });
 
@@ -782,6 +783,63 @@ describe('Install', () => {
       assert.deepEqual(installed.nested, { userSetting: true }, 'User-only nested key preserved');
       // Source keys should be added (e.g. $schema, share, etc.)
       assert.ok(installed.$schema || installed.share, 'Source keys merged in');
+    } finally {
+      removeTmp(tmp);
+    }
+  });
+
+  it('obsolete managed key is removed from installed opencode.json', () => {
+    const tmp = makeTmpTarget();
+    assertNotRealConfig(tmp);
+    try {
+      // User has an obsolete managed key (old plugin object format)
+      fs.writeFileSync(path.join(tmp, 'opencode.json'), JSON.stringify({ plugin: [{ spec: 'file:.opencode/plugins/opentrust.js' }] }));
+      const result = install({ ...SHARED, target: tmp });
+      assert.ok(result.success, 'Install should succeed');
+      const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
+      assert.ok(Array.isArray(installed.plugin), 'plugin should be an array');
+      assert.equal(typeof installed.plugin[0], 'string', 'plugin[0] should be a string');
+      assert.equal(installed.plugin[0], '.opencode/plugins/opentrust.js');
+    } finally {
+      removeTmp(tmp);
+    }
+  });
+
+  it('installed plugin file exists and plugin spec resolves to it', () => {
+    const tmp = makeTmpTarget();
+    assertNotRealConfig(tmp);
+    try {
+      const result = install({ ...SHARED, target: tmp });
+      assert.ok(result.success, 'Install should succeed');
+      const pluginPath = path.join(tmp, '.opencode', 'plugins', 'opentrust.js');
+      assert.ok(fs.existsSync(pluginPath), 'plugin file should be installed');
+      const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
+      const spec = installed.plugin[0];
+      assert.equal(typeof spec, 'string', 'plugin[0] should be a string');
+      assert.ok(fs.existsSync(path.join(tmp, spec)), `plugin spec should resolve to installed file: ${spec}`);
+    } finally {
+      removeTmp(tmp);
+    }
+  });
+
+  it('user keys (share/snapshot/autoupdate/compaction) are preserved on install', () => {
+    const tmp = makeTmpTarget();
+    assertNotRealConfig(tmp);
+    try {
+      const userConfig = {
+        share: 'disabled',
+        snapshot: false,
+        autoupdate: 'never',
+        compaction: { auto: false },
+      };
+      fs.writeFileSync(path.join(tmp, 'opencode.json'), JSON.stringify(userConfig));
+      const result = install({ ...SHARED, target: tmp });
+      assert.ok(result.success, 'Install should succeed');
+      const installed = JSON.parse(fs.readFileSync(path.join(tmp, 'opencode.json'), 'utf8'));
+      assert.equal(installed.share, 'disabled', 'user share preserved');
+      assert.equal(installed.snapshot, false, 'user snapshot preserved');
+      assert.equal(installed.autoupdate, 'never', 'user autoupdate preserved');
+      assert.deepEqual(installed.compaction, { auto: false }, 'user compaction preserved');
     } finally {
       removeTmp(tmp);
     }

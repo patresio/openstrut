@@ -49,7 +49,7 @@ import {
   checksumFile,
 } from './manifest.js';
 import { classifyArtifact, isBlockingConflict, requiresWrite } from './classify.js';
-import { mergeJson, findMissingKeys } from './merge.js';
+import { mergeJson, findMissingKeys, reconcileManagedKeys, preserveUserKeys } from './merge.js';
 import {
   resolveTarget,
   validateTargetRootNotSymlinked,
@@ -239,8 +239,12 @@ export function install(opts) {
       if (artifact.class === 'mergeable-json') {
         const sourceJson = JSON.parse(fs.readFileSync(absSource, 'utf8'));
         const targetJson = existed ? JSON.parse(fs.readFileSync(absTarget, 'utf8')) : {};
-        const merged = mergeJson(sourceJson, targetJson);
-        content = JSON.stringify(merged, null, 2) + '\n';
+        // Reconcile first: drop obsolete harness-managed keys, keep user keys
+        const reconciled = reconcileManagedKeys(sourceJson, targetJson);
+        const merged = mergeJson(sourceJson, reconciled);
+        // Restore user-controlled values (share/snapshot/autoupdate/compaction)
+        const final = preserveUserKeys(merged, targetJson);
+        content = JSON.stringify(final, null, 2) + '\n';
 
         const missing = findMissingKeys(sourceJson, targetJson);
         if (missing.length > 0) {

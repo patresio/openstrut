@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { loadSkills, loadAgents, loadContext, loadCommands, resolveContentDir } from '../../.opencode/plugins/opentrust.js';
+import { loadSkills, loadAgents, loadContext, loadCommands, resolveContentDir } from '../../.opencode/lib/opentrust-core.js';
 
 describe('OpenCode plugin loaders', () => {
   it('loadSkills discovers skills from subdirectories', () => {
@@ -59,6 +59,24 @@ describe('OpenCode plugin content resolution', () => {
       assert.equal(resolveContentDir(tmp, 'agents'), join(tmp, 'global', 'agents'));
     } finally {
       rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('OpenCode plugin export format (HARNESS-054)', () => {
+  it('exports a plugin function returning a tool registry', async () => {
+    const mod = await import('../../.opencode/plugins/opentrust.js');
+    const pluginFn = mod.OpenTrustPlugin || mod.default;
+    assert.equal(typeof pluginFn, 'function', 'plugin should export a function (current API)');
+    const hooks = await pluginFn({});
+    assert.ok(hooks && typeof hooks === 'object', 'plugin function should return hooks object');
+    assert.ok(hooks.tool && typeof hooks.tool === 'object', 'hooks should include a tool registry');
+    const toolNames = Object.keys(hooks.tool);
+    assert.ok(toolNames.length >= 10, `expected at least 10 tools, got ${toolNames.length}`);
+    for (const name of toolNames) {
+      const tool = hooks.tool[name];
+      assert.ok(tool.description, `tool ${name} should have a description`);
+      assert.equal(typeof tool.execute, 'function', `tool ${name} should have an execute function`);
     }
   });
 });

@@ -6,6 +6,11 @@ dist/
 build/
 out/
 lib/
+# Exception: .opencode/lib/ ships the OpenCode plugin core (opentrust-core.js),
+# imported by .opencode/plugins/opentrust.js. It is a runtime artifact, not a
+# build output, and must be versioned.
+!.opencode/lib/
+!.opencode/lib/opentrust-core.js
 
 # ─── npm pack artifacts ───────────────────────────────────────────────────────
 # Generated tarballs from `npm pack`; release tarballs are stored under releases/
